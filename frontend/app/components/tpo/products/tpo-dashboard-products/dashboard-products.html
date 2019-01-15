@@ -1,0 +1,18 @@
+<div class="hashtag-products-wrap">
+    <!--<app-tpo-product-filter></app-tpo-product-filter>-->
+
+    <div class="container-v">
+        <h2>TOP TRENDING PRODUCTS</h2>
+        <p class="subtitle"><span>Sản phẩm được yêu thích và tìm kiếm nhiều nhất</span></p>
+        <!-- products-list -->
+        <app-tpo-product-list-dashboard [tpoProducts]= "tpoProducts"></app-tpo-product-list-dashboard>
+
+        <!-- end products-list -->
+        <div class="footer-view" *ngIf="count < total">
+            <p class="total-items">Bạn đang xem {{count}} trên tổng số {{total}} sản phẩm</p>
+            <p class="btn-load-more"><a (click)= "viewMore()" >Xem thêm</a></p>
+        </div>
+
+
+    </div>
+</div>

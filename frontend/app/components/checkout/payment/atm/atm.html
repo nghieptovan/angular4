@@ -1,0 +1,20 @@
+<div class="form-inner payment-form">
+    <div class="atm-payment">
+        <div class="form-row-lt">
+            <div class="form-col">
+                <label class="form-label" [ngClass]="{'active focus-lt': selected}">
+                    <select name="bank" #bank="ngModel" [(ngModel)]="currentBank" class="select"
+                    (focus)="selected=true" (blur)="selected=false"
+                    >
+                        <option [ngValue]="null">Vui lòng chọn ngân hàng</option>
+                        <option [ngValue]="bank" *ngFor="let bank of (paymentRules$ | async).banks">{{ bank.label }}</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <p class="notes">Để thực hiện việc thanh toán, thẻ ATM của bạn đã có đăng ký sử dụng dịch vụ Internet Banking.
+            <br> Bạn có thể sẽ được chuyển hướng về cổng thanh toán của ngân hàng để hoàn tất thanh toán.</p>
+    </div>
+</div>
+
+<button (click)="submitPayment()" class="action primary checkout" type="submit" title="Thanh Toán" [disabled]="!currentBank || (cartIsLoading$ | async)"></button>

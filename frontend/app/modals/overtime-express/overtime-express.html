@@ -1,0 +1,23 @@
+<div class="general-message-popup">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-lt">
+            <div class="modal-header-lt">
+                <h5 class="modal-title">Quý khách lưu ý thời gian giao hàng dự kiến</h5>
+                <button type="button" class="close" (click)="closeModal()">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    - Đơn hàng xác nhận sau 4h chiều các ngày trong tuần (thứ 2 đến thứ 6): Giao hàng từ 8h sáng ngày tiếp theo.<br>
+                    - Đơn hàng xác nhận sau 12h trưa thứ 7: Giao hàng từ 8h sáng ngày thứ 2 tuần tiếp theo.<br>
+                    - Đơn hàng xác nhận trong ngày chủ nhật: Giao hàng từ 8h sáng ngày thứ 2 tuần tiếp theo.
+                </p>
+                <ul class="group-action-type">
+                    <li><a class="button-bg btn-cancel" title="Mua sắm sản phẩm khác" (click)="closeModal()">Mua sắm sản phẩm khác</a></li>
+                    <li><a class="button-bg" title="Tiếp tục đặt hàng" (click)="confirm()">Tiếp tục đặt hàng</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

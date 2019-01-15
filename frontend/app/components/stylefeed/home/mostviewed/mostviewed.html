@@ -1,0 +1,28 @@
+<section class="section-latest-post">
+    <div class="container-lt">
+        <h2 class="head-title-lt"><span>TIÊU ĐIỂM TUẦN</span></h2>
+        <ul class="latest-post-list">
+            <ng-container *ngFor="let post of posts">
+                <li>
+                    <div [ngClass]="{'icon-video': post.type=='video'}"  class="post-field-image">
+                        <a href="{{ post.post_url }}"><img src="{{ post?.images?.thumbnail }}" alt="" width="298" height="216"></a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-cate-name">
+                            <ng-container *ngFor="let children of post.categories.children; let i = index">
+                                <a *ngIf="i == 0" href="{{ children.category_url }}">{{ children.name }}</a>
+                            </ng-container>
+                        </div>
+                        <div class="post-title"><a href="{{ post.post_url }}">{{ post.name }}</a></div>
+                        <div class="post-body">{{ post.description_split }}</div>
+                        <div class="post-date"><span class="date">{{ post.post_date }}</span>
+                            <ng-container *ngFor="let parent of post.categories.parent; let i = index">
+                                | <a href="{{ parent.category_url }}" class="cate-type">#{{ parent.name }}</a>
+                            </ng-container>
+                        </div>
+                    </div>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+<div class="field-delivery-content">
+    <p class="delivery-note-lbl"><strong>Sản phẩm không áp dụng đổi trả</strong></p>
+    <p class="delivery-time">Xem chính sách lắp đặt, đổi trả, bảo hành của nhà cung cấp. <a href="/shoppingguide/seller/chinh-sach-van-chuyen/{{_vendorInfo?.url_key}}">Chi tiết</a></p>
+</div>
+
+<div class="field-delivery-content">
+    <p class="delivery-note-lbl"><strong>Giao bởi nhà cung cấp</strong></p>
+    <div class="content">
+        <div class="inner">
+            <ng-container *ngIf="isSupportSDD else sdd_not_support">
+                <ng-container *ngIf="selectedRegion?.city">
+                                    <span class="txt">
+                                        <ng-container *ngIf="(shippingRules$ | async)?.customer_fee_standard > 0">
+                                            {{ (shippingRules$ | async)?.customer_fee_standard?.toString()?.toVndCurrency()}}
+                                        </ng-container>
+                                        <ng-container *ngIf="!(shippingRules$ | async)?.customer_fee_standard">
+                                            Miễn phí
+                                        </ng-container>
+                                    </span> - giao đến
+                </ng-container>
+                <ng-container *ngIf="!selectedRegion?.city">
+                    Bạn muốn giao đến
+                </ng-container>
+                <app-common-fs-shipping-ap-product></app-common-fs-shipping-ap-product>
+                <div class="delivery-time">
+                    <ng-container *ngIf="blinkInfo">{{blinkInfo}}</ng-container>
+                    <ng-container *ngIf="!blinkInfo">{{ (shippingRules$ | async)?.ship_duration }} </ng-container>
+                    <a (click)="showSDDShippingRuleModal()" *ngIf="(shippingRules$ | async)?.customer_fee_standard > 0 || !selectedRegion?.city">Điều kiện giao hàng miễn phí.</a>
+                </div>
+            </ng-container>
+            <ng-template #sdd_not_support>
+                <span class="txt mess-note">Nhà cung cấp không hỗ trợ</span> - giao đến
+                <app-common-fs-shipping-ap-product></app-common-fs-shipping-ap-product>
+                <a (click)="openDeliveryAreaModal()" class="link-type" title="Lý do">Lý do</a>
+            </ng-template>
+            <!--<a *ngIf="vendorInfo?.is_sdd" (click)="openDeliveryAreaModal(true)">Điều kiện giao hàng miễn phí.</a>-->
+        </div>
+    </div>
+</div>

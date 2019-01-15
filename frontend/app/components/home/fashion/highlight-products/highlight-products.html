@@ -1,0 +1,40 @@
+<main class="main" lazy-load-images>
+    <section class="container-lt">
+        <article class="highlight-products">
+            <h2 class="head-title-lt">
+                <span>HÀNG MỚI VỀ</span>
+            </h2>
+            <div class="content" *ngFor="let highlight of highLightProducts; let idx = index" [class.content-with-banner]="highlight?.blockIdentifier && !idx">
+                <div class="product-list-wrap">
+                    <div class="product-list-lt clearfix">
+                        <div class="item-product" *ngFor="let product of highlight?.products; let idx = index" attr.data-layer="{{'Home_Z4_' + (idx + 1)}}">
+                            <div class="inner">
+                                <a routerLink="/product/{{product.entity_id}}/{{product.url_key}}" title="{{product.name}}">
+                                    <span class="field-img">
+                                        <img title="{{product.name}}" src="{{product?.image_category_page_list}}">
+                                    </span>
+                                    <span class="field-brand">{{product.brand_name}}</span>
+                                    <span class="field-name">{{product.name}}</span>
+                                    <span class="field-price">{{product.final_price?.toString().toVndCurrency()}}</span>
+                                    <span class="field-btn">Mua ngay</span>
+                                    <span class="field-badge-top" *ngIf="product.product_label">
+                                        <img *ngFor="let label of product.product_label" src="{{label.icon}}">
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-banner" *ngIf="highlight?.blockIdentifier && !idx" [innerHTML]="highlight?.blockIdentifier">
+                </div>
+            </div>
+
+            <div class="viewed-footer" *ngIf="getProductsViewed() !== getProductsCount()">
+                <p class="txt">Bạn đang xem {{getProductsViewed()}} trên tổng số {{getProductsCount()}} sản phẩm</p>
+                <button [disabled]="(homeIsLoading$ | async)" [class.state-loading]="(homeIsLoading$ | async)" (click)="loadMoreProducts(highLightProducts[highLightProducts.length-1]?.next_promotion)"
+                    class="button-border"><span>Xem thêm</span></button>
+            </div>
+        </article>
+    </section>
+</main>

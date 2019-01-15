@@ -1,0 +1,40 @@
+<div class="modal-dialog-lt">
+    <div class="modal-content-lt">
+        <div class="modal-header-lt">
+            <h5 class="modal-title">Điều kiện giao hàng miễn phí</h5>
+            <button type="button" class="close" (click)="closeModal()">
+                <span>×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="term-free-delivery">
+                <p>Giao hàng miễn phí ở các khu vực sau:</p>
+                <div class="tbl-content-scroll">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <th>Tỉnh / Thành phố</th>
+                                <th>Quận / Huyện</th>
+                                <th>Đơn hàng</th>
+                            </tr>
+                            <ng-container *ngFor="let area of vendorFreeShippingRule;">
+                                <tr *ngFor="let district of area.districts;">
+                                    <td>{{area.name}}</td>
+                                    <td>{{district.name}}</td>
+                                    <ng-container *ngIf="district?.min_purchase.toLowerCase() === '[any]'">
+                                        <td>Giá trị bất kỳ</td>
+                                    </ng-container>
+                                    <ng-container *ngIf="district?.min_purchase.toLowerCase() !== '[any]'">
+                                        <td>{{district.min_purchase.toVndCurrency()}}</td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <p class="btn-popup-type"><a (click)="closeModal()" class="button-bg">Đóng</a></p>
+        </div>
+    </div>
+</div>

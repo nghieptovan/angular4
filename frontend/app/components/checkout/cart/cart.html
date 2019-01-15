@@ -1,0 +1,380 @@
+
+    <div class="cart-content">
+
+        <div class="wrap-cart" >
+            <div class="head-title-cart">
+                <h2 class="lt-checkout__step-title">Giỏ hàng của bạn</h2>
+                <div class="product-total">({{cartTotal?.items?.length || 0}} sản phẩm)</div>
+                <!--
+                    <a *ngIf="(cartTotal?.items_qty > 0 ) " (click)="openShareCart()" class="btn-share" title="Chia sẻ"><span>Chia sẻ</span></a>
+                -->
+                <a  *ngIf="(isAuthenticated$ | async)" class="wishlist-link" (click)="openWishlist()" title="Thêm từ Danh sách yêu thích"><span>Thêm từ Danh sách yêu thích</span> &#10084;</a>
+            </div>
+            <div class="cart-table" *ngIf="(cartTotal?.items_qty > 0 ) else warning;">
+                <ng-container *ngFor="let vendor of cartVendors?.by_group">
+                    <div class="cart-row">
+                        <!-- cart left -->
+                        <div class="cart-left">
+                            <div class="cart-wrap">
+                                <ng-container *ngFor="let item of vendor.products | orderTransformer; let i = index">
+
+                                    <div class="cart-row-inner">
+
+                                        <div class="option-col">
+                                            <label class="checked-content">
+                                                <input type="checkbox" checked="checked" id="checkbox-{{item.item_id}}">
+                                                <span class="checkmark" (click)="addToCartlater(item)"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-img-col">
+                                            <img src="{{ item.thumbnail }}" width="57" height="74" alt="{{ item?.name }}" />
+                                            <!--
+                                            <a (click)="gotoProductDetail(item)" title="{{ item?.name }}" class="product-item-photo">
+                                                <img src="{{ item.thumbnail }}" width="57" height="74" alt="{{ item?.name }}" />
+                                            </a>
+                                            -->
+                                        </div>
+
+                                        <div class="field-content-col">
+                                            <p class="field-brand">
+                                                <a (click)="goToBrandPage(item.brand_id, item?.brand_path)" class="product-item-brand">
+                                                    {{ item?.brand_name }}
+                                                </a>
+                                            </p>
+                                            <p class="field-name">
+                                                {{ item?.name }}
+                                                <!--
+                                                <a (click)="gotoProductDetail(item)">
+                                                    {{ item?.name }}
+                                                </a>
+                                                -->
+                                            </p>
+                                            <div *ngIf="item?.chosen_options" class="options">
+                                                <ng-container *ngFor="let option of item.chosen_options | toJson; let i = index;">
+                                                    <span *ngIf="i > 0"> / </span>
+                                                    <span>{{ option.value }}</span>
+                                                </ng-container>
+                                            </div>
+                                            <div class="field-others">
+                                                <a (click)="removeItem(item)" class="btn-remove" title="Xóa">Xóa</a>
+                                                <!--
+                                                    <a  *ngIf="(isAuthenticated$ | async)" class="btn-save" (click)="addToWishlist(item)" title="Yêu thích">Yêu thích</a>
+                                                -->
+                                                <div class="gift-block" *ngIf="item.extension_attributes?.vec_gift_message !== 'false'">
+                                                    <span class="gift-text">Quà tặng</span>
+                                                    <div class="tips-block">
+                                                        <div class="tips-content">
+                                                            <div class="inner" *ngFor="let gift of parseGifts(item.extension_attributes?.vec_gift_message)" [innerHtml]="gift.description">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="field-price-col">
+                                            <p class="last-price">
+                                                {{item?.price?.toString().toVndCurrency()}}
+                                            </p>
+                                            <p class="old-price" *ngIf="item?.price < item?.original_price">
+                                                {{ item?.original_price?.toString().toVndCurrency()}}
+                                            </p>
+                                            <!--
+                                            <p class="discount" *ngIf="item?.price < item?.original_price">
+                                                Giảm {{item?.price | percentize : item?.original_price }}
+                                            </p>
+                                            -->
+                                        </div>
+                                        <div class="field-qty-col">
+                                            <div class="qty" ngInit="item.new_qty = item.qty">
+                                                <button  class="btn-minute" type="button" [disabled]="item.new_qty == 1"
+                                                (click)="changeItemInCart('-', item)">-</button>
+                                                <input [(ngModel)]="item.new_qty" type="number" (change)="onQtyChange(item, $event)"
+                                                    (ngModelChange)="onItemChange(item)" (pressed)="onQtyPressed(item, $event)">
+                                                <button  class="btn-plus" type="button" (click)="changeItemInCart('+', item)">+</button>
+                                            </div>
+
+                                            <div class="field-status-col" *ngIf="item.is_in_stock && !item.is_disabled">
+                                                <span [hidden]="item.in_stock - item.qty >= 10">Chỉ còn {{ item.in_stock }} sản phẩm trong kho</span>
+                                                <span [hidden]="item.in_stock - item.qty < 10">Còn hàng</span>
+                                            </div>
+                                            <span class="field-status-col outofstock-text" *ngIf="!item.is_in_stock || item.is_disabled">Hết hàng</span>
+                                            <!--
+                                            <div class="update-cart" [hidden]="item.new_qty === item.qty ">
+                                                <button type="button" [disabled]="item.new_qty > item.in_stock" (click)="updateItem(item)" class="small action dark update">
+                                                    <span>Cập nhật</span>
+                                                </button>
+                                            </div>
+                                            -->
+                                        </div>
+                                        <div class="mage-error" *ngIf="item.new_qty <= 0">Vui lòng nhập một số lớn hơn 0 trong mục này</div>
+                                    </div>
+
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- cart right -->
+                        <ng-container *ngFor="let item of vendor.products | orderTransformer; let i = index">
+                            <div class="cart-right" *ngIf="i === 0" >
+                                <div class="supplier-info" *ngIf="item?.item_id | shipping_rule:cartVendors?.by_group; let rule">
+                                    <div class="seller-info">
+                                        <p class="lbl-txt"><strong>Đóng gói bởi</strong></p>
+                                        <p>
+                                            <a (click)="goToVendorPage(rule.vendor_id, rule.vendor_path)">
+                                                {{ rule.vendor_name }}
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="shipping-info">
+                                        <p class="lbl-txt"><strong>Hình thức giao hàng:</strong></p>
+                                        <ng-container *ngIf="rule.shipping_type !== 'sdd_shipping' else sddInfo">
+                                            <ng-container *ngIf="vendor?.vendor_data?.pickup_enable !== '1'">
+                                                <ng-container *ngIf="!(vendor?.vendor_data?.carrier_code === shipCarriers.SIXTY && vendor?.vendor_data?.shipping_service === shipTypeOptions.express)">
+                                                    <ng-container *ngIf="vendor?.vendor_data?.carrier_code !== shipCarriers.LVS">
+                                                        <p>
+                                                            {{ rule.standard.customer_fee <= 0 ? 'Miễn phí' : rule.standard.customer_fee?.toString().toVndCurrency()}}
+                                                            - Giao tiêu chuẩn {{rule.standard.duration_standard}}
+                                                        </p>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="vendor?.vendor_data?.carrier_code === shipCarriers.LVS">
+                                                        <p>
+                                                            {{ rule.standard.customer_fee <= 0 ? 'Miễn phí' : rule.standard.customer_fee?.toString().toVndCurrency()}}
+                                                            - Giao e-voucher
+                                                        </p>
+                                                        <div class="payment-note-info">
+                                                            <span class="txt">Sản phẩm chỉ áp dụng thanh toán trả trước</span>
+                                                            <div class="tip">
+                                                                <span class="icon">?</span>
+                                                                <div class="tips-block">
+                                                                    <div class="tips-content">
+                                                                        <div class="inner">
+                                                                            Bạn sẽ thanh toán trả trước cả đơn hàng nếu mua hàng cùng các sản phẩm thường
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="vendor?.vendor_data?.carrier_code === shipCarriers.SIXTY && vendor?.vendor_data?.shipping_service === shipTypeOptions.express">
+                                                    <p *ngIf="rule.express.vendor_shippable">
+                                                        {{ rule.express.customer_fee <= 0 ? 'Miễn phí' : rule.express.customer_fee?.toString().toVndCurrency()}}
+                                                        - {{vendorShippingTypeMgr?.getShippingDuration()?.cart_text}}
+                                                    </p>
+                                                    <p *ngIf="!rule.express.vendor_shippable">
+                                                        <span class="red-color">{{rule?.express?.fail_message}}</span>
+                                                    </p>
+                                                    <a *ngIf="!rule.vendor_shippable" target="_blank" href="{{ 'shoppingguide/guide/chinh-sach-van-chuyen'.toLinkUrl() }}" class="">Tìm hiểu lí do</a>
+
+                                                    <!--<label class="checked-content">-->
+                                                        <!--<input name="radio_deli_method_{{vendor?.vendor_id}}" (change)="onChangeShipType(vendor.selected_shipping_type, vendor.vendor_id, false)"-->
+                                                               <!--[value]="shipTypeOptions.standard" type="radio"  [(ngModel)]="vendor.selected_shipping_type">-->
+                                                        <!--<span class="txt">-->
+                                                    <!--{{ rule.customer_fee_standard_type <= 0 ? 'Miễn phí' : rule.customer_fee_standard_type?.toString().toVndCurrency()}}-->
+                                                        <!-- - Giao tiêu chuẩn {{rule.duration_standard_type }}-->
+                                                    <!--</span>-->
+                                                        <!--<span class="radiobtn"></span>-->
+                                                    <!--</label>-->
+                                                    <!--<label class="checked-content">-->
+                                                        <!--<input name="radio_deli_method_{{vendor?.vendor_id}}" (change)="onChangeShipType(vendor.selected_shipping_type, vendor.vendor_id, false)"-->
+                                                               <!--[value]="shipTypeOptions.express" type="radio"  [(ngModel)]="vendor.selected_shipping_type">-->
+                                                        <!--<span class="txt">-->
+                                                        <!--{{ rule.customer_fee_express_type <= 0 ? 'Miễn phí' : rule.customer_fee_express_type?.toString().toVndCurrency()}}-->
+                                                        <!-- - Giao nhanh {{rule.duration_express_type}}-->
+                                                    <!--</span>-->
+                                                        <!--<span class="radiobtn"></span>-->
+                                                    <!--</label>-->
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="vendor?.vendor_data?.pickup_enable === '1'">
+                                                <label class="checked-content">
+                                                    <input name="radio_deli_method_{{vendor?.vendor_id}}" (change)="onChangeShipType(vendor.selected_shipping_type, vendor.vendor_id)"
+                                                           [value]="shipTypeOptions.standard" type="radio"  [(ngModel)]="vendor.selected_shipping_type">
+                                                    <span class="txt" *ngIf="vendor.selected_shipping_type === shipTypeOptions.standard">
+                                                    {{ rule.customer_fee_standard <= 0 ? 'Miễn phí' : rule.customer_fee_standard?.toString().toVndCurrency()}}
+                                                      - {{ rule.shipping_type === 'express' ? 'Giao hàng 24h' : 'Giao tiêu chuẩn ' + rule.duration_standard }}
+                                                    </span>
+                                                    <span class="txt" *ngIf="vendor.selected_shipping_type !== shipTypeOptions.standard">
+                                                    {{ rule.customer_fee_standard_pickup <= 0 ? 'Miễn phí' : rule.customer_fee_standard_pickup?.toString().toVndCurrency()}}
+                                                        <ng-container *ngIf="rule?.duration_standard_pickup">-</ng-container> {{ rule.shipping_type === 'express' ? 'Giao hàng 24h' : 'Giao tiêu chuẩn'}} {{rule?.duration_standard_pickup}}
+                                                    </span>
+                                                    <span class="radiobtn"></span>
+                                                </label>
+                                                <label class="checked-content">
+                                                    <input name="radio_deli_method_{{vendor?.vendor_id}}" (change)="onChangeShipType(vendor.selected_shipping_type, vendor.vendor_id)"
+                                                           [value]="shipTypeOptions.pickup" type="radio"  [(ngModel)]="vendor.selected_shipping_type">
+                                                    <span class="txt">Nhận tại cửa hàng - {{vendorPickupMgr.getShippingDuration()?.cart_text}}</span>
+                                                    <span class="radiobtn"></span>
+                                                </label>
+                                                <div class="payment-note-info">
+                                                    <span class="txt">Sản phẩm chỉ áp dụng thanh toán trả trước</span>
+                                                    <div class="tip">
+                                                        <span class="icon">?</span>
+                                                        <div class="tips-block">
+                                                            <div class="tips-content">
+                                                                <div class="inner">
+                                                                    Bạn sẽ thanh toán trả trước cả đơn hàng nếu mua hàng cùng các sản phẩm thường
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                    <ng-template #sddInfo>
+                                        <p>
+                                            {{ rule.sdd_shipping_fee <= 0 ? 'Miễn phí' : rule.sdd_shipping_fee?.toString().toVndCurrency()}}
+                                            - {{'Giao bởi nhà cung cấp ' + rule.duration_standard + '. '}}
+                                            <a *ngIf="!rule.vendor_shippable" target="_blank" href="{{ 'shoppingguide/guide/chinh-sach-van-chuyen'.toLinkUrl() }}" class="">Tìm hiểu lí do</a>
+                                        </p>
+                                        <!--<label class="checked-content">-->
+                                            <!--<input name="radio_deli_method" type="radio">-->
+                                            <!--<span class="txt">-->
+                                                <!--{{ rule.sdd_shipping_fee <= 0 ? 'Miễn phí' : rule.sdd_shipping_fee?.toString().toVndCurrency()}}-->
+                                                <!-- - {{'Giao bởi nhà cung cấp ' + rule.duration_standard + '. '}}-->
+                                                <!--<a *ngIf="!rule.vendor_shippable" target="_blank" href="{{ 'shoppingguide/guide/chinh-sach-van-chuyen'.toLinkUrl() }}" class="">Tìm hiểu lí do</a>-->
+                                            <!--</span>-->
+                                            <!--<span class="radiobtn"></span>-->
+                                        <!--</label>-->
+                                    </ng-template>
+                                    <!--<div *ngIf="rule.shipping_type === 'sdd_shipping'" class="shipping-info">-->
+                                        <!--<p class="shipping-fee" [ngClass]="{'free-ship': rule?.sdd_shipping_fee <= 0}">{{ rule?.sdd_shipping_fee-->
+                                            <!--<=0 ? 'Vận chuyển miễn phí' : 'Phí giao hàng: ' + (rule?.sdd_shipping_fee?.toString().toVndCurrency())}}-->
+                                        <!--</p>-->
+                                        <!--<p *ngIf="rule.vendor_shippable" class="shipping-duration-standard">-->
+                                            <!--<span class="sdd-shipping">Giao bởi nhà cung cấp</span>-->
+                                            <!--<span class="text">{{ rule?.duration_standard }}</span>-->
+                                        <!--</p>-->
+                                        <!--<p *ngIf="!rule.vendor_shippable" >-->
+                                            <!--<span class="sdd-shipping">{{ rule?.duration_standard + '. '}} <a target="_blank" href="{{ 'shoppingguide/guide/chinh-sach-van-chuyen'.toLinkUrl() }}" class="">Tìm hiểu lí do</a>-->
+                                            <!--</span>-->
+                                        <!--</p>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+
+
+
+        </div>
+
+        <ng-template #warning>
+            <lt-checkout-noitem> </lt-checkout-noitem>
+        </ng-template>
+
+        <lt-checkout-cart-later [cartCount]="cartTotal?.items?.length" [isLoggedIn]="isLoggedIn"></lt-checkout-cart-later>
+    </div>
+
+    <div class="cart-right-info"  >
+        <div class="content" *ngIf="(cartTotal?.items_qty > 0 ) else rightwarning;">
+            <div class="aside-head">
+                <h3>Thông tin đơn hàng</h3>
+            </div>
+
+            <div class="cart-total-content">
+                <div class="info-row">
+                    <span class="lbl-text">Tổng cộng</span>
+                    <span class="lbl-number">{{cartTotal.subtotal?.toString().toVndCurrency()}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="lbl-text">Phí giao hàng (tạm tính)</span>
+                    <span class="lbl-number">{{ (shippingFee$ | async)?.toString() == 0 ? 'Miễn Phí' : '+' + (shippingFee$ | async)?.toString().toVndCurrency() }}</span>
+                </div>
+                <div class="info-row" *ngIf="cartTotal?.base_discount_amount > 0">
+                    <span class="lbl-text">Mã giảm giá</span>
+                    <span class="lbl-number">{{ '-' + (-cartTotal?.base_discount_amount)?.toString().toVndCurrency()}}</span>
+                </div>
+                <div class="info-row" *ngIf="isLoggedIn && appliedLPoint">
+                    <span class="lbl-text">L.POINT</span>
+                    <span class="lbl-number">{{ '-' + (-appliedLPoint)?.toString()?.toVndCurrency()}}</span>
+                </div>
+                <div class="info-row total">
+                    <span class="lbl-text">Thanh toán</span>
+                    <span class="lbl-number">{{ (cartTotal.grand_total - cartTotal?.shipping_amount + (shippingFee$ | async))?.toString().toVndCurrency()}}</span>
+                </div>
+            </div>
+            <p class="btn-type" *ngIf="(cartTotal?.items_qty > 0 )">
+                <button type="button-bg" (click)="goToNextStep()" class="button-bg checkout">Tiếp Tục</button>
+            </p>
+
+            <p class="noted" *ngIf="(freeshippingHtml$ | async).length > 0">
+                <span id="free-shipping-message" [innerHtml]="freeshippingHtml$ | async"></span>
+            </p>
+            <!--<div class="select-wrap" *ngIf="canUpdateShippingAddress">-->
+                <!--<div class="form-row-lt">-->
+                    <!--<div class="form-col">-->
+                        <!--<label class="form-label"  [ngClass]="{'focus-lt': cityFocus}" >-->
+                            <!--<select [compareWith]="equals" name="region_id" [(ngModel)]="selectedRegion.city" (change)="selectArea(selectedRegion.city, false)"-->
+                            <!--class="select" (focus)="cityFocus = true" (blur)="cityFocus = false">-->
+                                <!--<option [value]="null" selected disabled>Tỉnh/Thành phố</option>-->
+                                <!--<option [ngValue]="city" *ngFor="let city of regions">{{city.name}}</option>-->
+                            <!--</select>-->
+                        <!--</label>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-col">-->
+                        <!--<label class="form-label" [ngClass]="{'focus-lt': districtFocus}">-->
+                            <!--<select [compareWith]="equals" name="district_id" [(ngModel)]="selectedRegion.district" [disabled]="!selectedRegion?.city?.districts.length"-->
+                                <!--(change)="selectArea(false, selectedRegion.district)" class="select" (focus)="districtFocus = true" (blur)="districtFocus = false">-->
+                                <!--<option [ngValue]="null" selected>Quận/ Huyện</option>-->
+                                <!--<option [ngValue]="district" *ngFor="let district of selectedRegion?.city?.districts">{{district.name}}</option>-->
+                            <!--</select>-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="delivery-to-cart">
+                giao đến <app-common-fs-shipping-ap-cart></app-common-fs-shipping-ap-cart>
+            </div>
+            <!--<p class="btn-action-type" *ngIf="(cartTotal?.items_qty > 0 )">-->
+                <!--&lt;!&ndash;<a (click)="openUpdateShippingAddress()" *ngIf="!canUpdateShippingAddress" class="btn-update" title="Cập nhật">Cập nhật</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a (click)="closeUpdateShippingAddress()" *ngIf="canUpdateShippingAddress" class="btn-cancel" title="Hủy">Hủy</a>&ndash;&gt;-->
+            <!--</p>-->
+
+
+        </div>
+
+        <ng-template #rightwarning>
+            <div  class="content">
+                <div  class="aside-head">
+                    <h3 >Thông tin đơn hàng</h3>
+                </div>
+                <div  class="cart-total-content">
+                    <div  class="info-row">
+                        <span  class="lbl-text">Tổng cộng</span>
+                        <span  class="lbl-number">0 ₫</span>
+                    </div>
+                    <!--
+                    <div  class="info-row">
+                        <span  class="lbl-text">Phí giao hàng (tạm tính)</span>
+                        <span  class="lbl-number">+0 ₫</span>
+                    </div>
+                    <div  class="info-row">
+                        <span  class="lbl-text">Mã giảm giá</span>
+                        <span  class="lbl-number">-0 ₫</span>
+                    </div>
+                    <div  class="info-row">
+                        <span  class="lbl-text">L.POINT</span>
+                        <span  class="lbl-number">-0 ₫</span>
+                    </div>
+                -->
+                    <div  class="info-row total">
+                        <span  class="lbl-text">Thanh toán</span>
+                        <span  class="lbl-number">0 ₫</span>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+
+
+    </div>
+
+
+

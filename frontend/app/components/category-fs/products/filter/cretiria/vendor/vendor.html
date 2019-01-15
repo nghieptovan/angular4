@@ -1,0 +1,18 @@
+<li [ngClass]="{opened:isChecked}" *ngIf="requestBody.type !== 'vendor' && facets?.vendor?.length">
+    <a href="javascript:void(0);" class="filter-item">Ngành hàng</a>
+    <div class="dropdown-options">
+        <div class="selected-info clearfix">
+            <div class="selected-inner">
+                <div class="number">{{(productState | facetstype:'vendor').length}} selected</div>
+                <div class="text"><ng-container *ngFor="let selected of productState | facetstype:'vendor'; let idx = index">{{idx === 0? selected.name:', '+ selected.name}}</ng-container></div>
+            </div>
+            <a (click)="resetTypeFilter('vendor')" [ngClass]="{'btn-clear-disable':!(productState | facetstype:'vendor').length}" class="btn-clear">Xóa</a>
+        </div>
+        <div class="items">
+            <ul>
+                <!--<li class="current">{{vendor.value}}</li>-->
+                <li [ngClass]="{'current':vendor.isChecked}" *ngFor="let vendor of facets?.vendor" (click)="addFilter('vendor', vendor, $event)">{{vendor.name}}</li>
+            </ul>
+        </div>
+    </div>
+</li>

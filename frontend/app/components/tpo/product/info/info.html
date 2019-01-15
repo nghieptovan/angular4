@@ -1,0 +1,56 @@
+
+    <div class="inner">
+        <div class="product-image">
+            <a [href]="" [title]="product.name">
+                <img [src]="product.image" [alt]="product.name" width="240" height="312">
+
+            </a>
+            <div class="btn-actions">
+                <form data-role="tocart-form" action="https://www.lotte.vn/checkout/cart/add/uenc/aHR0cHM6Ly93d3cubG90dGUudm4vY2FtcGFpZ24vZ2lhLXNvYy1tb2ktdHVhbi10NC8,/product/316611/" method="post">
+                    <input name="product" value="316611" type="hidden">
+                    <input name="qty" value="1" type="hidden">
+                    <input name="uenc" value="aHR0cHM6Ly93d3cubG90dGUudm4vY2hlY2tvdXQvY2FydC9hZGQvdWVuYy9hSFIwY0hNNkx5OTNkM2N1Ykc5MGRHVXVkbTR2WTJGdGNHRnBaMjR2WjJsaExYTnZZeTF0YjJrdGRIVmhiaTEwTkM4LC9wcm9kdWN0LzMxNjYxMS8," type="hidden">
+                    <input name="form_key" value="ECFJma689aMNUeS0" type="hidden">
+                    <button type="submit" title="Thêm vào giỏ hàng" class="action tocart primary action-redirect">
+                        <span>Thêm vào giỏ hàng</span>
+                    </button>
+                </form>
+                <form data-role="tocart-form" action="https://www.lotte.vn/checkout/cart/add/uenc/aHR0cHM6Ly93d3cubG90dGUudm4vY2FtcGFpZ24vZ2lhLXNvYy1tb2ktdHVhbi10NC8,/product/316611/" method="post">
+                    <input name="product" value="316611" type="hidden">
+                    <input name="uenc" value="aHR0cHM6Ly93d3cubG90dGUudm4vY2hlY2tvdXQvY2FydC9hZGQvdWVuYy9hSFIwY0hNNkx5OTNkM2N1Ykc5MGRHVXVkbTR2WTJGdGNHRnBaMjR2WjJsaExYTnZZeTF0YjJrdGRIVmhiaTEwTkM4LC9wcm9kdWN0LzMxNjYxMS8," type="hidden">
+                    <input name="redirect_to_cart" value="true" type="hidden">
+                    <input name="form_key" value="ECFJma689aMNUeS0" type="hidden">
+                    <button type="submit" title="Mua" class="action buy-cart primary">
+                        <span>Mua</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h4>{{product.brand}}</h4>
+            <p class="product-name">
+                <a class="product-item-link" [title]="product.name" [href]="">{{product.name}} </a>
+            </p>
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="316611">
+                <p class="special-price">
+                    <span class="current-price">
+                        <span id="product-price-316611" [attr.data-price-amount]="product.special_price?product.special_price:product.vendor_price" data-price-type="finalPrice" class="final-price ">{{(product.special_price?product.special_price:product.vendor_price) | number:0}}&nbsp;₫</span>
+                    </span>
+                    <span class="discount-label" [style.display] = "product.special_price?'block':'none'">
+                        -{{(product.special_price? (1 - (product.special_price / product.vendor_price)) * 100 : 0) | number:0}}%
+                    </span>
+                </p>
+                <p class="old-price" [style.display] = "product.special_price?'block':'none'">
+                    <span id="old-price-316611" [attr.data-price-amount]="product.vendor_price" data-price-type="oldPrice" class="final-price ">{{product.vendor_price | number:0}}&nbsp;₫</span>
+                </p>
+
+            </div>
+            <div class="gift-voucher-label hidden" data-product-id="316611">
+                <div class="voucher-info"></div>
+            </div>
+            <div class="gift-voucher-label" data-product-id="316611">
+                <div class="voucher-info">Giá nhập mã THU4 chỉ còn <strong>1.336.500&nbsp;₫</strong></div>
+            </div>
+        </div>
+    </div>

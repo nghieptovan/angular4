@@ -1,0 +1,152 @@
+<app-loader *ngIf="isAddToCartClicked"> </app-loader>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper">Danh sách sản phẩm yêu thích</span>
+    </h1>
+</div>
+
+<div *ngIf="lpointBanner?.content" [innerHTML]="lpointBanner?.content | safeHtml"></div>
+<!-- <div class="lpoint-info-banner">
+    <img src="{{'wysiwyg/static/promotions/072017/lpoint/lpoint.png'.toMediaUrl()}}" alt="">
+    <a routerLink="/account/edit/" class="link-1" title="Cập nhật thông tin">Cập nhật thông tin</a>
+    <a href="/campaign/l-point-launching/" class="link-2" title="Chi tiết chương trình L.Point">Chi tiết chương trình L.Point</a>
+</div> -->
+
+<form class="form-wishlist-items" id="wishlist-view-form" method="post" novalidate="novalidate" *ngIf="wishlist.length">
+    <div class="table-account table-account-wishlist">
+        <ul class="table-account-title">
+            <li class="col count"></li>
+            <li class="col images">Hình ảnh</li>
+            <li class="col name">Sản phẩm</li>
+            <li class="col note">Ghi chú</li>
+            <li class="col prices">Giá</li>
+            <li class="col actions">Hành động</li>
+        </ul>
+        <ul class="table-account-content" *ngFor="let item of wishlist; let idx = index">
+            <li>
+                <div class="col count">
+                    <span>{{ idx + 1 }}</span>
+                </div>
+                <div class="col images">
+                    <a (click)="goToProductDetail(item.product)" href="product/{{item.product?.product_id}}/{{item.product?.url_key}}" title="{{item.product?.name}}">
+                        <img src="{{ item.product?.small_image?.toProductUrl() }}" width="113" height="147" alt="{{item.product?.name}}">
+                    </a>
+                </div>
+                <div class="col name">
+                    <p class="product-item-brand">
+                        <a (click)="goToBrandPage(item.brand)" href="brand/{{item.brand?.brand_id}}/{{item.brand?.brand_path?.replace('/brand/','')}}"
+                            title="{{item.brand?.brand_name}}">
+                            <span>{{item.brand?.brand_name}}</span>
+                        </a>
+                    </p>
+                    <strong class="product-item-name">
+                        <a (click)="goToProductDetail(item.product)" title="{{item.product?.name}}">
+                            {{item.product?.name}} </a>
+                    </strong>
+                </div>
+                <div class="col note">
+                    <label class="label">
+                        <span>Ghi chú</span>
+                    </label>
+                    <div class="control">
+                        <textarea maxlength="100" placeholder="Ghi chú" [(ngModel)]="item.description" name="description" title="Ghi chú" class="product-item-comment"></textarea>
+                    </div>
+                    <span>*Thêm vào danh sách từ {{ item.added_at | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="col prices">
+
+                    <div class="price-box price-final_price">
+                        <p class="special-price">
+                            <span class="current-price">
+                                <span class="final-price ">
+                                    {{item.product?.min_price?.toString()?.toVndCurrency()}}
+                                </span>
+                            </span>
+                            <span class="discount-label" *ngIf="item.product?.price !==item.product?.min_price">
+                                    {{item.product?.min_price | percentize : item.product?.price }}
+                            </span>
+                        </p>
+                        <p class="old-price" *ngIf="item.product?.price !==item.product?.min_price">
+                            <span class="final-price ">
+                                {{item.product?.price?.toString()?.toVndCurrency()}}
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="box-tocart" *ngIf="!item.product?.is_in_stock">
+                        <p class="unavailable stock" title="Availability">
+                            <span>Hết hàng</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col actions">
+                    <div class="product-item-actions">
+                        <a (click)="removeItem(item)" title="Xóa sản phẩm" class="btn-remove action delete">
+                            <span>Remove item</span>
+                        </a>
+                        <div class="box-tocart">
+                            <fieldset class="fieldset">
+                                <div class="product-item-actions" *ngIf="item.product?.is_in_stock">
+                                    <div class="actions-primary">
+                                        <button (click)="addToCart(item.product)" type="button" title="Thêm vào giỏ hàng" class="action tocart primary">
+                                            <span>Thêm vào giỏ hàng</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="group-button-shares dropdown-right hover" [class.hover]="isItemShared[idx]">
+                            <span class="action shares" (click)="toggleShareItem(idx)">Chia sẻ</span>
+                            <div class="group-button-content">
+                                <ul>
+                                    <li>
+                                        <a class="button-action facebook" (click)="shareSocialProduct('facebook', item.product)">Facebook</a>
+                                    </li>
+                                    <li>
+                                        <a class="button-action twitter" (click)="shareSocialProduct('twitter', item.product)">Twitter</a>
+                                    </li>
+                                    <li>
+                                        <a class="button-action google" (click)="shareSocialProduct('google', item.product)">Google</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="button" (click)="updateWishlist(wishlist)" name="do" title="Cập nhật Danh mục thích" class="action update">
+                <span>Cập nhật Danh mục thích</span>
+            </button>
+            <div class="group-button-shares dropdown-left" [class.hover]="toggleShareWishlist">
+                <span class="action shares" (click)="toggleShareWishlist = !toggleShareWishlist">Chia sẻ Danh mục thích</span>
+                <div class="group-button-content">
+                    <ul>
+                        <li>
+                            <a (click)="shareSocialWishlist('facebook', wishlist)" class="button-action facebook" type="button" title="Chia sẻ Danh mục thích">
+                            </a>
+                        </li>
+                        <li>
+                            <button (click)="shareSocialWishlist('google', wishlist)" class="button-action email" type="button" name="save_and_share"
+                                title="Chia sẻ Danh mục thích">
+                                <span>Share Email</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button (click)="addWishlistToCart()" *ngIf="!isWishlistOutOfStock" type="button" title="Thêm tất cả vào Giỏ hàng" class="action tocart">
+                <span>Thêm tất cả vào Giỏ hàng</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<form class="form-wishlist-items" id="wishlist-view-form" *ngIf="!wishlist.length" novalidate="novalidate">
+    <div class="message info empty">
+        <span>Chưa có sản phẩm nào trong Danh sách yêu thích</span>
+    </div>
+</form>

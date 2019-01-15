@@ -1,0 +1,30 @@
+.lt-header {
+    .view-notification {
+        visibility: hidden;
+        display: block !important;
+        width: 280px;
+        .notification-text {
+            font-size: 13px;
+            position: relative;
+            padding-right: 50px;
+
+            .btn-close-note {
+                text-transform: uppercase;
+                position: absolute;
+                right: 0;
+                top: 0;
+                z-index: 2;
+                color: #ed1b24;
+            }
+        }
+    }
+
+    .state {
+        &--visible {
+            visibility: visible !important;
+        }
+    }
+}
+.lt-mage-error {
+    border-color: #e02b27;
+}

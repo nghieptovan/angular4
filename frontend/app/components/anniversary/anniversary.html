@@ -1,0 +1,143 @@
+<div class="one-year-look-back-page">
+    <div class="container-lt">
+
+        <div class="top-banner">
+            <h3>NHÌN LẠI</h3>
+            <h2>chặng đường 2018 <span>cùng LOTTE.vn</span></h2>
+            <p>Ngàn deal tốt - Vạn yêu thương</p>
+        </div>
+
+        <!-- logged and has order -->
+        <div *ngIf="(authIsLoggedIn$ | async) && results.total_order > 0" class="highlight-content">
+            <div class="avatar-name"><span>{{generateAvatarName(results.fullname)}}</span></div>
+            <p class="field-name">{{results.fullname}}</p>
+            <p class="field-email">{{results.email}}</p>
+            <div class="items">
+                <ul class="clearfix">
+                    <li>
+                        <div class="content bg-1">
+                            <div class="inner">
+                                <div class="field-text"></div>
+                                <div class="field-number">{{results.total_order}}</div>
+                                <div class="field-body">đơn hàng đã hoàn tất</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content bg-2">
+                            <div class="inner">
+                                <div class="field-text">Wow! Bạn chi nhiều hơn {{results.rank_amount}} khách hàng khác đấy!</div>
+                                <div class="field-number">{{formatPrice(results.total_amount)}} đ</div>
+                                <div class="field-body">Tổng số tiền đã thanh toán thành công</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="clearfix">
+                    <li>
+                        <div class="content bg-3">
+                            <div class="inner">
+                                <div class="field-text">Cool! Bạn tiết kiệm nhiều hơn {{results.rank_saving}} khách hàng nhé!</div>
+                                <div class="field-number">{{formatPrice(results.total_saving)}} đ</div>
+                                <div class="field-body">Tiền tiết kiệm</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content bg-4">
+                            <div class="inner">
+                                <div class="field-text">{{results.desc}}</div>
+                                <div class="field-number">{{results.title}}</div>
+                                <div class="field-body">của năm chính là bạn!</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-type">
+                <h2>Yêu thương dành riêng cho bạn</h2>
+                <div class="code-block">
+                    <p class="text">Nhập mã</p>
+                    <p class="code">{{results.coupon_code}}</p>
+                    <p style="font-size: 15px;margin-top: 20px;color: red;" class="text-2">{{results?.event}}</p>
+                </div>
+            </div>
+            <p style="text-align:center">Không áp dụng cho thức uống có cồn từ LOTTE Mart, sữa bột, thẻ cào, thẻ game, nạp tiền điện thoại. <br>Một tài khoản sử dụng một lần đến hết 31/01/2019</p>
+            <p class="bottom-text"><span>Có mã rồi, mình mua thôi</span></p>
+        </div>
+        <!-- end logged and has order -->
+
+        <!-- logged and no order -->
+         <div *ngIf="(authIsLoggedIn$ | async) && results.total_order <= 0" class="highlight-content">
+            <div class="avatar-name"><span>{{generateAvatarName(results.fullname)}}</span></div>
+            <p class="field-name">{{results.fullname}}</p>
+            <p class="field-email">{{results.email}}</p>
+            <div class="msg-block">
+                <p><img src="https://cdn.lotte.vn/media/wysiwyg/static/one-year-look-back/img-1.jpg" alt=""></p>
+                <h3>Rất tiếc Bạn chưa có đơn hàng nào tại LOTTE.vn</h3>
+            </div>
+            <div class="content-type">
+                <p class="text-type">Nhưng đừng lo, với Lotte.vn</p>
+                <h2>Yêu thương là không giới hạn</h2>
+                <p class="text-type-2">Đơn chưa có, nhưng quà vẫn ở đó</p>
+                <div class="code-block">
+                    <p class="text">Nhập mã</p>
+                    <p class="code">{{results.coupon_code}}</p>
+                    <!--<p class="text-2">giảm thêm <strong>10%</strong></p>-->
+                </div>
+            </div>
+            <p>Không áp dụng cho thức uống có cồn từ LOTTE Mart, sữa bột, thẻ cào, thẻ game, nạp tiền điện thoại. <br>Một tài khoản sử dụng một lần đến hết 02/01/2019</p>
+            <p class="bottom-text"><span>Có mã rồi, mình mua thôi</span></p>
+        </div>
+        <!-- end logged and no order -->
+
+        <!-- not logged -->
+        <div *ngIf="!(authIsLoggedIn$ | async)" class="highlight-content">
+            <div class="items items-2">
+                <ul class="clearfix">
+                    <li>
+                        <div class="content bg-3">
+                            <div class="inner">
+                                <div class="field-text">Review chi tiêu</div>
+                                <div class="field-number">2018 CỦA BẠN</div>
+                                <div class="field-body">tại LOTTE.vn</div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <ul class="clearfix">
+                    <li>
+                        <div class="content bg-1">
+                            <div class="inner">
+                                <div class="field-text">Gợi ý từ Lotte.vn</div>
+                                <div class="field-number">100++ deal tốt nhất</div>
+                                <div class="field-body">dành riêng cho bạn</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content bg-2">
+                            <div class="inner">
+                                <div class="field-text">Tặng mã giảm giá</div>
+                                <div class="field-number">Lên đến 400.000đ</div>
+                                <div class="field-body">siêu khủng</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-type">
+                <h2>Bạn chưa đăng nhập</h2>
+                <p class="sub">Đăng nhập ngay để khám phá deal bí mật từ LOTTE.vn</p>
+                <p class="btn-type"><a (click)="showLoginModal()" href="javascript:void(0)" class="button-bg" title="Đăng nhập">Đăng nhập</a></p>
+            </div>
+        </div>
+        <!-- end not logged -->
+
+        <div class="campaign-products" id="anniversary-products" lazy-load-images [hidden]="!innerHtml" [innerHtml]="innerHtml"
+            (click)="onDataClick($event)" (mouseover)="onDataHover($event)" (mouseleave)="onDataMouseLeave($event)"
+            runScripts *ngIf="(authIsLoggedIn$ | async)"></div>
+
+    </div>
+</div>

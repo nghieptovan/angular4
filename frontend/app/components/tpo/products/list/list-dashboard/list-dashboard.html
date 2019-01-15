@@ -1,0 +1,58 @@
+<!-- products-list -->
+<div class="products-list clearfix">
+  <!--<p>{{tpoProductKeys}}</p>-->
+  <ng-container *ngFor="let product of tpoProducts">
+    <div class="item-product">
+      <div class="inner">
+        <div class="product-image">
+          <a [title]="product.name" [href]="product.product_url">
+            <img [src]="product.image" [alt]="product.name" width="240" height="312">
+
+          </a>
+          <div class="btn-actions">
+            <form *ngIf="product?.stock_qty" data-role="tocart-form">
+              <button type="button" (click)="addToCart(product)" title="Thêm vào giỏ hàng" [ngClass]="{'disabled': isItemAddedToCart[product?.sku?.toString()] || isCartBeingCreated}"
+                      class="action tocart primary action-redirect">
+                <span>Thêm vào giỏ hàng</span>
+              </button>
+            </form>
+
+            <form *ngIf="product?.stock_qty">
+              <button type="button" title="Mua" class="action buy-cart primary" (click)="checkout(product)">
+                <span>Mua</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="product-info">
+          <h4>{{product.brand}}</h4>
+          <p class="product-name">
+            <a class="product-item-link" [title]="product.name" [href]="product.product_url">{{product.name}} </a>
+          </p>
+          <div class="price-box price-final_price">
+            <p class="special-price">
+                    <span class="current-price">
+                        <span [attr.data-price-amount]="product.special_price?product.special_price:product.vendor_price" class="final-price ">{{(product.special_price?product.special_price:product.vendor_price) | number:0}}&nbsp;₫</span>
+                    </span>
+              <span class="discount-label" [style.display] = "product.special_price?'block':'none'">
+                        -{{product.special_price | percentize:product.vendor_price}}
+                    </span>
+            </p>
+            <p class="old-price" [style.display] = "product.special_price?'block':'none'">
+              <span [attr.data-price-amount]="product.vendor_price" class="final-price ">{{product.vendor_price | number}}&nbsp;₫</span>
+            </p>
+
+          </div>
+          <div class="gift-voucher-label">
+            <div class="voucher-info" [innerHTML] = "product.promotion | keepHtml"></div>
+          </div>
+          <p class="field-installment" *ngIf="product.installment">
+            <span class="installment-inner" [innerHTML]= "('Trả góp <strong>0%</strong> từ ' + product.installment.price) | keepHtml"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+</div>

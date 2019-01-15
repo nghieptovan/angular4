@@ -1,0 +1,7 @@
+<ul class="clearfix">
+    <ng-container *ngFor="let data of facetsSearch[_facet.attribute_code] | array_sort:'name'">
+        <li [ngClass]="{'current':data.isChecked}" (click)="addFilter(_facet.attribute_code, data, $event)" *ngIf="data.name !== ''">
+            <a title="{{data.name}}"><span>{{data.name}}</span></a>
+        </li>
+    </ng-container>
+</ul>

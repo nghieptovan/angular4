@@ -1,0 +1,80 @@
+<div class="inner" [ngClass]="{'no-bottom': product?.type_id !== 'configurable'}">
+    <div class="field-img">
+        <a class="thumb-img" routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">
+            <img [src]="curImgUrl" width="234" height="304" alt="{{product.name}}">
+        </a>
+        <div class="field-badge-top" *ngIf="isNew || product?.label?.length > 0">
+            <span class="lbl" *ngIf="isNew">Mới</span>
+            <ng-container *ngFor="let label of product?.label">
+                <img *ngIf="label.cat_img_url && label.label_position === 'left' && !isExpiredProductLabel(label)" src="{{label.cat_img_url}}" alt="">
+            </ng-container>
+        </div>
+        <div class="field-badge-top-right" *ngIf="product?.label?.length > 0">
+            <ng-container *ngFor="let label of product?.label">
+                <img *ngIf="label.cat_img_url && label.label_position === 'right' && !isExpiredProductLabel(label)" src="{{label.cat_img_url}}" alt="">
+            </ng-container>
+        </div>
+        <!--<div class="field-badge-left">-->
+            <!--<div class="quick-view">-->
+                <!--<a (click)="showQuickViewModal(product)">&nbsp;</a>-->
+            <!--</div>-->
+            <!--<button class="btn-addtocart" (click)="addToCart(product, $event)" title="Thêm vào giỏ hàng"><span>Thêm vào giỏ hàng</span></button>-->
+        <!--</div>-->
+        <div class="field-badge-bottom">
+            <div class="gift-info" *ngIf="product.gift_messages?.length > 0">
+                <button class="btn-gift"><span>Gift info</span></button>
+                <div class="gift-tips">
+                    <div class="inner">
+                        <ng-container *ngFor="let gift of product.gift_messages | array_sort:'priority':'desc':3;">
+                            <p *ngIf="gift?.display_category_page">•{{gift.title}}</p>
+                        </ng-container>
+                        <ng-container *ngIf="product.gift_messages?.length > 3"><p>+ Nhiều quà tặng khác</p></ng-container>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-save" *ngIf="isLoggedIn" (click)="addOrRemoveWishlist(product.id)" [ngClass]="{'saved':wishListSaved}"><span>Save for later</span></button>
+        </div>
+        <div class="field-img-bottom" *ngIf="product?.label?.length > 0">
+            <ng-container *ngFor="let label of product?.label">
+                <img *ngIf="label.cat_img_url && label.label_position === 'bottom' && !isExpiredProductLabel(label)" src="{{label.cat_img_url}}" alt="">
+            </ng-container>
+        </div>
+    </div>
+    <div class="info">
+        <div class="field-brand">
+          <span class="brand-name">
+            <a href="{{product.product_brand_info?.url}}">{{product.product_brand}}</a>
+          </span>
+            <span class="discount-lbl" *ngIf="product.price?.VND?.price && product.price?.VND?.default !== product.price?.VND?.price">-{{product.price?.VND?.default | percentize : product.price?.VND?.price }}</span>
+            <!--<span class="tag" *ngIf="isNew">Mới</span>-->
+            <span class="installment-lbl" *ngIf="product.accept_installment">Trả góp 0%</span>
+        </div>
+
+        <div class="field-name"><a routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">{{product.name}}</a></div>
+        <div class="field-price">
+            <span class="old-price" *ngIf="curPrice?.VND?.default !== curPrice?.VND?.price">{{curPrice?.VND?.price_formated}}</span>
+            <span class="current-price">{{curPrice?.VND?.default_formated}}</span>
+        </div>
+        <div class="field-voucher-code" *ngIf="curPromotion?.display_category_page !== '0' && curPromotion?.title" [innerHTML]="curPromotion?.title"></div>
+        <div class="bottom" *ngIf="product?.type_id === 'configurable'">
+            <ng-container *ngFor="let attribute of configurableAttributes | array_sort:'position'">
+                <div class="color-options" *ngIf="attribute.isColor">
+                    <ng-container *ngFor="let value of attribute?.values;let idx = index">
+                        <a *ngIf="idx < 4" [ngClass]="{current: curHover === value}"  (mouseenter)="selectOption(attribute, value, true)" (click)="selectOption(attribute, value)">{{value}}</a>
+                    </ng-container>
+                    <a *ngIf="attribute?.values?.length > 4" routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">...</a>
+                </div>
+                <div class="more-info more-full" *ngIf="!attribute.isColor">
+                    <div class="size-options">
+                        <ng-container *ngFor="let value of attribute?.values; let idx = index">
+                            <a (click)="selectOption(attribute, value)">{{value}}</a> <ng-container *ngIf="idx < attribute?.values?.length - 1">/</ng-container>
+                        </ng-container>
+                    </div>
+                    <!--<div class="others">-->
+                    <!--<span class="location">Hà Nội</span><span class="sep">/</span><span class="delivery-type">Giao nhanh</span>-->
+                    <!--</div>-->
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<form class="form wishlist share" #shareForm="ngForm" (ngSubmit)="shareWishlistViaEmail(shareForm.value)" id="form-validate"
+    novalidate>
+    <legend class="legend">
+        <span>Chia sẻ thông tin</span>
+    </legend>
+
+    <div class="form-width">
+        <fieldset class="fieldset">
+            <input name="form_key" type="hidden">
+            <div class="field emails">
+                <label class="label required " for="email_address">
+                    <span>E-mail</span>
+                </label>
+                <div class="control">
+                    <textarea required [class.mage-error]="emails.invalid && (emails.dirty || emails.touched || shareForm.submitted)"
+                        [pattern]="multipleEmailRegex" ngModel #emails="ngModel" maxlength="200" name="emails" cols="60" rows="5" id="email_address"></textarea>
+                    <div class="mage-error" *ngIf="emails.invalid && (emails.dirty || emails.touched || shareForm.submitted) && emails.errors.required">Vui lòng nhập dữ liệu </div>
+                    <div class="mage-error" *ngIf="emails.invalid && (emails.dirty || emails.touched || shareForm.submitted) && emails.errors.pattern">
+                        Vui lòng nhập email hợp lệ, ngăn cách bằng dấu phẩy. Ví dụ: johndoe@domain.com, johnsmith@domain.com.
+                    </div>
+                    <p class="text-note">Lời mời có thể gửi đến nhiều người, mỗi địa chỉ email ngăn cách nhau bởi dấu ","</p>
+                </div>
+            </div>
+            <div class="field text">
+                <label class="label required" for="message">
+                    <span>Nội dung tin nhắn</span>
+                </label>
+                <div class="control">
+                    <textarea required [class.mage-error]="message.invalid && (message.dirty || message.touched || shareForm.submitted)"
+                        ngModel #message="ngModel" maxlength="200" placeholder="Vui lòng để lại tin nhắn cho danh sách trên" id="message"
+                        name="message" cols="60" rows="5"></textarea>
+                        <div class="mage-error" *ngIf="message.invalid && (message.dirty || message.touched || shareForm.submitted) && message.errors.required">Vui lòng nhập dữ liệu </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" title="Chia sẻ Danh mục thích" class="action submit primary">
+                    <span>Chia sẻ Danh mục thích</span>
+                </button>
+            </div>
+            <div class="secondary">
+                <a class="back underline-link" routerLink="/account/wishlist">
+                    <span>Quay lại</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,82 @@
+
+<div class="bigbang-game-popup  " [ngClass]="bigbangClass()" *ngIf="!result.error else cheatTemplate;">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-wrap-lt">
+            <div class="modal-content-lt">
+
+                <div class="modal-body" >
+                    <img class="logo-bigbang" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/boomning-game-logo.png" alt="">
+                    <!--
+                    <button type="button" class="close" >
+                        <span>×</span>
+                    </button>
+                    -->
+                    <div class="luot-choi-content">
+                        <p class="note-type" *ngIf="result?.level > 0">
+                            Chúc Mừng Bạn Đã Chiến Thắng Level {{result?.level}} &amp;<br>{{result?.prize?.description}}
+                        </p>
+
+                        <p class="note-type" *ngIf="result?.level <= 0">
+                            Bạn chưa may mắn rồi.<br>Cố gắng hơn nữa để có cơ hội rinh quà nào!
+                        </p>
+
+                        <p class="note-type-2">Đăng nhập Email để kiểm tra chi tiết quà tặng</p>
+                        <div class="star-icons">
+                            <span class="icon-star" [ngClass]="{'active':result?.level >= 1}"></span>
+                            <span class="icon-star" [ngClass]="{'active':result?.level >= 2}"></span>
+                            <span class="icon-star" [ngClass]="{'active':result?.level >= 3}"></span>
+                        </div>
+                        <p class="note-type-3" *ngIf="result?.player?.remain <= 0" >Bạn đã hết lượt chơi, Share Facebook ngay để có thêm 1 lượt chơi (Tối đa: 1 lần/ngày).</p>
+                        <p class="note-type-3" *ngIf="result?.player?.remain > 0" >Bạn còn {{result?.player?.remain}} lượt chơi, Share Facebook ngay để có thêm 1 lượt chơi (Tối đa: 1 lần/ngày).</p>
+                    </div>
+                    <ul class="actions-group">
+                        <li>
+                            <a (click)="returnHome()">
+                                <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-5.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="continuePlay()" *ngIf="result?.player?.remain > 0" >
+                                <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-6.png">
+                            </a>
+                            <img *ngIf="result?.player?.remain <= 0" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-8.png">
+                        </li>
+                        <li>
+                            <a (click)="shareFB()"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-7.png" alt=""></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #cheatTemplate>
+    <div class="bigbang-game-popup bigbang-game-message-popup">
+        <div class="modal-dialog-lt">
+            <div class="modal-content-wrap-lt">
+                <div class="modal-content-lt">
+                    <div class="modal-body">
+                        <img class="logo-bigbang" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/boomning-game-logo.png" alt="">
+                        <!--
+                        <button type="button" class="close" hidden>
+                            <span>×</span>
+                        </button>
+                        -->
+                        <div class="luot-choi-content">
+                            <p class="note-type" style="padding:0 10%">{{result.error.message}}</p>
+                        </div>
+                        <ul class="actions-group">
+                            <li>
+                                <a (click)="returnHome()">
+                                    <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-5.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

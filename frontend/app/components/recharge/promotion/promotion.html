@@ -1,0 +1,24 @@
+<div class="voucher-code-block-2">
+    <ng-container *ngIf="showCoupon">
+        <label>Giảm giá</label>
+        <div class="clearfix">
+            <input class="input-text" type="text" name="coupon_code" [(ngModel)]="inputCouponCode" [disabled] = "isAppliedCoupon()" (keyup.enter)="applyCoupon()">
+            <button *ngIf="!isAppliedCoupon()" type="button" title="Áp dụng" (click)="applyCoupon()" [disabled] = "!inputCouponCode">Áp dụng</button>
+            <button *ngIf="isAppliedCoupon()" type="button" title="Từ bỏ" (click)="removeCoupon()">Hủy bỏ</button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="showLpoint">
+        <div *ngIf="!(authIsLoggedIn$ | async)" class="text"><a (click)="showLoginModal()">Đăng nhập / Đăng ký</a> tài khoản để tích điểm hoặc sử dụng <strong><a href="/campaign/l-point-launching/" target="_blank">L.POINT</a></strong>
+        </div>
+
+        <div *ngIf="(authIsLoggedIn$ | async)" class="lpoint-block">
+            <label>L.Point <span>Khả dụng: {{currentLpointAmount?.toString().toVndCurrency()}}</span></label>
+            <div class="clearfix">
+                <input class="input-tex" type="text" name="lpoint_use"  [(ngModel)]="inputLpoint" [disabled] = "(usedLPoint > 0)" (keyup.enter)="updateLPoint()">
+                <button type="button" (click)="updateLPoint()" *ngIf="!(usedLPoint > 0)" [disabled]="!canApplyLPoint || currentLpointAmount <= 0">Áp dụng</button>
+                <button type="button" (click)="removeLPoint()" *ngIf="(usedLPoint > 0)">Hủy bỏ</button>
+            </div>
+        </div>
+    </ng-container>
+
+</div>

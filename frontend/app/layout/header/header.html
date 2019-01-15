@@ -1,0 +1,146 @@
+<section class="topbar">
+    <div class="container-lt">
+        <app-header-shipping-address></app-header-shipping-address>
+        <ul class="topbar-nav">
+            <li *ngIf="!(authIsLoggedIn$ | async)">
+                <a (click)="showLoginModal()">Đăng nhập</a>
+            </li>
+            <li *ngIf="!(authIsLoggedIn$ | async)">
+                <a (click)="showLoginModal(true)" title="Đăng ký thành viên">Đăng ký thành viên</a>
+            </li>
+            <li>
+                <a href="{{commonNsoBaseUrl$ | async}}" title="Bán hàng cùng Lotte">Bán hàng cùng Lotte</a>
+            </li>
+            <li>
+                <a href="/campaign/download-app/" title="Tải App">Tải App</a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="sticky-header">
+    <!--header -->
+    <header class="header">
+        <div class="container-lt">
+            <a href="/" class="logo-lotte" title="Lotte.vn">
+                <img src="{{(commonStoreLogos$ | async)}}" alt="Lotte.vn">
+            </a>
+            <app-header-search></app-header-search>
+            <ul class="account-block">
+                <li class="myaccount-menu" [class.active]="(authIsLoggedIn$ | async)">
+                    <a (click)="showLoginModal()" *ngIf="!(authIsLoggedIn$ | async)">
+                        <span class="icon icon-myaccount"></span>
+                    </a>
+                    <a *ngIf="(authIsLoggedIn$ | async)">
+                        <span class="icon icon-myaccount"></span>
+                    </a>
+                    <div class="dropdown-wrap myaccount-view" *ngIf="(authIsLoggedIn$ | async)">
+                        <div class="content">
+                            <div class="head-info">
+                                <span class="welcome">Hi, {{(userInfo$ | async)?.firstname + ' ' + (userInfo$ | async)?.lastname}}</span>
+                                <a (click)="logout()" title="Đăng xuất" class="signout-link">Đăng xuất</a>
+                            </div>
+                            <ul class="account-menu">
+                                <li>
+                                    <a routerLink="/account/orders" title="Danh sách đơn hàng">Danh sách đơn hàng</a>
+                                </li>
+                                <li>
+                                    <a routerLink="/account" title="Quản lý tài khoản">Quản lý tài khoản</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="wishlist-menu">
+                    <a routerLink="/account/wishlist" *ngIf="(authIsLoggedIn$ | async)">
+                        <span class="icon icon-wishlist"></span>
+                    </a>
+
+                    <a (click)="showLoginModal()" *ngIf="!(authIsLoggedIn$ | async)">
+                        <span class="icon icon-wishlist"></span>
+                    </a>
+                </li>
+                <li class="cart-menu" [class.active]="cartItems?.length" (mouseover)="isItemAddedSuccessfully = false">
+                    <a routerLink="/checkout" *ngIf="cartItems?.length">
+                        <span class="icon icon-cart"></span>
+                        <span class="number">{{cartTotal?.items_qty}}</span>
+                    </a>
+
+                    <a *ngIf="!cartItems?.length">
+                        <span class="icon icon-cart"></span>
+                        <span class="number">{{cartTotal?.items_qty}}</span>
+                    </a>
+                    <div class="dropdown-wrap minicart-view" [ngStyle]="{'display': isItemAddedSuccessfully ? 'block' : ''}">
+                        <div class="content" *ngIf="!cartItems?.length">
+                            <div class="empty">Chưa có sản phẩm nào trong giỏ hàng của bạn</div>
+                        </div>
+
+                        <div class="content" *ngIf="isItemAddedSuccessfully">
+                            <div class="empty">Thêm vào giỏ hàng thành công</div>
+                        </div>
+
+                        <div class="content" *ngIf="cartItems?.length && !isItemAddedSuccessfully">
+                            <div class="minicart-list">
+                                <ul>
+                                    <li *ngFor="let item of cartItems">
+                                        <div class="product-img">
+                                            <a href="#">
+                                                <img src="{{ item.thumbnail }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="short-info">
+                                            <a routerLink="/product/{{item.product_id}}/{{item.product_path.replace('/', '')}}" class="field-name">{{item.name}}</a>
+                                            <span class="field-size" *ngIf="item?.chosen_options">
+                                                <span *ngFor="let option of item.chosen_options | toJson; let i = index;">
+                                                    <i *ngIf="i > 0"> / </i>{{ option.value }}</span>
+                                            </span>
+                                            <span class="field-stock" *ngIf="item?.is_in_stock && !item?.is_disabled">Còn hàng</span>
+                                            <span class="field-stock" *ngIf="!item?.is_in_stock || item?.is_disabled">Hết hàng</span>
+                                            <a (click)="removeItem(item)" class="remove-link">Xóa</a>
+                                        </div>
+                                        <div class="quanlity">
+                                            {{item.qty | number: '1.0-0' }}
+                                        </div>
+                                        <div class="price">
+                                            {{item.base_row_total?.toString().toVndCurrency()}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="minicart-total">
+                                <div class="inner">
+                                    <span class="txt">Tổng giá tiền</span>
+                                    <span class="total">{{cartTotal?.base_subtotal?.toString().toVndCurrency()}}</span>
+                                </div>
+                                <a (click)="goToCheckoutPage()" class="button-bg" title="Thanh toán">Thanh toán</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--end header -->
+    <!-- nav -->
+    <nav class="navigation-top">
+        <div class="container-lt">
+            <div class="megamenu">
+                <a href="javascript:void(0);" class="mega-text">
+                    <span class="icon-bar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    <span class="txt">Tất cả danh mục</span>
+                </a>
+                <div *ngIf="megamenu?.content" (click)="onDataClick($event)" [innerHTML]="megamenu?.content | safeHtml" runScripts></div>
+            </div>
+
+            <div *ngIf="secondMenu?.content" [innerHTML]="secondMenu?.content | safeHtml" runScripts (click)="onSecondMenuClicked($event)"></div>
+            <div *ngIf="promotionMenu?.content" [innerHTML]="promotionMenu?.content | safeHtml" runScripts (click)="onPromotionClicked($event)"></div>
+        </div>
+    </nav>
+    <!--end nav -->
+</section>
+
+<div *ngIf="skinnyBanner?.content" [innerHTML]="skinnyBanner?.content | safeHtml" runScripts></div>

@@ -1,0 +1,44 @@
+<div class="floated-component floated-right floated-recent-views initialized floated-now" style="right: 331.5px;">
+    <a class="switch-store" href="/lotte-mart-hn" (click)="selectStore(defaultStoreUrlKey.LOTTE_MART_HN)" *ngIf="(selectedStore$ | async) === defaultStoreUrlKey.LOTTE_MART">
+        <span class="text">Hà Nội Center</span>
+        <span class="icomoon-sort-down"></span>
+    </a>
+
+    <a class="switch-store" href="/lotte-mart" (click)="selectStore(defaultStoreUrlKey.LOTTE_MART)" *ngIf="(selectedStore$ | async) === defaultStoreUrlKey.LOTTE_MART_HN">
+        <span class="text">HCM Center</span>
+        <span class="icomoon-sort-down"></span>
+    </a>
+
+    <!-- <div class="block widget block-viewed-products-grid" *ngIf="recentProducts.length">
+        <div class="title">
+            Đã xem ({{recentProducts.length}}) </div>
+        <div class="block-content">
+            <div class="products-grid grid">
+                <div class="controls" *ngIf="recentProducts.length > 3">
+                    <span class="up">
+                        <a class="bx-prev" (click)="goToPrevSlide()">Up</a>
+                    </span>
+                </div>
+                <ol class="items float-grid" style="width: auto; position: relative;">
+                    <li class="product" *ngFor="let product of recentProducts" style="float: none; list-style: none; position: relative; width: 60px; margin-bottom: 4px;">
+                        <a routerLink="/product/{{product.product_id}}/{{product.product_url}}" class="photo" style="position: relative;">
+                            <img src="{{product.product_small_image?.toProductUrl()}}" width="135" height="135" alt="{{product.product_name}}">
+                        </a>
+                    </li>
+                </ol>
+
+                <div class="controls" *ngIf="recentProducts.length > 3">
+                    <span class="down">
+                        <a class="bx-next" (click)="goToNextSlide()">Down</a>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div> -->
+
+    <!--TODO: Back to top-->
+    <div class="backtotop-container">
+        <a (click)="scrollToTop()" id="btn-back-to-top" class="scrollToTop">Top</a>
+    </div>
+</div>

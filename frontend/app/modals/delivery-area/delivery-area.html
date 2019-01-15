@@ -1,0 +1,57 @@
+<div class="modal-popup sdd-delivery-area wrapper-popup delivery-area-popup            modal-slide             _show" data-role="modal"
+    data-type="popup" tabindex="0" style="z-index: 900;">
+    <div data-role="focusable-start" tabindex="0"></div>
+    <div class="modal-inner-wrap">
+        <header class="modal-header">
+
+            <h1 class="modal-title" *ngIf="!isDeliveryCondition">KHU VỰC GIAO HÀNG</h1>
+            <h1 class="modal-title" *ngIf="isDeliveryCondition">ĐIỀU KIỆN GIAO HÀNG MIỄN PHÍ</h1>
+
+            <button class="action-close" (click)="closeModal()" type="button">
+                <span>Hủy</span>
+            </button>
+        </header>
+        <div class="modal-content" data-role="content">
+            <div id="sdd-delivery-area-modal" style="">
+                <a class="sdd-delivery-area-close"></a>
+                <div class="delivery-area-content" *ngIf="!isDeliveryCondition">
+                    <p *ngIf="!vendorAreaShipPopup || vendorAreaShipPopup?.length == 0">
+                        <strong>Nhà cung cấp chỉ giao hàng đến 1 số quận huyện sau:</strong>
+                    </p>
+                    <div [innerHtml]="vendorShippingArea" *ngIf="!vendorAreaShipPopup || vendorAreaShipPopup?.length == 0">
+
+                    </div>
+                    <div [innerHtml]="vendorAreaShipPopup" *ngIf="vendorAreaShipPopup?.length != 0">
+
+                    </div>
+                    <p class="btn-groups">
+                        <a class="btn-action btn-submit action-close-modal" (click)="closeModal()" title="">ĐÓNG</a>
+                    </p>
+                </div>
+
+                <div class="delivery-area-content" *ngIf="isDeliveryCondition">
+                        Giao hàng miễn phí ở các khu vực sau:
+                    <div class="tbl-content-area">
+                        <table border="1" cellspacing="1" cellpadding="1">
+                            <tbody>
+                            <tr>
+                                <th>Tỉnh/Thành Phố</th>
+                                <th>Quận/Huyện</th>
+                                <th>Đơn hàng</th>
+                            </tr>
+                            <tr *ngFor="let ruleAddress of freeShipPopup" >
+                                <td>{{ruleAddress.region_name}}</td>
+                                <td>{{ruleAddress.district_name}}</td>
+                                <td>{{ruleAddress.min_purchase}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="btn-groups">
+                        <a class="btn-action btn-submit action-close-modal" (click)="closeModal()" title="">ĐÓNG</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

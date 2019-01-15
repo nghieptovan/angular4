@@ -1,0 +1,44 @@
+<section class="deals-zone-section" lazy-load-images *ngIf="getIsViewLoaded() && dealZones?.length">
+    <div class="container-lt">
+        <h2 class="head-title-lt">
+            <span>DEAL ĐỘC QUYỀN &amp; GIỚI HẠN</span>
+        </h2>
+        <div class="deals-zone-content">
+            <div class="deal-zone-slider">
+                <div class="slider-for slick-initialized slick-slider">
+                    <div class="slick-list">
+                        <div class="slick-track">
+                            <div class="slick-item slick-slide slick-current slick-active" style="position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1; width: 425px;">
+                                <div class="deal-zone-item item-product">
+                                    <p class="field-desc">{{selectedSlide?.name}}</p>
+                                    <div class="field-price">
+                                        <span class="price-old" *ngIf="selectedSlide?.price !== selectedSlide?.final_price">{{selectedSlide?.price?.toString()?.toVndCurrency()}}</span>
+                                        <span class="price-current">{{selectedSlide?.final_price?.toString()?.toVndCurrency()}}</span>
+                                    </div>
+                                    <div class="time-bar">
+                                        <div class="bar-info">
+                                            <span class="txt">Còn lại {{selectedSlide?.deal_options?.pendingQty}} sản phẩm</span>
+                                            <lt-home-fashion-countdown [end]="selectedSlide?.deal_options?.end_date"></lt-home-fashion-countdown>
+                                        </div>
+                                        <div class="bar-percent">
+                                            <span [ngStyle]="{'width': selectedSlide?.deal_options?.percent + '%'}"></span>
+                                        </div>
+                                    </div>
+                                    <a routerLink="/product/{{selectedSlide?.entity_id}}/{{selectedSlide?.url_key}}" class="button-bg">Mua ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ngx-slick class="slider-nav" [config]="slideConfigNav" (afterChange)="slickChanged($event)">
+                    <div ngxSlickItem class="slick-item" *ngFor="let item of dealZones; let idx = index">
+                        <a routerLink="/product/{{item.entity_id}}/{{item.url_key}}">
+                            <img attr.data-layer="{{'Home_Z3_' + (idx + 1)}}" title="{{item.name}}" attr.data-src="{{item?.thumbnail?.replace('product//', 'product/')}}" alt="{{item.name}}">
+                        </a>
+                    </div>
+                </ngx-slick>
+            </div>
+        </div>
+    </div>
+</section>

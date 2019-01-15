@@ -1,0 +1,100 @@
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper">Danh sách nhà cung cấp chờ đánh giá</span>
+    </h1>
+</div>
+<div *ngIf="lpointBanner?.content" [innerHTML]="lpointBanner?.content | safeHtml"></div>
+<!-- <div class="lpoint-info-banner">
+    <img src="{{'wysiwyg/static/promotions/072017/lpoint/lpoint.png'.toMediaUrl()}}" alt="">
+    <a [routerLink]="['/account/edit']" class="link-1" title="Cập nhật thông tin">Cập nhật thông tin</a>
+    <a href="/campaign/l-point-launching/" target="_blank" class="link-2" title="Chi tiết chương trình L.Point">Chi tiết
+        chương trình L.Point</a>
+</div> -->
+<div class="block-seller-reviews" *ngIf="!totals && !(isLoading$ | async)">
+    <div class="message info empty">
+        <span>Không có nhận xét đang chờ</span>
+    </div>
+</div>
+<div class="block-seller-reviews" *ngIf="totals">
+    <div class="pending-seller-title">
+        <span><span class="number">{{totals}}</span> nhà cung cấp đang chờ đánh giá</span>
+    </div>
+    <ng-container *ngFor="let rating of ratings; let idx = index">
+        <div class="pending-seller-reviews">
+            <h3 class="seller-reviews-title">Đơn giao hàng #{{rating.increment_id}}</h3>
+            <ol class="review-items">
+                <li class="item">
+                    <div class="seller-title">
+                        <h3 class="title"><a href="{{rating.vendor_url}}">{{rating.vendor_name}}</a></h3>
+                        <div [innerHTML]="rating.summary_html"></div>
+                    </div>
+                    <div class="table-account" id="my-shipment-table-{{rating.id}}">
+                        <ul class="table-account-title">
+                            <li class="col number"></li>
+                            <li class="col name">Tên sản phẩm</li>
+                            <li class="col sku">Mã SKU sản phẩm</li>
+                            <li class="col qty"><span class="nobr">Số lượng</span></li>
+                        </ul>
+                        <ul class="table-account-content">
+                            <li id="order-item-row-{{product.sku}}" class=""
+                                *ngFor="let product of rating.products; let no = index">
+                                <div class="col number"><span>{{no + 1}}</span></div>
+                                <div class="col name">
+                                    <strong class="product product-item-name">{{product.product_name}}</strong>
+                                </div>
+                                <div class="col sku">{{product.sku}}</div>
+                                <div class="col qty">{{product.qty}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="form-reviews">
+            <!--<form action="#" method="post" id="udratings-form-{{rating.rel_id}}">-->
+            <form #ratingForm="ngForm" method="post" (submit)="submitRating(ratingForm, idx)">
+                <fieldset class="fieldset-reviews">
+                    <ul class="form-list">
+                        <li>
+                            <label for="nickname_field-{{rating.rel_id}}" class="required">Họ tên</label>
+                            <div class="input-box">
+                                <input type="text" [(ngModel)]="rating.nick_name"
+                                       name="nickname" id="nickname_field-{{rating.rel_id}}"
+                                       class="input-text required-entry" value="{{rating.nick_name}}">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="summary_field-{{rating.rel_id}}" class="required">Tiêu đề đánh giá</label>
+                            <div class="input-box">
+                                <input type="text" name="title" #title="ngModel" ngModel
+                                       id="summary_field-{{rating.rel_id}}" class="input-text required-entry" value="">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="review_field-{{rating.rel_id}}" class="required">Nội dung đánh giá</label>
+                            <div class="input-box">
+                            <textarea name="detail" #detail="ngModel" ngModel
+                                      id="review_field-{{rating.rel_id}}" cols="5" rows="3"
+                                      class="required-entry"></textarea>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="review-star" id="aggregate-review-table-{{rating.rel_id}}">
+                        <strong>Vui lòng đánh giá nhà cung cấp này</strong>
+                        <div class="review-rating">
+                            <bar-rating [max]="5" [theme]="'default'" [(rate)]="rating.aggregate_ratings[0].options"></bar-rating>
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" #id="ngModel" ngModel [(ngModel)]="rating.id">
+                </fieldset>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="submit" title="Gửi Nhận Xét" class="action send-comments primary">
+                            <span>Gửi Nhận Xét</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-container>
+</div>

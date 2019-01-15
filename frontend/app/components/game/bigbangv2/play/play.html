@@ -1,0 +1,105 @@
+<!--
+<body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
+-->
+<main class="main">
+
+<div class="bigbang-page bigbang-game bigbang-game-countdown">
+    <div class="bigbang-header">
+        <a href="https://m.lotte.vn/"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/logo-mobile.gif" alt=""></a>
+    </div>
+    <div class="container-lt">
+        <p class="logo-game">
+            <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/boomning-game-logo.png" alt="">
+        </p>
+
+        <div class="game-content-bigbang">
+            <div class="bom-animate">
+                <div class="level-bar">
+                    <div class="bar-inner">
+                        <div class="bar-horz">
+                            <div class="bar-percent" [ngStyle]="{'height' : progessBarHeight+'px'}"></div>
+                            <ng-container  *ngFor="let level of levels; let idx = index" >
+                                <div class="bar-level level-{{idx+1}}"
+                                    [ngClass]="{'active' : userLevel >= idx+1}"
+                                    [ngStyle]="{'bottom': (perHeightLevelPercent*(idx+1)) +'px'}"
+                                    ></div>
+                            </ng-container>
+                        </div>
+                        <img class="img" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/bom-1.png" alt="">
+                    </div>
+                </div>
+                <div class="lottie-bom">
+                    <img class="cursor-img" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/effect-press.gif" alt="">
+                    <div class="bom-wrap">
+
+                        <div id="lottie" class="lottie" >
+                            <div class="bom-animation">
+                                <div class="bombClass" >
+                                    <img [hidden]="!endGame" class="explosion-img" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/explosion.gif" alt="">
+                                    <div [hidden]="!clicking" class="coin-img"></div>
+                                    <div *ngIf="startGame" [hidden]="endGame" class="ngoi-bom" [ngStyle]="ngoiBomStyles"></div>
+                                    <div [hidden]="endGame" class="click-mask" id="click-mask"></div>
+                                    <div [hidden]="endGame" (touch)="startClickBomb($event)"  (mouseup)="endClickBomb($event)"  (mousedown)="startClickBomb($event)" class="bom-img"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="countdown-game" *ngIf="countDownLeft > 0">
+            <div class="number">{{countDownLeft}}</div>
+            <p class="note-txt"><span>CHƠI CÀNG NHIỀU SAO</span><br>QUÀ CÀNG GIÁ TRỊ!</p>
+        </div>
+
+        <p class="logo-footer-game">
+            <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/logo-footer.png" alt="">
+        </p>
+    </div>
+</div>
+</main>
+<style>
+    .bar-percent{
+        -webkit-transition:all .5s ease-out;
+        -moz-transition:all .5s ease-out;
+        -o-transition:all .5s ase-out;
+        transition:all .5s ease-out
+    }
+
+    .lottieAnimate {
+        -webkit-animation: moveX 1.05s linear 0s infinite alternate, moveY 1.4s linear 0s infinite alternate;
+        -moz-animation: moveX 1.05s linear 0s infinite alternate, moveY 1.4s linear 0s infinite alternate;
+        -o-animation: moveX 1.05s linear 0s infinite alternate, moveY 1.4s linear 0s infinite alternate;
+        animation: moveX 1.05s linear 0s infinite alternate, moveY 1.4s linear 0s infinite alternate;
+    }
+
+    @-webkit-keyframes moveX {
+        from { left: 0; } to { left: 80%; }
+    }
+    @-moz-keyframes moveX {
+        from { left: 0; } to { left: 80%; }
+    }
+    @-o-keyframes moveX {
+        from { left: 0; } to { left: 80%; }
+    }
+    @keyframes moveX {
+        from { left: 0; } to { left: 80%; }
+    }
+    @-webkit-keyframes moveY {
+        from { top: 0; } to { top: 80%; }
+    }
+    @-moz-keyframes moveY {
+        from { top: 0; } to { top: 80%; }
+    }
+    @-o-keyframes moveY {
+        from { top: 0; } to { top: 80%; }
+    }
+    @keyframes moveY {
+        from { top: 0; } to { top: 80%; }
+    }
+
+
+</style>

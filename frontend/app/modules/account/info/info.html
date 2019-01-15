@@ -1,0 +1,220 @@
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper">Tài khoản</span>
+    </h1>
+</div>
+
+<div *ngIf="lpointBanner?.content" [innerHTML]="lpointBanner?.content | safeHtml"></div>
+<!-- <div class="lpoint-info-banner">
+    <img src="{{'wysiwyg/static/promotions/072017/lpoint/lpoint.png'.toMediaUrl()}}" alt="">
+    <a routerLink="/account/edit" class="link-1" title="Cập nhật thông tin">Cập nhật thông tin</a>
+    <a href="/campaign/l-point-launching/" target="_blank" class="link-2" title="Chi tiết chương trình L.Point">Chi tiết
+        chương trình L.Point</a>
+</div> -->
+<div class="membership_info clearfix">
+    <div class="row" style="height: 115px;">
+        <div class="welcome-1">
+            <div class="col-50 text-center avatar">
+                <div class="avatar-1">
+                    <img
+                        src="{{'frontend/SM/Lottevec/vi_VN/SM_Customer/images/default_avatar.png'.toStaticUrl()}}"
+                        alt="">
+                </div>
+            </div>
+            <div class="col-50 info">
+                <div class="info-1">
+                    <div class="name">
+                        <strong>Chào, {{(userInfo$ | async)?.lastname + ' ' + (userInfo$ | async)?.firstname}}</strong>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="col-50 order">
+                                <i class="icon-order"></i>
+                                <span>Đơn hàng</span>
+                            </div>
+                            <div class="col-50 number">
+                                <strong>
+                                    <a [routerLink]="['/account/orders']">{{(userInfo$ | async)?.number_orders}}</a>
+                                </strong>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-50 order">
+                                <i class="icon-whislit"></i>
+                                <span>Danh sách yêu thích</span>
+                            </div>
+                            <div class="col-50 number">
+                                <strong>
+                                    <a [routerLink]="['/account/wishlist']">{{(userInfo$ | async)?.number_product_wishlist}}</a>
+                                </strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="level_up_info-1" *ngIf="(userInfo$ | async)?.lpoint_active">
+            <div class="logo"></div>
+            <div class="info">
+                <div class="row">
+                    <strong>Điểm L-point hiện có :</strong> <span class="point" id="lpoint_current">{{Lpoint?.lpoint}}</span> P
+                </div>
+                <div class="row">
+                    <span id="lpoint_update_at">cập nhật lúc {{Lpoint?.lpoint_update_at}}</span>
+                </div>
+                <div class="row">
+                    <a href="javascript:void(0)" (click)="updateLPoint()" class="btn-refresh">Cập nhật<i></i></a>
+                </div>
+                <div class="row">
+                    <a href="/campaign/l-point-launching/" target="_blank" class="introduce">Giới thiệu về L-point</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="account_block benefit-block hide">
+    <h2 class="block-title">
+        <span>Ưu đãi của thành viên Welcome star</span>
+    </h2>
+
+    <div class="block-content">
+        <div class="col">
+            <h3 class="box-title">Tỉ lệ điểm thưởng tích lũy</h3>
+            <div class="box-content">
+                Thêm tích lũy 0%
+                <br>
+                <strong>Chú ý:</strong> tỉ lệ điểm thưởng phụ thuộc vào cấp độ thành viên của bạn và nhà cung cấp sản
+                phẩm.
+            </div>
+        </div>
+        <div class="col">
+            <h3 class="box-title">Quà tặng sinh nhật</h3>
+            <div class="box-content">Phiếu mua hàng giảm giá 10%</div>
+        </div>
+    </div>
+</div>
+
+<div class="account_block row account_wrapper">
+    <div class="cell">
+        <div class="col account-info">
+            <h2 class="block-title">
+                <span>Thông tin tài khoản</span>
+            </h2>
+            <div class="block-content">
+                <div class="box-content">
+                    <ul class="list-info">
+                        <li>
+                            <label>Tên</label>
+                            <span>{{(userInfo$ | async)?.lastname + ' ' + (userInfo$ | async)?.firstname}}</span>
+                        </li>
+                        <li>
+                            <label>E-mail</label>
+                            <span>{{(userInfo$ | async)?.email}}</span>
+                        </li>
+                        <li>
+                            <label>Mobile</label>
+                            <span>{{(userInfo$ | async)?.phone_number}}</span>
+                        </li>
+                    </ul>
+
+                    <div class="box-actions actions-top">
+                        <a class="action edit" [routerLink]="['/account/edit']">
+                            <span>Thay đổi</span>
+                        </a>
+                        <a [routerLink]="['/account/edit']" [queryParams]="{'change-password':'1'}"
+                           class="action change-password">Đổi
+                            mật khẩu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col account-email-notification">
+            <h2 class="block-title">
+                <span>Đăng ký nhận thông báo</span>
+            </h2>
+            <div class="block-content">
+                <div class="box-content">
+                    <div class="email-noti-title">
+                        <span class="email">{{(userInfo$ | async)?.email}}</span>
+                        <span class="status" *ngIf="!(userInfo$ | async)?.is_subscribed;">Tình trạng: Chưa đăng ký</span>
+                        <span class="status" *ngIf="(userInfo$ | async)?.is_subscribed;">Tình trạng: Đã đăng ký</span>
+
+                    </div>
+                    <div class="info-text">Chúng tôi sẽ liên hệ với bạn qua Email quý khách cung cấp ở đây để cung cấp
+                        thông tin
+                        về khuyến mãi và các chương tình ưu đãi dành riêng cho thành viên
+                    </div>
+                </div>
+                <div class="box-actions actions-top">
+                    <a class="action edit" [routerLink]="['/account/subscribe']">
+                        <span>Thay đổi</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end block-account-email-notification"-->
+    </div>
+    <div class="cell">
+        <div class="col account-coupons">
+            <h2 class="block-title">
+                <span>Phiếu mua hàng</span>
+            </h2>
+            <div class="block-content">
+                <div class="box-content">
+                    <!--<p class="message info"></p>-->
+                    <p class="message info">Chưa có</p>
+                </div>
+                <div class="box-actions actions-top hidden">
+                    <a class="action more" [routerLink]="['/account/coupons']">
+                        <span>Xem thêm</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col account-addresses">
+            <h2 class="block-title">
+                <span>Sổ địa chỉ</span>
+            </h2>
+            <div class="block-content">
+                <div class="box-content" *ngFor="let address of (userInfo$ | async).addresses; let i = index">
+                    <address>
+                        <div class="number">
+                            <span>#{{i + 1}}</span>
+                        </div>
+                        <div class="address-content">
+                            <p>
+                                <strong>{{address?.lastname + ' ' + address?.firstname}}</strong>
+                            </p>
+                            <p>
+                                <strong>Điện thoại: {{address?.telephone}}</strong>
+                            </p>
+                            <p *ngIf="address?.street">Địa chỉ: {{address?.street[0] + ', ' + address?.ward + ', ' + address?.district + ', ' +
+                                address?.region.region}}</p>
+                            <p>Email: {{address?.extension_attributes?.email_address}}</p>
+                        </div>
+                    </address>
+                </div>
+                <div class="box-actions actions-top">
+                    <a class="action edit" [routerLink]="['address']"
+                       data-ui-id="default-shipping-edit-link">
+                        <span>Xem thêm</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="block block-reviews-dashboard" *ngIf="(userInfo$ | async)?.comments?.length">
+    <div class="block-title">
+        <strong>Các Nhận Xét Gần Đây của Tôi</strong>
+        <a class="action view" [routerLink]="['/account/comment']"><span>Xem Tất Cả</span></a>
+    </div>
+    <div class="block-content">
+        <ol class="items">
+            <li class="item">
+                <strong class="product-name"><a routerLink="/account/comment/{{comments[comments.length-1]?.customer_id}}/{{comments[comments.length-1]?.review_id}}">{{comments[comments.length-1]?.product_name}}</a></strong>
+            </li>
+        </ol>
+    </div>
+</div>

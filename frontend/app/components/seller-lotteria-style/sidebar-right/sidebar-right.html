@@ -1,0 +1,86 @@
+<div class="sidebar-right-lot">
+    <div class="delivery-to-block-wrap">
+        <app-header-shipping-address [showBackDrop]="false" (reloadCartShippingRuleEvent)="reloadCartShippingRule()"></app-header-shipping-address>
+        <app-common-fs-shipping-sdd-lotteria [vendorInfo]="vendorInfo" (regionSupport)="onRegionSupport($event)"></app-common-fs-shipping-sdd-lotteria>
+    </div>
+    <h3>Thông tin đơn hàng</h3>
+    <div class="cart-list-content">
+        <div class="inner">
+            <p class="cart-empty-note" *ngIf="!cartItems?.length">Không có sản phẩm nào trong giỏ hàng của bạn !</p>
+            <ng-container *ngFor="let item of cartItems">
+                <div class="cart-item">
+                    <div class="field-img">
+                        <a href="#"><img src="{{ item.thumbnail }}" alt="" width="32" height="42"></a>
+                    </div>
+                    <div class="field-content">
+                        <div class="field-name">{{item.name}}</div>
+                        <div *ngIf="item?.chosen_options" class="options">
+                            <ng-container *ngFor="let option of item.chosen_options | toJson; let i = index;">
+                                <span *ngIf="i > 0"> / </span>
+                                <span>{{ option.value }}</span>
+                            </ng-container>
+                        </div>
+                        <div class="desc" [innerHtml]="item?.short_description">
+                            <!--06 Fried Chicken-->
+                            <!--<br> + 01 Fish Nugget + 03 Pepsi (M)-->
+                            <!--<br> + 02 Tornado (Blueberry, Chocolate)-->
+                        </div>
+                    </div>
+                    <div class="qty">
+                        <button class="btn-minute" type="button" (click)="changeQty(item, -1)">-</button>
+                        <input [ngModel]="item.qty | number: '1.0-0'" type="number" maxlength="2" readonly>
+                        <button class="btn-plus" type="button" (click)="changeQty(item, +1)">+</button>
+                    </div>
+                    <div class="field-price">
+                        <span class="text">{{item.base_row_total?.toString().toVndCurrency()}}</span>
+                        <span (click)="removeItem(item)" class="btn-remove">&nbsp;</span>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="cart-total-content">
+        <div class="info-row">
+            <span class="lbl-text">Tổng cộng</span>
+            <span class="lbl-number">{{cartTotal?.base_subtotal?.toString().toVndCurrency()}}</span>
+        </div>
+        <div class="info-row">
+            <span class="lbl-text">Phí giao hàng</span>
+            <span class="lbl-number" [ngClass]="{'free-txt': shippingFee?.toString() === '0'}">{{ shippingFee?.toString() === '0' ? 'Miễn Phí' : '+' + shippingFee?.toString()?.toVndCurrency()}}</span>
+        </div>
+        <div class="info-row" *ngIf="(-cartTotal?.base_discount_amount) > 0">
+            <span class="lbl-text">Mã giảm giá {{ cartTotal?.coupon_code?.length > 0 && (-cartTotal?.base_discount_amount) > 0 ?  '(' + cartTotal.coupon_code + ')' : '' }}</span>
+            <span class="lbl-number">{{ '-' + (-cartTotal?.base_discount_amount)?.toString()?.toVndCurrency() }}</span>
+        </div>
+        <div class="info-row total">
+            <span class="lbl-text">Tạm tính</span>
+            <span class="lbl-number">
+                <ng-container *ngIf="cartTotal?.grand_total">
+                    {{(cartTotal?.grand_total - cartTotal?.shipping_amount + shippingFee)?.toString()?.toVndCurrency()}}
+                </ng-container>
+                <ng-container *ngIf="!cartTotal?.grand_total">
+                    {{'0'.toVndCurrency()}}
+                </ng-container>
+
+            </span>
+        </div>
+    </div>
+    <div class="field-control">
+        <div class="tips-wrap"><span class="icon">?</span>
+            <div class="tips-block">
+                <div class="tips-content">
+                    <div class="inner">Ghi chú lại thông tin, để LOTTE.vn phục vụ bạn tốt hơn. Ví dụ:<br>
+                        - Tôi muốn giao hàng lúc 13h00<br>
+                        - Thêm tương cà, tương ớt<br>
+                        - Gọi điện trước khi đến</div>
+                </div>
+            </div>
+        </div>
+        <textarea placeholder="+ Ghi chú..." maxlength="50" name="note" #note="ngModel" [(ngModel)]='shipping_comments'></textarea>
+    </div>
+    <p class="btn-type">
+        <button class="button-bg" [disabled]="!cartItems?.length || !cartTotalValid || !regionValid" type="button" title="Tiến hành thanh toán" (click)="goToNextStep()">Tiến hành thanh toán</button>
+    </p>
+    <p class="msg-note-2" *ngIf="!cartTotalValid">Để tiến hành thanh toán, đơn hàng của bạn phải <br>bằng hoặc lớn hơn {{vendorLandingSetting?.min_order_amount?.toString()?.toVndCurrency()}}</p>
+    <p class="footer-note">Thu tiền tại nhà (COD)  |  VISA  |  MASTERCARD  |  JCB</p>
+</div>

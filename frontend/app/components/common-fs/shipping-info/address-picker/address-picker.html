@@ -1,0 +1,37 @@
+<div class="area-content" #areaContent [ngClass]="{active: toogleShip}">
+    <strong (click)="toogleShip = !toogleShip" *ngIf="selectedRegion?.city">
+        {{selectedRegion.city.name}}
+        <ng-container *ngIf="selectedRegion?.district?.name">
+            {{' - ' + selectedRegion.district.name}}
+        </ng-container>
+        <ng-container *ngIf="selectedRegion?.ward?.name">
+            {{' - ' + selectedRegion.ward.name}}
+        </ng-container>
+    </strong>
+    <strong (click)="toogleShip = !toogleShip"  *ngIf="!selectedRegion?.city">
+        Thành phố / Quận huyện
+    </strong>
+    <div class="address-picker">
+        <div class="address-picker-search">
+            <input (input)="searchRegion()" [(ngModel)]="keyword" placeholder="Tìm" value="">
+        </div>
+        <div class="address-picker-selected" *ngIf="tempRegion?.city" (click)="tempRegion.city = null">
+            {{tempRegion?.city?.name}}
+        </div>
+        <div class="address-picker-list">
+            <ul>
+                <ng-container *ngIf="!tempRegion?.city else district_info">
+                    <li *ngFor="let city of regionsSearch" (click)="onChangeLocation(city, false, false)">{{city.name}}</li>
+                </ng-container>
+                <ng-template #district_info>
+                    <ng-container *ngIf="!tempRegion?.district else ward_info">
+                        <li *ngFor="let district of districtsSearch" (click)="onChangeLocation(null, district, null)">{{district.name}}</li>
+                    </ng-container>
+                </ng-template>
+                <ng-template #ward_info>
+                    <li *ngFor="let ward of wardsSearch" (click)="onChangeLocation(null, null, ward)">{{ward.name}}</li>
+                </ng-template>
+            </ul>
+        </div>
+    </div>
+</div>

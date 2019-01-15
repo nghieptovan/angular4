@@ -1,0 +1,23 @@
+<!-- top menu -->
+<app-seller-lotteria-product-filter></app-seller-lotteria-product-filter>
+<!-- end top menu -->
+<!-- product list -->
+<div class="product-list-lot-wrap clearfix">
+    <div class="container-lt clearfix">
+        <div class="product-list-cate-lot">
+            <app-seller-lotteria-product-list [Products] = "Products"></app-seller-lotteria-product-list>
+        </div>
+        <app-seller-lotteria-sidebar></app-seller-lotteria-sidebar>
+        <div class="product-viewed-footer clearfix" *ngIf="count < total">
+            <div class="product-showed-bar">
+                <p class="txt">Bạn đang xem {{count}}/{{total}} sản phẩm</p>
+                <div class="status-bar">
+                    <div [style.width]="count | vm_percentize : total"></div>
+                </div>
+            </div>
+            <a (click)="viewMore()" class="button-border" [ngClass]="{'state-loading':isLoading}">Xem thêm</a>
+        </div>
+    </div>
+    <div class="at-the-end-list"></div>
+</div>
+<!-- end product list -->

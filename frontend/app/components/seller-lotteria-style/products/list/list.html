@@ -1,0 +1,7 @@
+<div class="products-cate-list ">
+  <!--item -->
+  <div class="item-product" *ngFor="let product of Products; let idx = index">
+    <app-seller-lotteria-product-list-item [ngStyle]="{'width':'100%'}" [product]="product" (addToCartEvent)="handleAddToCart($event)"></app-seller-lotteria-product-list-item>
+  </div>
+  <!--end item -->
+</div>

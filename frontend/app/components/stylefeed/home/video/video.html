@@ -1,0 +1,74 @@
+<section class="section-popular-video">
+    <div class="container-lt">
+        <h2 class="head-title-lt"><span>VIDEO PHỔ BIẾN</span></h2>
+
+        <ng-container *ngFor="let post of posts; let idx = index">
+            <div *ngIf="idx == 0" class="highlight-video">
+                <div class="field-video icon-video" (click)="onDataClick($event)" [attr.video-content]="post.video_url" [attr.video-title]="post.name" [attr.video-subtitle]="post.sub_title" >
+                    <a href="javascript:void(0)">
+                        <img src="{{ post?.images?.full }}" alt="" width="1252" height="500"/>
+                    </a>
+                </div>
+                <div class="content">
+                    <div class="inner">
+                        <h3><a href="{{ post.post_url }}">{{ post.name }}</a></h3>
+                        <div class="field-date"><span class="date">{{ post.post_date }}</span>
+                            <ng-container *ngFor="let parent of post.categories.parent; let i = index">
+                                | <a href="{{ parent.category_url }}" class="cate-type">#{{ parent.name }}</a>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="video-list">
+            <ng-container *ngFor="let post of posts; let idx = index">
+                <div *ngIf="idx > 0 && idx < 5" class="video-item" >
+                    <div class="inner">
+                        <div class="field-video icon-video" (click)="onDataClick($event)" [attr.video-content]="post.video_url" [attr.video-title]="post.name" [attr.video-subtitle]="post.sub_title" >
+                            <a href="javascript:void(0)">
+                                <img src="{{ post.images.thumbnail }}" alt="" width="298" height="216" />
+                            </a>
+                        </div>
+                        <div class="content">
+                            <h3><a href="{{ post.post_url }}">{{ post.name }}</a></h3>
+                            <div class="field-date"><span class="date">{{ post.post_date }}</span>
+                                <ng-container *ngFor="let parent of post.categories.parent; let i = index">
+                                    | <a href="{{ parent.category_url }}" class="cate-type">#{{ parent.name }}</a>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="video-list video-list-2 hidden">
+                <ng-container *ngFor="let post of posts; let idx = index">
+                    <div *ngIf="idx > 4" class="video-item" >
+                        <div class="inner">
+                            <div class="field-video icon-video" (click)="onDataClick($event)" [attr.video-content]="post.video_url" [attr.video-title]="post.name" [attr.video-subtitle]="post.sub_title">
+                                <a href="javascript:void(0)">
+                                    <img src="{{ post.images.thumbnail }}" alt="" width="298" height="216" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h3><a href="{{ post.post_url }}">{{ post.name }}</a></h3>
+                                <div class="field-date"><span class="date">{{ post.post_date }}</span>
+                                    <ng-container *ngFor="let parent of post.categories.parent; let i = index">
+                                        | <a href="{{ parent.category_url }}" class="cate-type">#{{ parent.name }}</a>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+        <div class="viewed-footer">
+            <!-- state-loading -->
+            <button class="button-bg " (click)="onClickMore($event)"><span>Xem thêm</span></button>
+        </div>
+    </div>
+</section>

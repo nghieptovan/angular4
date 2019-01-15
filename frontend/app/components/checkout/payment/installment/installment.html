@@ -1,0 +1,58 @@
+<div class="form-inner" *ngIf="(cartTotal$ | async)?.grand_total >= installmentMinumumPrice && (cartTotal$ | async)?.items_qty === 1; else warning">
+        <div class="installment-content">
+
+            <div class="bank-list">
+                <p>Chọn ngân hàng </p>
+                <ul class="disable">
+                    <li *ngFor="let bank of (paymentRules$ | async).bank_installment">
+                        <label class="checked-content">
+                            <input type="radio" name="bank" (ngModelChange)="onBankChanged(bank)" [value]="bank" [(ngModel)]="currentBank">
+                            <span class="radiobtn"></span>
+                            <img src="{{ bank.bank_logo }}" alt="{{ bank.bank_name }}">
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-inner payment-form" *ngIf="currentBank">
+                <div class="visa-form-content">
+                    <div class="form-row-lt">
+                        <div class="form-col">
+                            <label class="form-label" [ngClass]="{'focus-lt active':selected}">
+                                    <select name="installmentTerm" #installmentTerm="ngModel" [(ngModel)]="currentTerm" class="select"
+                                    (focus)="selected=true" (blur)="selected=false"
+                                    >
+                                        <option value="0">Chọn hạn trả góp</option>
+                                        <option [value]="term" *ngFor="let term of availableTerms">Trả trong {{ term }} tháng, {{ ((cartTotal$ | async)?.base_grand_total / term) | number: '1.0-0'}}đ
+                                    </select>
+                            </label>
+                        </div>
+                    </div>
+                    <lt-credit-card uid="vietin_gateway_installment" [(card)]="card" (validationChange)="isCardValid = $event;" class="lt-installment-credit-card" [hidden]="currentTerm < 3"></lt-credit-card>
+
+                </div>
+                <div class="form-row-lt">
+                    <div class="form-col form-col-full">
+                        <label class="checked-content installment-notes">
+                            Tôi đồng ý với các điều khoản và chính sách của chương trình. <a target="_blank" href="{{ 'uu-dai-tu-ngan-hang'.toLinkUrl() }}">Chi tiết</a>
+                            <input [(ngModel)]="agreeWithTerms" type="checkbox" name="payment[is_accept_installment]" id="vietin_gateway_installmentis_accept_installment" class="input-text">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button [disabled]="!currentBank || currentTerm < 3 || (cartTotal$ | async)?.subtotal_incl_tax < installmentMinumumPrice || (cartTotal$ | async)?.items_qty > 1 || !agreeWithTerms || !isCardValid || (cartIsLoading$ | async)"
+        class="action primary checkout" type="submit" title="Thanh Toán"
+        (click)="submitPayment()"></button>
+    <ng-template #warning>
+        <div class="form-inner code-note-lt">
+            <div class="content">
+                Quý khách không thể sử dụng hình thức này:
+                <br>- Giá trị đơn hàng trả góp cuối cùng phải từ 3.000.000 ₫ trở lên
+                <br> - Chỉ áp dụng cho một sản phẩm
+                <br> - Đơn hàng có chứa sản phẩm không đủ điều kiện trả góp
+            </div>
+        </div>
+    </ng-template>

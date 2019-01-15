@@ -1,0 +1,77 @@
+{
+    "CATEGORY": {
+        "BTN": {
+
+        },
+        "TXT": {
+
+        },
+        "MSG": {
+
+        }
+    },
+
+    "PRODUCT": {
+        "BTN": {
+
+        },
+        "TXT": {
+
+        },
+        "MSG": {
+
+        }
+    },
+    "CHECKOUT": {
+        "CART": {
+
+        },
+        "SHIPPING": {
+            "BTN": {
+                "CONTINUE": "Tiếp tục",
+                "BACK_TO_CART": "Chỉnh Sửa Giỏ hàng"
+            },
+            "TXT": {
+                "FIRSTNAME": "Tên",
+                "LASTNAME": "Họ",
+                "PHONENUMBER": "Số điện thoại",
+                "PHONENUMBER_NOTE": "Nhân viên giao nhận LOTTE.vn sẽ liên hệ với SĐT này.",
+                "EMAIL": "E-mail",
+                "HOME": "Nhà",
+                "OFFICE": "Văn phòng",
+                "ADDRESS": "Địa chỉ (tầng, số nhà, đường)",
+                "CITY": "Tỉnh / Thành phố",
+                "DISTRICT": "Quận / Huyện",
+                "WARD": "Phường, xã",
+                "COMMENT": "Ghi chú",
+                "CHARACTER": "ký tự",
+                "NOT_SAME_BILLING_ADDRESS": "Thông tin người đặt hàng khác với thông tin người nhận hàng"
+            },
+            "MSG": {
+                "REQUIRED": "Vui lòng nhập dữ liệu.",
+                "PHONENUMBER_PATTERN": "Vui lòng nhập số điện thoại hợp lệ, Ví dụ: 0981234567, +84981234567. Lưu ý theo thông báo của nhà mạng, vui lòng nhập đầu số điện thoại mới từ ngày 14/11/2018.",
+                "PHONENUMBER_MINLENGTH": "Vui lòng nhập nhiều hơn hoặc bằng 10 ký tự.",
+                "EMAIL_PATTERN": "Vui lòng nhập 1 địa chỉ email hợp lệ (Ví dụ: johndoe@domain.com)."
+            }
+        },
+        "PAYMENT": {
+
+        }
+    },
+    "PROMOTION": {
+        "BTN": {
+
+        },
+        "TXT": {
+
+        },
+        "MSG": {
+
+        }
+    }
+}
+
+
+
+
+

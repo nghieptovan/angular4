@@ -1,0 +1,38 @@
+<div class="bigbang-game-popup bigbang-game-term-popup">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-wrap-lt">
+            <div class="modal-content-lt">
+                <div class="modal-body">
+                    <img class="logo-bigbang" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/boomning-game-logo.png" alt="">
+                    <button type="button" class="close" (click)="closeModal()">
+                        <span>×</span>
+                    </button>
+                    <div class="head-title" (click)="closeModal()">
+                        <span>THÀNH TÍCH CỦA BẠN</span>
+                    </div>
+                    <div class="bigbang-game-term">
+                        <div class="table-responsive">
+                            <table width="100%">
+                                <tbody><tr>
+                                    <th>Ngày tháng</th>
+                                    <th>Cấp</th>
+                                    <th>Lượt click</th>
+                                    <th>Quà</th>
+                                </tr>
+                                <ng-container *ngIf="history.length > 0">
+                                    <tr  *ngFor="let historyd of history">
+                                        <td>{{formatDate(historyd.startedAt)}}</td>
+                                        <td>{{historyd.level}}</td>
+                                        <td>{{historyd.score}}</td>
+                                        <td>{{historyd?.prize?.description}}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody></table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

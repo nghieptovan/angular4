@@ -1,0 +1,89 @@
+<!-- comment -->
+<div class="style-feed-qna-content-lt">
+        <div class="qna-content-lt">
+            <div class="head-content clearfix">
+                <h2>Bình luận ({{comments?.length && comments?.length > 0 ? comments.length : 0}})</h2>
+                <div class="login-text" *ngIf="!isAuth()">
+                    <a (click)="login()">Đăng nhập <span>|</span> Đăng ký</a> để đăng bài ở đây.
+                </div>
+            </div>
+            <div class="form-comment-sf">
+                <form id="comment" method="POST" ngForm #commentForm="ngForm" *ngIf="commentsPost?.error != 0">
+                    <div class="form-row-lt full-border-lt">
+                        <div class="form-col form-col-full">
+                        <label class="form-label" [ngClass]="{'active focus-lt': focus || this.content}">
+                            <span class="form-text">Viết bình luận....</span>
+                            <textarea name="content" id="content"
+                                [(ngModel)]="content" rows="5" cols="5" required
+                                (focus)="clickContent()" (blur)="focus = false" >
+                            </textarea>
+                        </label>
+                        <div *ngIf="this.passRequired" class="mage-error">Vui lòng nhập bình luận.</div>
+                    </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="text"><a (click)="displayRule()">Tiêu chí duyệt nhận xét</a> của Lotte.vn*</div>
+                        <button class="button-bg" type="submit" title="Đăng bình luận" (click)="submitPost()"><span>Đăng bình luận</span></button>
+                    </div>
+                </form>
+                <p *ngIf="commentsPost?.error != -1" [ngClass]="{'success':commentsPost?.error == 0, 'error':commentsPost?.error==1}" >{{commentsPost?.message}}</p>
+            </div>
+            <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                <meta itemprop="ratingValue" content="5" />
+                <meta itemprop="reviewCount" content="{{comments?.length || 1}}">
+              </div>
+            <ol class="qna-list-lt" *ngIf="comments?.length > 0">
+
+                <li *ngFor="let comment of comments; let idx = index" itemprop="review" itemscope itemtype="http://schema.org/Review">
+                    <meta itemprop="name" content="{{comment?.comment_ID}}" />
+                    <div class="avatar" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                        <meta itemprop="worstRating" content="1">
+                        <meta itemprop="ratingValue" content="5" />
+                        <meta itemprop="bestRating" content="5">
+                        <img src="https://cdn.lotte.vn/media/wysiwyg/static/ui/avatar-2.jpg" alt="">
+                    </div>                   
+                    <div class="content">
+                        <div class="inner">
+                            <p itemprop="reviewBody">{{comment?.comment_content }}</p>
+                            <div class="datepost">                                
+                                <strong itemprop="author">{{comment?.comment_author}}</strong> <span itemprop="datePublished">{{formatDate(comment?.comment_date)}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ol class="qna-list-lt indent" *ngIf="comment.children?.length > 0">
+                        <li *ngFor="let childComment of comment.children;">
+                            <div class="avatar">
+                                <img src="https://cdn.lotte.vn/media/wysiwyg/static/ui/avatar-1.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="inner">
+                                    <p>{{childComment?.comment_content}}</p>
+                                    <div class="datepost">
+                                        <strong>{{childComment?.comment_author}}</strong> <span>{{formatDate(childComment?.comment_date)}}</span>
+                                        <!--<a href="#" class="btn-reply">Trả lời</a>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+
+            <ng-container *ngIf="commentsInfo?.length > 0 && getPages().length > 1" >
+                <div class="pager-lt">
+                    <ul *ngIf="commentsInfo[0].total > 0 && commentsInfo[0].pages > 0">
+                        <li *ngIf="currentPage != 1" class="first" (click)="onPage(1)"><span>&#10094;&#10094;</span></li>
+                        <li *ngIf="currentPage != 1" class="previou" (click)="onPage(currentPage - 1)"><span>&#10094;</span></li>
+                        <li *ngFor="let page of getPages()" [ngClass]="{'current':currentPage == page}"  (click)="onPage(page)">
+                            <span>{{page}}</span>
+                        </li>
+                        <li class="next" *ngIf="!lastPage()" (click)="onPage(currentPage + 1)"><span>&#10095;</span></li>
+                        <li class="last" *ngIf="!lastPage()" (click)="onPage(getMax())"><span>&#10095;&#10095;</span></li>
+                    </ul>
+                </div>
+            </ng-container>
+
+
+        </div>
+    </div>
+    <!-- end comment -->

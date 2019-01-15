@@ -1,0 +1,474 @@
+<app-loader *ngIf="isProductCheckedOut"></app-loader>
+<div class="banner-top-countdown" id="banner-top-countdown" *ngIf="productDetail?.extension_attributes?.block_marketing_area"
+    [innerHtml]="productDetail?.extension_attributes?.block_marketing_area"></div>
+<div class="product-detail lt-product-detail" lazy-load-images>
+    <div class="product-content clearfix">
+        <h1 class="product-title">{{ productDetail?.name }}</h1>
+        <p class="brand-name-info">Thương hiệu:
+            <a routerLink="/brand/{{ productDetail?.extension_attributes?.brand_id }}/{{ productDetail?.extension_attributes?.brand_slug }}"
+                title="{{productDetail?.extension_attributes?.brand_name}}">
+                {{productDetail?.extension_attributes?.brand_name}}
+            </a>
+        </p>
+        <div class="product-media">
+            <div class="loading" [ngClass]="{'hidden': !productIsLoading}" id="loading-left">Loading</div>
+            <div class="amasty-label-wrapper" style="z-index: 20 !important" *ngIf="productDetail?.extension_attributes?.product_label?.length">
+                <div *ngFor="let label of productDetail?.extension_attributes?.product_label" class="amasty-label-container override_amsty_label_default family_badge family_badge"
+                    style="display: block !important; width: 112px; line-height: normal; height: 49px; position: absolute; z-index: 995; top: 0px; left: 0px;">
+                    <img alt="{{label.value}}" class="amasty-label-image" style="opacity: 1 !important; width: 100%;" title="{{label.value}}"
+                        src="{{label.icon}}">
+                </div>
+            </div>
+            <lt-product-gallery></lt-product-gallery>
+        </div>
+        <div class="product-information">
+            <div class="product-info-price" *ngIf="!productDetail?.extension_attributes?.configurable_children?.length || !selectedSku">
+                <div class="price-box price-final_price">
+                    <div *ngIf="productDetail?.extension_attributes?.price > productDetail?.extension_attributes?.final_price; else nonSaleOff"
+                        class="product-price">
+                        <p class="old-price" id="old_price">
+                            <span class="price">{{ productDetail?.extension_attributes?.price?.toString().toVndCurrency() }}</span>
+                        </p>
+                        <p class="special-price">
+                            <span class="current-price" id="special_price">
+                                <span class="price">{{productDetail?.extension_attributes?.final_price?.toString().toVndCurrency() }}</span>
+                            </span>
+                            <span class="save-up-price">Tiết kiệm
+                                <strong>{{ productDetail?.extension_attributes?.final_price | percentize:productDetail?.extension_attributes?.price}}
+                                </strong>
+                            </span>
+                        </p>
+                    </div>
+                    <ng-template #nonSaleOff>
+                        <p class="special-price">
+                            <span class="current-price" id="special_price">
+                                <span class="price">{{productDetail?.extension_attributes?.price?.toString().toVndCurrency() }}</span>
+                            </span>
+                        </p>
+                    </ng-template>
+                </div>
+            </div>
+
+            <div class="product-info-price" *ngIf="productDetail?.extension_attributes?.configurable_children?.length && selectedSku">
+                <div class="price-box price-final_price">
+                    <div *ngIf="selectedSku?.price > selectedSku?.final_price; else nonSaleOff" class="product-price">
+                        <p class="old-price" id="old_price">
+                            <span class="price">{{ selectedSku?.price?.toString().toVndCurrency() }}</span>
+                        </p>
+                        <p class="special-price">
+                            <span class="current-price" id="special_price">
+                                <span class="price">{{selectedSku?.final_price?.toString().toVndCurrency() }}</span>
+                            </span>
+                            <span class="save-up-price">Tiết kiệm
+                                <strong>{{ selectedSku?.final_price | percentize:selectedSku?.price}}
+                                </strong>
+                            </span>
+                        </p>
+                    </div>
+                    <ng-template #nonSaleOff>
+                        <p class="special-price">
+                            <span class="current-price" id="special_price">
+                                <span class="price">{{selectedSku?.final_price?.toString().toVndCurrency() }}</span>
+                            </span>
+                        </p>
+                    </ng-template>
+                </div>
+            </div>
+            <!--promotion-->
+            <div id="promotion-dec" *ngIf="productDetail?.extension_attributes?.promotion?.length  && productDetail?.extension_attributes?.promotion[0]?.type == 0">
+                <div class="promotion-infos">
+                    <h4>Tiết kiệm hơn khi nhập Mã Giảm Giá</h4>
+                    <div class="promotion-row">
+                        <ul class="clearfix">
+                            <li>Chỉ còn</li>
+                            <li class="pro-col-2">{{ (productDetail.extension_attributes.final_price_after_discount).toString().toVndCurrency()}}
+                            </li>
+                            <li>
+                                <div *ngIf="productDetail?.extension_attributes?.promotion[0]?.simple_action === 'by_percent'">Nhập mã:
+                                    <strong>{{ productDetail?.extension_attributes?.promotion[0]?.coupon_code }}</strong>
+                                    (-{{ productDetail?.extension_attributes?.promotion[0]?.discount_amount.toString() }}%)
+                                </div>
+                                <div *ngIf="productDetail?.extension_attributes?.promotion[0]?.simple_action !== 'by_percent'">Nhập mã: <strong>{{ productDetail?.extension_attributes?.promotion[0]?.coupon_code }}</strong> (-{{ productDetail?.extension_attributes?.promotion[0]?.discount_amount.toString().toVndCurrency()
+                                    }})
+                                </div>
+                                <div [innerHTML]="productDetail?.extension_attributes?.promotion[0]?.short_description">
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="promotion-row">
+                        <p class="pro-noted" [innerHTML]="getPromotionHtml(productDetail?.extension_attributes?.promotion[0]?.description)"></p>
+                    </div>
+                </div>
+            </div>
+            <!--//promotion-->
+            <ng-container *ngIf="!productDetail?.extension_attributes?.is_out_of_stock; else outOfStock">
+                <p *ngIf="productDetail?.extension_attributes?.accept_installment === '1' && productDetail?.extension_attributes?.final_price >= installmentMinumumPrice"
+                    class="installment-notes">
+                    Trả góp 0%
+                    <span class="install-from">Lãi suất (Chỉ từ
+                        <span class="price">{{ productDetail?.extension_attributes?.installment_amount?.toString().toVndCurrency() }}</span>/tháng)</span>
+                    <a target="_blank" href="/uu-dai-tu-ngan-hang">Chi tiết</a>
+                </p>
+                <div class="product-add-form">
+                    <form id="product_addtocart_form" novalidate>
+                        <div class="product-options-wrapper" id="product-options-wrapper">
+                            <div class="fieldset">
+                                <div class="swatch-opt option-sizes">
+                                    <div *ngFor="let group of productOptions" class="swatch-attribute el_color">
+                                        <span class="swatch-attribute-label">{{ group[0].name }}</span>
+                                        <span class="swatch-attribute-selected-option">{{ selectedOptions[group[0].name]?.value }}</span>
+                                        <div class="swatch-attribute-options clearfix">
+                                            <div *ngFor="let attr of group; let childKey = index" [hidden]="!productChildren[childKey]?.qty">
+                                                <div (click)="selectOption(group, attr)" class="swatch-option text" [class.disabled]="attr.isDisabled" [ngClass]="{'selected': attr.isSelected}">
+                                                    <span>{{attr.value}}</span>
+                                                </div>
+                                            </div>
+                                            <a *ngIf="group[0].name === 'Kích thước'" class="size-chart lt-z-index" (click)="showModalSize()"> Biều đồ kích cỡ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="productDetail?.extension_attributes?.is_fresh === '1'" class="fresh-foods-block">
+                            <p class="green-color">Thực phẩm tươi - Giao nhanh</p>
+                            <p>
+                                <span>Đặt trước 10:00 Sáng</span> - Giao hàng trong ngày</p>
+                            <p>
+                                <span>Đặt hàng sau 10:00 Sáng</span> - Giao hàng ngày hôm sau</p>
+                        </div>
+                        <div class="product-options-bottom">
+                            <div class="box-tocart">
+                                <div class="fieldset">
+                                    <div class="qty-box">
+                                        <label for="qty">Số lượng:</label>
+                                        <div class="inner clearfix">
+                                            <button type="button" class="btn-decrease" [disabled]="addedProduct?.cartItem?.qty <= productDetail?.extension_attributes?.stock_item?.min_sale_qty"
+                                                (click)="changeQty(-1)">-</button>
+                                            <button type="button" class="btn-increase" (click)="changeQty(1)" [disabled]="addedProduct?.cartItem?.qty >= productDetail?.extension_attributes?.stock_item?.max_sale_qty">+</button>
+                                            <input type="number" name="qty" maxlength="2" (keyup)="validateProductQty($event)" [(ngModel)]="addedProduct.cartItem.qty"
+                                                title="Số lượng" class="input-text qty validate-greater-than-zero txt">
+                                            <div class="mage-error" *ngIf="isValidateProductQty">Vui lòng nhập dữ liệu hợp lệ</div>
+                                        </div>
+                                    </div>
+                                    <ul class="cart-buttons">
+                                        <li>
+                                            <button type="button" (click)="addToCart()" title="Thêm vào giỏ hàng" class="action tocart btn-addtocart" [ngClass]="{'disabled': (cartIsLoading$ | async) && !isProductCheckedOut}">
+                                                <span>Thêm vào giỏ hàng</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" title="Thanh toán" (click)="checkout()" class="btn-checkout">
+                                                <span>Thanh toán</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="product-gifts-box" *ngIf="productDetail?.extension_attributes?.gift.length">
+                                <h3>Quà tặng khuyến mãi:</h3>
+                                <ul id="list-gift">
+                                    <li *ngFor="let gift of productDetail?.extension_attributes?.gift" class="clearfix">
+                                        <div class="img">
+                                            <img attr.data-src="{{gift?.image?.toMediaUrl()}}" alt="">
+                                            <div class="tooltip-info">
+                                                <div class="tooltip-inner">
+                                                    <div class="tooltip-img">
+                                                        <img attr.data-src="{{gift?.image?.toMediaUrl()}}" alt="">
+                                                    </div>
+                                                    <div *ngIf="gift.note" class="note-wrapper">
+                                                        <p class="noted">
+                                                            <span>i</span>Lưu ý
+                                                        </p>
+                                                        <p [innerHTML]="gift.note"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info">
+                                            <p class="gift-tag">
+                                                <span>Tặng</span>
+                                            </p>
+                                            <div class="txt">
+                                                <p [innerHtml]="gift.description"></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <p *ngIf="productDetail?.extension_attributes?.is_fresh === '1'" class="delivery-area">
+                                <span>Sản phẩm chỉ giao hàng cho khu vực quận 7 TP. Hồ Chí Minh</span>
+                            </p>
+
+                            <p class="delivery-area" *ngIf="productDetail?.extension_attributes?.vendor_is_direct_delivery">
+                                <span>Sản phẩm được giao bởi nhà cung cấp. Chỉ áp dụng giao hàng cho các <a style="text-decoration: underline" (click)="openDeliveryAreaModal(false)">khu vực</a> >> </span>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+                <p *ngIf="productDetail?.extension_attributes?.promotion?.length && productDetail?.extension_attributes?.promotion[0].type == 1"
+                    class="delivery-area">
+                    <span [innerHtml]="productDetail?.extension_attributes?.promotion[0]?.title">
+
+                    </span>
+                </p>
+            </ng-container>
+            <ng-template #outOfStock>
+                <div class="outofstock-block" [hidden]="!productDetail?.id">
+                    <h3>Xin lỗi! Sản phẩm hiện hết hàng.</h3>
+                    <!-- out-of-stock-related_products -->
+                    <div class="block related" id="product_alert_product_related" *ngIf="productDetail?.extension_attributes?.related_products?.length">
+                        <div class="title">
+                            <strong id="block-related-heading">Vui lòng xem những sản phẩm tương tự</strong>
+                        </div>
+                        <div class="block-content content" aria-labelledby="block-related-heading">
+                            <div class="products wrapper grid products-grid products-related">
+                                <ul class="product-items owl-carousel owl-loaded owl-drag">
+                                    <owl-carousel [options]="owlCarouselOptions" [items]="productDetail?.extension_attributes?.related_products" [carouselClasses]="['', 'row', 'sliding']">
+                                        <div class="owl-item lt-z-index lt-related-items" *ngFor="let productRelated of productDetail?.extension_attributes?.related_products; let i = index">
+                                            <li class="item">
+                                                <div class="product-item-info lt-product-item-info">
+                                                    <a (click)="goProductDetail(productRelated)" title="{{ productRelated?.name }}">
+                                                        <img src="{{ productRelated?.thumbnail?.toProductUrl() }}" width="152" height="198" alt="{{ productRelated?.name }}">
+                                                    </a>
+                                                    <div class="product details product-item-details">
+                                                        <p class="product name product-item-name">
+                                                            <a class="product-item-link" (click)="goProductDetail(productRelated)" title="{{ productRelated?.name }}">{{ productRelated?.name }} sk</a>
+                                                        </p>
+                                                        <div class="price-box price-final_price">
+                                                            <div class="product-price">
+                                                                <p class="old-price" *ngIf="productRelated?.price > productRelated?.final_price">
+                                                                    <span class="final-price">
+                                                                        {{ productRelated?.price.toString().toVndCurrency() }}
+                                                                    </span>
+                                                                </p>
+                                                                <p class="special-price">
+                                                                    <span class="current-price">
+                                                                        <span class="final-price">
+                                                                            {{ productRelated?.final_price.toString().toVndCurrency() }}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="save-up-price" *ngIf="productRelated?.price > productRelated?.final_price">
+                                                                        <strong>-{{ productRelated?.final_price | percentize:productRelated?.price
+                                                                            }}
+                                                                        </strong>
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </owl-carousel>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // out-of-stock-related_products -->
+                    <div class="notification-stock">
+                        <form class="form form-send-email-ajax" (submit)="registerStockEmail(stockAlertForm)" #stockAlertForm="ngForm" novalidate>
+                            <fieldset class="fieldset">
+                                <fieldset class="fieldset send-email-form">
+                                    <div *ngIf="!hasRegisteredStockAlert; else registerAlertSuccess" class="field required clearfix">
+                                        <p>Hoặc gửi thông báo cho tôi khi có hàng</p>
+                                        <div class="control">
+                                            <span>
+                                                <input name="alertEmail" #alertEmail="ngModel" [(ngModel)]="stockAlertEmail" [pattern]="REGEX_EMAIL" type="email" placeholder="Địa chỉ email"
+                                                    class="input-text" required>
+                                                <div class="mage-error" *ngIf="alertEmail.invalid && alertEmail.errors.pattern && (alertEmail.touched || alertEmail.dirty || stockAlertForm.submitted)">Địa chỉ email không chính xác</div>
+                                                <div class="mage-error" *ngIf="alertEmail.invalid && alertEmail.errors.required && (alertEmail.touched || alertEmail.dirty || stockAlertForm.submitted)">Email không được để trống!</div>
+                                            </span>
+                                            <button type="submit" class="action submit primary large btn-submit" title="Gửi">Gửi</button>
+                                        </div>
+                                    </div>
+                                    <ng-template #registerAlertSuccess>
+                                        <div class="form-message mage-success">{{ registerAlertSuccessMessage }}</div>
+                                    </ng-template>
+                                </fieldset>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="product-right-content" *ngIf="productDetail?.id">
+        <div class="inner-content">
+            <ul>
+                <!--<li class="seller-logo">
+                    <img alt="" [src]="'logo/default/logo-01_10.png'.toMediaUrl()">
+                </li>-->
+
+                <li class="sell-by">
+                    <span class="icons icon-3"></span>
+                    <p>
+                        <a routerLink="/seller/{{ productDetail?.extension_attributes?.vendor_id }}/{{productDetail?.extension_attributes?.vendor_slug}}">Được cung cấp bởi
+                            <br>
+                            <strong class="seller-name">{{productDetail?.extension_attributes?.vendor_name}}</strong>
+                        </a>
+                    </p>
+                    <p class="product-total">Sản phẩm hiện có ({{ productDetail?.extension_attributes?.vendor_products_count | number:'1.0-0' }})
+                    </p>
+                </li>
+                <li class="your-position">
+                    <h3>Vị trí hiện tại của bạn</h3>
+                    <p class="delivery-place">
+                        <span class="inner">
+                            <span id="region_name" *ngIf="currentCity">{{ currentCity.name }}</span>
+                            <span id="district_name" *ngIf="currentDistrict"> - {{ currentDistrict.name }}</span>
+                        </span>
+                        <span class="btn-area change-pos">
+                            <a (click)="changeLocation = true" href="javascript:void(0)" class="clickOne">Thay đổi </a>
+                        </span>
+                    </p>
+                    <div class="location-form" [hidden]="!changeLocation">
+                        <select [compareWith]="equals" [(ngModel)]="currentCity" (change)="onChangeLocation(currentCity, false)">
+                            <option [value]="null">Tỉnh/Thành phố</option>
+                            <option [ngValue]="city" *ngFor="let city of commonRegions$ | async">{{city.name}}</option>
+                        </select>
+                        <select [compareWith]="equals" [(ngModel)]="currentDistrict" (change)="onChangeLocation(currentCity, currentDistrict)">
+                            <option [value]="null">Quận/ Huyện</option>
+                            <option [ngValue]="district" *ngFor="let district of currentCity?.districts">{{district.name}}</option>
+                        </select>
+
+                    </div>
+                </li>
+                <li class="delivery-info">
+                    <h3>Thông tin giao hàng</h3>
+                    <ul>
+                        <li class="product-notes">
+                            <ng-container *ngIf="(productDetail?.extension_attributes?.is_fresh !== '1' && !(productDetail?.extension_attributes?.vendor_is_direct_delivery)); else notFresh">
+                                <span *ngIf="productDetail?.extension_attributes?.is_returnable ==='1'">
+                                    <span class="icons icon-2-3" *ngIf="productDetail?.extension_attributes?.number_returned_days === '7'"></span>
+                                    <span class="icons icon-2-4" *ngIf="productDetail?.extension_attributes?.number_returned_days === '14'"></span>
+                                    <p *ngIf="productDetail?.extension_attributes?.number_returned_days !== '-1'">
+                                        {{ productDetail?.extension_attributes?.number_returned_days }} ngày đổi trả hàng miễn phí
+                                    </p>
+
+                                    <span class="icons icon-2" *ngIf="productDetail?.extension_attributes?.number_returned_days === '-1'"></span>
+                                    <p *ngIf="productDetail?.extension_attributes?.number_returned_days === '-1'">
+                                        Đổi trả theo chính sách của nhà cung cấp
+                                    </p>
+                                    <a class="more-detail" href="/shoppingguide/guide/huong-dan-doi-tra">Chi tiết</a>
+                                </span>
+
+                                <span *ngIf="productDetail?.extension_attributes?.is_returnable !=='1'">
+                                    <span class="icons icon-2-1" *ngIf="productDetail?.extension_attributes?.number_returned_days === '7'"></span>
+                                    <span class="icons icon-2-2" *ngIf="productDetail?.extension_attributes?.number_returned_days === '14'"></span>
+                                    <p>
+                                        {{ productDetail?.extension_attributes?.number_returned_days }} ngày đổi hàng miễn phí
+                                    </p>
+                                </span>
+                            </ng-container>
+                            <ng-template #notFresh>
+                                <span class="icons icon-2"></span>
+                                <p>Sản phẩm không áp dụng đổi trả.</p>
+                                <p>Xem chính sách lắp đặt, đổi trả, bảo hành của nhà cung cấp.</p>
+                                <a *ngIf="(productDetail?.extension_attributes?.vendor_is_direct_delivery)" class="more-detail" target="_blank" href="shoppingguide/seller/chinh-sach-van-chuyen/{{productDetail?.extension_attributes?.vendor_slug}}">Chi tiết</a>
+                            </ng-template>
+                        </li>
+
+                        <li class="ship-area-block" *ngIf="productDetail?.extension_attributes?.vendor_is_direct_delivery">
+                            <p>
+                                <span class="icons icon-5"></span>
+                                <strong>Khu vực giao hàng</strong>
+                            </p>
+                            <div [innerHtml]="productDetail?.extension_attributes?.vendor_shipping_area"></div>
+                            <a *ngIf="!productDetail?.extension_attributes?.vendor_is_shipping_whole_country" class="more-detail" (click)="openDeliveryAreaModal(false)">Chi tiết</a>
+                        </li>
+
+                        <li class="shipping-info-block">
+                            <p class="ship-title">
+                                <span class="icons icon-1"></span>
+                                Giao hàng </p>
+                            <div class="shipping-info-content delivery-options">
+                                <ng-container *ngIf="productDetail?.extension_attributes.is_fresh === '1'; else notFreshShipping">
+                                    <p class="sub-title">
+                                        <span class="quick-txt">Hỗ trợ Giao nhanh</span>
+                                        <a  class="more-detail" *ngIf="!shippingDetailShown" (click)="shippingDetailShown = true">Chi tiết</a>
+                                    </p>
+                                    <p  class="show-more">
+                                    </p>
+                                    <div *ngIf="shippingDetailShown" class="inner">
+                                        <p>
+                                            <span>Đặt trước 10:00 Sáng</span> Giao hàng trong ngày</p>
+                                        <p>
+                                            <span>Đặt hàng sau 10:00 Sáng</span> Giao hàng ngày hôm sau</p>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <ng-template #notFreshShipping>
+                                <p>
+                                    <strong>
+                                        <div *ngIf="(shippingRules$ | async)?.customer_fee_standard > 0; else freeShip">
+                                            <span class="shipping-price" *ngIf="productDetail?.extension_attributes?.final_price < (shippingRules$ | async)?.zone_fee && !productDetail?.extension_attributes?.vendor_is_direct_delivery">
+                                                {{ (shippingRules$ | async)?.ship_title }} - {{ (shippingRules$ | async)?.customer_fee_standard?.toString()?.toVndCurrency()
+                                                }}
+                                            </span>
+
+                                            <span class="shipping-price" *ngIf="productDetail?.extension_attributes?.vendor_is_direct_delivery">
+                                                {{ (shippingRules$ | async)?.ship_title }} - {{ (shippingRules$ | async)?.customer_fee_standard?.toString()?.toVndCurrency()
+                                                }}
+                                            </span>
+
+                                            <span class="shipping-price" *ngIf="productDetail?.extension_attributes?.final_price >= (shippingRules$ | async)?.zone_fee && !productDetail?.extension_attributes?.vendor_is_direct_delivery">
+                                                {{ (shippingRules$ | async)?.ship_title }} - Giao hàng miễn phí
+                                            </span>
+                                            <span class="shipping-price" *ngIf="!(shippingRules$ | async)?.shipable">
+                                                Khu vực không hỗ trợ giao hàng
+                                            </span>
+                                        </div>
+                                        <ng-template #freeShip>
+                                            <span class="shipping-price" *ngIf="(shippingRules$ | async)?.shipable">{{ (shippingRules$ | async)?.ship_title }} - Giao hàng miễn phí</span>
+                                            <span class="shipping-price" *ngIf="!(shippingRules$ | async)?.shipable">Khu vực không hỗ trợ giao hàng</span>
+                                        </ng-template>
+                                    </strong>
+                                </p>
+                                <div class="sdd-duration">
+                                    <p class="duration-text">{{ (shippingRules$ | async)?.ship_duration }}</p>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+
+                    <div class="your-position">
+                        <div class="shipping-info" [ngClass]="{'sdd-free-ship': productDetail?.extension_attributes?.vendor_is_direct_delivery}">
+                            <span class="free-fee" *ngIf="productDetail?.extension_attributes?.vendor_is_direct_delivery && productDetail?.extension_attributes?.vendor_free_ship_popup">Điều kiện giao hàng miễn phí</span>
+                            <p id="free-ship" class="change-pos" *ngIf="productDetail?.extension_attributes?.vendor_is_direct_delivery && productDetail?.extension_attributes?.vendor_free_ship_popup">
+                                <a (click)="openDeliveryAreaModal(true)">Chi tiết</a>
+                            </p>
+
+                            <p id="free-ship" [innerHTML]="(shippingRules$ | async)?.shipping_fee | safeHtml" class="change-pos" *ngIf="!productDetail?.extension_attributes?.vendor_is_direct_delivery">
+
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="addto-wishlist">
+            <button (click)="addToWishlist()" type="button" class="label action bookmark button lt-z-index" [class.addto-wishlist--exist]="isInUserWishlist">
+                <span>Danh sách yêu thích</span>
+            </button>
+        </div>
+
+        <div class="clearfix socials-list">
+            <a (click)="share('facebook')" href="{{ getShareUrl('facebook') }}" title="Facebook" class="icon-fb">
+                <span>Facebook</span>
+            </a>
+            <a (click)="share('twitter')" href="{{ getShareUrl('twitter') }}" class="icon-twitter" title="Twitter">
+                <span>Twitter</span>
+            </a>
+            <a (click)="share('google')" href="{{ getShareUrl('google') }}" class="icon-googleplus" title="Google">
+                <span>Google</span>
+            </a>
+        </div>
+    </div>
+</div>

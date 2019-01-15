@@ -1,0 +1,52 @@
+<div class="modal-lt fade-lt show-lt evoucher-popup" style="display: block;">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-lt">
+            <div class="modal-body">
+                <div class="area-list-applied ">
+                    <button type="button" class="close" (click)="closeModal()">
+                        <span>×</span>
+                    </button>
+                    <div class="content clearfix">
+                        <div class="address-list">
+                            <ul>
+                                <li *ngFor="let store of storeArea;"
+                                    [ngClass]="{current: locationSelected === store.id}"
+                                    (click)="locationSelected = store.id"
+                                >
+                                    <div class="item">
+                                        <p>{{store.name}}</p>
+                                        <p *ngIf="store?.address">{{store.address}}</p>
+                                        <p *ngIf="store?.phone">Điện thoại: {{store.phone}}</p>
+                                    </div>
+                                </li>
+                                <!--<li [ngClass]="{current: locationSelected === 0}" (click)="locationSelected = 0">-->
+                                <!--<div class="item">-->
+                                <!--<p>Hotpot Story Vincom Phan Văn Trị</p>-->
+                                <!--<p>12 Phan Văn Trị, P.7, Quận Gò Vấp TP.HCM</p>-->
+                                <!--<p>Điện thoại: (028) 3588. 8978</p>-->
+                                <!--</div>-->
+                                <!--</li>-->
+                                <!--<li [ngClass]="{current: locationSelected === 1}" (click)="locationSelected = 1">-->
+                                <!--<div class="item">-->
+                                <!--<p>Hotpot Story Vincom Quận 7</p>-->
+                                <!--<p>12 Tân Trào, phường Tân Phú, Quận 7 TP.HCM</p>-->
+                                <!--<p>Điện thoại: (028) 3588. 8978</p>-->
+                                <!--</div>-->
+                                <!--</li>-->
+                            </ul>
+                        </div>
+                        <div class="map">
+                            <ng-container *ngFor="let store of storeArea;">
+                                <iframe *ngIf="locationSelected === store.id" (click)="locationSelected = store.id"
+                                        [src]="'https://maps.google.com/maps?q='+ store?.address + '&t=&z=17&ie=UTF8&iwloc=&output=embed' | safeResourceHtml"
+                                        width="566" height="360" frameborder="0" style="border:0" allowfullscreen="">
+                                </iframe>
+                                <!--<iframe *ngIf="locationSelected === 1" [src]="'https://maps.google.com/maps?q=12 Tân Trào, phường Tân Phú, Quận 7 TP.HCM&t=&z=17&ie=UTF8&iwloc=&output=embed' | safeResourceHtml" width="566" height="360" frameborder="0" style="border:0" allowfullscreen=""></iframe>-->
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

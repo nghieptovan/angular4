@@ -1,0 +1,186 @@
+<div class="lt-account">
+    <div class="page messages">
+        <div></div>
+        <div>
+            <div class="messages"></div>
+        </div>
+
+    </div>
+    <div class="columns">
+        <div class="column main">
+            <div class="messages" *ngIf="!orderInfo && !(accountIsLoading$ | async)">
+                <div class="message message-error error">
+                    <div data-ui-id="sm-message-message-error">Đơn hàng số #{{incrementId}} không tồn tại hoặc không khớp với email "{{email}}"</div>
+                </div>
+            </div>
+
+            <div class="account_block row" *ngIf="orderInfo">
+                <div class="cell row-box">
+                    <div class="block-order-tracking-view">
+                        <h2 class="block-title">Đơn hàng #
+                            <span>{{orderInfo?.increment_id}}</span>
+                        </h2>
+                        <div class="block-content">
+                            <div class="box-content" style="height: 283px;">
+                                <ul class="col list-order">
+                                    <li>
+                                        <strong class="name">Ngày đặt hàng</strong>
+                                        <span class="text">{{orderInfo?.created_at | date:'dd/MM/yyyy' }}</span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Tình trạng đơn hàng</strong>
+                                        <span class="text">{{orderInfo?.status}}</span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Số lượng gói hàng</strong>
+                                        <span class="text">{{orderInfo?.total_shipment}}</span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Tổng tiền</strong>
+                                        <span class="text">
+                                            <span class="price">{{orderInfo?.total?.toString()?.toVndCurrency()}}</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Phí vận chuyển</strong>
+                                        <span class="text">
+                                            <span class="price">{{orderInfo?.shipping_fee?.toString()?.toVndCurrency()}}</span>
+                                        </span>
+                                    </li>
+                                    <li *ngIf="orderInfo?.discount">
+                                        <strong class="name">Giảm giá</strong>
+                                        <span class="text">
+                                            <span class="price">-{{(-orderInfo?.discount)?.toString()?.toVndCurrency()}}</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Đã thanh toán</strong>
+                                        <span class="text">
+                                            <span class="price">{{orderInfo?.total_paid?.toString()?.toVndCurrency()}}</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Tiền chưa thanh toán</strong>
+                                        <span class="text">
+                                            <span class="price">{{orderInfo?.unpaid?.toString()?.toVndCurrency()}}</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <ul class="col list-order">
+                                    <li>
+                                        <strong class="name">Hình thức thanh toán</strong>
+                                        <span class="text">{{orderInfo?.payment_method}}</span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Người nhận hàng</strong>
+                                        <span class="text">{{orderInfo?.receiver}}</span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">E-mail</strong>
+                                        <span class="text">{{orderInfo?.email}}</span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Số Điện Thoại</strong>
+                                        <span class="text">{{orderInfo?.phone}}</span>
+                                    </li>
+                                    <li>
+                                        <strong class="name">Địa chỉ</strong>
+                                        <span class="text">{{orderInfo?.address}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result_list result_list_tracking" *ngIf="shipments">
+                <div class="order_item" *ngFor="let shipment of shipments">
+                    <div class="quick_view">
+                        <span (click)="toggleViewListProduct(shipment.increment_id)" [class.active]="isShowOrderDetail[shipment.increment_id]" class="toggle-icon"></span>
+                        <ul>
+                            <li class="order_id_n_date column-1">
+                                <p class="order_id">
+                                    Vận chuyển: {{shipment.increment_id}} </p>
+                                <p class="order_date">
+                                    Vận chuyển: {{shipment.updated_at | date:'dd/MM/yyyy' }}
+                                </p>
+                            </li>
+                            <li class="shipping_status-column">
+
+                                <div class="shipping_status">
+                                    <ul>
+                                        <li class="ordered active">
+                                            <span class="text-item">Sẵn Sàng Để Giao Hàng</span>
+                                        </li>
+                                        <li class="in_shipping {{shipment.c2}}">
+                                            <span class="text-item">Sẵn Sàng Để Giao Hàng</span>
+                                            <span class="line"></span>
+                                        </li>
+                                        <li class="finished {{shipment.c3}}">
+                                            <span class="text-item">Sẵn Sàng Để Giao Hàng</span>
+                                            <span class="line"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="detail_view" [class.hidden]="!isShowOrderDetail[shipment.increment_id]" style="display: block;">
+                        <ul class="heading-table-title">
+                            <li class="col name">Tên sản phẩm</li>
+                            <li class="col qty">Số lượng</li>
+                            <li class="col prices">Giá</li>
+                            <li class="col total">Tổng giá tiền</li>
+                        </ul>
+                        <ul class="heading-table-content">
+
+                            <li *ngFor="let product of shipment.items">
+                                <div class="col name">
+                                    <div class="product-img">
+                                        <img src="{{product.small_image?.toProductUrl()}}">
+                                    </div>
+                                    <div class="product-name">
+                                        <a class="product-item-link" routerLink="/product/{{product.product_id}}/{{product.url_key}}" title="{{product.name}}">
+                                            <p class="name">
+                                                {{product.name}}
+                                            </p>
+                                        </a>
+                                        <span class="color" *ngIf="false">Nhiều màu/M</span>
+                                    </div>
+                                </div>
+                                <div class="col qty">{{product.qty_shipped}}</div>
+                                <div class="col prices">
+                                    <span class="price">{{product.price?.toString()?.toVndCurrency()}}</span>
+                                </div>
+                                <div class="col total">
+                                    <span class="price">{{product.row_total?.toString()?.toVndCurrency()}}</span>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar sidebar-main">
+            <div class="sticker-sidebar">
+                <div class="block block-collapsible-nav">
+                    <div class="title block-collapsible-nav-title">
+                        <strong>Trang Tài Khoản</strong>
+                    </div>
+                    <div class="content block-collapsible-nav-content" id="block-collapsible-nav">
+                        <ul class="nav items">
+                            <ul class="group">
+                                <li class="nav item current">
+                                    <a>Track order</a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

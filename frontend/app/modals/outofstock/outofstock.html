@@ -1,0 +1,39 @@
+<div class="oops-products-popup">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-lt">
+            <div class="modal-header-lt">
+                <h5 class="modal-title">OOPS! 1 vài sản phẩm đã hết hàng</h5>
+                <button class="close" type="button" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-table oops-products">
+                    <p class="note">Bạn có muốn loại bỏ các sản phẩm hết hàng và tiếp tục thanh toán?</p>
+                    <div class="oops-products-scroll" >
+                        <div class="cart-row-inner" *ngFor="let item of orderItems">
+                            <div class="field-img-col">
+                                <a (click)="gotoProductDetail(item)">
+                                    <img class="img" src="{{ item.thumbnail }}">
+                                </a>
+                            </div>
+                            <div class="field-content-col">
+                                <p class="field-brand">
+                                    <a (click)="goToBrandPage(item.brand_id, item?.brand_path)">{{ item.brand_name }}</a>
+                                </p>
+                                <p class="field-name">
+                                    <a (click)="gotoProductDetail(item)">{{item.name}}</a>
+                                </p>
+                                <div class="field-status-col outofstock-text">
+                                    Hết hàng
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="group-action-type">
+                        <li><a (click)="closeModal()" class="button-bg btn-cancel" title="Chỉnh sửa giỏ hàng">Chỉnh sửa giỏ hàng</a></li>
+                        <li><a (click)="confirm()" class="button-bg" title="Tiếp tục thanh toán">Tiếp tục thanh toán</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

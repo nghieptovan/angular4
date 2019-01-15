@@ -1,0 +1,25 @@
+<section class="highlight-cates" lazy-load-images>
+    <div class="container-lt">
+        <h2 class="head-title-lt">
+            <span>KHUYẾN MÃI TỪ NGÀNH HÀNG</span>
+        </h2>
+        <div class="cates-slider">
+            <owl-carousel [options]="owlCarouselOptions" [carouselClasses]="['', 'row', 'sliding']" [items]="highlightCates">
+                <div class="item" *ngFor="let item of highlightCates; let idx = index">
+                    <a href="{{item.link1}}">
+                        <span class="field-img">
+                            <img [style.min-height]="isImgLoaded[idx] ? '' : '369px'" (load)="isImgLoaded[idx] = true" attr.data-layer="{{'Home_Z5_' + (idx + 1)}}"
+                                class="img_banner" title="{{item?.image_title1}}" attr.data-src="{{item?.image1?.toMediaUrl()}}">
+                        </span>
+                        <span class="field-info">
+                            <span class="inner">
+                                <span class="field-name">{{item?.title1}}</span>
+                                <span class="field-desc">{{item?.description1}}</span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </owl-carousel>
+        </div>
+    </div>
+</section>

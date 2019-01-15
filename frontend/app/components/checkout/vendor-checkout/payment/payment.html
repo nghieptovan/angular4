@@ -1,0 +1,167 @@
+<div class="cart-content">
+    <div class="head-title-cart">
+        <h2>Thanh Toán</h2>
+    </div>
+    <div class="shipping-content">
+        <div class="left-info">
+            <form id="co-payment-form" class="form payments group-1" #paymentForm="ngForm" novalidate>
+
+                <div class="wrap-border checkout-payment" id="checkout">
+                    <div class="other-form-item">
+                            <div class="address-list">
+                                <!-- cash-->
+                                <div class="address-item" [ngClass]="{'current': paymentType === 'cashondelivery' }">
+                                    <div class="cod-note">
+                                        Bạn sẽ trả tiền cho nhân viên giao hàng tại nhà
+                                    </div>
+                                    <label class="checked-content">
+                                        COD - thanh toán khi nhận hàng
+                                        <input type="radio" name="payment" (click)="selectPaymentType('cashondelivery')"
+                                            [checked]="paymentType === 'cashondelivery'">
+                                        <span class="radiobtn"></span>
+                                    </label>
+                                </div>
+                                <lt-vendor-checkout-payment-by-cash *ngIf="paymentType === 'cashondelivery'"> </lt-vendor-checkout-payment-by-cash>
+                                <!-- end cash-->
+
+                                <!-- card promotion-
+                                <ng-container *ngFor="let promotion of promotions">
+                                    <div class="address-item" [ngClass]="{'current': promotionType === promotion.code && paymentType === 'vietin_gateway'}" >
+                                        <div class="cod-note"></div>
+                                        <label class="checked-content">
+                                            {{ promotion.title }}
+                                            <div class="tips-wrap" *ngIf="promotion.landing_page_textbox">
+                                                <a href="{{promotion.landing_page_url}}"  (click)="$event.stopPropagation();" target="_blank">Chi tiết</a>
+                                                <div class="tips-block">
+                                                    <div class="tips-content">
+                                                        <div class="inner">{{promotion.landing_page_textbox}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="radio" name="payment" class="radio" id="{{ promotion.code }}" value="{{ promotion.code }}"
+                                                (click)="selectPromotionPayment(promotion.code)"
+                                                [checked]="promotionType === promotion.code && paymentType === 'vietin_gateway'" >
+                                            <span class="radiobtn"></span>
+                                        </label>
+                                    </div>
+                                    <lt-checkout-payment-by-card  *ngIf="promotionType === promotion.code && paymentType === 'vietin_gateway' && hasPayment('vietin_gateway')"
+                                        [promotion]="promotion" [paymentType]="paymentType"
+                                    > </lt-checkout-payment-by-card>
+                                </ng-container>
+                                end card -->
+
+                                <!-- card default-->
+                                <div *ngIf="getPayment('vietin_gateway')" class="address-item"
+                                    [ngClass]="{'current': promotionType ===  'vietin_gateway' && paymentType === 'vietin_gateway'}">
+                                    <div class="card-img">
+                                        <img src="https://cdn.lotte.vn/media/wysiwyg/static/ui/cart-page/visa-2.jpg" alt="">
+                                        <img src="https://cdn.lotte.vn/media/wysiwyg/static/ui/cart-page/master-2.jpg" alt="">
+                                        <img src="https://cdn.lotte.vn/media/wysiwyg/static/ui/cart-page/jcb-2.jpg" alt="">
+                                        <img src="https://cdn.lotte.vn/media/wysiwyg/static/ui/cart-page/wecard3110.jpg" alt="">
+                                    </div>
+                                    <label class="checked-content">
+                                        {{ getPayment('vietin_gateway')?.title }}
+                                        <span class="note-type" *ngIf="getPayment('vietin_gateway')?.landing_page_textbox">
+                                            {{getPayment('vietin_gateway')?.landing_page_textbox + ' '}}
+                                            <a *ngIf="getPayment('vietin_gateway')?.landing_page_url" href="{{getPayment('vietin_gateway')?.landing_page_url}}"  (click)="$event.stopPropagation();" >Chi tiết</a>
+                                        </span>
+                                        <input type="radio" name="payment[method]" class="radio" id="vietin_gateway" value="vietin_gateway"
+                                            (click)="selectPromotionPayment('vietin_gateway')"
+                                            [checked]="promotionType === 'vietin_gateway' && paymentType === 'vietin_gateway'" >
+                                        <span class="radiobtn"></span>
+                                    </label>
+                                </div>
+                                <lt-vendor-checkout-payment-by-card  *ngIf="promotionType === 'vietin_gateway' && paymentType === 'vietin_gateway' && hasPayment('vietin_gateway')"
+                                    [promotion]="{code:'vietin_gateway'}" [paymentType]="paymentType"
+                                > </lt-vendor-checkout-payment-by-card>
+
+                                <!-- end card default-->
+
+                                <!-- ATM -->
+                                <div class="address-item" [ngClass]="{'current': paymentType === 'local_atm' }">
+                                    <label class="checked-content">
+                                        Thẻ ATM nội địa
+                                        <input type="radio" name="payment" class="radio" (click)="selectPaymentType('local_atm')"
+                                            [checked]="paymentType === 'local_atm'">
+                                        <span class="radiobtn"></span>
+                                    </label>
+                                </div>
+                                <lt-vendor-checkout-payment-by-atm *ngIf="paymentType === 'local_atm' && hasPayment('local_atm')"> </lt-vendor-checkout-payment-by-atm>
+                                <!-- end ATM-->
+
+                                <!-- installment -->
+                                <!--<div class="address-item" [ngClass]="{'current': paymentType === 'vietin_gateway_installment' }">-->
+                                    <!--<label class="checked-content">-->
+                                        <!--Trả góp 0%-->
+                                        <!--<input type="radio" name="payment" class="radio" (click)="selectPaymentType('vietin_gateway_installment')"-->
+                                            <!--[checked]="paymentType === 'vietin_gateway_installment'">-->
+                                        <!--<span class="radiobtn"></span>-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                                <!--<lt-checkout-payment-by-installment *ngIf="paymentType === 'vietin_gateway_installment' && hasPayment('vietin_gateway_installment')" ></lt-checkout-payment-by-installment>-->
+                                <!-- end installment -->
+
+                                <!-- momo -->
+                                <div *ngIf="momo?.length > 0" class="address-item" [ngClass]="{'current': paymentType === 'momo' }">
+                                    <div class="card-img">
+                                        <img src="https://cdn.lotte.vn/media/wysiwyg/static/ui/cart-page/momo.jpg" alt="">
+                                    </div>
+                                    <label class="checked-content">
+                                        Ví điện tử - MoMo {{getPayment('momo')?.landing_page_textbox}}
+                                        <ng-container *ngIf="getPayment('momo')?.landing_page_textbox">
+                                            <span class="lbl-pro-tag">Ưu đãi</span>
+                                            <span class="note-type" >
+                                                {{getPayment('momo')?.landing_page_textbox + ' '}}
+                                                <a href="{{getPayment('momo')?.landing_page_url}}"  (click)="$event.stopPropagation();" target="_blank">Chi tiết</a>
+                                            </span>
+                                        </ng-container>
+                                        <input type="radio" name="payment" class="radio" (click)="selectPaymentType('momo')" [checked]="paymentType === 'momo'">
+                                        <span class="radiobtn"></span>
+                                    </label>
+                                </div>
+                                <lt-vendor-checkout-payment-by-momo *ngIf="paymentType === 'momo' && hasPayment('momo')" ></lt-vendor-checkout-payment-by-momo>
+                                <!-- end momo -->
+
+                            </div>
+
+                    </div>
+                </div>
+
+                <!--<ng-container *ngIf="promotions?.length > 0">-->
+                    <!--<h3 class="head-title-type-2">Ưu đãi thanh toán từ ngân hàng</h3>-->
+                    <!--<div class="wrap-border checkout-payment" id="checkout">-->
+                        <!--<div class="other-form-item">-->
+                            <!--<div class="address-list">-->
+                                <!--&lt;!&ndash; card promotion&ndash;&gt;-->
+                                <!--<ng-container *ngFor="let promotion of promotions">-->
+                                        <!--<div class="address-item" [ngClass]="{'current': promotionType === promotion.code && paymentType === 'vietin_gateway'}" >-->
+                                            <!--<div class="cod-note"></div>-->
+                                            <!--<label class="checked-content">-->
+                                                <!--{{ getPayment(promotion.code)?.title }}-->
+                                                <!--<span class="lbl-pro-tag">Ưu đãi</span>-->
+                                                <!--<span class="note-type" >-->
+                                                    <!--{{ getPayment(promotion.code)?.landing_page_textbox + ' ' }}-->
+                                                    <!--<a *ngIf=" getPayment(promotion.code)?.landing_page_url" href="{{ getPayment(promotion.code).landing_page_url}}"  (click)="$event.stopPropagation();" target="_blank">Chi tiết</a>-->
+                                                <!--</span>-->
+                                                <!--<input type="radio" name="payment" class="radio" id="{{ promotion.code }}" value="{{ promotion.code }}"-->
+                                                    <!--(click)="selectPromotionPayment(promotion.code)"-->
+                                                    <!--[checked]="promotionType === promotion.code && paymentType === 'vietin_gateway'" >-->
+                                                <!--<span class="radiobtn"></span>-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                        <!--<lt-checkout-payment-by-card  *ngIf="promotionType === promotion.code && paymentType === 'vietin_gateway' && hasPayment('vietin_gateway')"-->
+                                            <!--[promotion]="promotion" [paymentType]="paymentType"-->
+                                        <!--&gt; </lt-checkout-payment-by-card>-->
+                                    <!--</ng-container>-->
+                                    <!--&lt;!&ndash; end card &ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</ng-container>-->
+
+            </form>
+        </div>
+    </div>
+</div>
+<lt-vendor-checkout-sidebar uid="payment"> </lt-vendor-checkout-sidebar>
+

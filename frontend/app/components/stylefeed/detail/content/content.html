@@ -1,0 +1,88 @@
+<div class="post-detail" *ngIf="posts.length > 0">       
+    <ng-container *ngFor="let post of posts">
+        <meta itemprop="url" content="https://lotte.vn{{post.post_url}}" />
+        <meta itemprop="creator" content="Lotte.vn" />        
+        <meta itemprop="thumbnailUrl" content="{{post?.images?.thumbnail}}" />        
+        <meta itemprop="keywords" content="{{post?.keywords}}" />        
+        <meta itemprop="articleSection" content="{{post?.categories?.parent[0].name}}" />   
+        <ng-container *ngFor="let imageUrl of imageUrls">
+            <meta itemprop="image" content="{{ imageUrl }}" />
+        </ng-container>
+        <div class="top-category" *ngIf="post.categories.children">
+            <ng-container *ngFor="let children of post.categories.children; let i = index">
+                <a *ngIf="i == 0" href="{{ children.category_url }}">{{ children.name }}</a>
+            </ng-container>
+        </div>
+        <div class="post-title">
+            <h2 itemprop="headline">{{ post.name }}</h2>
+            <div class="right">
+                <span *ngIf="post.categories.parent">
+                    <ng-container *ngFor="let parent of post.categories.parent; let i = index">
+                        <span class="cate-txt"><a *ngIf="i == 0" href="{{ parent.category_url }}">#{{ parent.name }}</a></span>
+                    </ng-container>
+                </span>
+                <div class="post-date" *ngIf="post.post_date">                    
+                    <meta itemprop="datePublished" content="{{ post.post_date.replace('.','-').replace('.','-') }}" />
+                    <meta itemprop="dateModified" content="{{ post.post_date.replace('.','-').replace('.','-') }}" />
+                    <span class="first">{{ post.post_date.split('.')[0] }}</span>
+                    <span class="last">{{ post.post_date.split('.')[1] + '-' + post.post_date.split('.')[2].replace(20,'') }}</span>
+                </div>
+            </div>
+        </div>
+        <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+            <meta itemprop="name" content="Lotte.vn" />
+        </span>
+        <span itemscope itemprop="publisher" itemtype="http://schema.org/Organization">
+            <meta itemprop="name" content="Lotte.vn" />
+            <span itemscope itemprop="logo" itemtype="http://schema.org/ImageObject">
+                <meta itemprop="url" content="https://d1710i1dsqwesz.cloudfront.net/media/logo/default/lotte-logo-2_1.png" />
+            </span>
+        </span>
+
+        <div class="post-description" [innerHTML]="post?.more_description" itemprop="disambiguatingDescription"></div>
+        <div class="post-content" [innerHTML]="post.content | safeHtml" itemprop="articleBody"></div>
+
+        <app-stylefeed-product-list [products] ="post.products.hits"></app-stylefeed-product-list>
+
+        <hr class="break-line">
+        <div class="share-block">
+            <p>Đừng giữ bí mật. Chia sẻ ngay nào!</p>
+            <p class="social-list-lt">
+                    <!--https://www.facebook.com/sharer/sharer.php?s=100&amp;p[title]={{ post.name }}&amp;p[url]={{ currentUrl }} -->
+                <a href="http://www.facebook.com/dialog/feed?app_id=1048246871937461&link={{currentUrl}}&picture={{ post?.images?.homepage_block_left }}&name={{post.name}}&caption={{post.name}}&description={{post.description}}&redirect_uri={{currentUrl}}&display=popup" target="_blank">
+                    <img src="https://d1710i1dsqwesz.cloudfront.net/media/wysiwyg/static/style-feed/icon-facebook-2.jpg" alt="Share on Facebook">
+                </a>
+                <a href="http://twitter.com/share?text=Lotte Styles" target="_blank">
+                    <img src="https://d1710i1dsqwesz.cloudfront.net/media/wysiwyg/static/style-feed/icon-twitter-2.jpg" alt="Share on twitter">
+                </a>
+                <a target="_blank" href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
+                    <img src="https://d1710i1dsqwesz.cloudfront.net/media/wysiwyg/static/style-feed/icon-pinterest-2.jpg" alt="Share on Pinterest">
+                </a>
+                <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
+                    <img src="https://d1710i1dsqwesz.cloudfront.net/media/wysiwyg/static/style-feed/icon-googleplus-2.jpg" alt="Share on Google Plus">
+                </a>
+            </p>
+        </div>
+
+        <lt-stylefeed-post-related></lt-stylefeed-post-related>
+
+    </ng-container>
+
+</div>
+
+<lt-stylefeed-post-comment></lt-stylefeed-post-comment>
+
+<ul itemscope itemtype="http://schema.org/BreadcrumbList" style="display: none;" >
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <meta itemprop="item" content="https://lotte.vn" />
+        <meta itemprop="name" content="Lotte.vn" />
+        <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <meta itemprop="item" content="https://www.lotte.vn/style-feed" />
+        <meta itemprop="name" content="Style Feed" />
+        <meta itemprop="position" content="2" />
+    </li>
+</ul>
+
+<a (window:scroll)="onScroll($event)" (click)="scrollToTop()" href="javascript:void(0);" class="btn-btt-lt"><span>Back to top</span></a>

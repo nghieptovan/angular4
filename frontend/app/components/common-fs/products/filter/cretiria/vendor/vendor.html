@@ -1,0 +1,43 @@
+<li [ngClass]="{opened:isChecked}" *ngIf="facets[_facet.attribute_code]?.length > 1">
+    <a href="javascript:void(0);" class="filter-item">{{_facet.label}}</a>
+    <div class="dropdown-options">
+        <!--<div class="selected-info clearfix">-->
+        <!--<div class="selected-inner">-->
+        <!--<div class="number">{{(productState | facetstype:'product_brand').length}} selected</div>-->
+        <!--<div class="text"><ng-container *ngFor="let selected of productState | facetstype:'color'; let idx = index">{{idx === 0? selected.name:', '+ selected.name}}</ng-container></div>-->
+        <!--</div>-->
+        <!--<a (click)="resetTypeFilter('product_brand')" [ngClass]="{'btn-clear-disable':!(productState | facetstype:'product_brand').length}" class="btn-clear">Xóa</a>-->
+        <!--</div>-->
+        <div class="search-brands" *ngIf="_facet?.searchable">
+            <div class="form-row">
+                <input type="text" (input)="search($event.target.value)" [(ngModel)]="keyword" placeholder="Tìm kiếm {{_facet.label}}" name="">
+                <a (click)="clearKeyword()" class="remove-item" [ngStyle]="keyword && {'display':'block'}"><span>x</span></a>
+            </div>
+        </div>
+        <div class="items">
+            <ng-container *ngIf="omniList.length">
+                <h4>OMNI - Nhà cung cấp độc quyền:</h4>
+                <ul>
+                    <ng-container *ngFor="let data of omniList; let idx = index">
+                        <li [ngClass]="{'current':data.isChecked}" (click)="addFilter(_facet.attribute_code, data, $event)" *ngIf="data.name !== ''">
+                            <ng-container *ngIf="data.name.includes('Lotte')">
+                                {{data.name}}
+                            </ng-container>
+                            <ng-container *ngIf="!data.name.includes('Lotte')">
+                                Lotte Department Store - {{data.name}}
+                            </ng-container>
+                        </li>
+                    </ng-container>
+                </ul>
+            </ng-container>
+            <ng-container>
+                <h4  *ngIf="omniList.length && orthersList.length">Nhà cung cấp khác:</h4>
+                <ul>
+                    <ng-container *ngFor="let data of orthersList">
+                        <li [ngClass]="{'current':data.isChecked}" (click)="addFilter(_facet.attribute_code, data, $event)" *ngIf="data.name !== ''">{{data.name}}</li>
+                    </ng-container>
+                </ul>
+            </ng-container>
+        </div>
+    </div>
+</li>

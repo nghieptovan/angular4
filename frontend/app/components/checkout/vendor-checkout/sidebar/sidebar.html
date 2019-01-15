@@ -1,0 +1,141 @@
+<div class="voucher-code-block">
+        <div class="voucher-code">
+            <div class="form-row-lt" *ngIf="vendorLandingSetting?.allow_apply_coupon">
+                <form ngForm #couponForm="ngForm" (submit)="applyCoupon()" >
+                    <button class="button-bg" type="submit" [disabled]="!couponCode" *ngIf="!hasCoupon">Áp dụng</button>
+                    <button class="button-bg" type="button" (click)="removeCoupon()" *ngIf="hasCoupon">Hủy bỏ</button>
+                    <label class="form-label" [ngClass]="{'active focus-lt': coupon.focus || coupon.value , 'error-lt' : couponErrorMessage != null }">
+                        <span class="form-text">Mã giảm giá</span>
+                        <input maxlength="50" name="coupon" #coupon="ngModel" type="text" [(ngModel)]="couponCode" [readonly]="hasCoupon"
+                               (focus)="coupon.focus = true" (blur)="coupon.focus = false" class="input-text"
+                        >
+                    </label>
+                    <div class="mage-error" *ngIf="couponErrorMessage != null">{{ couponErrorMessage }}</div>
+                    <div class="mage-success" *ngIf="couponCode != null && couponCode?.length > 0 && hasCoupon  ">Áp dụng mã thành công</div>
+                </form>
+            </div>
+        </div>
+        <div class="lpoint-code" *ngIf="(authIsLoggedIn$ | async) && vendorId !== 101405 && !inLpointCampaign">
+            <!--<div class="lpoint-info">-->
+                <!--<label class="checked-content">-->
+                    <!--L.POINT-->
+                    <!--<input type="checkbox" name="useLPoint" [(ngModel)]="useLPoint" (change)="checkLpoint()" id="lt-checkout-sidebar__discount&#45;&#45;lpoint">-->
+                    <!--<span class="checkmark"></span>-->
+                <!--</label>-->
+                <!--<span class="txt">khả dụng: {{ customerLPoint?.toString().toVndCurrency()}}</span>-->
+            <!--</div>-->
+            <!--<div class="form-row-lt">-->
+                <!--<form ngForm #lpointForm="ngForm" novalidate >-->
+                    <!--<button class="button-bg" type="button" (click)="updateLPoint()" *ngIf="!hasLPoint" [disabled]="!useLPoint || customerLPoint <= 0">Áp dụng</button>-->
+                    <!--<button class="button-bg" type="button" (click)="removeLPoint()" *ngIf="hasLPoint">Hủy bỏ</button>-->
+                    <!--<label class="form-label">-->
+                        <!--<input type="number" maxlength="15" name="lpointInput" #lpointInput="ngModel" [(ngModel)]="lpoint"-->
+                               <!--[readonly]="!useLPoint || customerLPoint <= 0" required class="input-text">-->
+                    <!--</label>-->
+                    <!--<div class="mage-error" *ngIf="errorLpointMessage != null && !hasLPoint">{{ errorLpointMessage }}</div>-->
+                    <!--<div class="mage-success" *ngIf="useLPoint  && customerLPoint > 0 && hasLPoint  ">Áp dụng Lpoint thành công</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="cart-right-info">
+        <div class="content">
+            <div class="aside-head">
+                <a (click)="backToPreviousStep()" class="btn-edit1">Chỉnh sửa</a>
+                <h3>{{ uid=='payment' ? 'Giao đến' : 'Thông tin đơn hàng' }}  </h3>
+            </div>
+            <ng-container *ngIf="shippingAddress && uid=='payment'">
+                <div class="delivery-to" >
+                    <p class="customer-name">{{ shippingAddress?.firstname + ' ' + shippingAddress?.lastname }}</p>
+                    <p>{{ shippingAddress?.telephone }} - {{ shippingAddress?.extension_attributes.email_address }}</p>
+                    <p>{{ shippingAddress?.street[0] + ', ' + shippingAddress?._ward?.name + ', ' + shippingAddress?._district?.name
+                        + ', ' + shippingAddress?._city?.name }}</p>
+                </div>
+                <div class="aside-head">
+                    <h3>Thông tin đơn hàng</h3>
+                </div>
+            </ng-container>
+
+            <div class="cart-list-content">
+                <div class="inner">
+                    <ng-container *ngFor="let vendor of cartVendors?.by_group">
+                        <div class="group-head">
+                            <div class="seller-name">{{ vendor.vendor_name}}</div>
+                            <div class="deli-info" [ngClass]="{'note-type mess-text': !vendor.vendor_shippable}">
+                                    <span *ngIf="vendor.customer_fee_standard "></span>
+                                    {{ vendor.customer_fee_standard == 0 ? 'Miễn Phí vận chuyển' : 'Phí vận chuyển ' + vendor.customer_fee_standard + 'đ'}} -
+                                    {{ vendor.shipping_name}} -
+                                <!--{{ vendor.shipping_type === 'express' ? '24H' : vendor.duration_standard }}-->
+                                {{ vendor.shipping_type === 'express' ? '24H' : !vendor.vendor_shippable?vendor.duration_standard:'Giao hàng trong ' + getDurationDelivery() + ' giờ kể từ khi xác nhận đơn hàng.' }}
+                                <a *ngIf="!vendor.vendor_shippable" target="_blank" href="/shoppingguide/seller/chinh-sach-van-chuyen{{ vendor.vendor_path }}">Tìm hiểu lý do</a>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let item of vendor?.products">
+                            <div class="cart-item">
+                                <div class="field-img">
+                                    <img src="{{item.thumbnail}}" alt="" height="42" width="32">
+                                    <!-- <a href="{{item.product_path}}"><img src="{{item.thumbnail}}" alt="" height="42" width="32"></a> -->
+                                </div>
+                                <div class="field-content">
+                                    <div class="field-name">
+                                        {{item.name}}
+                                        <!-- <a href="{{item.product_path}}">{{item.name}}</a> -->
+                                    </div>
+                                    <div *ngIf="item?.chosen_options" class="options">
+                                        <ng-container *ngFor="let option of item.chosen_options | toJson; let i = index;">
+                                            <span *ngIf="i > 0"> / </span>
+                                            <span>{{ option.value }}</span>
+                                        </ng-container>
+                                    </div>
+                                    <div class="gift-block" *ngIf="item?.extension_attributes?.vec_gift_message !== 'false'">
+                                        <span class="gift-text">Quà tặng</span>
+                                        <div class="tips-block">
+                                            <div class="tips-content">
+                                                <div class="inner" *ngFor="let gift of parseGifts(item.extension_attributes?.vec_gift_message)" [innerHTML]="gift?.description"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field-price">
+                                    <span class="text">{{item.row_total?.toString().toVndCurrency()}}</span>
+                                    <span class="qty">x{{item.qty}}</span>
+                                </div>
+                            </div>
+
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="cart-total-content">
+                <div class="info-row">
+                    <span class="lbl-text">Tổng cộng</span>
+                    <span class="lbl-number">{{cartTotal?.subtotal?.toString().toVndCurrency()}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="lbl-text">Phí giao hàng {{ currentStep == 3 ? '' : '(tạm tính)' }} </span>
+                    <span class="lbl-number">{{ shippingFee?.toString() === '0' ? 'Miễn Phí' : '+' + shippingFee?.toString()?.toVndCurrency()}}</span>
+                </div>
+                <div class="info-row" *ngIf="(-cartTotal?.base_discount_amount) > 0">
+                    <span class="lbl-text">Mã giảm giá {{ couponCode?.length > 0 && (-cartTotal?.base_discount_amount) > 0 ?  '(' + couponCode + ')' : '' }}</span>
+                    <span class="lbl-number">{{ '-' + (-cartTotal?.base_discount_amount)?.toString()?.toVndCurrency() }}</span>
+                </div>
+                <div class="info-row" *ngIf="appliedLPoint && (authIsLoggedIn$ | async)">
+                    <span class="lbl-text">L.POINT</span>
+                    <span class="lbl-number">{{ (appliedLPoint) | number:'1.0-0' }} ₫</span>
+                </div>
+                <div class="info-row total">
+                    <span class="lbl-text">Thanh toán</span>
+                    <span class="lbl-number">{{ (cartTotal?.grand_total - cartTotal?.shipping_amount + shippingFee)?.toString()?.toVndCurrency()}}</span>
+                </div>
+            </div>
+
+            <p class="btn-type" >
+                <button (click)="onClickSubmit()" class="button-bg" type="button">
+                    {{ currentStep < 3 ?  'Tiếp Tục' : 'Tiến hành thanh toán'}}
+                </button>
+            </p>
+
+            <p *ngIf="currentStep === 3" class="terms"  >Bằng việc nhấn vào nút Tiến hành thanh toán, Quý khách cam kết đồng ý với: <a href="/customer_service/" target="_blank">Chính sách</a>, <a href="/dieu-kien-va-dieu-khoan" target="_blank">Điều khoản & Điều kiện</a> mua hàng và sử dụng dịch vụ trên website LOTTE.vn</p>
+        </div>
+    </div>

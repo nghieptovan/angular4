@@ -1,0 +1,10 @@
+<nav class="topmenu-lot">
+  <div class="container-lt clearfix">
+    <a class="menu-lbl" (click)="resetAllFilter()">Thực đơn</a>
+    <ng-container *ngFor="let facet of facetsInfo">
+      <ng-container *ngIf="facet.attribute_code === 'categories'">
+        <app-seller-lotteria-product-filter-category [Facet]="facet"></app-seller-lotteria-product-filter-category>
+      </ng-container>
+    </ng-container>
+  </div>
+</nav>

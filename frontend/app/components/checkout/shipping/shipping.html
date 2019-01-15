@@ -1,0 +1,180 @@
+<div class="cart-content">
+    <div class="head-title-cart"><h2>Địa chỉ nhận hàng</h2></div>
+    <div class="shipping-content">
+        <div class="left-info">
+            <div *ngIf="!isLoggedIn">
+            <a (click)="login()" class="btn-login-2" title="Đăng nhập để đặt hàng">
+                Đăng nhập để đặt hàng
+            </a>
+            </div>
+            <form id="checkout-step-shipping" class="step-content" #customerForm="ngForm" (ngSubmit)="goToNextStep(customerForm)" novalidate>
+                <div class="wrap-border " [ngClass]="{'checkout-address-form-list': isLoggedIn  }" >
+                        <lt-checkout-address-form #shippingForm uid="shipping" (addressChange)="onChangeShippingAddress($event)" (validationChange)="isShippingAddressValid = $event;"></lt-checkout-address-form>
+                </div>
+                <div class="wrap-border ">
+                    <div class="other-form-item" hidden>
+                        <label class="checked-content">
+                            Thông tin người đặt khác với người nhận hàng
+                            <input type="checkbox" name="billing-address-same-as-shipping" [(ngModel)]="differentBillingAddress" id="billing-address-same-as-shipping-cashondelivery">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="form-inner" [hidden]="!differentBillingAddress">
+                            <lt-checkout-address-form #billingForm uid="billing" (addressChange)="billingAddress = $event" (validationChange)="isBillingAddressValid = $event;"></lt-checkout-address-form>
+                        </div>
+                    </div>
+                    <div class="other-form-item">
+                        <label class="checked-content">
+                            Yêu cầu xuất hoá đơn đỏ
+                            <input id="vat-info-checbox" [(ngModel)]="vatInfo.vat_required" type="checkbox" name="company-info-select">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="form-inner form-shipping-address" *ngIf="vatInfo.vat_required">
+                            <div class="form-row-lt">
+                                <div class="form-col">
+                                    <label class="form-label" [ngClass]="{'active focus-lt': vatCompanyName.focus || vatCompanyName.value, 'error-lt': vatCompanyName.invalid && (vatCompanyName.dirty || vatCompanyName.touched) && vatCompanyName?.errors.required }">
+                                        <span class="form-text">Tên công ty</span>
+                                        <input [ngClass]="{'mage-error': vatCompanyName.invalid && (vatCompanyName.dirty || vatCompanyName.touched) && vatCompanyName.errors.required}"
+                                            maxlength="255" class="input-text" #vatCompanyName="ngModel" name="vatCompanyName"
+                                            [(ngModel)]="vatInfo.vat_company_name" type="text" required
+                                            (focus)="vatCompanyName.focus = true" (blur)="vatCompanyName.focus = false"
+                                        >
+                                    </label>
+                                    <div class="mage-error" *ngIf="vatCompanyName.invalid && (vatCompanyName.dirty || vatCompanyName.touched) && vatCompanyName?.errors.required">
+                                        Vui lòng nhập dữ liệu.
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label class="form-label" [ngClass]="{'active focus-lt': vatCompanyAddress.focus || vatCompanyAddress.value, 'error-lt': vatCompanyAddress.invalid && (vatCompanyAddress.dirty || vatCompanyAddress.touched) && vatCompanyAddress?.errors.required }">
+                                        <span class="form-text">Địa chỉ công ty</span>
+                                        <input [ngClass]="{'mage-error': vatCompanyAddress.invalid && (vatCompanyAddress.dirty || vatCompanyAddress.touched) && vatCompanyAddress.errors.required}"
+                                            maxlength="255" class="input-text" type="text" #vatCompanyAddress="ngModel"
+                                            name="vatCompanyAddress" [(ngModel)]="vatInfo.vat_company_address" required
+                                            (focus)="vatCompanyAddress.focus = true" (blur)="vatCompanyAddress.focus = false"
+                                        >
+                                    </label>
+                                    <div class="mage-error" *ngIf="vatCompanyAddress.invalid && (vatCompanyAddress.dirty || vatCompanyAddress.touched) && vatCompanyAddress?.errors.required">
+                                        Vui lòng nhập dữ liệu.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row-lt">
+                                <div class="form-col form-col-full">
+                                    <label class="form-label" [ngClass]="{'active focus-lt': vatTaxCode.focus || vatTaxCode.value, 'error-lt': vatTaxCode.invalid && (vatTaxCode.dirty || vatTaxCode.touched) && vatTaxCode?.errors.required }">
+                                        <span class="form-text">Mã số thuế</span>
+                                        <input [ngClass]="{'mage-error': vatTaxCode.invalid && (vatTaxCode.dirty || vatTaxCode.touched) && (vatTaxCode.errors.required || vatTaxCode.errors.pattern)}"
+                                            maxlength="255" class="input-text" type="text" #vatTaxCode="ngModel"
+                                            name="vatTaxCode" [(ngModel)]="vatInfo.vat_company_taxcode" pattern="[\d]+"
+                                            required
+                                            (focus)="vatTaxCode.focus = true" (blur)="vatTaxCode.focus = false"
+                                        >
+                                    </label>
+                                    <div class="mage-error" *ngIf="vatTaxCode.invalid && (vatTaxCode.dirty || vatTaxCode.touched) && vatTaxCode?.errors.required">Vui lòng nhập dữ liệu.</div>
+                                    <div class="mage-error" *ngIf="vatTaxCode.invalid && (vatTaxCode.dirty || vatTaxCode.touched) && vatTaxCode?.errors.pattern">Vui lòng nhập số</div>
+                                    <span class="note-txt">
+                                        Lưu ý: Mỗi nhà cung cấp chỉ xuất hóa đơn tài chính cho đơn hàng có giá trị từ 200,000VND
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <input type="submit" class="button action continue primary large btn-continue checkout hidden" hidden>
+
+                <ng-container *ngFor="let vendor of cartVendors?.by_group">
+                    <ng-container *ngIf="vendor?.vendor_data?.pickup_enable === '1'">
+                        <div class="quick-delivery-section">
+                            <h3>
+                                <label class="switch">
+                                    <input type="checkbox" #pickActive="ngModel" (change)="onChangeShipType(vendor)"
+                                           name="pickActive-{{vendor.vendor_id}}" [(ngModel)]="vendor.pickupInfo.isActive">
+                                    <span class="slider-switch round" ></span>
+                                </label>
+                                Các sản phẩm hỗ trợ nhận nhanh tại cửa hàng:
+                            </h3>
+                            <div class="product-list-quick">
+                                <div class="product-row">
+                                    <h4>Nhà cung cấp: {{vendor.vendor_name}}</h4>
+                                    <p>
+                                        Sản phẩm của bạn sẽ sẵn sàng {{vendorPickupMgr.getShippingDuration()?.cart_text}}. Địa chỉ: {{vendor?.vendor_data?.pickup_location}}.
+                                        <ng-container *ngIf="vendor?.pickupInfo?.customer_name && vendor?.pickupInfo?.customer_phone">
+                                            Người nhận: {{vendor.pickupInfo.customer_name}} - {{vendor.pickupInfo.customer_phone}}
+                                        </ng-container>
+                                    </p>
+                                    <ul>
+                                        <li *ngFor="let item of vendor.products; let i = index">
+                                            <img src="{{ item.thumbnail }}" width="58" height="75" alt="{{ item?.name }}" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="receiver-info-block" *ngIf="vendor.pickupInfo.isActive">
+                            <h4>Thông tin người nhận</h4>
+                            <div class="form-row-lt">
+                                <input name="pickVendorName" #pickVendorName="ngModel" [(ngModel)]="vendor.pickupInfo.vendor_name" type="hidden">
+                                <input name="pickVendorLocation" #pickVendorLocation="ngModel" [(ngModel)]="vendor.pickupInfo.vendor_location" type="hidden">
+                                <div class="form-col">
+                                    <input class="input-text" name="pickName"
+                                           #pickName="ngModel" type="text"
+                                           placeholder="Họ tên" [(ngModel)]="vendor.pickupInfo.customer_name"
+                                           required maxlength="100"
+                                    >
+                                    <div class="mage-error" *ngIf="pickName.invalid && (pickName.dirty || pickName.touched) && pickName?.errors.required">
+                                        Vui lòng nhập dữ liệu
+                                    </div>
+                                    <div class="mage-error" *ngIf="pickName.invalid && (pickName.dirty || pickName.touched) && pickName?.errors.maxlength">
+                                        Tên không dài quá 100 ký tự
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <input
+                                            class="input-text" name="pickEmail"
+                                            #pickEmail="ngModel" [(ngModel)]="vendor.pickupInfo.customer_email"
+                                            placeholder="Email" type="text"
+                                            maxlength="200"
+                                            [pattern]="regexEmail" required
+                                    >
+                                    <div class="mage-error" *ngIf="pickEmail.invalid && (pickEmail.dirty || pickEmail.touched) && pickEmail?.errors.required">
+                                        Vui lòng nhập dữ liệu
+                                    </div>
+                                    <div class="mage-error" *ngIf="pickEmail.invalid && (pickEmail.dirty || pickEmail.touched) && pickEmail?.errors.pattern">
+                                        Vui lòng nhập 1 địa chỉ email hợp lệ (Ví dụ: johndoe@domain.com).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row-lt">
+                                <div class="form-col">
+                                    <input
+                                            class="input-text" name="pickPhone"
+                                            #pickPhone="ngModel" [(ngModel)]="vendor.pickupInfo.customer_phone"
+                                            placeholder="Điện thoại người nhận (*)" type="text"
+                                            minlength="10" maxlength="16"
+                                            [pattern]="regexPhoneNumber" required
+                                    >
+                                    <div class="mage-error" *ngIf="pickPhone.invalid && (pickPhone.dirty || pickPhone.touched) && pickPhone?.errors.pattern">
+                                        Vui lòng nhập số điện thoại hợp lệ, Ví dụ: 0981234567, +84981234567. Lưu ý theo thông báo của nhà mạng, vui lòng nhập đầu số điện thoại mới từ ngày 14/11/2018.
+                                    </div>
+                                    <div class="mage-error" *ngIf="pickPhone.invalid && (pickPhone.dirty || pickPhone.touched) && pickPhone?.errors.minlength">
+                                        Vui lòng nhập nhiều hơn hoặc bằng 10 ký tự.
+                                    </div>
+                                    <div class="mage-error" *ngIf="pickPhone.invalid && (pickPhone.dirty || pickPhone.touched) && pickPhone?.errors.required">
+                                        Vui lòng nhập dữ liệu
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="note-txt">(*) Mã nhận hàng sẽ được gửi qua số điện thoại trên. Quí khách vui lòng đưa mã nhận hàng khi đến lấy hàng. </p>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </form>
+        </div>
+    </div>
+</div>
+<lt-checkout-sidebar uid="shipping"></lt-checkout-sidebar>
+
+
+
+

@@ -1,0 +1,60 @@
+<div class="checkout-final-result checkout-failse">
+        <div class="checkout-status">&nbsp;</div>
+        <p class="msg-text">Đặt hàng không thành công !</p>
+        <p class="error-msg">Vui lòng kiểm tra thông tin thanh toán và thử lại.</p>
+        <hr class="break-line">
+        <div class="content">
+                <p class="order-number">MÃ ĐƠN HÀNG: 000000 </p>
+                <div class="item-row">
+                    <div class="lbl-left">
+                        <strong>Tổng tiền</strong>
+                    </div>
+                    <div class="lbl-right">
+                        <strong>{{ orderSuccess && orderSuccess.grand_total ? orderSuccess.grand_total.toString().toVndCurrency() : (cart?.total?.grand_total - cart?.total?.shipping_amount + shippingFee)?.toString().toVndCurrency() }}</strong>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="lbl-left">
+                        Ngày đặt
+                    </div>
+                    <div class="lbl-right">
+                        {{currentDate}}
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="lbl-left">
+                        Thanh toán bằng
+                    </div>
+                    <div class="lbl-right">
+                        {{ paymentType }}
+                    </div>
+                </div>
+                <!--
+                <div class="item-row">
+                    <div class="lbl-left">
+                        Điểm thưởng
+                    </div>
+                    <div class="lbl-right">
+                        +3.600 điểm
+                    </div>
+                </div>
+                -->
+                <hr class="break-line">
+                <div class="custom-info">
+                    <h3>Thông tin người nhận hàng </h3>
+                    <p class="name"><strong>{{ shippingAddress?.lastname }} {{ shippingAddress?.firstname }}</strong></p>
+                    <p>{{ shippingAddress?.street[0] }}, {{ shippingAddress?._ward.name }}, {{ shippingAddress?._district.name }}, {{ shippingAddress?._city.name }}</p>
+                    <p> <label>Email : </label>{{ shippingAddress?.extension_attributes?.email_address }}</p>
+                    <p><label>Điện thoại: </label>{{ shippingAddress?.telephone }}</p>
+                </div>
+            </div>
+        <!--
+        <div class="note-2">
+            <span>i</span>Bạn đã tiết kiệm được 1.200.000₫
+        </div>
+        -->
+        <div class="btn-group">
+            <a href="/checkout/{{vendorId}}?step=2" class="button-bg" >Thanh toán lại</a>
+            <a href="/" class="button-bg btn-backtohome" >trở về trang chủ</a>
+        </div>
+    </div>

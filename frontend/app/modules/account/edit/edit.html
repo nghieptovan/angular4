@@ -1,0 +1,392 @@
+<ng-container *ngIf="true">
+    <div class="page-title-wrapper">
+        <h1 class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper">Thay Đổi Thông Tin Tài Khoản</span>
+        </h1>
+    </div>
+    <div *ngIf="lpointBanner?.content" [innerHTML]="lpointBanner?.content | safeHtml"></div>
+    <!-- <div class="lpoint-info-banner">
+        <img src="{{'wysiwyg/static/promotions/072017/lpoint/lpoint.png'.toMediaUrl()}}" alt="">
+        <a routerLink="/account/edit/" class="link-1" title="Cập nhật thông tin">Cập nhật thông tin</a>
+        <a href="/campaign/l-point-launching/" target="_blank" class="link-2" title="Chi tiết chương trình L.Point">Chi tiết chương trình L.Point</a>
+    </div> -->
+    <div class="infomation_for_customer">
+        <ul>
+            <li>LOTTE.VN tôn trọng thông tin cá nhân của quý khách và sẽ không cung cấp thông tin này mà không có sự đồng ý của
+                quý khách
+            </li>
+            <li>Vui lòng cung cấp thông tin chính xác để chúng tôi có thể phục vụ quý khách tốt hơn.</li>
+        </ul>
+    </div>
+    <div class="account_block">
+        <h2 class="block-title">
+            <span>Thông tin cá nhân</span>
+        </h2>
+        <div class="block-content">
+            <div class="membership_info">
+                <div class="welcome">
+                    <div class="avatar">
+                        <img style="max-height: 100px; max-width: 100px;" alt="" src="{{'frontend/SM/Lottevec/vi_VN/SM_Customer/images/default_avatar.png'.toStaticUrl()}}">
+                    </div>
+                    <div class="name">
+                        <strong>Chào, {{userInfoClone?.firstname + ' ' + userInfoClone?.lastname}}</strong>
+                    </div>
+                    <div class="current_level hide">
+                        Loại tài khoản:
+                        <strong>Welcome star</strong>
+                        <span class="button-guideline2"></span>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="col-50 order">
+                                <i class="icon-order"></i>
+                                <span>Đơn hàng</span>
+                            </div>
+                            <div class="col-50 number">
+                                <strong>
+                                    <a [routerLink]="['/account/orders']">{{userInfo?.number_orders}}</a>
+                                </strong>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-50 order">
+                                <i class="icon-whislit"></i>
+                                <span>Danh sách yêu thích</span>
+                            </div>
+                            <div class="col-50 number">
+                                <strong>
+                                    <a routerLink="/account/wishlist">{{userInfo?.number_product_wishlist}}</a>
+                                </strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form class="form form-edit-account" #updateForm="ngForm" (ngSubmit)="updateInfo(updateForm)" method="post" autocomplete="off"
+                id="form-validate" novalidate>
+                <fieldset class="fieldset info">
+                    <div class="field email required">
+                        <label style="font-weight: bold;" class="label" for="email">
+                            <span>E-mail</span>
+                        </label>
+                        <div class="control">
+                            <input type="email" readonly="readonly" id="email" value="{{userInfo?.email}}" title="E-mail" class="input-text" />
+                        </div>
+                    </div>
+                    <div class="field choice" *ngIf="!isFacebookLoggedIn">
+                        <input type="checkbox" name="change_password" id="change-password" value="1" title="Thay đổi mật khẩu" class="checkbox" (change)="0"
+                            [checked]="changePassword == true" [(ngModel)]="isChangePassword" />
+                        <label class="label" for="change-password">
+                            <span>Thay đổi mật khẩu</span>
+                        </label>
+                    </div>
+                </fieldset>
+                <fieldset *ngIf="isChangePassword" class="fieldset password lt-changepasswd">
+                    <div class="fieldset-password">
+                        <div class="field new password required">
+                            <label class="label" for="current-password">
+                                <span>Mật khẩu hiện tại
+                                    <sup>*</sup>
+                                </span>
+                            </label>
+                            <div class="control">
+                                <input [class.mage-error]="currentPassword.invalid && (currentPassword.touched || currentPassword.dirty || updateForm.submitted)"
+                                    type="password" minlength="6" maxlength="20" class="input-text" name="currentPassword" #currentPassword="ngModel"
+                                    ngModel id="current-password" required />
+
+                                <div for="currentPassword" *ngIf="currentPassword.invalid && (currentPassword.touched || currentPassword.dirty || updateForm.submitted) && currentPassword.errors.required"
+                                    class="mage-error">Vui lòng nhập dữ liệu.
+                                </div>
+
+                                <div for="currentPassword" *ngIf="currentPassword.invalid && (currentPassword.touched || currentPassword.dirty || updateForm.submitted) && currentPassword.errors.minlength"
+                                    class="mage-error">Vui lòng nhập ít nhất 6 ký tự.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field new password required">
+                            <label class="label" for="password">
+                                <span>Mật khẩu mới
+                                    <sup>*</sup>
+                                </span>
+                            </label>
+                            <div class="control">
+                                <input name="password" [ngClass]="{'mage-error': password.invalid && (password.touched || password.dirty || updateForm.submitted)}"
+                                    #password="ngModel" [pattern]="passwordPattern" ngModel type="password" id="password" autocomplete="off"
+                                    class="input-text" minlength="6" maxlength="20" required>
+                                <div for="password" *ngIf="password.invalid && (password.touched || password.dirty || updateForm.submitted) && password.errors.required"
+                                    class="mage-error">Vui lòng nhập dữ liệu.
+                                </div>
+
+                                <div for="password" *ngIf="password.invalid && (password.touched || password.dirty || updateForm.submitted) && password.errors.minlength"
+                                    class="mage-error">Vui lòng nhập ít nhất 6 ký tự.
+                                </div>
+
+                                <div for="password" *ngIf="password.invalid && (password.touched || password.dirty || updateForm.submitted) && password.errors.pattern && !password.errors.minlength"
+                                    class="mage-error">Mật khẩu phải bao gồm cả chữ và số
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field confirm password required">
+                            <label class="label" for="password-confirmation">
+                                <span>Xác nhận mật khẩu
+                                    <sup>*</sup>
+                                </span>
+                            </label>
+                            <div class="control">
+                                <input id="password-confirmation" name="password_confirmation" [ngClass]="{'mage-error': password_confirmation.invalid && (password_confirmation.touched || password_confirmation.dirty || updateForm.submitted)}"
+                                    #password_confirmation="ngModel" ngModel type="password" id="password_confirmation" validateEqual="password"
+                                    autocomplete="off" class="input-text" minlength="6" maxlength="20" required>
+                                <div for="password_confirmation" *ngIf="password_confirmation.invalid && (password_confirmation.touched || password_confirmation.dirty || updateForm.submitted) && password_confirmation.errors.required"
+                                    class="mage-error">Vui lòng nhập dữ liệu.
+                                </div>
+                                <div for="password_confirmation" *ngIf="(password_confirmation.invalid && !password_confirmation.errors.required) && (password_confirmation.touched || password_confirmation.dirty || updateForm.submitted)"
+                                    class="mage-error">Mật khẩu xác nhận không khớp
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="field field-name-lastname required">
+                    <label class="label" for="lastname">
+                        <span>Họ và tên đệm
+                            <sup>*</sup>
+                        </span>
+                    </label>
+                    <div class="control">
+                        <input type="text" id="lastname" [(ngModel)]="userInfo.lastname" name="lastname" [value]="userInfo?.lastname" [ngClass]="{'mage-error': lastname.invalid && (lastname.touched || lastname.dirty || updateForm.submitted)}"
+                            (focus)="lastname.focus=true" (blur)="lastname.focus = true" #lastname="ngModel" ngModel title="Họ"
+                            class="input-text required-entry" required maxlength="50">
+                        <div class="mage-error" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched) && lastname.errors.required">
+                            Vui lòng nhập dữ liệu
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field field-name-firstname required">
+                    <label class="label" for="firstname">
+                        <span>Tên
+                            <sup>*</sup>
+                        </span>
+                    </label>
+                    <div class="control">
+                        <input type="text" id="firstname" [(ngModel)]="userInfo.firstname" name="firstname" [value]="userInfo?.firstname" [ngClass]="{'mage-error': firstname.invalid && (firstname.touched || firstname.dirty || updateForm.submitted)}"
+                            (focus)="firstname.focus=true" (blur)="firstname.focus=true" #firstname="ngModel" ngModel title="Tên"
+                            class="input-text required-entry" required maxlength="50">
+                        <div class="mage-error" *ngIf="firstname.invalid && (firstname.dirty || firstname.touched || updateForm.submitted) && firstname.errors.required">
+                            Vui lòng nhập dữ liệu.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field phone_number required">
+                    <label class="label" for="phone_number">
+                        <span>Số Điện Thoại
+                            <sup>*</sup>
+                        </span>
+                    </label>
+                    <div class="control">
+                        <input id="phone_number" name="phone_number" [(ngModel)]="telephone" [value]="telephone" [ngClass]="{'mage-error': phone_number.invalid && (phone_number.touched || phone_number.dirty || updateForm.submitted)}"
+                            (focus)="phone_number.focus = true" (blur)="phone_number.focus = false" #phone_number="ngModel" ngModel
+                            autocomplete="off" type="text" class="input-text" [pattern]="phonePattern" required>
+                        <div for="telephone" *ngIf="phone_number.invalid && (phone_number.touched || phone_number.dirty || updateForm.submitted) && phone_number.errors.required"
+                            class="mage-error">Vui lòng nhập dữ liệu.
+                        </div>
+                        <div for="telephone" *ngIf="phone_number.invalid && (phone_number.touched || phone_number.dirty || updateForm.submitted) && phone_number.errors.pattern"
+                            class="mage-error">Vui lòng nhập số điện thoại hợp lệ, Ví dụ: 0981234567, +84981234567. Lưu ý theo thông báo của nhà mạng, vui lòng nhập đầu số điện thoại mới từ ngày 14/11/2018.
+                        </div>
+                    </div>
+                </div>
+                <div class="field phone_number address required">
+                    <label class="label" for="street">
+                        <span>Địa chỉ</span>
+                    </label>
+                    <div class="control">
+                        <div id="street" class="fields">
+                            <label>Địa chỉ - lầu, số nhà, đường</label>
+                            <div>
+                                <textarea class="input-text" name="street" id="street" [(ngModel)]="mstreet" #street="ngModel" ngModel placeholder="Địa chỉ - lầu, số nhà, đường">{{mstreet}}</textarea>
+                            </div>
+                        </div>
+                        <div id="city" class="fields">
+                            <label>Tỉnh/Thành phố
+                                <sup>*</sup>
+                            </label>
+                            <div class="control">
+                                <select [ngClass]="{'mage-error': city.invalid && (city.dirty || city.touched || updateForm.submitted) && city.errors.required}"
+                                    id="region_id" #city="ngModel" [(ngModel)]="selectedCity" class="select" required (change)="selectArea(selectedCity, false)"
+                                    name="city" title="Tỉnh / Thành phố">
+                                    <option [value]="null" disabled>Vui lòng chọn</option>
+                                    <option [ngValue]="city" *ngFor="let city of regions">
+                                        {{city.name}}
+                                    </option>
+                                </select>
+                                <div class="mage-error" *ngIf="city.invalid && (city.dirty || city.touched || updateForm.submitted) && city.errors.required">
+                                    Vui lòng nhập dữ liệu
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="district" class="fields">
+                            <label>Quận/huyện
+                                <sup>*</sup>
+                            </label>
+                            <div class="control">
+                                <select class="select" [ngClass]="{'mage-error': district.invalid && (district.dirty || district.touched || updateForm.submitted) && district.errors.required}"
+                                    name="district" #district="ngModel" [disabled]="!selectedCity" (change)="selectArea(selectedCity, selectedDistrict)"
+                                    [(ngModel)]="selectedDistrict" required>
+                                    <option [value]="null" selected disabled>Vui lòng chọn</option>
+                                    <option [ngValue]="district" *ngFor="let district of selectedCity?.districts">
+                                        {{district.name}}
+                                    </option>
+                                </select>
+                                <div class="mage-error" *ngIf="district.invalid && (district.dirty || district.touched || updateForm.submitted) && district.errors.required">
+                                    Vui lòng nhập dữ liệu
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ward" class="fields">
+                            <label>Phường, xã
+                                <sup>*</sup>
+                            </label>
+                            <div class="control">
+                                <select class="select" [ngClass]="{'mage-error': ward.invalid && (ward.dirty || ward.touched || updateForm.submitted) && ward.errors.required}"
+                                    name="ward" #ward="ngModel" [disabled]="!selectedDistrict" [(ngModel)]="selectedWard" required>
+                                    <option [value]="null" selected disabled>Vui lòng chọn</option>
+                                    <option [ngValue]="ward" *ngFor="let ward of selectedDistrict?.wards">
+                                        {{ward.name}}
+                                    </option>
+                                </select>
+                                <div class="mage-error" *ngIf="ward.invalid && (ward.dirty || ward.touched || updateForm.submitted) && ward.errors.required">
+                                    Vui lòng nhập dữ liệu
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field gender required">
+                    <label class="label required">Giới tính
+                        <sup>*</sup>
+                    </label>
+                    <div class="control">
+                        <input checked="checked" class="gender_choice" id="gender_2" [(ngModel)]="userInfo.gender" type="radio" name="gender" [value]="2"
+                            [checked]="userInfo?.gender != 4">
+                        <label for="gender_2">Nam</label>
+                        <input class="gender_choice" type="radio" id="gender_4" [(ngModel)]="userInfo.gender" name="gender" [value]="4" [checked]="userInfo?.gender==4">
+                        <label for="gender_4">Nữ</label>
+                    </div>
+                </div>
+                <div class="field date field-dob required">
+                    <label class="required">Sinh nhật
+                        <sup>*</sup>
+                    </label>
+                    <div class="control custom-dob">
+                        <div class="dob-day">
+                            <select [ngClass]="{'mage-error': day.invalid && (day.dirty || day.touched || updateForm.submitted) && day.errors.required}"
+                                class="required-entry" name="day" #day="ngModel" [(ngModel)]="dob._day" (change)="selectMonth(dob._month, dob._year)"
+                                required>
+                                <option [value]="null" disabled>Chọn ngày</option>
+                                <option *ngFor="let date of dob._dates" value="{{date}}">Ngày {{date|number:'2.0'}}
+                                </option>
+                            </select>
+                            <div class="mage-error" *ngIf="day.invalid && (day.dirty || day.touched || updateForm.submitted) && day.errors.required">
+                                Vui lòng nhập dữ liệu
+                            </div>
+                        </div>
+                        <div class="dob-month">
+                            <select [ngClass]="{'mage-error': month.invalid && (month.dirty || month.touched || updateForm.submitted) && month.errors.required}"
+                                class="required-entry" name="month" #month="ngModel" [(ngModel)]="dob._month"
+                                required>
+                                <option [value]="null" disabled>Chọn tháng</option>
+                                <option *ngFor="let month of dob._months" [ngValue]="month">Tháng {{month|number:'2.0'}}
+                                </option>
+                            </select>
+                            <div class="mage-error" *ngIf="month.invalid && (month.dirty || month.touched || updateForm.submitted) && month.errors.required">
+                                Vui lòng nhập dữ liệu
+                            </div>
+                        </div>
+                        <div class="dob-year">
+                            <select [ngClass]="{'mage-error': year.invalid && (year.dirty || year.touched || updateForm.submitted) && year.errors.required && year.value === null}"
+                                class="required-entry" name="year" #year="ngModel" [(ngModel)]="dob._year"
+                                required>
+                                <option [value]="null" disabled>Chọn năm</option>
+                                <option *ngFor="let year of dob._years" [ngValue]="year">Năm {{year}}</option>
+                            </select>
+                            <div class="mage-error" *ngIf="year.invalid && (year.dirty || year.touched || updateForm.submitted) && year.errors.required && year.value === null">
+                                Vui lòng nhập dữ liệu
+                            </div>
+                        </div>
+
+                        <div class="mage-error" *ngIf="updateForm.submitted && !isValidDobDate">
+                            Vui lòng nhập ngày hợp lệ
+                        </div>
+                    </div>
+                </div>
+                <div class="field married required">
+                    <label class="label ">Tình trạng hôn nhân</label>
+                    <div class="control radio-select">
+                        <input [checked]="!userInfo.marital_status" class="input_radio married_choice" data-value="false" (change)="userInfo.marital_status = false"
+                            [(ngModel)]="userInfo.marital_status" id="married_0" type="radio" name="marital_status" [value]="false">
+                        <label for="married_0">Độc thân</label>
+                        <input class="input_radio married_choice" data-value="true" id="married_1" #marital_status (change)="userInfo.marital_status = true"
+                            [checked]="userInfo?.marital_status" [(ngModel)]="userInfo.marital_status" type="radio" name="marital_status"
+                            [value]="true">
+                        <label for="married_1">Đã kết hôn</label>
+                    </div>
+                </div>
+                <div class="field date field-anniversary_date required" *ngIf="userInfo?.marital_status">
+                    <label for="wed-day" class="required">Kỷ niệm ngày cưới
+                        <sup>*</sup>
+                    </label>
+                    <div class="control custom-wedanniversay">
+                        <div class="wed-day">
+                            <select [ngClass]="{'mage-error': wedDay.invalid && (wedDay.dirty || wedDay.touched || updateForm.submitted) && wedDay.errors.required && wedDay.value === null}"
+                                class="required-entry" name="wedDay" id="wed-day" #wedDay="ngModel" [(ngModel)]="anniversary._day"
+                                required>
+                                <option [value]="null" disabled>Chọn ngày</option>
+                                <option *ngFor="let date of anniversary._dates" value="{{date}}">Ngày {{date|number:'2.0'}}
+                                </option>
+                            </select>
+                            <div class="mage-error" *ngIf="wedDay.invalid && (wedDay.dirty || wedDay.touched || updateForm.submitted) && wedDay.errors.required && wedDay.value === null">
+                                Vui lòng nhập dữ liệu
+                            </div>
+                        </div>
+                        <div class="wed-month">
+                            <select [ngClass]="{'mage-error': wedMonth.invalid && (wedMonth.dirty || wedMonth.touched || updateForm.submitted) && wedMonth.errors.required && wedMonth.value === null}"
+                                class="required-entry" name="wedMonth" #wedMonth="ngModel" [(ngModel)]="anniversary._month" required>
+                                <option [value]="null" disabled>Chọn tháng</option>
+                                <option *ngFor="let month of anniversary._months" [ngValue]="month">Tháng {{month|number:'2.0'}}
+                                </option>
+                            </select>
+                            <div class="mage-error" *ngIf="wedMonth.invalid && (wedMonth.dirty || wedMonth.touched || updateForm.submitted) && wedMonth.errors.required && wedMonth.value === null">
+                                Vui lòng nhập dữ liệu
+                            </div>
+                        </div>
+                        <div class="wed-year">
+                            <select [ngClass]="{'mage-error': wedYear.invalid && (wedYear.dirty || wedYear.touched || updateForm.submitted) && wedYear.errors.required && wedYear.value === null}"
+                                class="required-entry" name="wedYear" #wedYear="ngModel" [(ngModel)]="anniversary._year" required>
+                                <option [value]="null" disabled>Chọn năm</option>
+                                <option *ngFor="let year of anniversary._years" [ngValue]="year">Năm {{year}}</option>
+                            </select>
+                            <div class="mage-error" *ngIf="wedYear.invalid && (wedYear.dirty || wedYear.touched || updateForm.submitted) && wedYear.errors.required && wedYear.value === null">
+                                Vui lòng nhập dữ liệu
+                            </div>
+                        </div>
+
+                        <div class="mage-error" *ngIf="updateForm.submitted && !isValidWeddingDate">
+                            Vui lòng nhập ngày hợp lệ
+                        </div>
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <a class="action btn_cancel" (click)="resetForm(updateForm)">Từ bỏ</a>
+                        <button type="submit" class="action save primary" title="Lưu">
+                            <span>Lưu</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,10 @@
+<li *ngIf="hasOmni">
+    <label class="checked-content">
+        Xem các sản phẩm <strong>OMNI</strong> độc quyền từ tập đoàn LOTTE.
+        <input type="checkbox" [(ngModel)]="isOmni" (change)="onChangeOmni()">
+        <span class="checkmark"></span>
+    </label>
+    <a href="/campaign/lotte-omni" target="_blank">Xem thêm</a>
+</li>
+
+

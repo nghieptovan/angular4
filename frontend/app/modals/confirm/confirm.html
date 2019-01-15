@@ -1,0 +1,19 @@
+<div class="general-message-popup">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-lt">
+            <div class="modal-header-lt">
+                <h5 class="modal-title">Xác nhận</h5>
+                <button type="button" class="close" (click)="closeModal()">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Những thông tin bạn đã điền sẽ bị xóa mất. Bạn có muốn tiếp tục?</p>
+                <ul class="group-action-type">
+                    <li><a (click)="closeModal()" class="button-bg btn-cancel" title="Bỏ qua">Bỏ qua</a></li>
+                    <li><a (click)="confirm()" class="button-bg" title="Xác nhận">Xác nhận</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

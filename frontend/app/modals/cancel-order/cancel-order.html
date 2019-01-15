@@ -1,0 +1,63 @@
+<div class="lt-modal-dialog lt-cancelorder-modal cancel-confirm-popup">
+    <div class="lt-modal-dialog__header lt-cancelorder-modal__header">
+        <h1 class="lt-modal-dialog__header--title lt-cancelorder-modal__header--title">BẠN ĐANG CHỌN HỦY ĐƠN HÀNG</h1>
+        <button class="lt-modal-dialog__header--close" type="button" (click)="closeModal()">
+
+        </button>
+    </div>
+    <div class="lt-cancelorder-modal__content">
+        <div class="cancel-confirm">
+            <form id="cancel-order" (ngSubmit)="cancelOrder(cancelOrderForm)" #cancelOrderForm="ngForm" name="cancel-order" novalidate>
+                <div class="form-row required">
+                    <label for="cancellation-type">Vui lòng cho biết lý do để tiếp tục?</label>
+                    <select [class.mage-error] ="cancellationType.invalid && (cancellationType.dirty || cancellationType.touched || cancelOrderForm.submitted) && cancellationType.errors.required"
+                        id="cancellation-type" ngModel #cancellationType="ngModel" [(ngModel)]="data.cancellation_type" name="cancellation_type" required>
+                        <option [value]="null" disabled>Chọn lý do</option>
+                        <option value="41">Không còn nhu cầu</option>
+                        <option value="44">Thay đổi sản phẩm</option>
+                        <option value="45">Thay đổi số lượng sản phẩm</option>
+                        <option value="46">Đặt trùng</option>
+                        <option value="47">Đã mua nơi khác giá tốt hơn</option>
+                        <option value="48">Phát sinh phí vận chuyển</option>
+                        <option value="412">Thời gian giao hàng chậm</option>
+                        <option value="411">Quên sử dụng mã giảm giá</option>
+                        <option value="413">Thay đổi hình thức thanh toán</option>
+                        <option value="43">Khác</option>
+                    </select>
+
+                    <div for="cancellation-type" class="mage-error" *ngIf="cancellationType.invalid && (cancellationType.dirty || cancellationType.touched || cancelOrderForm.submitted) && cancellationType.errors.required">
+                        Vui lòng cho biết lý do để tiếp tục?
+                    </div>
+                </div>
+
+                <div id="cancel-comment" class="cancel-comment" *ngIf="data.cancellation_type">
+                    <label for="cancel_comment">Chúng tôi mong được biết nhiều hơn về lý do bạn chọn</label>
+                    <textarea ngModel name="cancel_comment" id="cancel_comment" maxlength="200" rows="3"></textarea>
+                </div>
+                <div class="product-list-cancel">
+                    <p class="headline clearfix">
+                        <span class="col-1">Danh sách các sản phẩm sẽ bị hủy</span>
+                        <span class="col-2">Số lượng</span>
+                    </p>
+                    <ul>
+                        <li class="table-item cancel" *ngFor="let product of order?.items">
+                            <div *ngIf="product.allow_cancel_product">
+                                <div class="product-image">
+                                    <img src="{{product?.product_thumbnail_image}}" alt="{{product.name}}" title="{{product.name}}">
+                                </div>
+                                <div class="product-description">{{product.name}}</div>
+                                <div class="qty">{{product.qty}}</div>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div class="form-row btn-groups btn-no-margin">
+                        <button type="submit" style="display: block; width: 100%;" name="btncancel" id="btncancel" class="btn-action btn-submit order_detail button primary">Hủy đơn hàng</button>
+                    </div>
+                    <p class="notes">
+                        <b>Chú ý:</b> Tất cả những sản phẩm chưa thực hiện giao sẽ hủy.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

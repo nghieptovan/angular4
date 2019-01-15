@@ -1,0 +1,60 @@
+<!-- products-list -->
+<div class="products-list clearfix">
+  <!--<p>{{tpoProductKeys}}</p>-->
+  <ng-container *ngFor="let product of tpoProducts;let idx = index">
+    <div class="item-product">
+      <div class="inner">
+        <div class="product-image">
+          <a [title]="product.name" routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">
+            <img [src]="'https:' +  product.image_url" [alt]="product.name" width="240" height="312">
+
+          </a>
+          <div class="btn-actions">
+            <form *ngIf="product.in_stock" data-role="tocart-form">
+              <button type="button" (click)="addToCart(product)" title="Thêm vào giỏ hàng" [ngClass]="{'disabled': isItemAddedToCart[product?.sku?.toString()] || isCartBeingCreated}"
+                      class="action tocart primary action-redirect">
+                <span>Thêm vào giỏ hàng</span>
+              </button>
+            </form>
+
+            <form *ngIf="product.in_stock">
+              <button type="button" title="Mua" class="action buy-cart primary" (click)="checkout(product)">
+                <span>Mua</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="product-info">
+          <h4>{{product.product_brand}}</h4>
+          <p class="product-name">
+            <a class="product-item-link" [title]="product.name" routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">{{product.name}} </a>
+          </p>
+          <div class="price-box price-final_price">
+            <p class="special-price">
+                    <span class="current-price">
+                        <span [attr.data-price-amount]="product.price?.VND?.price" class="final-price ">{{product.price?.VND?.default_formated}}</span>
+                    </span>
+              <span class="discount-label" [style.display] = "(product.price?.VND?.price && product.price?.VND?.default !== product.price?.VND?.price)?'block':'none'">
+                         -{{product.price?.VND?.default | percentize : product.price?.VND?.price }}
+                    </span>
+            </p>
+            <p class="old-price" [style.display] = "(product.price?.VND?.default !== product.price?.VND?.price)?'block':'none'">
+              <span [attr.data-price-amount]="product.vendor_price" class="final-price ">{{product.price?.VND?.price_formated}}</span>
+            </p>
+
+          </div>
+          <div class="gift-voucher-label" *ngIf="product?.promotion?.title">
+            <div class="voucher-info" [innerHTML]="product?.promotion?.title"></div>
+          </div>
+          <p class="field-installment" *ngIf="product.accept_installment">
+            <span class="installment-inner">
+              Trả góp <strong>0%</strong> từ <span class="price">{{ product.price?.VND?.installment_price_formatted }}</span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+</div>

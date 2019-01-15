@@ -1,0 +1,23 @@
+<div class="column" lazy-load-images id="lt-promotions">
+    <div *ngIf="promotionHtml" [innerHTML]="promotionHtml | safeHtml"></div>
+
+    <div class="section cms_sb">
+        <div class="container">
+            <div class="promotion-detail-category-block">
+                <ul class="promotion-detail-nav">
+                    <li id="cat-list-id-{{cat.cat_id}}" *ngFor="let cat of catPromotions">
+                        <a (click)="scrollToCategory(cat.cat_id)" title="{{cat.cat_title}}">{{cat.cat_title}}</a>
+                    </li>
+                </ul>
+
+                <div class="category-wrapper">
+                    <div id="category-{{cat.cat_id}}" class="category-item" *ngFor="let cat of catPromotions">
+                        <h3 class="category-name">{{cat.cat_title}}</h3>
+                        <lt-products-list [products]="cat?.products" id="categorypro-{{cat.cat_id}}"></lt-products-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

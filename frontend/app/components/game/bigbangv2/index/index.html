@@ -1,0 +1,81 @@
+<main class="main">
+    <div class="bigbang-page">
+        <div class="bigbang-header">
+            <a href="#"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/logo-mobile.gif" alt=""></a>
+        </div>
+        <div class="container-lt">
+            <p class="logo-game">
+                <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/boomning-game-logo.png" alt="">
+            </p>
+            <p class="head-txt"><span>XẢ STRESS XẢ QUÀ <br/>Click chuột khí thế để có cơ hội trúng chuyến du lịch, thẻ cào, voucher với tổng giải thưởng đến 10 tỷ đồng</span></p>
+
+            <div class="slider-game">
+                <div class="swiper-wrapper">
+                    <ng-container *ngIf="gifts.length>0">
+                        <div class="swiper-slide" *ngFor="let gift of gifts">
+                            <div class="inner">
+                                <img src="{{ gift.imageUrl }} ">
+                                <div class="field-number">x{{gift.limit}}</div>
+                            </div>
+                            <div class="field-text">• {{gift.name}} •</div>
+                        </div>
+                    </ng-container>
+                </div>
+                <!-- Add Nav  -->
+                <div class="swiper-button-next"><div class="inner"><span></span></div></div>
+                <div class="swiper-button-prev"><div class="inner"><span></span></div></div>
+            </div>
+
+            <div class="group-actions clearfix">
+                <p class="btn-play-mobile"><a (click)="loginPopup()" title="Chơi ngay"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-2.png" alt=""></a></p>
+                <ul>
+                    <li class="btn-term"><a (click)="rulePopup()" title="Thể lệ chương trình"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-1.png" alt=""></a></li>
+                    <li class="btn-play">
+                        <a *ngIf="!isLogged " (click)="loginPopup()"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-2.png" alt=""></a>
+                        <a *ngIf="isLogged && profile?.remainSession > 0" (click)="loginPopup()"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-2.png" alt=""></a>
+                        <img *ngIf="isLogged && profile?.remainSession <= 0" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-10.png" alt="">
+                    </li>
+                    <li class="btn-share"><a (click)="shareFB()" title="Chia sẻ"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-3.png" alt=""></a></li>
+                </ul>
+            </div>
+            <p class="text-type" *ngIf="isLogged">
+                <span class="note-txt" *ngIf="profile?.remainSession <= 0">Bạn đã hết lượt chơi</span>
+                <span class="note-txt" *ngIf="profile?.remainSession > 0">Bạn còn {{profile?.remainSession}} lượt chơi</span>
+                <span class="note-txt"><a (click)="logOut()">Đăng xuất</a></span>
+                <a (click)="historyPopup()" class="btn-your-result" title="Thành tích của bạn">Thành tích của bạn</a>
+            </p>
+            <p class="note-txt-2">
+                    Share Facebook để có thêm 1 lượt chơi (Áp dụng tối đa: 01 lần/ ngày).
+                <br>Hãy quay lại  vào lúc 12h AM - LOTTE.vn mở thêm 01 lượt chơi mới cho các tài khoản đã đăng ký tham gia.
+            </p>
+
+            <div class="table-content-game">
+                <h3><span>BẢNG CẬP NHẬT LƯỢT CHƠI</span></h3>
+                <div class="table-responsive">
+                    <div class="table">
+                        <div class="thead tbl-row clearfix">
+                            <!-- <div class="col-1">STT</div> -->
+                            <div class="col-2">Email</div>
+                            <div class="col-3">Điện thoại</div>
+                            <div class="col-4">Quà</div>
+                        </div>
+                        <div class="tbody">
+                            <ng-container *ngIf="results.length > 0">
+                                <div class="tbl-row clearfix" *ngFor="let result of results; let idx = index">
+                                    <!-- <div class="col-1">{{idx+1}}</div>-->
+                                    <div class="col-2">{{result.email}}</div>
+                                    <div class="col-3">{{result.phone}}</div>
+                                    <div class="col-4">{{result.gift}}</div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <!--<p class="note">* Bảng thành tích cá nhân sẽ được cập nhật 5 phút mỗi lần</p>-->
+            </div>
+            <p class="logo-footer-game">
+                <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/logo-footer.png" alt="">
+            </p>
+        </div>
+    </div>
+</main>

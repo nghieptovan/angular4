@@ -1,0 +1,91 @@
+<div class="bigbang-game-popup bigbang-game-message-popup" [ngClass]="bigbangClass()" *ngIf="!result.error else cheatTemplate;">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-wrap-lt">
+            <div class="modal-content-lt">
+
+                <div class="modal-body" >
+
+                    <div class="play-msg-content">
+
+                        <button type="button" class="close" (click)="closeModal()">
+                            <span>×</span>
+                        </button>
+
+                        <ng-container *ngIf="result?.level <= 0">
+                            <h2>Bạn chưa may mắn rồi !</h2>
+                            <div class="text-msg" *ngIf="result?.player?.remain <= 0">Đừng lo, hãy quay lại vào 12:00 AM<br>LOTTE.vn sẽ tặng bạn 1 lượt chơi.</div>
+                            <div class="text-msg" *ngIf="result?.player?.remain > 0">Cố hơn nữa để rinh các phần quà giá trị nào!</div>
+                        </ng-container>
+
+                        <ng-container *ngIf="result?.level > 0">
+                            <h2>CHÚC MỪNG! GIẢI THƯỞNG CỦA BẠN LÀ:</h2>
+                            <div class="text-msg">
+                                <div class="gift-msg">{{result?.prize?.description}}</div>Kiểm tra email của bạn để xem chi tiết quà tặng.
+                            </div>
+                        </ng-container>
+
+                        <p class="btn-fb">
+                            <a *ngIf="!result?.facebookShared" (click)="shareFB()"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-5.png" alt=""></a>
+                            <img *ngIf="result?.facebookShared" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-5.png" alt="">
+                        </p>
+                        <div class="text-msg-2">Chia sẻ Facebook để có thêm 1 lượt chơi (1 lần / ngày)</div>
+                        <p class="link-type">
+                            <a *ngIf="!userInfo.lpoint_active && result.prize.lpoint" href="javascript:void(0)" (click)="lpointPopup()">
+                                Đăng ký tích điểm L.POINT tại đây!
+                            </a>
+                        </p>
+                        <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/illus-6.png" class="img-3" alt="">
+                    </div>
+
+                </div>
+
+                <div class="cauchuc">
+                    Giữ cho mãi An khang Chúc năm mới bình an sung túc
+                </div>
+
+                <ul class="group-btn-bottom">
+                    <li><a href="javascript:void(0)" (click)="closeModal()" title="Thoát"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-7.png" alt="Thoát"></a></li>
+                    <li>
+                        <a *ngIf="result?.player?.remain > 0" href="javascript:void(0)" title="Chơi tiếp" (click)="continuePlay()">
+                            <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-8.png" alt="Chơi tiếp">
+                            <span class="count">Bạn còn {{result?.player?.remain}} lượt chơi</span>
+                        </a>
+                        <img *ngIf="result?.player?.remain <= 0" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-9.png" alt="Hết lượt">
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<ng-template #cheatTemplate>
+    <div class="bigbang-game-popup bigbang-game-message-popup">
+        <div class="modal-dialog-lt">
+            <div class="modal-content-wrap-lt">
+                <div class="modal-content-lt">
+                    <div class="modal-body">
+                        <div class="play-msg-content">
+                            <button type="button" class="close" (click)="closeModal()">
+                                <span>×</span>
+                            </button>
+                            <h2>Phát hiện có lỗi trong lúc chơi game !</h2>
+                            <div class="text-msg">{{result.error.message}}</div>
+                            <img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/illus-6.png" class="img-3" alt="">
+                        </div>
+                    </div>
+                    <div class="cauchuc">
+                        Giữ cho mãi An khang Chúc năm mới bình an sung túc
+                    </div>
+
+                    <ul class="group-btn-bottom">
+                        <li><a href="javascript:void(0)" (click)="closeModal()" title="Thoát"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-7.png" alt="Thoát"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

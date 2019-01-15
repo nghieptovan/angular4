@@ -1,0 +1,17 @@
+<div class="phonecart-price-list">
+    <h3>Chọn mệnh giá, số lượng &amp; nhập thông tin nhận thẻ</h3>
+    <ul class="clearfix">
+        <ng-container *ngFor="let product of productLoads">
+        <li *ngIf="isProductVisible(product)">
+            <input (click)="selectProduct(product)" type="radio" id="product_{{product.id}}" name="phonecard" [(ngModel)]="cartRequest.product_id" value="{{product.id}}" >
+            <label for="product_{{product.id}}" class="content">
+                <div class="price">
+                    <p class="current-price">{{product?.label_price?.toString().toVndCurrency()}}</p>
+                    <p class="discount-price">Giá {{product?.price?.toString().toVndCurrency()}}</p>
+                </div>
+                <div class="voucher-info" *ngIf="getPromotionTagDescription(product)" [innerHTML]="getPromotionTagDescription(product) | safeHtml"></div>
+            </label>
+        </li>
+        </ng-container>
+    </ul>
+</div>

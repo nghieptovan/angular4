@@ -1,0 +1,44 @@
+<div class="column main" lazy-load-images>
+    <div class="page-title-wrapper">
+        <h1 class="page-title" id="page-title-heading" aria-labelledby="page-title-heading toolbar-amount">
+            <span class="base" data-ui-id="page-title-wrapper">{{productTitle}}</span>
+        </h1>
+    </div>
+
+    <ng-container *ngIf="banner">
+        <div  class="banner-top-sl" style="margin-bottom: 30px;">
+            <a href="#">
+                <img src="media/{{ banner }}" alt="">
+            </a>
+        </div>
+    </ng-container>
+
+    <div class="category-view" *ngIf="categoryImage">
+        <div class="category-image">
+            <img attr.data-src="{{categoryImage}}" alt="{{(categories$ | async).name}}" title="{{(categories$ | async).name}}" class="image">
+        </div>
+    </div>
+
+    <div class="page messages" *ngIf="(cartGetErrorMessage$ | async).length && false">
+        <div class="messages">
+            <div class="message-error error message">
+                <div>
+                    {{(cartGetErrorMessage$ | async)}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p class="toolbar-number" *ngIf="requestBody.type !== 'search'">Tìm thấy
+            <b>{{(products$ | async)?.nbHits ? (products$ | async)?.nbHits : 0}}</b> kết quả</p>
+        <p class="toolbar-number" *ngIf="requestBody.type === 'search'">Kết quả cho từ khoá
+            <b>"{{(products$ | async)?.query}}": {{(products$ | async)?.nbHits ? (products$ | async)?.nbHits : 0}}</b> kết quả</p>
+
+        <lt-products-pagination></lt-products-pagination>
+
+        <lt-products-list [products]="(products$ | async)?.hits"></lt-products-list>
+
+        <lt-products-pagination></lt-products-pagination>
+    </div>
+</div>

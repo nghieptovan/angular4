@@ -1,0 +1,151 @@
+<div class="account-box-new">
+    <form class="form-address-edit overrided_customer_attribute" (ngSubmit)="saveAddress(addressForm)" #addressForm="ngForm" novalidate>
+        <fieldset class="fieldset">
+            <legend class="title">
+                <span>Thông tin liên hệ</span>
+            </legend>
+            <div class="field field-name-lastname required">
+                <label class="label" for="lastname">
+                    <span>Họ và tên đệm
+                        <sup>*</sup>
+                    </span>
+                </label>
+
+                <div class="control">
+                    <input type="text" [ngClass]="{'mage-error': lastname.invalid && (lastname.dirty || lastname.touched || addressForm.submitted) && lastname.errors.required}"
+                        required #lastname="ngModel" [(ngModel)]="address.lastname" id="lastname" name="lastname" class="input-text required-entry">
+                    <div class="mage-error" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched || addressForm.submitted) && lastname.errors.required">Vui lòng nhập dữ liệu.</div>
+                </div>
+            </div>
+
+            <div class="field field-name-firstname required">
+                <label class="label" for="firstname">
+                    <span>Tên
+                        <sup>*</sup>
+                    </span>
+                </label>
+
+                <div class="control">
+                    <input type="text" [ngClass]="{'mage-error': firstname.invalid && (firstname.dirty || firstname.touched || addressForm.submitted) && firstname.errors.required}"
+                        required id="firstname" #firstname="ngModel" [(ngModel)]="address.firstname" name="firstname" class="input-text required-entry">
+                    <div class="mage-error" *ngIf="firstname.invalid && (firstname.dirty || firstname.touched || addressForm.submitted) && firstname.errors.required">Vui lòng nhập dữ liệu.</div>
+                </div>
+            </div>
+            <div class="field telephone required">
+                <label class="label" for="telephone">
+                    <span>Số điện thoại
+                        <sup>*</sup>
+                    </span>
+                </label>
+                <div class="control">
+                    <input type="text" [ngClass]="{'mage-error': telephone.invalid && (telephone.dirty || telephone.touched || addressForm.submitted)}" required name="telephone"
+                        minlength="10" maxlength="16" #telephone="ngModel" [pattern]="phoneRegex" [(ngModel)]="address.telephone"
+                        title="Số điện thoại" class="input-text validate-phoneVN">
+                    <div class="mage-error" *ngIf="telephone.invalid && (telephone.dirty || telephone.touched || addressForm.submitted) && telephone.errors.required">Vui lòng nhập dữ liệu.</div>
+                    <div class="mage-error" *ngIf="telephone.invalid && (telephone.dirty || telephone.touched || addressForm.submitted) && !telephone.errors.minlength && telephone.errors.pattern">
+                        Vui lòng nhập số điện thoại hợp lệ, Ví dụ: 0981234567, +84981234567. Lưu ý theo thông báo của nhà mạng, vui lòng nhập đầu số điện thoại mới từ ngày 14/11/2018.
+                    </div>
+                    <div class="mage-error" *ngIf="telephone.invalid && (telephone.dirty || telephone.touched || addressForm.submitted) && telephone.errors.minlength">
+                        Vui lòng nhập nhiều hơn hoặc bằng 10 ký tự.
+                    </div>
+                </div>
+            </div>
+            <div class="field email required">
+                <label class="label" for="email_address">
+                    <span>E-mail
+                        <sup>*</sup>
+                    </span>
+                </label>
+                <div class="control">
+                    <input type="text" [ngClass]="{'mage-error': email.invalid && (email.dirty || email.touched || addressForm.submitted)}" required #email="ngModel"
+                        [(ngModel)]="address.extension_attributes.email_address" name="email_address" title="E-mail" class="input-text "
+                        id="email_address" [pattern]="emailRegex">
+                    <div class="mage-error" *ngIf="email.invalid && (email.dirty || email.touched || addressForm.submitted) && email.errors.required">Vui lòng nhập dữ liệu.</div>
+                    <div class="mage-error" *ngIf="email.invalid && (email.dirty || email.touched || addressForm.submitted) && email.errors.pattern">
+                        Vui lòng nhập 1 địa chỉ email hợp lệ (Ví dụ: johndoe@domain.com).
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset">
+            <div class="field street required">
+                <label for="street_1" class="label">
+                    <span>Địa chỉ (tầng, số nhà, đường)
+                        <sup>*</sup>
+                    </span>
+                </label>
+                <div class="control">
+                    <input type="text" [ngClass]="{'mage-error': street.invalid && (street.dirty || street.touched || addressForm.submitted) && street.errors.required}"
+                        required name="street[]" #street="ngModel" [(ngModel)]="address.street[0]" title="Địa chỉ (tầng, số nhà, đường)"
+                        id="street_1" class="input-text required-entry">
+                    <div class="mage-error" *ngIf="street.invalid && (street.dirty || street.touched || addressForm.submitted) && street.errors.required">Vui lòng nhập dữ liệu.</div>
+                </div>
+            </div>
+            <div class="field region required">
+                <label class="label" for="region_id">
+                    <span>Tỉnh / Thành phố</span>
+                </label>
+                <div class="control">
+                    <select [ngClass]="{'mage-error': city.invalid && (city.dirty || city.touched || addressForm.submitted) && city.errors.required}" id="region_id" required
+                        #city="ngModel" [(ngModel)]="selectedCity" (change)="selecteArea(selectedCity, false)" name="region_id"
+                        title="Tỉnh / Thành phố" class="required-entry" style="display: inline-block;">
+                        <option [value]="null" disabled>Vui lòng chọn</option>
+                        <option [ngValue]="city" *ngFor="let city of regions">{{city.name}}</option>
+                    </select>
+                    <div class="mage-error" *ngIf="city.invalid && (city.dirty || city.touched || addressForm.submitted) && city.errors.required">Vui lòng nhập dữ liệu.</div>
+                </div>
+            </div>
+            <div class="field district required">
+                <label class="label" for="district">
+                    <span>Quận/ Huyện</span>
+                </label>
+                <div class="control">
+                    <select [ngClass]="{'mage-error': district.invalid && (district.dirty || district.touched || addressForm.submitted) && district.errors.required}"
+                        id="fdistrict" required #district="ngModel" [(ngModel)]="selectedDistrict" (change)="selecteArea(selectedCity, selectedDistrict)"
+                        [disabled]="!selectedCity" name="district_id">
+                        <option [value]="null" disabled>Vui lòng chọn</option>
+                        <option class="opt" [ngValue]="district" *ngFor="let district of selectedCity?.districts">{{district.name}}</option>
+                    </select>
+                    <div class="mage-error" *ngIf="district.invalid && (district.dirty || district.touched || addressForm.submitted) && district.errors.required">Vui lòng nhập dữ liệu.</div>
+                </div>
+            </div>
+            <div class="field ward required">
+                <label class="label" for="ward">
+                    <span>Phường, xã</span>
+                </label>
+                <div class="control">
+                    <select [ngClass]="{'mage-error': ward.invalid && (ward.dirty || ward.touched || addressForm.submitted) && ward.errors.required}" id="fward" required
+                        #ward="ngModel" [(ngModel)]="selectedWard" [disabled]="!selectedDistrict" name="ward_id">
+                        <option [value]="null" disabled>Vui lòng chọn</option>
+                        <option class="opt" [ngValue]="ward" *ngFor="let ward of selectedDistrict?.wards">{{ward.name}}</option>
+                    </select>
+                    <div class="mage-error" *ngIf="ward.invalid && (ward.dirty || ward.touched || addressForm.submitted) && ward.errors.required">Vui lòng nhập dữ liệu.</div>
+                </div>
+            </div>
+
+            <div class="field choice set billing" *ngIf="!isDefaultBilling && !isDefaultShipping">
+                <input type="checkbox" id="primary_billing" [(ngModel)]="address.default_billing" name="default_billing" value="1" class="checkbox">
+                <label class="label" for="primary_billing">
+                    <span>Dùng như là địa chỉ thanh toán mặc định</span>
+                </label>
+            </div>
+
+            <div class="field choice set shipping" *ngIf="!isDefaultBilling && !isDefaultShipping">
+                <input type="checkbox" id="primary_shipping" [(ngModel)]="address.default_shipping" name="default_shipping" value="1" class="checkbox">
+                <label class="label" for="primary_shipping">
+                    <span>Dùng như là địa chỉ vận chuyển mặc định</span>
+                </label>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action back" routerLink="/account/address">
+                    <span>Quay lại</span>
+                </a>
+                <button type="submit" class="action submit primary" title="Lưu địa chỉ">
+                    <span>Lưu địa chỉ</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

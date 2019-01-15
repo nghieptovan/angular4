@@ -1,0 +1,23 @@
+<li [ngClass]="{opened:isChecked}" *ngIf="requestBody.type !== 'brand' &&facets?.product_brand?.length > 1">
+    <a href="javascript:void(0);" class="filter-item">Thương hiệu</a>
+    <div class="dropdown-options">
+        <!--<div class="selected-info clearfix">-->
+            <!--<div class="selected-inner">-->
+                <!--<div class="number">{{(productState | facetstype:'product_brand').length}} selected</div>-->
+                <!--<div class="text"><ng-container *ngFor="let selected of productState | facetstype:'color'; let idx = index">{{idx === 0? selected.name:', '+ selected.name}}</ng-container></div>-->
+            <!--</div>-->
+            <!--<a (click)="resetTypeFilter('product_brand')" [ngClass]="{'btn-clear-disable':!(productState | facetstype:'product_brand').length}" class="btn-clear">Xóa</a>-->
+        <!--</div>-->
+        <div class="search-brands">
+            <div class="form-row">
+                <input type="text" (input)="search($event.target.value)" [(ngModel)]="keyword" placeholder="Tìm kiếm nhãn hiệu" name="">
+                <a (click)="clearKeyword()" class="remove-item" [ngStyle]="keyword && {'display':'block'}"><span>x</span></a>
+            </div>
+        </div>
+        <div class="items">
+            <ul>
+                <li [ngClass]="{'current':brand.isChecked}" *ngFor="let brand of facetsSearch?.product_brand | array_sort:'name'" (click)="addFilter('product_brand', brand, $event)">{{brand.name}}</li>
+            </ul>
+        </div>
+    </div>
+</li>

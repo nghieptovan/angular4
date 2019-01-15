@@ -1,0 +1,8 @@
+<!--<app-common-fs-quick-view [ProductInfo]="currentQVProductInfo"></app-common-fs-quick-view>-->
+<div class="products-cate-list">
+  <!--item -->
+  <div class="item-product" *ngFor="let product of Products; let idx = index">
+    <app-common-fs-product-list-item [ngStyle]="{'width':'100%'}" [product]="product" (addToCartEvent)="handleAddToCart($event)"></app-common-fs-product-list-item>
+  </div>
+  <!--end item -->
+</div>

@@ -1,0 +1,44 @@
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper">Theo dõi thông tin qua email.</span>
+    </h1>
+</div>
+
+<div *ngIf="lpointBanner?.content" [innerHTML]="lpointBanner?.content | safeHtml"></div>
+<!-- <div class="lpoint-info-banner">
+    <img src="{{'wysiwyg/static/promotions/072017/lpoint/lpoint.png'.toMediaUrl()}}" alt="">
+    <a routerLink="/account/edit/" class="link-1" title="Cập nhật thông tin">Cập nhật thông tin</a>
+    <a href="/campaign/l-point-launching/" target="_blank" class="link-2" title="Chi tiết chương trình L.Point">Chi tiết chương trình L.Point</a>
+</div> -->
+<form class="form form-newsletter-manage" method="post" id="form-validate">
+    <fieldset class="fieldset">
+        <input name="form_key" type="hidden" value="wh6kHAE3JdYFL6BE">
+        <div>
+            <p>Không bao giờ bỏ lỡ những thông tin, chương trình khuyến mại hấp dẫn nữa bằng cách đăng ký theo dõi thông tin
+                qua email. </p>
+            <p>Gia nhập ngay mailing list để cập nhật những thông tin, ưu đãi hấp dẫn từ LOTTE.vn. Thông tin sẽ được gửi tới
+                Email của bạn hàng tuần hoặc ngay khi có các chương trình sự kiện mới nhất.</p>
+        </div>
+        <ng-container *ngIf="!(isSubscribed$ | async); else isSubscribedDiv">
+            <div class="text-center">
+                <strong>Bạn CHƯA ĐĂNG KÝ nhận thông báo từ LOTTE.vn</strong>
+            </div>
+            <div class="field choice">
+                <button (click)="subscribe()" class="label">
+                    <span>Đăng ký ngay</span>
+                </button>
+            </div>
+        </ng-container>
+        <ng-template #isSubscribedDiv>
+            <div class="text-center">
+                <strong>Bạn ĐÃ ĐĂNG KÝ nhận thông báo từ LOTTE.vn</strong>
+            </div>
+            <div class="field choice">
+                <button (click)="unsubscribe()" class="label">
+                    <span>Hủy đăng ký</span>
+                </button>
+            </div>
+        </ng-template>
+
+    </fieldset>
+</form>

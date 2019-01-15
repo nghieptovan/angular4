@@ -1,0 +1,43 @@
+<div class="payment-method-block">
+    <h3>Chọn hình thức thanh toán</h3>
+    <div class="payment-method-inner">
+        <div class="form-payment-content" id="payment_local_atm"
+             [ngClass]="{current:selectedPayment.payment_method=='local_atm'}">
+            <div class="payment-head" (click)="selectPaymentMethod('local_atm')" style="cursor: pointer;">
+                Thẻ ATM nội địa
+                <input type="radio" id="local_atm" name="payment_method" [(ngModel)]="selectedPayment.payment_method"
+                       value="local_atm">
+                <span class="radiobtn"></span>
+            </div>
+            <app-recharge-payment-atm></app-recharge-payment-atm>
+        </div>
+
+        <ng-container *ngFor="let promotionPayment of (ccPromotionPayment)">
+            <div class="form-payment-content" id="payment_{{promotionPayment?.code}}"
+                 [ngClass]="{current:selectedPayment.payment_method==promotionPayment?.code}">
+                <div class="payment-head" (click)="selectPaymentMethod(promotionPayment?.code)" style="cursor: pointer;">
+                    <div class="payment-note">
+                        <strong>{{promotionPayment?.title}}</strong>
+                        <a href="{{promotionPayment?.landing_page_url}}"  target="_blank">
+                            <div class="note-inner">(<u>chi tiết</u>)
+                                <div class="tips-content">
+                                    <div class="inner">
+                                        <p>{{promotionPayment?.landing_page_textbox}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    Thẻ WeCard - TrueMoney
+                    <input type="radio" id="{{promotionPayment?.code}}" name="payment_method"
+                           [(ngModel)]="selectedPayment.payment_method" value="{{promotionPayment?.code}}">
+                    <span class="radiobtn"></span>
+                </div>
+                <app-recharge-payment-card *ngIf="selectedPayment.payment_method==promotionPayment?.code" [promotion]="promotionPayment?.code"></app-recharge-payment-card>
+            </div>
+        </ng-container>
+
+
+    </div>
+    <button class="btn-action" (click)="placeOrder()" title="Thanh Toán" type="submit">Thanh Toán</button>
+</div>

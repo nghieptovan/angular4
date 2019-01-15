@@ -1,0 +1,72 @@
+<app-loader *ngIf="isCheckoutClicked"></app-loader>
+<div class="products-grid products-list" style="position: relative; min-height: 300px;">
+    <div class="item-product" *ngFor="let product of products; let idx = index">
+        <div class="inner">
+            <div class="product-image">
+                <a routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">
+                    <img class="photo image" attr.data-src="{{'https:' +  product.image_url}}" width="240" height="312">
+                </a>
+                <div class="btn-actions">
+                    <form *ngIf="product.in_stock">
+                        <button type="button" (click)="addToCart(product, $event)" title="Thêm vào giỏ hàng" [ngClass]="{'disabled': isItemAddedToCart[product?.sku?.toString()] || isCartBeingCreated}"
+                            class="action tocart primary action-redirect">
+                            <span>Thêm vào giỏ hàng</span>
+                        </button>
+                    </form>
+
+                    <form *ngIf="product.in_stock">
+                        <button type="button" title="Mua" class="action buy-cart primary" (click)="checkout(product, $event)">
+                            <span>Mua</span>
+                        </button>
+                    </form>
+
+                    <div class="stock unavailable" *ngIf="!product.in_stock">
+                        <span>Hết hàng</span>
+                    </div>
+                </div>
+
+                <div class="top-left-labels" *ngIf="product?.label?.length">
+                    <div class="amasty-label-container override_amsty_label_default family_badge family_badge" style="width: 66px; line-height: normal; height: 55px; position: absolute; z-index: 995; top: 0px; left: 0px;"
+                        *ngFor="let label of product?.label" [hidden]="!label.cat_img_url || isExpiredProductLabel(label)">
+                        <img class="amasty-label-image" [attr.data-src]="label.cat_img_url" style="opacity: 1 !important; width: 100%;">
+                    </div>
+                </div>
+            </div>
+            <div class="product-info">
+                <h4>{{product.product_brand}}</h4>
+                <p class="product-name">
+                    <a routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}" class="product-item-link" style="cursor: pointer" title="{{product.name}}">{{product.name}}</a>
+                </p>
+                <div class="price-box price-final_price" [attr.data-product-id]="product.id">
+                    <p class="special-price">
+                        <span class="current-price">
+                            <span class="final-price" data-price-type="basePrice" [attr.data-price-amount]="product.price?.VND?.price">
+                                {{product.price?.VND?.default_formated}}
+                            </span>
+                        </span>
+
+                        <span class="discount-label" *ngIf="product.price?.VND?.price && product.price?.VND?.default !== product.price?.VND?.price">
+                            -{{product.price?.VND?.default | percentize : product.price?.VND?.price }}
+                        </span>
+                    </p>
+
+                    <p class="old-price" *ngIf="product.price?.VND?.default !== product.price?.VND?.price">
+                        <span class="final-price">
+                            {{product.price?.VND?.price_formated}}
+                        </span>
+                    </p>
+                </div>
+
+                <div class="gift-voucher-label" *ngIf="product?.promotion?.title">
+                    <div class="voucher-info" [innerHTML]="product?.promotion?.title"></div>
+                </div>
+                <p *ngIf="product.accept_installment" class="field-installment">
+                    <span class="installment-inner">Trả góp
+                        <strong>0%</strong> từ
+                        <span class="price">{{ product.price?.VND?.installment_price_formatted }}</span>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

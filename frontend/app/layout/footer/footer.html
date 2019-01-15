@@ -1,0 +1,11 @@
+<section class="section-seo" *ngIf="categorySeo">
+    <div class="container-lt">
+        <div id="seoarea" [innerHTML]="categorySeo">
+
+        </div>
+    </div>
+</section>
+
+<footer class="footer-lt" id="lt-footer" *ngIf="footerContent?.content" [innerHTML]="footerContent?.content" runScripts>
+
+</footer>

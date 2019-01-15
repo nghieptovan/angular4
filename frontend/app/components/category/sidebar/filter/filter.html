@@ -1,0 +1,140 @@
+<div class="lt-filter">
+    <!--Loc da chon -->
+    <div class="lt-filter__item lt-filter__selected" *ngIf="(productState | facets)?.length">
+        <div class="lt-filter__title" (click)="isHiddenFilter.selectedFilter = !isHiddenFilter.selectedFilter">
+            Các lọc đã chọn
+            <div class="lt-icon--plus" aria-hidden="true" *ngIf="isHiddenFilter.selectedFilter"></div>
+            <div class="lt-icon--minus" aria-hidden="true" *ngIf="!isHiddenFilter.selectedFilter"></div>
+        </div>
+
+        <div class="lt-filter__content" *ngIf="!isHiddenFilter.selectedFilter">
+            <div class="lt-filter__content--remove-all">
+                <a (click)="resetAllFilter()"> Xóa tất cả</a>
+            </div>
+
+            <div>
+                <a class="a-option a-option--choosen" (click)="addFilter(selected.type, selected)" *ngFor="let selected of productState | facets; let idx = index">
+                    {{selected.name}}
+                    <span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danh muc -->
+    <div class="lt-filter__item lt-filter__categories" *ngIf="requestBody.type !== 'category' && facets?.categories?.length">
+        <div class="lt-filter__title" (click)="isHiddenFilter.category = !isHiddenFilter.category">
+            <div>Danh mục</div>
+            <div class="lt-icon--plus" aria-hidden="true" *ngIf="isHiddenFilter.category"></div>
+            <div class="lt-icon--minus" aria-hidden="true" *ngIf="!isHiddenFilter.category"></div>
+        </div>
+
+        <div class="lt-filter__content" *ngIf="!isHiddenFilter.category">
+            <a *ngFor="let cat of facets?.categories">
+                <label>
+                    <input (change)="addFilter('categories', cat)" [checked]="cat.isChecked" type="checkbox" value="{{cat.name}}">{{cat.name}}
+                    <span>{{cat.value}}</span>
+                </label>
+            </a>
+        </div>
+    </div>
+
+    <!-- Giá -->
+    <div class="lt-filter__item lt-filter__price" *ngIf="facets?.price?.max && priceRange && priceMax">
+        <div class="lt-filter__title" (click)="isHiddenFilter.price = !isHiddenFilter.price">
+            <div>Giá</div>
+            <div class="lt-icon--plus" aria-hidden="true" *ngIf="isHiddenFilter.price"></div>
+            <div class="lt-icon--minus" aria-hidden="true" *ngIf="!isHiddenFilter.price"></div>
+        </div>
+
+        <div class="lt-filter__content lt-filter__price__content" *ngIf="!isHiddenFilter.price">
+            <div class="lt-filter__price--range">
+                <input type="text" [(ngModel)]="priceRange[0]" (keyup)="validatePrice($event, false)" currencyMask [options]="currencyMaskOptions">
+                <span>
+                    <div class="lt-icon--minus" aria-hidden="true"></div>
+                </span>
+                <input type="text" [(ngModel)]="priceRange[1]" (keyup)="validatePrice($event, true)" currencyMask [options]="currencyMaskOptions">
+            </div>
+
+            <div class="lt-filter__price--slider">
+                <nouislider #mySlider [config]="uiSliderConfig" [step]="1000" [max]="priceMax" [min]="0" [(ngModel)]="priceRange"></nouislider>
+            </div>
+
+            <div class="lt-filter__price--submit">
+                <button type="button" (click)="addFilter('price', priceRange)">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nhà cung cấp -->
+    <div class="lt-filter__item" *ngIf="requestBody.type !== 'vendor' && facets?.vendor?.length">
+        <div class="lt-filter__title" (click)="isHiddenFilter.vendor = !isHiddenFilter.vendor">
+            <div>Nhà cung cấp</div>
+            <div class="lt-icon--plus" aria-hidden="true" *ngIf="isHiddenFilter.vendor"></div>
+            <div class="lt-icon--minus" aria-hidden="true" *ngIf="!isHiddenFilter.vendor"></div>
+        </div>
+
+        <div class="lt-filter__content" *ngIf="!isHiddenFilter.vendor">
+            <a *ngFor="let vendor of facets?.vendor">
+                <label>
+                    <input type="checkbox" (change)="addFilter('vendor', vendor)" [checked]="vendor.isChecked" value="{{vendor.name}}">{{vendor.name}}
+                    <span>{{vendor.value}}</span>
+                </label>
+            </a>
+        </div>
+    </div>
+
+    <!-- Thương hiệu -->
+    <div class="lt-filter__item lt-filter__brand" *ngIf="requestBody.type !== 'brand' &&facets?.product_brand?.length">
+        <div class="lt-filter__title" (click)="isHiddenFilter.brand = !isHiddenFilter.brand">
+            <div>Thương hiệu</div>
+            <div class="lt-icon--plus" aria-hidden="true" *ngIf="isHiddenFilter.brand"></div>
+            <div class="lt-icon--minus" aria-hidden="true" *ngIf="!isHiddenFilter.brand"></div>
+        </div>
+
+        <div class="lt-filter__content" *ngIf="!isHiddenFilter.brand">
+            <a *ngFor="let brand of facets?.product_brand">
+                <label>
+                    <input type="checkbox" (change)="addFilter('product_brand', brand)" [checked]="brand.isChecked" value="{{brand.name}}">{{brand.name}}
+                    <span>{{brand.value}}</span>
+                </label>
+            </a>
+        </div>
+    </div>
+
+    <!-- Màu sắc -->
+    <div class="lt-filter__item" *ngIf="facets?.color?.length">
+        <div class="lt-filter__title" (click)="isHiddenFilter.color = !isHiddenFilter.color">
+            <div>Màu sắc</div>
+            <div class="lt-icon--plus" aria-hidden="true" *ngIf="isHiddenFilter.color"></div>
+            <div class="lt-icon--minus" aria-hidden="true" *ngIf="!isHiddenFilter.color"></div>
+        </div>
+
+        <div class="lt-filter__content" *ngIf="!isHiddenFilter.color">
+            <a *ngFor="let color of facets?.color">
+                <label>
+                    <input type="checkbox" (change)="addFilter('color', color)" [checked]="color.isChecked" value="{{color.name}}">{{color.name}}
+                    <span>{{color.value}}</span>
+                </label>
+            </a>
+        </div>
+    </div>
+
+    <!-- Kích cỡ-->
+    <div class="lt-filter__item lt-filter__size" *ngIf="facets?.size?.length">
+        <div class="lt-filter__title" (click)="isHiddenFilter.size = !isHiddenFilter.size">
+            <div>Kích cỡ</div>
+            <div class="lt-icon--plus" aria-hidden="true" *ngIf="isHiddenFilter.size"></div>
+            <div class="lt-icon--minus" aria-hidden="true" *ngIf="!isHiddenFilter.size"></div>
+        </div>
+
+        <div class="lt-filter__content clearfix" *ngIf="!isHiddenFilter.size">
+            <div>
+                <a class="lt-filter__size--item" (click)="addFilter('size', size)" [class.lt-filter__size--item--selected]="size.isChecked"
+                    *ngFor="let size of facets?.size">
+                    {{size.name}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

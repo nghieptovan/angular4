@@ -1,0 +1,19 @@
+<div class="general-message-popup">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-lt">
+            <div class="modal-header-lt">
+                <h5 class="modal-title">THÔNG BÁO</h5>
+                <button type="button" class="close" (click)="closeModal()">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Cửa hàng sẽ tạm ngưng giao hàng từ sau {{getStringTime(closeTime)}} đến {{getStringTime(openTime)}} ngày hôm sau. Tuy nhiên quý khách có thể đặt hàng trước, đơn hàng của bạn sẽ được xử lý khi cửa hàng hoạt động lại vào {{getStringTime(openTime)}}</p>
+                <ul class="group-action-type">
+                    <li><a class="button-bg" title="Tiếp tục đặt trước" (click)="confirm()">Tiếp tục đặt trước</a></li>
+                    <li><a class="button-bg btn-cancel" title="Mua sắm sản phẩm khác" (click)="closeModal()">Mua sắm sản phẩm khác</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

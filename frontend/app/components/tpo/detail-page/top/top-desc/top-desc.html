@@ -1,0 +1,8 @@
+<div class="hashtag-top-desc" [hidden]="tpoDeail.long_description == '' || tpoDeail.short_description == null || tpoDeail.short_description == undefined">
+  <div class="container-v">
+    <div [class] = "!isReadMore?'row-type clearfix':'row-type clearfix opened'">
+        <div [innerHTML] = "tpoDeail.long_description | keepHtml"></div>
+        <a class="read-more" (click) = "readMore()"><span>Xem thêm</span></a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,407 @@
+.field .control {
+    input,
+    select,
+    textarea {
+        &:focus,
+        &:active {
+            border: 1px solid #444;
+        }
+    }
+}
+
+.toolbar-products .pages .action {
+    min-width: 30px;
+    width: auto !important;
+    &.active {
+        font-weight: bold !important;
+        border: 1px solid #000;
+    }
+}
+
+.nav-fixed-top .page-header {
+    z-index: 101 !important;
+}
+
+.nav-fixed-top .floated-recent-views .backtotop-container {
+    opacity: 1;
+    visibility: visible !important;
+}
+
+.loading-mask {
+    position: absolute !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.products-list {
+    position: relative;
+}
+
+.vietin-field {
+    margin: 5px;
+}
+
+
+/* line 3, ../sass/style.scss */
+
+.vietin-field .vietin-control {
+    width: 96%;
+}
+
+
+/* line 5, ../sass/style.scss */
+
+.vietin-field .vietin-control input {
+    margin: 5px;
+}
+
+
+/* line 8, ../sass/style.scss */
+
+.vietin-field .vietin-control select {
+    margin: 5px;
+}
+
+
+/* line 13, ../sass/style.scss */
+
+.vietin-field .vietin-expiry-control .vietin-select-date {
+    width: 47%;
+    margin: 5px;
+    float: left;
+}
+
+.payment-method .payment-method-content {
+    list-style-type: none;
+}
+
+.payment-method .payment-method-content .cc_card_left {
+    width: 50%;
+    float: left;
+}
+
+.payment-method .payment-method-content .cc_card_right {
+    width: 50%;
+    float: right;
+}
+
+.opc-wrapper .checkout-shipping-method .table-checkout-method .shipping-method span.fresh-noted {
+    color: #4ec67c;
+    margin-bottom: -2px;
+    margin-top: 5px;
+}
+
+#checkoutSteps .option-tabs {
+    border-top-color: #e8e7e6;
+}
+
+#checkoutSteps #checkout-step-payment .payment-note {
+    margin-top: 0;
+}
+
+#checkoutSteps #shipping #checkout-step-shipping .address-item label {
+    line-height: 20px;
+}
+
+.opc-block-shipping-information .ship-to {
+    border-color: #e8e7e6;
+}
+
+.shipping-noted {
+    background: rgba(0, 0, 0, 0) url("https://d1710i1dsqwesz.cloudfront.net/media/wysiwyg/static/icon-note_1.png") no-repeat scroll 17px 50%;
+    border: 1px dashed #d5d5d5;
+    border-radius: 5px;
+    color: #444;
+    font-size: 13px;
+    margin-bottom: 30px;
+    padding: 10px 10px 10px 50px;
+}
+
+.shipping-noted p {
+    margin-bottom: 0;
+}
+
+.shipping-time-noted {
+    color: #777;
+    float: left;
+    font-size: 12px;
+    line-height: 1.2;
+    max-width: 300px;
+}
+
+.shipping-time-noted p {
+    margin-bottom: 5px;
+}
+
+.shipping-time-noted .text-type {
+    color: #222;
+    font-size: 13px;
+}
+
+.shipping-time-noted .text-type span span {
+    color: #4ec67c;
+}
+
+.cart.table-wrapper table.cart>thead>tr>th.col {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left
+}
+
+.cart.table-wrapper table.cart>thead>tr>th.col.item {
+    padding-left: 10px
+}
+
+.cart.table-wrapper .item .col.item {
+    padding-right: 10px;
+    padding-left: 10px
+}
+
+.cart.table-wrapper .item .col.supplier .supplier-info {
+    display: block
+}
+
+.cart.table-wrapper .col.msrp,
+.cart.table-wrapper .col.price,
+.cart.table-wrapper .col.subtotal,
+.cart.table-wrapper .col.supplier {
+    text-align: left
+}
+
+.cart.table-wrapper .item .col.subtotal {
+    padding-left: 10px
+}
+
+.cart.table-wrapper .item .col.subtotal .button,
+.cart.table-wrapper .item .col.subtotal .tocart {
+    margin-left: 0!important
+}
+
+.cart.table-wrapper .item .col.subtotal .button {
+    padding-bottom: 2px!important
+}
+
+.checkout-cart-index .cart-shipping-total .total-cart-custom table>tbody>tr td {
+    padding-left: 10px;
+    padding-right: 10px
+}
+
+.cart-shipping-total .shipping-estimating {
+    padding-left: 10px
+}
+
+
+/* delivery */
+
+.opc-wrapper .checkout-shipping-method .table-checkout-method thead tr th {
+    text-align: left;
+    padding-left: 5px;
+}
+
+.opc-wrapper .checkout-shipping-method .table-checkout-method thead tr th.col-item {
+    padding-left: 5px;
+}
+
+.opc-wrapper .checkout-shipping-method .table-checkout-method tbody tr td.logo-vendor {
+    text-align: left;
+}
+
+.opc-wrapper .table-checkout-method tbody tr.new-vendor td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.opc-wrapper .table-checkout-method tbody tr.odd td:first-child {
+    font-size: 12px;
+}
+
+.opc-wrapper .checkout-shipping-method .table-checkout-method thead tr th.col-qty {
+    text-align: center;
+}
+
+
+/* end cart page */
+
+.checkout-cart-index .page-footer .block-static-block.widget {
+    margin-bottom: 0;
+}
+
+
+/* visa */
+
+#checkoutSteps .group-2 .visa-disable-image {
+    background: none !important;
+}
+
+#checkoutSteps #checkout-payment-method-load .bank-provide {
+    display: none !important;
+}
+
+#checkoutSteps #vietin_gatewayis_save_my_card+label,
+#checkoutSteps #vietin_gateway_promotion2is_save_my_card+label {
+    display: none !important;
+}
+
+#checkoutSteps #vietin_gateway_installmentis_save_my_card+label,
+#checkoutSteps #vietin_gateway_promotion1is_save_my_card+label {
+    display: none !important;
+}
+
+#checkoutSteps #checkout-payment-method-load .payment-method .payment-method-content .vietin-field.field label {
+    font-weight: 800;
+}
+
+
+/* hide discount icon */
+
+#checkoutSteps #discount-form .field-title .button-guideline {
+    display: none;
+}
+
+
+/* hide local atm in checkout page */
+
+#checkout #checkoutSteps #checkout-step-payment form .payment-method.local-atm {
+    display: none;
+}
+
+.checkout-payment-block {
+    display: block;
+}
+
+
+/* checkout */
+.checkout-methods-items {
+    min-width: auto !important;
+}
+.checkout-cart-index .top-nav {
+    display: none;
+}
+
+.checkout-cart-index #maincontent {
+    padding-top: 172px;
+}
+
+.checkout-cart-index #maincontent .fb-share {
+    display: none;
+}
+
+.checkout-cart-index #maincontent .page-title-wrapper {
+    padding-top: 0;
+}
+
+.checkout-cart-index #maincontent .page-title-wrapper .page-title {
+    padding-top: 0 !important;
+}
+
+.actions-toolbar {
+    a {
+        cursor: pointer !important;
+    }
+}
+
+.promotion-infos:before {
+    z-index: 0 !important;
+}
+
+.promotion-infos h4:before {
+    z-index: 0 !important;
+}
+
+.opc-wrapper {
+    padding-top: 23px;
+    .step-content {
+        padding-top: 0 !important;
+    }
+}
+
+.cms-home .block-title {
+    display: block;
+}
+
+.opc-block-shipping-information .shipping-information-content {
+    word-wrap: break-word;
+}
+
+.checkout-onepage-success .middle-content .shipping-address,
+.checkout-onepage-failure .middle-content .shipping-address {
+    word-wrap: break-word;
+    p {
+        word-wrap: break-word;
+    }
+}
+
+.mega-menu ul li a,
+.mega-menu h3 a {
+    cursor: pointer !important;
+}
+
+/*** categories ***/
+.amasty-label-container.family_badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    img {
+        max-height: 55px;
+    }
+}
+
+.header-wrap .block-search input{ background: none !important; }
+#algolia-autocomplete-container .aa-dropdown-menu .suggestion-wrapper,
+#algolia-autocomplete-container .aa-dropdown-menu .history-wrapper,
+#algolia-autocomplete-container .aa-dropdown-menu .popular-wrapper{
+	width: 100%;
+}
+
+
+.product-right-content .delivery-options {
+	margin-left: 0;
+}
+.gallery-placeholder .loading-mask .spinner{ background: none !important; }
+
+/* footer */
+.bank-cards span.vietinbank-icon{
+	background-image: url(https://d1710i1dsqwesz.cloudfront.net/media/wysiwyg/static/custom/logo_vietinbank.png);
+	background-position: 50% 50%;
+	width: 78px;
+	background-size: 100% auto;
+	background-color: #fff;
+}
+
+/* start Gift voucher */
+.section-top-selling .products-tab-content{
+	padding: 15px;
+}
+.section-top-selling .products-tab .products-list .product-image{
+	min-height: 290px;
+}
+.section-top-selling .products-tab .products-list .product-image img{
+	max-height: 290px;
+}
+
+.order_search_form .compare_date_message {
+    padding-top: 10px;
+}
+
+.order_search_form .date_from label {
+    z-index: 1;
+}
+
+.membership_info .row .info-1 ul li .order {
+    width: 75% !important;
+}
+
+.membership_info .row .info-1 ul li .number {
+    max-width: 18% !important;
+}
+
+.lottemart-theme .page-main,
+.department-theme .page-main,
+.datviet-theme .page-main {
+    padding-top: 0 !important;
+}
+
+.header-scrolled .topbar {
+    height: 162px !important;
+}

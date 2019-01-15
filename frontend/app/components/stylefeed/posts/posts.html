@@ -1,0 +1,14 @@
+<main class="main">
+    <div class="container-lt">
+        <div class="article-list">
+            <h2><span>TẤT CẢ BÀI VIẾT</span></h2>
+            <div class="grid-lt">
+                <masonry>
+                    <lt-stylefeed-posts-items [posts]="posts"></lt-stylefeed-posts-items>
+                </masonry>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="infinity-scroll" [attr.page-old]="0" [attr.page]="1" (window:scroll)="onScroll($event)"></div>

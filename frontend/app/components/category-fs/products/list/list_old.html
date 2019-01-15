@@ -1,0 +1,123 @@
+<div class="products-cate-list">
+  <!--item -->
+  <div class="item-product" *ngFor="let product of Products; let idx = index">
+    <div class="inner">
+      <div class="field-img">
+        <a class="thumb-img" routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">
+          <img attr.src="{{'https:' +  product.image_url}}" alt="">
+        </a>
+        <div class="field-badge-top"><img src="../demo/img-4.png" alt=""></div>
+        <div class="field-badge-bottom">
+          <div class="gift-info">
+            <button class="btn-gift"><span>Gift info</span></button>
+            <div class="gift-tips">
+              <div class="inner">
+                <p>•  Lorem ipsum dolor sintet.</p>
+                <p>•  Lorem ipsum dolor sintet.</p>
+                <p>•  Lorem ipsum dolor sintet.</p>
+
+              </div>
+            </div>
+          </div>
+          <button class="btn-save"><span>Save for later</span></button>
+        </div>
+      </div>
+      <div class="info">
+        <span class="field-brand"><span class="brand-name">{{product.product_brand}}</span><span class="tag">new</span></span>
+        <span class="field-name"><a routerLink="/product/{{product.id}}/{{product.url.toUrlKey()}}">{{product.name}}</a></span>
+        <span class="field-price" [attr.data-price-amount]="product.price?.VND?.price"><span class="old-price" *ngIf="product.price?.VND?.default !== product.price?.VND?.price">{{product.price?.VND?.price_formated}}</span> {{product.price?.VND?.default_formated}}</span>
+      </div>
+
+      <div class="bottom-info">
+        <ul class="thumbs-list">
+          <li class="active">
+            <a href="#"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt=""></a>
+          </li>
+          <li>
+            <a href="#"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt=""></a>
+          </li>
+          <li>
+            <a href="#"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt=""></a>
+          </li>
+          <li>
+            <a href="#"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt=""></a>
+          </li>
+          <li>
+            <a href="#"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt=""></a>
+          </li>
+          <li>
+            <a href="#"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt=""></a>
+          </li>
+          <li class="more">
+            <a href="#"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt="">
+              <span>More</span>
+            </a>
+          </li>
+        </ul>
+        <div class="more-info">
+          <div class="size-options">
+            <a href="#">S</a> / <a href="#">M</a> / <a href="#">L</a> / <a href="#">XL</a>
+          </div>
+          <div class="others">
+            <span class="location">Hà Nội</span><span class="sep">/</span><span class="delivery-type">Giao nhanh</span>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+  <!--end item -->
+  <!--item -->
+  <!--<div class="item-product">-->
+  <!--<div class="inner">-->
+  <!--<div class="field-img">-->
+  <!--<a class="thumb-img" href="#" title="Abercrombie &amp; Fitch Varsity Chest Stripe Lightweight Sweatshirt in Red"><img src="https://d1710i1dsqwesz.cloudfront.net/media/catalog/product/cache/1/small_image/240x312/beff4985b56e3afdbeabfc89641a4582/1/1/1124_1503026010_gc536_30-d2p-global-001.jpg" alt=""></a>-->
+  <!--<div class="field-badge-top"><img src="../demo/img-4.png" alt=""></div>-->
+  <!--<div class="field-badge-bottom">-->
+  <!--<div class="gift-info">-->
+  <!--<button class="btn-gift"><span>Gift info</span></button>-->
+  <!--<div class="gift-tips">-->
+  <!--<div class="inner">-->
+  <!--<p>•  Lorem ipsum dolor sintet.</p>-->
+  <!--<p>•  Lorem ipsum dolor sintet.</p>-->
+  <!--<p>•  Lorem ipsum dolor sintet.</p>-->
+
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<button class="btn-save"><span>Save for later</span></button>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="info">-->
+  <!--<span class="field-brand"><span class="brand-name">ADIDAS</span><span class="tag">new</span></span>-->
+  <!--<span class="field-name"><a href="#">Abercrombie &amp; Fitch Varsity Chest Stripe Lightweight Sweatshirt in Red</a></span>-->
+  <!--<span class="field-price"><span class="old-price">13.859.000 ₫</span> 2.590.000 ₫</span>-->
+  <!--</div>-->
+
+  <!--<div class="bottom-info">-->
+  <!--<div class="time-bar">-->
+  <!--<div class="bar-info">-->
+  <!--<span class="txt">125 người đã mua</span>-->
+  <!--<div class="bar-timer">-->
+  <!--Kết thúc sau <strong>4</strong> ngày <strong>06:45:40</strong>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="bar-percent">-->
+  <!--<span style="width: 50%;"></span>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="more-info">-->
+
+  <!--<div class="others">-->
+  <!--<span class="location">Quận 1</span>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--</div>-->
+
+  <!--</div>-->
+  <!--</div>-->
+  <!--end item -->
+</div>

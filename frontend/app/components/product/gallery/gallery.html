@@ -1,0 +1,3 @@
+<ngx-gallery *ngIf="galleryPhotos?.length" [options]="galleryOptions" [(images)]="galleryImages" (click)="onDataClick($event)" (imagesReady)="onGalerryLoaded()"
+    (change)="onGalleryChanged($event)">
+</ngx-gallery>

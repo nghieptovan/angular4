@@ -1,0 +1,89 @@
+<div class="toolbar toolbar-products">
+    <div class="toolbar-sorter sorter">
+        <select class="sorter-options" [(ngModel)]="sortBy" (change)="setOrderBy(sortBy)">
+            <option value="" selected="selected">
+                Sắp Xếp Theo
+            </option>
+            <option value="name ASC">
+                Tên sản phẩm A - Z
+            </option>
+            <option value="name DESC">
+                Tên sản phẩm Z - A
+            </option>
+            <option value="price_default ASC">
+                Giá Thấp Đến Cao
+            </option>
+            <option value="price_default DESC">
+                Giá Cao Đến Thấp
+            </option>
+            <option value="created_at DESC">
+                Mới
+            </option>
+            <!--<option>
+                Đánh Giá
+            </option>-->
+        </select>
+    </div>
+
+    <div class="toolbar-pager pager" *ngIf="nbPages > 1">
+        <div class="pages">
+            <strong class="label pages-label" id="paging-label">Page</strong>
+            <ul class="items pages-items" aria-labelledby="paging-label">
+
+                <li class="item pages-item-first" [ngClass]="{'disabled' : currentPage < 2}"
+                    (click)="selectPage(1)">
+                    <a class="action first" title="First Page">
+                        <span class="label">Page</span>
+                        <span>1</span>
+                    </a>
+                </li>
+
+                <li class="item pages-item-previous" [ngClass]="{'disabled' : currentPage < 2}"
+                    (click)="selectPage(currentPage)">
+                    <a class="action previous" title="Trước đó">
+                        <span class="label">Page</span>
+                        <span>Trước đó</span>
+                    </a>
+                </li>
+
+                <li class="item" *ngFor="let page of pagesArray" (click)="selectPage(page)">
+                    <a class="page" [ngClass]="{'action active': page == currentPage + 1}">
+                        <span class="label">Page</span>
+                        <span>{{page}}</span>
+                    </a>
+                </li>
+
+                <li class="item pages-item-next"
+                    [ngClass]="{'disabled' : currentPage == nbPages}"
+                    (click)="selectPage(currentPage + 2)">
+                    <a class="action next" title="Tiếp tục">
+                        <span class="label">Page</span>
+                        <span>&gt;</span>
+                    </a>
+                </li>
+
+                <li class="item pages-item-last next-last-item"
+                    [ngClass]="{'disabled' : currentPage == nbPages}"
+                    (click)="selectPage(nbPages)">
+                    <a class="action last" title="Last Page">
+                        <span class="label">Page</span>
+                        <span>104</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="field limiter">
+        <span class="total-items">Số sản phẩm trên trang</span>
+        <div class="control">
+            <select data-role="limiter" name="hitsPerPage"
+                    [(ngModel)]="hitsPerPage" class="limiter-options" (change)="selectPageSize(hitsPerPage)">
+                <option [value]="value" *ngFor="let value of [40, 80, 120]"
+                        [disabled]="value === hitsPerPage">
+                    {{value}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>

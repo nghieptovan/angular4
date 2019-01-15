@@ -1,0 +1,112 @@
+ngx-gallery-thumbnails {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 9 !important;
+    .ngx-gallery-thumbnails-wrapper {
+        width: 268px !important;
+    }
+    .ngx-gallery-thumbnails {
+        width: 98% !important;
+        margin-left: 0 !important;
+    }
+    .ngx-gallery-thumbnail {
+        width: 50px !important;
+        height: 65px !important;
+        transition-duration: 3000ms;
+        transform: translate3d(0, 0px, 0px);
+        transition-property: transform, width;
+        transition-timing-function: cubic-bezier(.1, 0, .25, 1);
+        background: 0 0;
+        border: 1px solid #ddd;
+        &.ngx-gallery-active {
+            border: 1px solid #767676 !important;
+        }
+        &--has-video {
+            &:before {
+                content: "";
+                width: 28px;
+                height: 28px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 2;
+                margin-top: -14px;
+                margin-left: -16px;
+                background-color: transparent;
+                background-image: url(../images/icon-sprites.png);
+                background-repeat: no-repeat;
+                background-size: 200px auto;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                background-position: 0 -540px;
+            }
+        }
+    }
+    ngx-gallery-arrows {
+        .ngx-gallery-arrow-wrapper {
+            top: 0 !important;
+        }
+        .ngx-gallery-disabled {
+            display: none !important;
+        }
+    }
+}
+
+ngx-gallery-image {
+    z-index: 9 !important;
+    .ngx-gallery-image {
+        text-align: center !important;
+        .zoomWrapper {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            width: 100% !important;
+            height: 100% !important;
+            text-align: center !important;
+        }
+        img {
+            position: inherit !important;
+            opacity: 0 !important;
+            width: auto !important;
+            max-height: 470px !important;
+        }
+        &.ngx-gallery-active--has-video {
+            cursor: pointer !important;
+            &:before {
+                content: "";
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 2;
+                margin-top: -50px;
+                margin-left: -50px;
+                background-color: transparent;
+                background-image: url(../images/icon-sprites.png);
+                background-repeat: no-repeat;
+                background-size: 200px auto;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                background-position: 0 -570px;
+            }
+            &:hover {
+                opacity: 0.5 !important;
+                cursor: pointer;
+            }
+        }
+    }
+    ngx-gallery-arrows {
+        display: none !important;
+    }
+}
+
+.zoomContainer {
+    z-index: 9 !important;
+    .zoomLens {
+        cursor: pointer !important;
+    }
+}

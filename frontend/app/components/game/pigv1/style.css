@@ -1,0 +1,1636 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.css);
+@import url(https://fonts.googleapis.com/css?family=Alegreya:400,500,700);
+.modal{
+    background-color:rgba(51,51,51,.8)!important
+}
+.game-mobile-page{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-main-2.jpg) 50% 0 no-repeat #ffc537
+}
+.game-mobile-page .breadcrumb-lt,.game-mobile-page .campaign-promotion-sale,.game-mobile-page .footer-lt,.game-mobile-page .img-top-mobile,.game-mobile-page .section-promotion-sale,.game-mobile-page .sticky-header,.game-mobile-page .subscrible-section,.game-mobile-page .topbar{
+    display:none
+}
+.bigbang-page{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-main.jpg) 50% 0 no-repeat #ffc537;
+    position:relative
+}
+.bigbang-page .container-lt{
+    max-width:1110px;
+    width:auto
+}
+.bigbang-page .text-type{
+    text-align:center;
+    font-size:16px;
+    margin-bottom:30px;
+    color:#7c4905;
+    line-height:100%
+}
+.bigbang-page .text-type a{
+    color:#7c4905;
+    text-decoration:underline;
+    margin:0 15px
+}
+.bigbang-page .text-type a,.bigbang-page .text-type span{
+    display:inline-block;
+    margin-bottom:5px
+}
+.bigbang-page .text-type span{
+    padding:0 15px;
+    border-right:1px solid #7c4905;
+    margin-bottom:5px
+}
+.bigbang-page .text-type span a{
+    margin:0
+}
+.bigbang-page .illus-top{
+    padding-bottom:20px;
+    padding-top:25px;
+    position:relative
+}
+.bigbang-page .illus-top .zoom-img{
+    display:block;
+    margin:0 auto;
+    animation:zoominoutimg 2s infinite
+}
+.bigbang-page .illus-top .img-3{
+    position:absolute;
+    z-index:1;
+    top:-24px;
+    right:110px
+}
+.bigbang-page .group-actions{
+    margin-bottom:10px
+}
+.bigbang-page .group-actions ul{
+    text-align:center
+}
+.bigbang-page .group-actions ul li{
+    display:inline-block;
+    padding:0 5px;
+    vertical-align:middle;
+    position:relative
+}
+.bigbang-page .group-actions ul li .count{
+    display:block;
+    text-align:center;
+    color:#fff;
+    position:absolute;
+    bottom:32px;
+    left:0;
+    width:100%;
+    font-size:14px
+}
+.bigbang-page .group-actions ul li img{
+    display:block;
+    margin:0 auto
+}
+.bigbang-page .group-actions ul li a:focus img,.bigbang-page .group-actions ul li a:hover img{
+    opacity:.9
+}
+.bigbang-page .text-type-2{
+    font-weight:700;
+    color:#c2382c;
+    text-align:center;
+    margin-bottom:40px
+}
+.bigbang-page .text-type-2 a{
+    color:#c2382c
+}
+.bigbang-page .share-text{
+    max-width:616px;
+    margin:0 auto 30px;
+    background:#ffd773;
+    font-size:18px;
+    color:#7c4905;
+    border:1px dashed #f1b729;
+    padding:15px;
+    text-align:center;
+    border-radius:10px;
+    -webkit-border-radius:10px
+}
+.bigbang-page .share-text p{
+    margin-bottom:0
+}
+.table-content-game{
+    height:695px;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-3.png) 50% 0 no-repeat;
+    padding:60px 50px 50px;
+    margin-bottom:20px
+}
+.table-content-game .table-content-inner{
+    max-height:567px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    padding:10px
+}
+.table-content-game .tbl-customer-list .table .thead .tbl-row{
+    background:0 0;
+    font-weight:700
+}
+.table-content-game .tbl-customer-list .table .thead .tbl-row .col-3,.table-content-game .tbl-customer-list .table .thead .tbl-row .col-4,.table-content-game .tbl-customer-list .table .thead .tbl-row .col-5,.table-content-game .tbl-customer-list .table .thead .tbl-row .col-6,.table-content-game .tbl-customer-list .table .thead .tbl-row>div{
+    padding-top:5px;
+    padding-bottom:5px;
+    min-height:10px;
+    font-size:20px
+}
+.table-content-game .tbl-customer-list .table .col-4{
+    width:15%
+}
+.table-content-game .tbl-customer-list .table .col-3{
+    width:24%
+}
+.table-content-game .tbl-customer-list .table .col-5{
+    width:18%
+}
+.table-content-game .tbl-customer-list .table .col-6{
+    width:43%
+}
+.table-content-game .tab-table-content .content{
+    display:none
+}
+.table-content-game .tab-table-content .content.active{
+    display:block
+}
+.table-content-game .tab-table{
+    width:100%;
+    text-align:center;
+    margin-top:-85px
+}
+.table-content-game .tab-table li{
+    max-width:48%;
+    display:inline-block;
+    margin-bottom:0
+}
+.table-content-game .tab-table li img{
+    display:block
+}
+.table-content-game .tab-table li .tab-mobile,.table-content-game .tab-table li.active img{
+    display:none
+}
+.table-content-game .tab-table li.active .hide{
+    display:block!important
+}
+.table-content-game .table{
+    margin-bottom:20px
+}
+.table-content-game .table .thead{
+    margin-bottom:15px
+}
+.table-content-game .table .thead .tbl-row{
+    background:#db712b
+}
+.table-content-game .table .thead .tbl-row .col-1{
+    padding-top:14px
+}
+.table-content-game .table .thead .tbl-row .col-2,.table-content-game .table .thead .tbl-row .col-3,.table-content-game .table .thead .tbl-row .col-4,.table-content-game .table .thead .tbl-row .col-5,.table-content-game .table .thead .tbl-row .col-6{
+    padding-top:25px;
+    padding-bottom:25px;
+    min-height:75px
+}
+.table-content-game .table .thead .your-level{
+    text-align:center;
+    border:2px dashed #fff;
+    padding:5px 1px;
+    text-transform:uppercase;
+    font-size:11px;
+    font-weight:700;
+    line-height:1.3;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    max-width:54px;
+    position:relative
+}
+.table-content-game .table .thead .your-level:before{
+    content:"";
+    width:38px;
+    height:36px;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/icon-4.png) no-repeat;
+    position:absolute;
+    z-index:1;
+    top:-23px;
+    left:-21px
+}
+.table-content-game .table .thead .your-level strong{
+    display:block;
+    font-size:16px
+}
+.table-content-game .table .tbl-row{
+    background:0 0;
+    border-radius:7px;
+    -webkit-border-radius:7px
+}
+.table-content-game .table .col-1,.table-content-game .table .col-2,.table-content-game .table .col-3,.table-content-game .table .col-4,.table-content-game .table .col-5,.table-content-game .table .col-6{
+    width:16%;
+    float:left;
+    text-align:left;
+    padding:10px;
+    font-size:16px;
+    color:#fff
+}
+.table-content-game .table .col-1{
+    width:7%
+}
+.table-content-game .table .col-1 img{
+    display:block;
+    margin-top:-9px;
+    margin-bottom:-9px
+}
+.table-content-game .table .col-2{
+    width:10%;
+    font-weight:700;
+    text-transform:uppercase
+}
+.table-content-game .table .col-3{
+    width:24%;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden
+}
+.table-content-game .table .col-6{
+    width:27%
+}
+.table-content-game .table .tbody .tbl-row:nth-child(even){
+    background-color:rgba(226,117,5,.3)
+}
+.table-content-game .table .thead.tbl-row{
+    background:0 0;
+    font-size:24px;
+    font-weight:700;
+    font-style:italic
+}
+.table-content-game .table .thead.tbl-row .col-1,.table-content-game .table .thead.tbl-row .col-2,.table-content-game .table .thead.tbl-row .col-3,.table-content-game .table .thead.tbl-row .col-4{
+    padding-top:10px;
+    padding-bottom:10px
+}
+.table-content-game .note{
+    font-size:16px;
+    color:#fff;
+    font-style:italic
+}
+.game-countdown-page{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-3.jpg) 50% 0 no-repeat #251d08
+}
+.bigbang-countdown{
+    background:0 0
+}
+.bigbang-countdown .container-lt{
+    padding-top:0
+}
+.bigbang-countdown .coutdown-img{
+    max-width:888px;
+    margin:0 auto;
+    position:relative
+}
+.bigbang-countdown .coutdown-img img{
+    display:block;
+    margin:0 auto
+}
+.bigbang-countdown .content{
+    color:#fff;
+    text-transform:uppercase;
+    max-width:300px;
+    z-index:1;
+    position:absolute;
+    left:105px;
+    top:150px;
+    text-align:center;
+    font-size:34px;
+    line-height:1;
+    font-weight:700
+}
+.bigbang-countdown .content .number{
+    font-size:168px;
+    line-height:100%
+}
+.bigbang-game{
+    background:0 0
+}
+.bigbang-game .container-lt{
+    min-height:400px;
+    padding-top:0;
+    position:relative
+}
+.bigbang-game .light{
+    width:550px;
+    height:420px;
+    position:absolute;
+    left:80px;
+    top:0;
+    z-index:1
+}
+.bigbang-game .light-left{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/light-left.png) no-repeat
+}
+.bigbang-game .light-right{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/light-right.png) no-repeat;
+    left:auto;
+    right:80px
+}
+.bigbang-game .effect-click{
+    width:154px;
+    height:224px;
+    z-index:4;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/effect.gif) no-repeat;
+    position:absolute;
+    left:557px;
+    top:169px;
+    display:none
+}
+.bigbang-game .conheo-game-click{
+    width:100%;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+    height:400px
+}
+.bigbang-game .conheo-game-click .conheo-imgs{
+    width:100%;
+    height:100%;
+    position:relative
+}
+.bigbang-game .conheo-game-click .img{
+    position:absolute;
+    z-index:1;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/conheo-1.png) 50% 0 no-repeat
+}
+.bigbang-game .conheo-game-click .img.bg-2{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/conheo-3.png) 50% 0 no-repeat
+}
+.bigbang-game .conheo-game-click .img.bg-3{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/conheo-7.png) 50% 0 no-repeat
+}
+.bigbang-game .conheo-game-click .img.img-hide{
+    display:none
+}
+.bigbang-game .status-wrap{
+    background:#ffc537;
+    border-radius:60px;
+    -webkit-border-radius:60px;
+    padding:13px 30px 13px 330px;
+    box-shadow:0 9px 37px -23px #8e4343;
+    -webkit-box-shadow:0 9px 37px -23px #8e4343;
+    margin-top:30px;
+    position:relative
+}
+.bigbang-game .status-wrap:before{
+    content:"";
+    width:274px;
+    height:142px;
+    z-index:1;
+    position:absolute;
+    left:30px;
+    top:-30px;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/illus-3.png) no-repeat
+}
+.bigbang-game .count-down{
+    position:absolute;
+    z-index:3;
+    width:90px;
+    color:#fff;
+    font-size:18px;
+    text-align:center;
+    line-height:1.1;
+    left:15px;
+    top:23px
+}
+.bigbang-game .count-down .inner{
+    font-size:24px;
+    font-weight:700
+}
+.bigbang-game .time-bar{
+    width:474px;
+    float:left;
+    height:94px;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/timebar_1.png) no-repeat;
+    position:relative
+}
+.bigbang-game .timebar-process{
+    width:300px;
+    height:69px;
+    position:absolute;
+    left:162px;
+    top:11px;
+    z-index:1
+}
+.bigbang-game .timebar-process .inner{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/timebar-percent-2.png) no-repeat;
+    height:100%;
+    width:100%
+}
+.bigbang-game .total-click{
+    width:245px;
+    float:right;
+    background:#ef8b2a;
+    background-image:linear-gradient(to right,#f28f2b,#da662a);
+    border-radius:35px;
+    -webkit-border-radius:35px;
+    padding:5px 10px;
+    color:#fff;
+    text-transform:uppercase;
+    box-shadow:0 0 6px 3px #ffd755;
+    -webkit-box-shadow:0 0 6px 3px #ffd755;
+    margin-top:13px
+}
+.bigbang-game .total-click .lbl-text{
+    width:52%;
+    float:left;
+    font-size:20px;
+    line-height:1.1;
+    padding:6px 0 0 15px
+}
+.bigbang-game .total-click .lbl-text span{
+    display:block
+}
+.bigbang-game .total-click .number{
+    width:48%;
+    font-weight:700;
+    font-size:63px;
+    float:left;
+    line-height:90%;
+    text-align:center
+}
+.bigbang-game .img-type{
+    text-align:center;
+    margin-top:50px
+}
+.bigbang-game .img-type img{
+    display:block;
+    margin:0 auto
+}
+.bigbang-game .copyright-game{
+    text-align:center;
+    color:#fff;
+    opacity:.6;
+    font-size:18px
+}
+.bigbang-game .copyright-game span{
+    display:inline-block;
+    padding:7px 10px;
+    min-width:280px;
+    background-color:rgba(212,152,42,.6);
+    border-radius:35px;
+    -webkit-border-radius:35px
+}
+.bigbang-game-popup .modal-content-lt .close{
+    width:49px;
+    height:49px;
+    top:6px;
+    right:9px;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-close.png) no-repeat
+}
+.bigbang-game-popup .modal-content-lt .close:after,.bigbang-game-popup .modal-content-lt .close:before{
+    display:none
+}
+.bigbang-game-popup .modal-content-lt .close:focus,.bigbang-game-popup .modal-content-lt .close:hover{
+    opacity:.9
+}
+.bigbang-game-popup h2{
+    text-align:center;
+    margin-top:0;
+    margin-bottom:15px;
+    font-size:24px;
+    line-height:1.1;
+    text-transform:uppercase
+}
+.bigbang-game-popup .group-btn-bottom{
+    text-align:center
+}
+.bigbang-game-popup .group-btn-bottom li{
+    display:inline-block;
+    padding:0 5px
+}
+.bigbang-game-popup .group-btn-bottom li img{
+    display:block
+}
+.bigbang-game-popup .group-btn-bottom li a:focus img,.bigbang-game-popup .group-btn-bottom li a:hover img{
+    opacity:.9
+}
+.bigbang-game-term-popup .modal-dialog-lt{
+    width:625px
+}
+.bigbang-game-term-popup .modal-content-lt{
+    height:580px;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-popup-1.png) no-repeat;
+    color:#fff
+}
+.bigbang-game-term-popup .group-btn-bottom{
+    position:absolute;
+    bottom:-28px;
+    z-index:1;
+    width:100%;
+    left:0
+}
+.bigbang-game-term-popup .term-content{
+    padding:10px
+}
+.bigbang-game-term-popup .term-content .content{
+    overflow-x:hidden;
+    overflow-y:auto;
+    max-height:435px;
+    padding:0 10px;
+    font-size:14px
+}
+.bigbang-game-term-popup .term-content li{
+    margin-bottom:4px;
+    position:relative;
+    padding-left:12px
+}
+.bigbang-game-term-popup .term-content li:before{
+    content:"";
+    width:4px;
+    height:4px;
+    background:#fff;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+    z-index:1;
+    position:absolute;
+    left:0;
+    top:8px
+}
+.bigbang-game-term-popup .table-responsive table{
+    width:100%
+}
+.bigbang-game-term-popup .table-responsive table td,.bigbang-game-term-popup .table-responsive table th{
+    padding:7px 10px;
+    text-align:left
+}
+.bigbang-game-term-popup .table-responsive table tr:nth-child(2n) td{
+    background:0 0
+}
+.bigbang-game-term-popup .table-responsive table th{
+    font-weight:700;
+    font-size:20px
+}
+.bigbang-game-term-popup .table-responsive table td{
+    font-size:18px;
+    background-color:rgba(226,117,5,.4)
+}
+.bigbang-game-message-popup .play-msg-content{
+    position:relative;
+    padding-right:83px
+}
+.bigbang-game-message-popup .play-msg-content .img-3{
+    position:absolute;
+    z-index:1;
+    right:0;
+    top:0;
+    max-height:200px
+}
+.bigbang-game-lpoint-popup .modal-dialog-lt{
+    width:643px
+}
+.bigbang-game-lpoint-popup .modal-content-lt{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-popup-3.png) no-repeat;
+    height:529px;
+    color:#fff
+}
+.bigbang-game-lpoint-popup .modal-content-lt .close{
+    top:135px;
+    right:10px
+}
+.bigbang-game-lpoint-popup .modal-content-lt .btn-dongy{
+    position:absolute;
+    margin-bottom:0;
+    bottom:-28px;
+    left:0;
+    width:100%;
+    z-index:1
+}
+.bigbang-game-lpoint-popup .modal-content-lt .btn-dongy button{
+    border:none;
+    cursor:pointer;
+    padding:0
+}
+.bigbang-game-lpoint-popup .modal-content-lt .btn-dongy button:focus,.bigbang-game-lpoint-popup .modal-content-lt .btn-dongy button:hover{
+    opacity:.9
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content{
+    padding:30px 80px;
+    text-align:center
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content form{
+    padding-top:15px
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row{
+    text-align:left;
+    margin-bottom:13px
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row label{
+    width:115px;
+    padding-right:5px;
+    float:left;
+    padding-top:7px
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row label.checked-content{
+    width:auto;
+    margin-right:15px;
+    min-width:60px
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row .input-text{
+    overflow:hidden
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row input{
+    border:none
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row .mage-error{
+    padding-left:115px;
+    padding-top:3px
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row .checked-content .radiobtn{
+    border:2px solid #fff;
+    background:0 0;
+    width:18px;
+    height:18px
+}
+.bigbang-game-lpoint-popup .modal-lpoint-content .form-row .checked-content .radiobtn:after{
+    top:3px;
+    left:3px;
+    width:8px;
+    height:8px
+}
+.bigbang-game-message-popup .modal-dialog-lt{
+    width:760px
+}
+.bigbang-game-message-popup .modal-content-lt{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-popup-2.png) no-repeat;
+    height:446px;
+    color:#fff
+}
+.bigbang-game-message-popup .modal-content-lt .close{
+    top:135px;
+    right:10px
+}
+.bigbang-game-message-popup h2{
+    font-size:18px
+}
+.bigbang-game-message-popup .modal-body{
+    padding:157px 0 0 314px;
+    text-align:center
+}
+.bigbang-game-message-popup .text-msg{
+    min-height:50px;
+    padding-left:15px;
+    padding-right:15px
+}
+.bigbang-game-message-popup .text-msg p{
+    margin-bottom:0
+}
+.bigbang-game-message-popup .gift-msg{
+    text-transform:uppercase;
+    color:#feea04;
+    font-size:22px;
+    line-height:100%;
+    font-weight:700
+}
+.bigbang-game-message-popup .link-type,.bigbang-game-message-popup .text-msg-2 p{
+    margin-bottom:0
+}
+.bigbang-game-message-popup .link-type a{
+    text-decoration:underline;
+    color:#fac90a
+}
+.bigbang-game-message-popup .btn-fb{
+    margin-bottom:0;
+    padding-top:10px;
+    margin-bottom:0
+}
+.bigbang-game-message-popup .btn-fb img{
+    display:block;
+    margin:0 auto
+}
+.bigbang-game-message-popup .group-btn-bottom{
+    position:absolute;
+    width:100%;
+    left:0;
+    bottom:-40px;
+    z-index:1;
+    padding-left:275px
+}
+.bigbang-game-message-popup .group-btn-bottom li{
+    margin-bottom:0;
+    padding-right:0;
+    padding-left:0
+}
+.bigbang-game-message-popup .group-btn-bottom li img{
+    display:block
+}
+.bigbang-game-message-popup .group-btn-bottom li a{
+    display:block;
+    position:relative
+}
+.bigbang-game-message-popup .group-btn-bottom li .count{
+    display:block;
+    text-align:center;
+    color:#fff;
+    position:absolute;
+    bottom:25px;
+    left:0;
+    width:100%;
+    font-size:14px;
+    z-index:1
+}
+.bigbang-game-message-popup .cauchuc{
+    transform:rotate(-5deg);
+    -webkit-transform:rotate(-5deg);
+    width:248px;
+    position:absolute;
+    text-align:center;
+    color:#dc0c2f;
+    text-transform:uppercase;
+    font-family:Alegreya,serif;
+    font-weight:500;
+    line-height:1.1;
+    z-index:1;
+    left:58px;
+    top:279px;
+    font-size:22px;
+    transform:rotate(-5deg);
+    -webkit-transform:rotate(-5deg)
+}
+.bigbang-game-capnhatdiem-popup .modal-dialog-lt{
+    width:648px
+}
+.bigbang-game-capnhatdiem-popup .modal-content-lt{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-popup-4.png) no-repeat;
+    height:199px;
+    color:#fff;
+    margin-top:60px
+}
+.bigbang-game-capnhatdiem-popup .modal-content-lt .close{
+    top:8px;
+    right:10px
+}
+.bigbang-game-capnhatdiem-popup .modal-cnd-content{
+    text-align:center;
+    padding:30px 80px 20px;
+    position:relative
+}
+.bigbang-game-capnhatdiem-popup .modal-cnd-content .img-3{
+    position:absolute;
+    z-index:1;
+    left:15px;
+    top:-62px
+}
+.bigbang-game-capnhatdiem-popup .link-type a{
+    text-decoration:underline;
+    color:#fac90a
+}
+.slider-game-wrap{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-1.png) 50% 0 no-repeat;
+    padding:20px 80px 0;
+    position:relative;
+    margin-top:60px;
+    height:400px;
+    margin-bottom:45px
+}
+.slider-game-wrap h2{
+    width:100%;
+    z-index:1;
+    left:0;
+    top:-30px;
+    margin:0;
+    position:absolute
+}
+.slider-game-wrap h2 img{
+    display:block;
+    margin:0 auto
+}
+.slider-game-wrap h2 span{
+    display:none;
+    text-align:center;
+    text-transform:uppercase;
+    color:#fff;
+    font-weight:700;
+    font-size:30px
+}
+.slider-game{
+    overflow:hidden;
+    padding:0 0 42px
+}
+.slider-game .swiper-slide{
+    opacity:.4;
+    padding:5px;
+    width:200px;
+    position:static;
+    text-align:center;
+    background:0 0
+}
+.slider-game .swiper-slide .inner{
+    position:relative
+}
+.slider-game .swiper-slide .inner img{
+    display:block;
+    margin:0 auto
+}
+.slider-game .swiper-slide.swiper-slide-next,.slider-game .swiper-slide.swiper-slide-prev{
+    opacity:.8
+}
+.slider-game .swiper-slide.swiper-slide-active,.slider-game .swiper-slide.swiper-slide-active .field-number,.slider-game .swiper-slide.swiper-slide-active .field-text{
+    opacity:1
+}
+.slider-game .swiper-button-next,.slider-game .swiper-button-prev{
+    width:88px;
+    height:220px;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-slide.png) 100% 0 no-repeat;
+    margin-top:-118px
+}
+.slider-game .swiper-button-next .inner,.slider-game .swiper-button-prev .inner{
+    position:relative;
+    height:100%;
+    width:100%
+}
+.slider-game .swiper-button-next .inner:before,.slider-game .swiper-button-prev .inner:before{
+    content:"";
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-arrow.png) no-repeat;
+    width:54px;
+    height:90px;
+    z-index:1;
+    position:absolute;
+    left:0;
+    top:50%;
+    margin-top:-45px
+}
+.slider-game .swiper-button-next{
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-slide-2.png) 100% 0 no-repeat;
+    right:0
+}
+.slider-game .swiper-button-next .inner:before{
+    background-position:0 -90px;
+    left:auto;
+    right:0
+}
+.slider-game .swiper-button-prev{
+    left:0
+}
+.slider-game .field-number{
+    position:absolute;
+    bottom:12%;
+    left:0;
+    opacity:0;
+    text-align:center;
+    transition:opacity 1s ease-out;
+    -webkit-transition:opacity 1s ease-out;
+    width:100%
+}
+.slider-game .field-number span{
+    background-color:#cf3d2f;
+    border-radius:30px;
+    -webkit-border-radius:30px;
+    color:#fff;
+    border:1px solid #fff;
+    display:inline-block;
+    font-weight:400;
+    font-size:20px;
+    line-height:100%;
+    padding:5px 7px;
+    min-width:80px;
+    min-height:32px
+}
+.slider-game .field-text{
+    opacity:0;
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    position:absolute;
+    left:0;
+    top:100%;
+    z-index:1;
+    width:100%;
+    text-align:center;
+    text-transform:uppercase;
+    font-family:Montserrat,sans-serif;
+    transition:opacity 1s ease-out;
+    -webkit-transition:opacity 1s ease-out
+}
+.btn-play-mobile{
+    display:none
+}
+.btn-play-mobile img{
+    display:block;
+    margin:0 auto;
+    max-height:80px
+}
+.btn-back-game{
+    width:50px;
+    height:50px;
+    background-color:rgba(255,197,54,.4);
+    border-radius:50%;
+    -webkit-border-radius:50%;
+    position:absolute;
+    z-index:5;
+    left:15px;
+    top:15px;
+    display:none
+}
+.btn-back-game span{
+    display:block;
+    width:100%;
+    height:100%;
+    background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/btn-back.png) 9px 8px no-repeat;
+    background-size:30px auto
+}
+.dp-scroll-text{
+    position:relative;
+    text-align:center;
+    margin-bottom:30px;
+    height:85px;
+    overflow:hidden
+}
+.dp-scroll-text p{
+    margin:0;
+    font-size:20px;
+    text-align:center;
+    color:#ffed89;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    opacity:0;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    z-index:1
+}
+.dp-scroll-text :nth-child(1){
+    opacity:1;
+    transform:translate(0,0) matrix(1,0,0,1,0,0)
+}
+.dp-scroll-text :nth-child(2){
+    opacity:1;
+    transform:translate(0,100%) matrix(.9,0,0,.9,0,0);
+    font-weight:700
+}
+.dp-scroll-text :nth-child(3){
+    opacity:.5;
+    transform:translate(0,200%) matrix(.8,0,0,.8,0,0) scale(.8,.8)
+}
+.dp-scroll-text :nth-child(4){
+    opacity:.25;
+    transform:translate(0,300%) matrix(.7,0,0,.7,0,0) scale(.7,.7)
+}
+.dp-scroll-text :nth-child(5){
+    opacity:0;
+    transform:translate(0,400%) matrix(.5,0,0,.5,0,0)
+}
+.dp-animate-1,.dp-animate-2,.dp-animate-3,.dp-animate-4,.dp-animate-hide{
+    opacity:1;
+    animation-duration:1s;
+    animation-fill-mode:both;
+    animation-timing-function:linear
+}
+.dp-scroll-text .dp-animate-hide{
+    animation-name:movehide
+}
+.dp-scroll-text .dp-animate-1{
+    animation-name:move1
+}
+.dp-scroll-text .dp-animate-2{
+    animation-name:move2
+}
+.dp-scroll-text .dp-animate-3{
+    animation-name:move3
+}
+.dp-scroll-text .dp-animate-4{
+    animation-name:move4
+}
+@keyframes movehide{
+    100%{
+        opacity:0;
+        transform:translate(0,-165%) matrix(1.2,0,0,1.2,0,0)
+    }
+}
+@keyframes move1{
+    100%{
+        opacity:1;
+        transform:matrix(1,0,0,1,0,0)
+    }
+}
+@keyframes move2{
+    100%{
+        opacity:.75;
+        transform:translate(0,100%) matrix(.9,0,0,.9,0,0)
+    }
+}
+@keyframes move3{
+    100%{
+        opacity:.5;
+        transform:translate(0,200%) matrix(.7,0,0,.7,0,0)
+    }
+}
+@keyframes move4{
+    100%{
+        opacity:0;
+        transform:translate(0,300%) matrix(.5,0,0,.5,0,0)
+    }
+}
+@keyframes zoominoutimg{
+    0%{
+        transform:scale(1,1)
+    }
+    50%{
+        transform:scale(1.2,1.2)
+    }
+    100%{
+        transform:scale(1,1)
+    }
+}
+@media (max-width:1399px){
+    .bigbang-game .copyright-game,.bigbang-game .img-type{
+        display:none
+    }
+}
+@media (min-width:768px) and (max-width:1199px){
+    .game-mobile-page .conheo-game-click{
+        width:640px
+    }
+    .table-content-game .tab-table li img{
+        max-height:120px
+    }
+}
+@media (max-width:1199px){
+    body{
+        min-width:320px;
+        height:100%
+    }
+    .breadcrumb-lt,.campaign-promotion-sale,.footer-lt,.head-txt,.section-promotion-sale,.sticky-header,.subscrible-section,.topbar{
+        display:none
+    }
+    .game-mobile-page .img-top-mobile{
+        display:block;
+        position:absolute;
+        width:100%;
+        z-index:3;
+        left:0;
+        top:0
+    }
+    .game-mobile-page .img-top-mobile img{
+        display:block;
+        margin:0 auto;
+        height:150px;
+        width:auto
+    }
+    .btn-back-game{
+        display:block
+    }
+    .bigbang-page.bigbang-game{
+        padding-top:90px
+    }
+    .bigbang-page.bigbang-game .container-lt{
+        overflow:hidden
+    }
+    .bigbang-page.bigbang-game .status-wrap{
+        margin-bottom:0
+    }
+    .bigbang-page.bigbang-countdown{
+        padding-top:0!important
+    }
+    .bigbang-page .light-left{
+        left:0
+    }
+    .bigbang-page .light-right{
+        right:0
+    }
+    .bigbang-page .container-lt{
+        width:auto;
+        min-width:320px;
+        min-height:100px;
+        height:100%;
+        position:relative;
+        padding-bottom:20px
+    }
+    .bigbang-page .share-text,.bigbang-page .text-type{
+        font-size:15px
+    }
+    .bigbang-page .illus-top{
+        padding-left:30px;
+        padding-right:30px;
+        margin-left:-15px;
+        margin-right:-15px;
+        overflow:hidden
+    }
+    .bigbang-page .illus-top .img-3{
+        top:0;
+        max-height:100%;
+        right:15px
+    }
+    .bigbang-page .btn-play-mobile{
+        display:block;
+        text-align:center
+    }
+    .bigbang-page .btn-play-mobile img{
+        display:block
+    }
+    .bigbang-page .btn-play-mobile a{
+        display:inline-block;
+        position:relative
+    }
+    .bigbang-page .btn-play-mobile span{
+        font-size:14px;
+        color:#fff;
+        position:absolute;
+        z-index:1;
+        left:0;
+        bottom:19px;
+        width:100%
+    }
+    .bigbang-page .group-actions ul{
+        overflow:hidden
+    }
+    .bigbang-page .group-actions ul li{
+        display:block;
+        float:left;
+        width:50%;
+        padding-left:0;
+        padding-right:0
+    }
+    .bigbang-page .group-actions ul li img{
+        float:right
+    }
+    .bigbang-page .group-actions ul li.btn-share img{
+        float:left
+    }
+    .bigbang-page .group-actions ul li.btn-play{
+        display:none
+    }
+    .bigbang-page .table-responsive{
+        width:100%;
+        margin-bottom:15px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        -ms-overflow-style:-ms-autohiding-scrollbar
+    }
+    .bigbang-page .table-responsive .table{
+        width:100%;
+        min-width:560px
+    }
+    .bigbang-page .conheo-game-click{
+        width:640px
+    }
+    .bigbang-page .status-wrap{
+        padding:0;
+        background:0 0;
+        box-shadow:none;
+        margin-bottom:0;
+        margin-top:5px
+    }
+    .bigbang-page .status-wrap:before{
+        display:none
+    }
+    .bigbang-page .time-bar{
+        float:none;
+        margin:0 auto 10px
+    }
+    .bigbang-page .total-click{
+        float:none;
+        margin:0 auto;
+        overflow:hidden;
+        width:280px
+    }
+    .bigbang-page .total-click .lbl-text{
+        padding-left:30px
+    }
+    .bigbang-page .img-type{
+        display:none
+    }
+    .bigbang-page .copyright-game{
+        display:none;
+        width:100%;
+        background-color:rgba(212,152,42,.6);
+        padding:7px 15px;
+        text-align:center;
+        margin:0
+    }
+    .bigbang-page .copyright-game span{
+        border-radius:0;
+        display:block;
+        padding:0;
+        background:0 0;
+        min-width:100%
+    }
+    .slider-game-wrap{
+        margin-left:-15px;
+        margin-right:-15px;
+        padding-right:0;
+        padding-left:0;
+        overflow:hidden;
+        padding-bottom:30px;
+        height:auto;
+        background-color:#f0a133;
+        background-image:linear-gradient(#fcbd36,#f0a133)
+    }
+    .slider-game-wrap .slider-game .swiper-button-next,.slider-game-wrap .slider-game .swiper-button-prev{
+        display:none
+    }
+    .slider-game-wrap h2{
+        position:static;
+        top:auto;
+        padding:0 15px
+    }
+    .slider-game-wrap h2 img{
+        display:none
+    }
+    .slider-game-wrap h2 span{
+        display:block
+    }
+    .bigbang-countdown{
+        background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/bg-3-mobile.jpg) 50% 0 no-repeat;
+        background-size:100% auto;
+        height:100%
+    }
+    .bigbang-countdown .coutdown-img{
+        padding-top:220px
+    }
+    .bigbang-countdown .content{
+        width:100%;
+        left:0;
+        top:100px;
+        max-width:100%;
+        text-align:center;
+        font-size:24px
+    }
+    .bigbang-countdown .content .number{
+        font-size:134px
+    }
+    .table-content-game{
+        background-color:#f0a133;
+        background-image:linear-gradient(#fcbd36,#f0a133);
+        padding:15px;
+        height:auto;
+        border-radius:20px;
+        -webkit-border-radius:10px;
+        position:relative
+    }
+    .table-content-game .table-inner{
+        border-radius:20px;
+        -webkit-border-radius:10px;
+        border:2px dashed #fff;
+        padding:15px
+    }
+    .table-content-game .tab-table{
+        margin-top:-52px
+    }
+    .table-content-game .tab-table li{
+        padding-right:0;
+        padding-left:0
+    }
+    .table-content-game .tab-table li img{
+        display:none!important
+    }
+    .table-content-game .tab-table li .tab-mobile{
+        display:block!important
+    }
+    .table-content-game .tab-table li .tab-mobile-hide,.table-content-game .tab-table li.active .hide,.table-content-game .tab-table li.active .tab-mobile{
+        display:none!important
+    }
+    .table-content-game .tab-table li.active .tab-mobile-hide{
+        display:block!important
+    }
+    .table-content-game .table-content-inner{
+        padding:0;
+        height:auto;
+        overflow:visible;
+        max-height:100%
+    }
+    .table-content-game .table-responsive{
+        margin-bottom:0;
+        padding:5px
+    }
+    .table-content-game .table-responsive .table{
+        width:990px
+    }
+    .table-content-game .table-responsive .table .tbl-row div{
+        font-size:14px
+    }
+    .table-content-game .table-responsive .table .thead .your-level{
+        font-size:11px
+    }
+    .table-content-game .table-responsive .table .thead .your-level:before{
+        left:-15px;
+        top:-21px
+    }
+    .table-content-game .table .col-1,.table-content-game .table .col-2,.table-content-game .table .col-3,.table-content-game .table .col-4,.table-content-game .table .col-5,.table-content-game .table .col-6{
+        padding:8px
+    }
+    .table-content-game .tbl-customer-list .table .thead .tbl-row .col-3,.table-content-game .tbl-customer-list .table .thead .tbl-row .col-4,.table-content-game .tbl-customer-list .table .thead .tbl-row .col-5,.table-content-game .tbl-customer-list .table .thead .tbl-row .col-6,.table-content-game .tbl-customer-list .table .thead .tbl-row>div{
+        font-size:16px
+    }
+}
+@media (max-width:991px){
+    .game-mobile-page{
+        overflow:hidden
+    }
+    .bigbang-game-message-popup .modal-dialog-lt{
+        width:340px;
+        padding-top:154px
+    }
+    .bigbang-game-message-popup h2{
+        font-size:20px;
+        margin-bottom:5px
+    }
+    .bigbang-game-message-popup .cauchuc{
+        width:96px;
+        top:-54px;
+        left:121px;
+        font-size:10px
+    }
+    .bigbang-game-message-popup .text-msg{
+        min-height:10px
+    }
+    .bigbang-game-message-popup .btn-fb{
+        padding-top:10px
+    }
+    .bigbang-game-message-popup .play-msg-content{
+        padding-right:0
+    }
+    .bigbang-game-message-popup .play-msg-content .img-3{
+        right:auto;
+        left:17px;
+        top:-183px;
+        max-height:177px
+    }
+    .bigbang-game-message-popup .group-btn-bottom{
+        padding:0 5px;
+        bottom:-25px
+    }
+    .bigbang-game-message-popup .group-btn-bottom li{
+        max-width:49%
+    }
+    .bigbang-game-message-popup .group-btn-bottom li img{
+        max-height:59px
+    }
+    .bigbang-game-message-popup .group-btn-bottom li .count{
+        font-size:11px;
+        bottom:15px;
+        font-weight:700
+    }
+    .bigbang-game-message-popup .modal-content-lt{
+        background:#e9b12e;
+        background-image:linear-gradient(#e9b12e,#e28103);
+        border-radius:15px;
+        -webkit-border-radius:15px;
+        height:auto;
+        padding:15px 15px 55px;
+        position:relative
+    }
+    .bigbang-game-message-popup .modal-content-lt:before{
+        content:"";
+        width:220px;
+        height:212px;
+        background:url(https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/12/conheo/illus-5.png) 50% 0 no-repeat;
+        background-size:100% auto;
+        z-index:1;
+        position:absolute;
+        left:50%;
+        top:-175px;
+        margin-left:-113px
+    }
+    .bigbang-game-message-popup .modal-content-lt .close{
+        width:36px;
+        height:36px;
+        top:5px;
+        right:2px;
+        background-size:100% auto
+    }
+    .bigbang-game-message-popup .modal-body{
+        padding:15px 0 0
+    }
+}
+@media (max-width:799px){
+    .game-login-page .wrapper-popup.lt-login-modal{
+        max-width:460px;
+        width:auto;
+        padding:0;
+        background:0 0
+    }
+    .game-login-page .wrapper-popup .login-right-content{
+        display:none
+    }
+}
+@media (max-width:767px){
+    .game-mobile-page .conheo-game-click{
+        width:330px
+    }
+    .game-mobile-page .img-top-mobile img{
+        height:110px
+    }
+    .bigbang-game .light{
+        width:300px;
+        height:226px;
+        background-size:100% auto
+    }
+    .bigbang-game .conheo-game-click{
+        height:300px
+    }
+    .bigbang-game .time-bar{
+        width:330px;
+        height:65px;
+        background-size:100% auto
+    }
+    .bigbang-game .timebar-process{
+        width:205px;
+        height:47px;
+        left:117px;
+        top:8px
+    }
+    .bigbang-game .timebar-process .inner{
+        background-size:205px auto
+    }
+    .bigbang-game .count-down{
+        left:12px;
+        top:17px;
+        width:59px;
+        font-size:12px
+    }
+    .bigbang-game .count-down .inner{
+        font-size:16px
+    }
+    .bigbang-game .copyright-game{
+        font-size:14px
+    }
+    .bigbang-game .total-click .lbl-text{
+        font-size:17px
+    }
+    .bigbang-game .total-click .number{
+        font-size:50px
+    }
+    .slider-game-wrap h2 span{
+        font-size:25px
+    }
+    .bigbang-game-term-popup .modal-dialog-lt{
+        width:90%
+    }
+    .bigbang-game-term-popup h2{
+        font-size:20px;
+        margin-bottom:15px
+    }
+    .bigbang-game-term-popup .term-content{
+        padding:0
+    }
+    .bigbang-game-term-popup .term-content .content{
+        max-height:380px
+    }
+    .bigbang-game-term-popup .modal-content-lt{
+        background:#e9b12e;
+        background-image:linear-gradient(#e9b12e,#e28103);
+        border-radius:15px;
+        -webkit-border-radius:15px;
+        height:auto;
+        padding:15px 15px 60px
+    }
+    .bigbang-game-term-popup .modal-content-lt .close{
+        width:36px;
+        height:36px;
+        top:5px;
+        right:2px;
+        background-size:100% auto
+    }
+    .bigbang-game-term-popup .group-btn-bottom li{
+        margin-bottom:0
+    }
+    .bigbang-game-term-popup .group-btn-bottom li img{
+        max-height:65px
+    }
+    .bigbang-game-thanhtich-popup .modal-content-lt{
+        padding-bottom:15px;
+        padding-left:5px;
+        padding-right:5px
+    }
+    .bigbang-game-thanhtich-popup .term-content .content{
+        padding-left:2px;
+        padding-right:2px
+    }
+    .bigbang-game-thanhtich-popup .table-responsive table th{
+        font-size:14px
+    }
+    .bigbang-game-thanhtich-popup .table-responsive table td,.bigbang-game-thanhtich-popup .table-responsive table th{
+        padding:7px 3px
+    }
+    .bigbang-game-thanhtich-popup .table-responsive table td{
+        font-size:13px
+    }
+    .bigbang-game-lpoint-popup .modal-dialog-lt{
+        width:340px
+    }
+    .bigbang-game-lpoint-popup .modal-content-lt{
+        background:#e9b12e;
+        background-image:linear-gradient(#e9b12e,#e28103);
+        border-radius:15px;
+        -webkit-border-radius:15px;
+        height:auto;
+        padding:15px 15px 40px
+    }
+    .bigbang-game-lpoint-popup .modal-content-lt .btn-dongy button{
+        padding:0
+    }
+    .bigbang-game-lpoint-popup .modal-content-lt .btn-dongy button img{
+        max-height:65px
+    }
+    .bigbang-game-lpoint-popup .modal-lpoint-content{
+        padding:5px
+    }
+    .bigbang-game-lpoint-popup .modal-lpoint-content .form-row label{
+        width:95px
+    }
+    .bigbang-game-lpoint-popup .modal-lpoint-content .form-row .mage-error{
+        padding-left:95px
+    }
+    .bigbang-game-capnhatdiem-popup .modal-dialog-lt{
+        width:340px
+    }
+    .bigbang-game-capnhatdiem-popup .modal-content-lt{
+        background:#e9b12e;
+        background-image:linear-gradient(#e9b12e,#e28103);
+        border-radius:15px;
+        -webkit-border-radius:15px;
+        height:auto;
+        padding:15px
+    }
+    .bigbang-game-capnhatdiem-popup .modal-content-lt .close{
+        width:36px;
+        height:36px;
+        top:5px;
+        right:2px;
+        background-size:100% auto
+    }
+    .bigbang-game-capnhatdiem-popup .modal-content-lt .img-3{
+        max-height:168px;
+        top:-34px;
+        left:-17px
+    }
+    .bigbang-game-capnhatdiem-popup .modal-cnd-content{
+        padding:15px 36px
+    }
+}
+@media (max-width:479px){
+    .game-login-page .wrapper-popup.lt-login-modal{
+        max-width:340px
+    }
+    .game-login-page .wrapper-popup .modal-inner-wrap{
+        width:auto;
+        max-width:340px
+    }
+}
+@media (max-width:359px){
+    .game-login-page .wrapper-popup.lt-login-modal{
+        max-width:290px
+    }
+    .game-login-page .wrapper-popup .modal-inner-wrap{
+        width:auto;
+        max-width:290px
+    }
+}
+@media (max-width:430px){
+    .table-content-game .tab-table{
+        margin-top:-40px
+    }
+}
+@media (max-width:359px){
+    .game-mobile-page .conheo-game-click{
+        width:290px
+    }
+    .game-mobile-page .img-top-mobile img{
+        height:110px
+    }
+    .bigbang-game .time-bar{
+        width:290px;
+        height:58px
+    }
+    .bigbang-game .timebar-process{
+        width:180px;
+        height:41px;
+        left:102px
+    }
+    .bigbang-game .timebar-process .inner{
+        background-size:180px auto
+    }
+    .bigbang-game .count-down{
+        top:13px;
+        left:7px
+    }
+    .bigbang-game .total-click .lbl-text{
+        font-size:14px;
+        padding-top:3px
+    }
+    .bigbang-game .total-click .number{
+        font-size:40px
+    }
+    .bigbang-countdown .content{
+        top:78px
+    }
+    .bigbang-countdown .coutdown-img{
+        padding-top:194px
+    }
+    .bigbang-game-capnhatdiem-popup .modal-dialog-lt,.bigbang-game-lpoint-popup .modal-dialog-lt{
+        width:290px
+    }
+    .bigbang-game-capnhatdiem-popup .modal-dialog-lt .img-3{
+        left:-25px
+    }
+}
+.lt-loader{
+    display:none!important
+}

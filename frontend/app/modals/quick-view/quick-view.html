@@ -1,0 +1,76 @@
+<div class="quickview-popup" style="display: block;">
+    <div class="modal-dialog-lt">
+        <div class="modal-content-lt">
+            <button type="button" class="close" (click)="closeModal()">
+                <span>×</span>
+            </button>
+            <div class="modal-body">
+                <div class="zoom-images-wrap">
+                    <div class="thumb-img">
+                        <ul>
+                            <li class="current"><img attr.src="{{'https:' +  product.image_url}}" width="78" height="101" alt=""></li>
+                            <li><img attr.src="{{'https:' +  product.image_url}}" width="78" height="101" alt=""></li>
+                            <li><img attr.src="{{'https:' +  product.image_url}}" width="78" height="101" alt=""></li>
+                            <li><img attr.src="{{'https:' +  product.image_url}}" width="78" height="101" alt=""></li>
+                            <li class="video">&nbsp;</li>
+                        </ul>
+                    </div>
+                    <div class="large-img">
+                        <div class="field-badge-top">
+                            <img src="../demo/badge-1.png" alt="">
+                        </div>
+                        <div class="content">
+                            <img width="455" height="592" attr.src="{{'https:' +  product.image_url}}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="field-brand"><span class="brand-name"><a href="{{product.product_brand_info?.url}}">{{product?.product_brand}}</a></span></div>
+                    <div class="field-name"><a href="/product/{{product.id}}/{{product.url.toUrlKey()}}">{{product?.name}}</a></div>
+                    <div class="field-price-old" *ngIf="product?.price?.VND?.default !== product?.price?.VND?.price">{{product?.price?.VND?.price_formated}}</div>
+                    <div class="field-price">{{product?.price?.VND?.default_formated}}</div>
+                    <div class="field-code">
+                        <!--Nhập mã: <strong class="code-txt">LOTTEYEUBAN (-15%)</strong>  Chỉ còn <strong>50.918.000 ₫</strong>-->
+                        {{product?.promotion?.title}}
+                    </div>
+                    <div class="field-note">Sản phẩm chỉ áp dụng thanh toán trả trước.</div>
+
+
+                    <div class="field-option" *ngIf="product?.color?.length > 0">
+                        <label class="lbl">Color:</label>
+                        <select>
+                            <option *ngFor="let color of product?.color">{{color}}</option>
+                            <!--<option>Vàng</option>-->
+                            <!--<option>Hồng</option>-->
+                        </select>
+                    </div>
+                    <div class="field-option" *ngIf="product?.size?.length > 0">
+                        <label class="lbl">Size:</label>
+                        <select>
+                            <option *ngFor="let size of product?.size">{{size}}</option>
+                            <!--<option>S</option>-->
+                            <!--<option>XL</option>-->
+                            <!--<option>XXL</option>-->
+                        </select>
+                    </div>
+                    <div class="field-option">
+                        <label class="lbl">Số lượng:</label>
+                        <div class="qty">
+                            <button class="btn-minute" type="button">-</button>
+                            <input type="" name="" value="1">
+                            <button class="btn-plus" type="button">+</button>
+                        </div>
+                    </div>
+                    <div class="footer-action">
+                        <button type="button" class="button-bg" title="Thêm vào giỏ hàng"><span>Thêm vào giỏ hàng</span></button>
+                        <ul>
+                            <li><button type="button" title="Yêu thích" (click)="addOrRemoveWishlist(product.id)"><span>Yêu thích</span></button></li>
+                            <li><button type="button" title="Xem Chi tiết"><span>Xem Chi tiết</span></button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop-lt fade-lt show-lt"></div>

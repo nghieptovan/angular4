@@ -1,0 +1,71 @@
+<div class="bigbang-game-popup bigbang-game-login-popup">
+        <div class="modal-dialog-lt">
+            <div class="modal-content-wrap-lt">
+                <div class="modal-content-lt">
+
+                    <div class="modal-body">
+                        <img class="logo-bigbang" src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/boomning-game-logo.png" alt="">
+                        <button type="button" class="close" (click)="closeModal()">
+                            <span>×</span>
+                        </button>
+                        <div class="bigbang-game-form" *ngIf="step=='login'">
+                            <p class="note">Để chơi quý khách vui lòng Đăng ký/Đăng nhập bằng số điện thoại và email.<br> Nếu đã đăng ký từ trước, vui lòng đăng nhập</p>
+                            <form #bigbangv2LoginForm="ngForm" (ngSubmit)="submitForm(bigbangv2LoginForm);">
+                                <div class="form-row">
+                                    <input type="email" class="form-control" name="email" placeholder="Nhập email của bạn" ngModel #email="ngModel" required [pattern]="appConstants.REGEX.EMAIL">
+                                    <div class="mage-error"  *ngIf="email.invalid && (email.touched || email.dirty || bigbangv2LoginForm.submitted) && email?.errors.pattern">
+                                        Vui lòng nhập Email hợp lệ.
+                                    </div>
+                                    <div *ngIf="email.invalid && (email.touched || email.dirty || bigbangv2LoginForm.submitted) && email?.errors.required" class="mage-error">
+                                        Vui lòng nhập địa chỉ Email.
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <input name="phone" #phone="ngModel" ngModel autocomplete="off" type="text" class="input-text" [pattern]="appConstants.REGEX.TELEPHONE" required placeholder="Số điện thoại của bạn">
+                                    <div *ngIf="phone.invalid && (phone.touched || phone.dirty)  && phone?.errors.pattern" class="mage-error">
+                                        Vui lòng nhập số điện thoại hợp lệ, Ví dụ: 0981234567, +84981234567. Lưu ý theo thông báo của nhà mạng, vui lòng nhập đầu số điện thoại mới từ ngày 14/11/2018.
+                                    </div>
+                                    <div *ngIf="phone.invalid && (phone.touched || phone.dirty) && phone?.errors.required" class="mage-error">
+                                        Vui lòng nhập số điện thoại.
+                                    </div>
+                                    <div class="mage-error" *ngIf="errorMessage">{{errorMessage}}</div>
+                                </div>
+                                <div class="actions">
+                                    <input id="login" type="submit" style="display:none">
+                                    <a (click)="submitByA('login')"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-4.png" alt=""></a>
+                                </div>
+                            </form>
+                            <p class="footer-note">
+                                • Quý khách vui lòng điền chính xác email và số điện thoại đang sử dụng.<br>
+                                • Email và số điện thoại này sẽ được sử dụng để gửi quà tặng trúng thưởng cho quý khách.<br>
+                                • LOTTE.vn không chịu trách nhiệm nếu quý khách điền sai thông tin cá nhân và giải thưởng không được gửi đến người trúng giải
+                            </p>
+                        </div>
+
+                        <div class="bigbang-game-otp" *ngIf="step=='otp'">
+                            <form #bigbangv2OtpForm="ngForm" (ngSubmit)="submitOtpForm(bigbangv2OtpForm);">
+                                <div class="otp-text">
+                                    <span class="lbl">nhập mã otp</span>
+                                    <span class="code-otp">
+                                        <input type="text" class="form-control" name="otp" ngModel #otp="ngModel" required minlength="6" maxlength="6">
+                                        <div class="mage-error"  *ngIf="otp.invalid && (otp.touched || otp.dirty) && otp?.errors">
+                                            Vui lòng nhập OTP hợp lệ.
+                                        </div>
+                                        <div class="mage-error" *ngIf="errorMessageOtp">
+                                            {{errorMessageOtp}}
+                                        </div>
+                                    </span>
+                                </div>
+                                <p style="font-style: italic;">Nhập mã OTP đã được gửi vào email của bạn</p>
+                                <div class="actions">
+                                    <input id="otp" type="submit" style="display:none">
+                                    <a (click)="submitByA('otp')"><img src="https://cdn.lotte.vn/media/wysiwyg/static/promotions/2018/09/bigbang-game/btn-4.png" alt=""></a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

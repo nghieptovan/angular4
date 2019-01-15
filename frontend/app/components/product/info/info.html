@@ -1,0 +1,223 @@
+<div class="product info detailed lt-product-info" lazy-load-images>
+    <div class="product data items">
+        <div class="data item title" [ngClass]="{'active': isInfoTab}" id="tab-label-additional">
+            <a class="data switch" (click)="isInfoTab = true">
+                Xem thêm thông tin
+            </a>
+        </div>
+
+        <div class="data item title" [ngClass]="{'active': !isInfoTab}" id="tab-label-additional">
+            <a class="data switch" (click)="isInfoTab = false">
+                Nhận xét {{ (reviews$ | async)?.reviews ? '(' + (reviews$ | async)?.reviews.length + ')' : ''}}
+            </a>
+        </div>
+
+        <div class="data item content" *ngIf="isInfoTab">
+            <div class="additional-attributes-wrapper table-wrapper">
+                <!--<ng-container >-->
+                <div *ngIf="product?.extension_attributes?.is_lotte_department_store" [innerHtml]="bannerAttributes"></div>
+                <!--</ng-container>-->
+                <div class="product-attributes">
+                    <div class="product-item-data">
+                        <div class="col sku-info">Thông số sản phẩm</div>
+                        <div class="col sku">SKU: {{ product?.sku }}</div>
+                    </div>
+
+                    <div class="data table additional-attributes" id="product-attribute-specs-table">
+                        <div *ngFor="let item of product?.extension_attributes?.additional" class="row-item">
+                            <div class="col label">{{ item.label }}</div>
+                            <div class="col data" [innerHTML]="item.value"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <table class="data-description">
+                        <tbody>
+                            <tr>
+                                <th>Thông số sản phẩm </th>
+                            </tr>
+                            <tr>
+                                <td [innerHTML]="product?.extension_attributes?.description">
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="data item content" id="reviews" *ngIf="!isInfoTab">
+            <div class="block review-add">
+                <div class="block-content">
+                    <p class="head-txt" *ngIf="!isFormShown">Xin vui lòng chia sẻ đánh giá của bạn về sản phẩm này
+                        <a (click)="isFormShown = true" title="Gửi đánh giá" class="btn-start-review">Gửi đánh giá</a>
+                    </p>
+                    <div class="review-form-block clearfix" *ngIf="isFormShown">
+                        <form class="review-form form-content" #reviewForm="ngForm" (ngSubmit)="submitReview(reviewForm)" novalidate>
+                            <span id="input-message-box"></span>
+                            <div class="review-rating-block">
+                                <h3>Nhận xét về sản phẩm</h3>
+                                <div class="review-control-votes-2 lt-product-rating">
+                                    <bar-rating [(rate)]="newReview.validate_rating" [theme]="'default'" [max]="5"></bar-rating>
+                                </div>
+                                <p class="notes" [ngStyle]="{'color': (reviewForm.submitted && !newReview.validate_rating) ? 'red' : '#757575'}">Vui lòng chấm sao cho sản phẩm</p>
+                            </div>
+                            <div class="review-rating-form">
+                                <div class="form-row-col" *ngIf="!authIsLoggedIn; else isLoggedIn">
+                                    <div class="form-row required">
+                                        <label class="form-label" [ngClass]="{'form-label-active': nickname.focus || nickname.value}">
+                                            <span class="form-name">Tên hiển thị
+                                                <span>*</span>
+                                            </span>
+                                            <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="newReview.nickname" (focus)="nickname.focus = true" (blur)="nickname.focus = false"
+                                                class="input-text form-input" required>
+                                            <div for="nickname" *ngIf="nickname.invalid && (nickname.touched || nickname.dirty || reviewForm.submitted)" class="mage-error">Vui lòng nhập dữ liệu
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="form-row required">
+                                        <label class="form-label" [ngClass]="{'form-label-active': email.focus || email.value}">
+                                            <span class="form-name">E-mail
+                                                <span>*</span>
+                                            </span>
+                                            <input type="text" name="email" #email="ngModel" [(ngModel)]="newReview.email" [pattern]="REGEX_EMAIL" (focus)="email.focus = true"
+                                                (blur)="email.focus = false" class="input-text form-input" required>
+                                            <div for="email" *ngIf="email.invalid && (email.touched || email.dirty || reviewForm.submitted)" class="mage-error">Vui lòng nhập đúng email
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="form-row">
+                                        <label class="form-label" [ngClass]="{'form-label-active': phone.focus || phone.value}">
+                                            <span class="form-name"> Số điện thoại (không bắt buộc)</span>
+                                            <input type="text" name="phone" #phone="ngModel" [(ngModel)]="newReview.phone" (focus)="phone.focus = true" (blur)="phone.focus = false"
+                                                class="input-text form-input">
+                                        </label>
+                                    </div>
+                                </div>
+                                <ng-template #isLoggedIn>
+                                    <div class="form-row-col">
+                                        <div class="form-row required">
+                                            <label class="form-label" [ngClass]="{'form-label-active': nickname.focus || nickname.value}">
+                                                <span class="form-name">Tên hiển thị
+                                                    <span>*</span>
+                                                </span>
+                                                <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="newReview.nickname" (focus)="nickname.focus = true" (blur)="nickname.focus = false"
+                                                    class="input-text form-input" required [disabled]="!isEditNickname">
+                                                <div for="nickname" *ngIf="nickname.invalid && (nickname.touched || nickname.dirty || reviewForm.submitted)" class="mage-error">Vui lòng nhập dữ liệu
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-row">
+                                            <a href="javascript:void(0)" class="btn-edit" (click)="editNickname()">Thay đổi</a>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <div class="clearfix form-row required">
+                                    <label class="form-label" [ngClass]="{'form-label-active': detail.focus || detail.value}">
+                                        <span class="form-name"> Nhận xét
+                                            <span>*</span>
+                                        </span>
+                                        <textarea name="detail" #detail="ngModel" [(ngModel)]="newReview.detail" (focus)="detail.focus = true" (blur)="detail.focus = false"
+                                            rows="3" cols="5" class="form-input" required></textarea>
+                                        <div for="detail" *ngIf="detail.invalid && (detail.touched || detail.dirty || reviewForm.submitted)" class="mage-error">Vui lòng nhập dữ liệu
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="form-row btn-groups">
+                                    <button type="submit" class="btn-action btn-submit">
+                                        <span>Gửi đánh giá</span>
+                                    </button>
+                                    <span class="notes">
+                                        <a class="click-me2" (click)="openReviewRulesDialog()">Tiêu chí duyệt nhận xét của LOTTE.vn</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="product-review-container" data-role="product-review">
+                    <div *ngIf="!(reviews$ | async).reviews?.length" class="review-content-block">
+                        <span class="icon">&nbsp;</span>
+                        <p>
+                            <strong>Hãy lên tiếng, ý kiến của bạn được lắng nghe!</strong>
+                        </p>
+                    </div>
+                    <div *ngIf="(reviews$ | async).reviews?.length" class="block review-list" id="customer-reviews">
+                        <div class="block-title">
+                            <strong>Các Nhận Xét của Khách Hàng</strong>
+                        </div>
+                        <div class="block-content">
+                            <div class="review-headline clearfix ">
+                                <div class="headline-inner">
+                                    <strong>Đánh giá về sản phẩm này:
+                                        <span></span>
+                                    </strong>
+                                    <div class="review-control-votes">
+                                        <div class="vote-result">
+                                            <bar-rating [rate]="(reviews$ | async).average_rating" [readOnly]="true" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                    <strong>({{ (reviews$ | async).reviews?.length }} đánh giá)</strong>
+                                </div>
+                                <div class="toolbar toolbar-review toolbar-products toolbar-top">
+                                    <div class="pager">
+                                        <div class="limiter">
+                                            <select id="limiter" class="limiter-options">
+                                                <option value="10" selected="selected">
+                                                    10 trên một trang </option>
+                                                <option value="20">
+                                                    20 trên một trang </option>
+                                                <option value="50">
+                                                    50 trên một trang </option>
+                                            </select>
+                                            <span class="limiter-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ol class="items review-items">
+                                <li *ngFor="let review of (reviews$ | async).reviews" class="item review-item">
+                                    <div class="review-left-block">
+                                        <p class="review-author">{{ review.nickname }}</p>
+                                        <div class="review-control-votes">
+                                            <div class="vote-result">
+                                                <bar-rating [rate]="review.value" [readOnly]="true" [max]="5"></bar-rating>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="review.customer_buy.toString() !== '0'" class="status">
+                                            <span>Đã mua</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-right-block">
+                                        <p class="review-date">
+                                            <time class="review-details-value">{{ review.created_at }}</time>
+                                        </p>
+                                        <div class="review-content">{{ review.detail }}</div>
+                                    </div>
+                                </li>
+                            </ol>
+                            <div class="toolbar toolbar-review toolbar-products toolbar-bottom hidden">
+                                <div class="pager">
+                                    <div class="limiter">
+                                        <select id="limiter" class="limiter-options">
+                                            <option value="10" selected="selected">
+                                                10 trên một trang </option>
+                                            <option value="20">
+                                                20 trên một trang </option>
+                                            <option value="50">
+                                                50 trên một trang </option>
+                                        </select>
+                                        <span class="limiter-text"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
