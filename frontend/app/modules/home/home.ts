@@ -20,8 +20,17 @@ declare var $;
 export class LotteFashion {
     static isViewLoaded: any;
     isTopBanner$: Observable<any>;
+    isLoading: boolean = false;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService) {
-        console.log('home');
-        this.router.navigate(['login']);
+        const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
+        
+        if(employeeInfo && employeeInfo.username){
+            console.log(employeeInfo);
+        }else{
+            this.router.navigate(['login']);
+        }
+    }
+    ngOnInit(){
+        
     }
 }

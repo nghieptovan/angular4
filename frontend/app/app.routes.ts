@@ -15,6 +15,14 @@ const definedRoutes: Routes = [
         loadChildren: './modules/home/home.module#HomeModule'
     },
     {
+        path: 'dashboard',
+        loadChildren: './modules/home/home.module#HomeModule'
+    },
+    {
+        path: 'tai-khoan',
+        loadChildren: './modules/accountnew/accountnew.module#AccountnewModule'
+    },
+    {
         path: 'login',
         loadChildren: './modules/login/login.module#LoginModule'
     },

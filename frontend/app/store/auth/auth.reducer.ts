@@ -26,10 +26,17 @@ export function reducer(state = initialState, action: auth.AuthActions): State {
         }
 
         case auth.LOGIN_SUCCESS: {
+            // console.log(action.payload);
+            if(action.payload.code == 200)
+                localStorage.setItem('employeeInfo', JSON.stringify(action.payload.data));
+            else{
+                localStorage.removeItem('employeeInfo');
+            }
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
-                isLoggedIn: true
+                isLoggedIn: action.payload.code == 200 ? true : false,
+                errorMessage: action.payload.message
             });
         }
 
@@ -38,7 +45,7 @@ export function reducer(state = initialState, action: auth.AuthActions): State {
                 loaded: true,
                 loading: false,
                 isLoggedIn: false,
-                errorMessage: 'Email hoặc mật khẩu không đúng'
+                errorMessage: action.payload.message
             });
         }
 

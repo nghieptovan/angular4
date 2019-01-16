@@ -29,7 +29,6 @@ export class AuthEffects {
         .switchMap((action) => {
             return this.authService.login(action.payload)
                 .map((token) => {
-                    this.globalService.syncCustomerCookies();
                     return new auth.LoginSuccess(token.json());
                 }).catch((error) => {
                     return Observable.of(new auth.LoginFailed(error));

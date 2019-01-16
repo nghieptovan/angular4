@@ -83,7 +83,9 @@ export const AppConstants = {
     },
     LIMIT_ITEMS_CMS: {
         LT_DAT_VIET_HOT_PRODUCT: 4
-    }
+    },
+    MESSAGE_PASSWORD: 'Vui lòng nhập tên mật khẩu',
+    MESSAGE_USERNAME: 'Vui lòng nhập tên đăng nhập'
 };
 
 export const TpoConstants = {

@@ -27,6 +27,19 @@ export class AccountEffects {
 
     }
 
+
+    
+    // List account
+    @Effect()
+    listAccount$ = this._actions.ofType(account.LIST_ACCOUNT)
+        .switchMap((action) => {
+            return this.accountService.listaccount()
+                .map((resp) => {
+                    return new account.ListAccountSuccess(resp.json());
+                }).catch((error) => {
+                    return Observable.of(new account.RegisterFailed(error));
+                });
+        });
     // Register
     @Effect()
     register$ = this._actions.ofType(account.REGISTER)

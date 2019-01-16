@@ -22,7 +22,7 @@ const initialState: State = {
     loading: false,
     entities: [],
     facets: [],
-    selectedStore: AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_VN,
+    selectedStore: '',
     count: 0,
     page: 1,
     hasOmni: false,
@@ -44,12 +44,10 @@ export function reducer(state = initialState, action: categories.CategoriesActio
             let categories = action.payload.categories;
             categories = setSelectedCategory(categories, action.payload.selectedId);
 
-            const selectedStore = setSelectedStore(categories);
-            updateBodyClass(selectedStore);
             return Object.assign({}, state, {
                 loading: false,
                 entities: categories,
-                selectedStore: selectedStore
+                selectedStore: ''
             });
         }
 
@@ -92,11 +90,10 @@ export function reducer(state = initialState, action: categories.CategoriesActio
         }
 
         case categories.SET_SELECTED_STORE: {
-            const selectedStore = updateBodyClass(action.payload);
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
-                selectedStore: selectedStore
+                selectedStore: ''
             });
         }
 
@@ -174,70 +171,9 @@ function setSelectedCategory(categories, id) {
     return categories;
 }
 
-function setSelectedStore(categories: any) {
-    const body = document.body;
-    const path = categories.path ? categories.path : '';
-    const lottedept = '/' + AppConstants.DEFAULT_STORE_IDS.LOTTE_DEPARTMENT + '/';
-    const lottemart = '/' + AppConstants.DEFAULT_STORE_IDS.LOTTE_MART + '/';
-    const lottedatviet = '/' + AppConstants.DEFAULT_STORE_IDS.LOTTE_DATVIET + '/';
 
-    if (path.includes(lottedept)) {
-        body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_DEPARTMENT;
-        return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_DEPARTMENT;
-    }
 
-    if (path.includes(lottemart)) {
-        body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_MART;
-        return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_MART;
-    }
 
-    if (path.includes(lottedatviet)) {
-        body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_DATVIET;
-        return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_DATVIET;
-    }
-
-    body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_VN;
-    return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_VN;
-}
-
-function updateBodyClass(storeKey) {
-    const body = document.body;
-    if (storeKey === AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_DEPARTMENT) {
-        $('link.lt-lazy-css').removeAttr('href');
-        const value = $('link.department-store').attr('data-href');
-        $('link.department-store').attr('href', value);
-        body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_DEPARTMENT;
-        return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_DEPARTMENT;
-    }
-
-    if (storeKey === AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_MART) {
-        $('link.lt-lazy-css').removeAttr('href');
-        const value = $('link.lotte-mart').attr('data-href');
-        $('link.lotte-mart').attr('href', value);
-        body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_MART;
-        return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_MART;
-    }
-
-    if (storeKey === AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_DATVIET) {
-        $('link.lt-lazy-css').removeAttr('href');
-        const value = $('link.home-shopping').attr('data-href');
-        $('link.home-shopping').attr('href', value);
-        body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_DATVIET;
-        return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_DATVIET;
-    }
-
-    if (storeKey === AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_MART_HN) {
-        $('link.lt-lazy-css').removeAttr('href');
-        const value = $('link.lotte-mart').attr('data-href');
-        $('link.lotte-mart').attr('href', value);
-        body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_MART_HN;
-        return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_MART_HN;
-    }
-
-    $('link.lt-lazy-css').removeAttr('href');
-    body.className = AppConstants.DEFAULT_STORE_BODY_CLASS.LOTTE_VN;
-    return AppConstants.DEFAULT_STORE_URL_KEY.LOTTE_VN;
-}
 
 /*
  Selectors for the state that will be later

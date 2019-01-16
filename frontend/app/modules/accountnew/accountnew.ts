@@ -5,7 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { GlobalService } from '../../services/global.service';
 import * as fromRoot from '../../store';
-import * as home from '../../store/home/home.actions';
+import * as account from '../../store/account/account.actions';
+
 import * as auth from '../../store/auth/auth.actions';
 import { Observable } from 'rxjs/Observable';
 import {Router} from "@angular/router";
@@ -13,13 +14,13 @@ import { AppConstants } from '../../app.constant';
 declare var $;
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.html',
+    selector: 'accountnew',
+    templateUrl: './accountnew.html',
     // template: '',
-    styleUrls: ['./login.less']
+    styleUrls: ['./accountnew.less']
 })
 
-export class LoginPage {
+export class AccountNew {
     static isViewLoaded: any;
     authGetLoadingStateSub: any;
     usernameMessage: string = '';
@@ -30,27 +31,27 @@ export class LoginPage {
         dispatcher: Dispatcher) {
         
         const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
-        if(employeeInfo){
-            this.router.navigate(['dashboard']);
-        }
+            console.log('lfkjsdfjdsf');
+            
 
-        this.dispatcherSub = dispatcher.subscribe((action) => {
-            switch (action.type) {
-                case auth.LOGIN_SUCCESS:
-                    this.router.navigate(['dashboard']);
-                    break;
-            }
-        });
+        // this.dispatcherSub = dispatcher.subscribe((action) => {
+        //     switch (action.type) {
+        //         case auth.LOGIN_SUCCESS:
+        //             this.router.navigate(['dashboard']);
+        //             break;
+        //     }
+        // });
         
-        this.authGetLoadingStateSub = this.store.select(fromRoot.authGetLoadingState).subscribe((loading) => {
-            this.authGetLoadingState = loading;
-        });
+        // this.authGetLoadingStateSub = this.store.select(fromRoot.authGetLoadingState).subscribe((loading) => {
+        //     this.authGetLoadingState = loading;
+        // });
+        this.store.dispatch(new account.ListAccount());
         
     }
     
     ngOnDestroy() {
-        this.authGetLoadingStateSub.unsubscribe();
-        this.dispatcherSub.unsubscribe();
+        // this.authGetLoadingStateSub.unsubscribe();
+        // this.dispatcherSub.unsubscribe();
     }
 
     login(form) {

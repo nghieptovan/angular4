@@ -13,6 +13,14 @@ export class AccountService {
 
     }
 
+    //for pm
+    listaccount() {
+        return this.httpService.getAnonymous('employee');
+    }
+
+
+     //for end pm
+
     register(data) {
         return this.httpService.postAnonymous('customers/auto-login', data);
     }

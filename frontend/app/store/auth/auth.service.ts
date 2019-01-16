@@ -13,7 +13,7 @@ export class AuthService {
     }
 
     login(data) {
-        return this.httpService.postAnonymous('integration/customer/token/custom', data);
+        return this.httpService.postAnonymous('employee/login', data);
     }
 
     loginFacebook(data) {

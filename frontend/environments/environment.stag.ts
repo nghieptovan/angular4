@@ -9,7 +9,7 @@ export const environment = {
   production: !AppHelpers.isLocalhost(),
   environment: 'stag',
   ENVIRONMENT_DEV: AppHelpers.isLocalhost(),
-  API_ENDPOINT: 'https://staging.lotte.vn/rest/V1/',
+  API_ENDPOINT: 'http://phongmach.web/api/v1/',
   HOST_NAME: 'http://staging.lotte.vn',
   ELASTIC_API_ENDPOINT: 'https://els-staging.lotte.vn/api/v1/',
   ASSET_URL:  'shop/'

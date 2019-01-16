@@ -17,6 +17,8 @@ import { AppConstants } from './app.constant';
 import { AppComponent } from './app.component';
 import { AppHeader } from './layout/header/header';
 import { AppFooter } from './layout/footer/footer';
+import { LeftSidebar } from './layout/sidebar/left';
+import { RightSidebar } from './layout/sidebar/right';
 import { AppHeaderSearch } from './layout/header/search/search';
 import { AppContent } from './layout/content/content';
 import { AppNotFound } from './layout/404/404';
@@ -63,6 +65,8 @@ const PAGE_MODULES = [
         AppComponent,
         AppHeader,
         AppFooter,
+        LeftSidebar,
+        RightSidebar,
         AppHeaderSearch,
         AppContent,
         AppNotFound,

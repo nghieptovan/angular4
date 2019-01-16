@@ -1,12 +1,12 @@
-<!-- <div class="wrapall" *ngIf="!isCheckOutPage; else isCheckoutPage">
-    <div class="page" id="toppage">
-        <app-header></app-header>
+<app-header *ngIf="!isLoginPage"></app-header>
+<div id="main" *ngIf="!isLoginPage">
+    <div class="wrapper">
+        <left-sidebar></left-sidebar>            
         <app-content></app-content>
-        <app-footer></app-footer>
+        <right-sidebar></right-sidebar>            
     </div>
 </div>
 
-<ng-template #isCheckoutPage>
-    <router-outlet></router-outlet>
-</ng-template> -->
-<app-content></app-content>
+<app-content *ngIf="isLoginPage"></app-content>
+
+<app-footer  *ngIf="!isLoginPage"></app-footer>

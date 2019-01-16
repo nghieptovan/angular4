@@ -4,6 +4,10 @@ import { Action } from '@ngrx/store';
  Because the Categories collection is asynchronous, there need to be actions to handle
  each of the stages of the request.
  */
+export const LIST_ACCOUNT = '[ACCOUNT] load list';
+export const LIST_ACCOUNT_SUCCESS = '[ACCOUNT] successfully load list';
+export const LIST_ACCOUNT_FAILED = '[ACCOUNT] failed to load list';
+
 export const REGISTER = '[ACCOUNT] register';
 export const REGISTER_SUCCESS = '[ACCOUNT] successfully registered';
 export const REGISTER_FAILED = '[ACCOUNT] failed to register';
@@ -111,6 +115,22 @@ export const GUEST_ORDER_TRACKING_SUCCESS = '[GUEST] successfully loaded guest o
 export const GUEST_ORDER_TRACKING_FAILED = '[GUEST] failed to load guest order tracking';
 
 export const RESET_ACCOUNT_MSG_ERRORS = '[User] Reset account messsage errors';
+
+export class ListAccount implements Action {
+    readonly type = LIST_ACCOUNT;
+    constructor() { }
+}
+
+export class ListAccountFailed implements Action {
+    readonly type = LIST_ACCOUNT_FAILED;
+    constructor(public payload: any) { }
+}
+
+export class ListAccountSuccess implements Action {
+    readonly type = LIST_ACCOUNT_SUCCESS;
+    constructor(public payload: any) { }
+}
+
 
 export class Register implements Action {
     readonly type = REGISTER;
@@ -565,4 +585,5 @@ export type AccountActions =
     LoadLpointHistory | LoadLpointHistoryFailed | LoadLpointHistorySuccess |
     LoadDetailLpointHistory | LoadDetailLpointHistoryFailed | LoadDetailLpointHistorySuccess |
     UpdateLPoint | UpdateLPointFailed | UpdateLPointSuccess |
-    LoadGuestTrackingOrder | LoadGuestTrackingOrderFailed | LoadGuestTrackingOrderSuccess | ResetAccountMsgErrors;
+    LoadGuestTrackingOrder | LoadGuestTrackingOrderFailed | LoadGuestTrackingOrderSuccess | ResetAccountMsgErrors |
+    ListAccount | ListAccountFailed | ListAccountSuccess;

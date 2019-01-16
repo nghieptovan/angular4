@@ -1,11 +1,13 @@
-<section class="section-seo" *ngIf="categorySeo">
-    <div class="container-lt">
-        <div id="seoarea" [innerHTML]="categorySeo">
-
-        </div>
+  <!-- START FOOTER -->
+  <footer class="page-footer gradient-45deg-light-blue-cyan" style="display: none;">
+    <div class="footer-copyright">
+      <div class="container">
+        <span>Copyright ©
+          <script type="text/javascript">
+            document.write(new Date().getFullYear());
+          </script> </span>
+        <span class="right hide-on-small-only"> Design and Developed by <a class="grey-text text-lighten-2" target="_blank" href="https://facebook.com/nghieptovan">Nghiep To</a></span>
+      </div>
     </div>
-</section>
-
-<footer class="footer-lt" id="lt-footer" *ngIf="footerContent?.content" [innerHTML]="footerContent?.content" runScripts>
-
-</footer>
+  </footer>
+  <!-- END FOOTER -->
