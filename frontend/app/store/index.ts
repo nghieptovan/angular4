@@ -36,12 +36,13 @@ import * as fromAnniversary from './anniversary/anniversary.reducer';
 
 export interface AppState {
     auth: fromAuth.State;
+    account: fromAccount.State;
     products: fromProducts.State;
     categories: fromCategories.State;
     checkout: fromCheckout.State;
     vendorCheckout: fromVendorCheckout.State;
     common: fromCommon.State;
-    account: fromAccount.State;
+    
     home: fromHome.State;
     tpo: fromTpo.State;
     campaign: fromCampaign.State;
@@ -57,22 +58,23 @@ export interface AppState {
 
 export const reducers = {
     auth: fromAuth.reducer,
-    products: fromProducts.reducer,
-    categories: fromCategories.reducer,
-    checkout: fromCheckout.reducer,
-    vendorCheckout: fromVendorCheckout.reducer,
-    common: fromCommon.reducer,
-    account: fromAccount.reducer,
-    home: fromHome.reducer,
-    tpo: fromTpo.reducer,
-    campaign: fromCampaign.reducer,
-    stylefeed: fromStyleFeed.reducer,
-    brand: fromBrand.reducer,
-    vendor: fromVendor.reducer,
-    recharge: fromRecharge.reducer,
-    bigbangv2:fromBigBangV2.reducer,
-    pigv1:fromPigV1.reducer,
-    anniversary:fromAnniversary.reducer,
+    account: fromAccount.reducer
+    // products: fromProducts.reducer,
+    // categories: fromCategories.reducer,
+    // checkout: fromCheckout.reducer,
+    // vendorCheckout: fromVendorCheckout.reducer,
+    // common: fromCommon.reducer,
+    
+    // home: fromHome.reducer,
+    // tpo: fromTpo.reducer,
+    // campaign: fromCampaign.reducer,
+    // stylefeed: fromStyleFeed.reducer,
+    // brand: fromBrand.reducer,
+    // vendor: fromVendor.reducer,
+    // recharge: fromRecharge.reducer,
+    // bigbangv2:fromBigBangV2.reducer,
+    // pigv1:fromPigV1.reducer,
+    // anniversary:fromAnniversary.reducer,
 };
 
 
@@ -146,6 +148,9 @@ Account
 export const accountGetState = (state: AppState) => state.account;
 
 export const accountGetLoadingState = createSelector(accountGetState, fromAccount.getLoadingState);
+export const accountGetAccountInfo = createSelector(accountGetState, fromAccount.getAccountInfo);
+export const accountGetCreateAccount = createSelector(accountGetState, fromAccount.getCreateAccount);
+export const accountGetDeleteAccount = createSelector(accountGetState, fromAccount.getDeleteAccount);
 
 export const accountGetInfo = createSelector(accountGetState, fromAccount.getInfo);
 

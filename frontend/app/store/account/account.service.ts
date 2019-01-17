@@ -18,12 +18,16 @@ export class AccountService {
         return this.httpService.getAnonymous('employee');
     }
 
+    register(data) {
+        return this.httpService.postAnonymous('employee', data);
+    }
 
+    deleteAccount(data) {
+        return this.httpService.postAnonymous('employee/delete/'+ data, {});
+    }
      //for end pm
 
-    register(data) {
-        return this.httpService.postAnonymous('customers/auto-login', data);
-    }
+    
 
     resetPassword(data) {
         return this.httpService.postAnonymous('lotte_customer/create-new-password', data);

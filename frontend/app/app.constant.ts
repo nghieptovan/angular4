@@ -80,12 +80,14 @@ export const AppConstants = {
         CURRENCY_SYMBOL: '₫',
         REDIRECT_URL: 'https://www.lotte.vn/zendesk/sso/login/return_url/',
         ZENDESK_SUPPORT_URL: 'https://support.lotte.vn/hc/requests/'
-    },
+    },    
+    MESSAGE_PASSWORD: 'Vui lòng nhập tên mật khẩu',
+    MESSAGE_USERNAME: 'Vui lòng nhập tên đăng nhập',
+    MESSAGE_FULLNAME: 'Vui lòng nhập họ tên',
+    MESSAGE_ROLE: 'Vui lòng chọn chức vụ',
     LIMIT_ITEMS_CMS: {
         LT_DAT_VIET_HOT_PRODUCT: 4
-    },
-    MESSAGE_PASSWORD: 'Vui lòng nhập tên mật khẩu',
-    MESSAGE_USERNAME: 'Vui lòng nhập tên đăng nhập'
+    }
 };
 
 export const TpoConstants = {

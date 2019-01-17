@@ -30,17 +30,27 @@ export class LoginPage {
         dispatcher: Dispatcher) {
         
         const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
+
         if(employeeInfo){
             this.router.navigate(['dashboard']);
         }
-
-        this.dispatcherSub = dispatcher.subscribe((action) => {
-            switch (action.type) {
-                case auth.LOGIN_SUCCESS:
-                    this.router.navigate(['dashboard']);
-                    break;
+        this.store.select(fromRoot.authGetLoggedInState).subscribe((isLogged) => {
+            if(isLogged){
+                this.router.navigate(['dashboard']);
+            }else{
+                this.store.select(fromRoot.authGetErrorMessage).subscribe((message) => {
+                    this.passwordMessage = message;
+                });
             }
         });
+
+        // this.dispatcherSub = dispatcher.subscribe((action) => {
+        //     switch (action.type) {
+        //         case auth.LOGIN_SUCCESS:
+        //             this.router.navigate(['dashboard']);
+        //             break;
+        //     }
+        // });
         
         this.authGetLoadingStateSub = this.store.select(fromRoot.authGetLoadingState).subscribe((loading) => {
             this.authGetLoadingState = loading;
@@ -50,7 +60,7 @@ export class LoginPage {
     
     ngOnDestroy() {
         this.authGetLoadingStateSub.unsubscribe();
-        this.dispatcherSub.unsubscribe();
+        // this.dispatcherSub.unsubscribe();
     }
 
     login(form) {

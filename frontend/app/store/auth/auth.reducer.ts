@@ -26,7 +26,7 @@ export function reducer(state = initialState, action: auth.AuthActions): State {
         }
 
         case auth.LOGIN_SUCCESS: {
-            // console.log(action.payload);
+            console.log(action.payload);
             if(action.payload.code == 200)
                 localStorage.setItem('employeeInfo', JSON.stringify(action.payload.data));
             else{

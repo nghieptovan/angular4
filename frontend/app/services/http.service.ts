@@ -18,26 +18,27 @@ export class HttpService {
     private consumerHeader: Headers;
 
     constructor(private http: Http, private store: Store<fromRoot.AppState>) {
-        this.store.select(fromRoot.commonGetConfigs)
-            .subscribe((config) => {
-                this.baseURL = AppConstants.API_ENDPOINT;
-                if (!_.isEmpty(config)) {
-                    setTimeout(() => {
-                        AppConstants.CHECKOUT.INSTALLMENT_MINIMUM_PRICE = Number.parseInt(config[1].bank_installment_minimum_price);
-                        AppConstants.CHECKOUT.PAYMENT_COD_MAX_PRICE = Number.parseInt(config[1].payment_cashondelivery_max_order_total);
-                    }, 200);
+        this.baseURL = AppConstants.API_ENDPOINT;
+        // this.store.select(fromRoot.commonGetConfigs)
+        //     .subscribe((config) => {
+        //         this.baseURL = AppConstants.API_ENDPOINT;
+        //         if (!_.isEmpty(config)) {
+        //             setTimeout(() => {
+        //                 AppConstants.CHECKOUT.INSTALLMENT_MINIMUM_PRICE = Number.parseInt(config[1].bank_installment_minimum_price);
+        //                 AppConstants.CHECKOUT.PAYMENT_COD_MAX_PRICE = Number.parseInt(config[1].payment_cashondelivery_max_order_total);
+        //             }, 200);
 
-                    this.elasticBaseUrl = config[1].elastic_server;
-                    this.elasticHeader = new Headers({
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        // 'Authorization': 'Bearer ' + config[1].elastic_access_token
-                    });
+        //             this.elasticBaseUrl = config[1].elastic_server;
+        //             this.elasticHeader = new Headers({
+        //                 'Content-Type': 'application/json',
+        //                 'Accept': 'application/json',
+        //                 // 'Authorization': 'Bearer ' + config[1].elastic_access_token
+        //             });
 
 
 
-                }
-            });
+        //         }
+        //     });
         //this.elasticBaseUrl = typeof this.elasticBaseUrl === 'undefined' ? 'https://els-staging.lotte.vn/api/v1/' : this.elasticBaseUrl;
 
     }

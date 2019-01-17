@@ -12,6 +12,10 @@ export const REGISTER = '[ACCOUNT] register';
 export const REGISTER_SUCCESS = '[ACCOUNT] successfully registered';
 export const REGISTER_FAILED = '[ACCOUNT] failed to register';
 
+export const DELETE_ACCOUNT = '[ACCOUNT] delete account';
+export const DELETE_ACCOUNT_SUCCESS = '[ACCOUNT] successfully deleted account';
+export const DELETE_ACCOUNT_FAILED = '[ACCOUNT] failed to delete account';
+
 export const RESET_PASSWORD = '[USER] User reset password';
 export const RESET_PASSWORD_SUCCESS = '[USER] successfully reset password';
 export const RESET_PASSWORD_FAILED = '[USER] failed to reset password';
@@ -147,6 +151,23 @@ export class RegisterSuccess implements Action {
     constructor(public payload: any) { }
 }
 
+export class DeleteAccount implements Action {
+    readonly type = DELETE_ACCOUNT;
+    constructor(public payload: any) { }
+}
+
+export class DeleteAccountFailed implements Action {
+    readonly type = DELETE_ACCOUNT_FAILED;
+    constructor(public payload: any) { }
+}
+
+export class DeleteAccountSuccess implements Action {
+    readonly type = DELETE_ACCOUNT_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+
+//end pm
 export class ResetPassword implements Action {
     readonly type = RESET_PASSWORD;
     constructor(public payload: any) { }
@@ -586,4 +607,5 @@ export type AccountActions =
     LoadDetailLpointHistory | LoadDetailLpointHistoryFailed | LoadDetailLpointHistorySuccess |
     UpdateLPoint | UpdateLPointFailed | UpdateLPointSuccess |
     LoadGuestTrackingOrder | LoadGuestTrackingOrderFailed | LoadGuestTrackingOrderSuccess | ResetAccountMsgErrors |
-    ListAccount | ListAccountFailed | ListAccountSuccess;
+    ListAccount | ListAccountFailed | ListAccountSuccess |
+    DeleteAccount | DeleteAccountSuccess | DeleteAccountFailed;

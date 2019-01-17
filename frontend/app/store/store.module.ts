@@ -48,24 +48,9 @@ import { AnniversaryService } from './anniversary/anniversary.service';
 
 // Import services
 // Define effects
-const APP_EFFECTS = [
-    EffectsModule.run(CommonEffects),
+const APP_EFFECTS = [    
     EffectsModule.run(AuthEffects),
-    EffectsModule.run(AccountEffects),
-    EffectsModule.run(ProductEffects),
-    EffectsModule.run(CategoryEffects),
-    EffectsModule.run(CheckoutEffects),
-    EffectsModule.run(VendorCheckoutEffects),
-    EffectsModule.run(HomeEffects),
-    EffectsModule.run(TpoEffects),
-    EffectsModule.run(CampaignEffects),
-    EffectsModule.run(StyleFeedEffects),
-    EffectsModule.run(BrandEffects),
-    EffectsModule.run(VendorEffects),
-    EffectsModule.run(RechargeEffects),
-    EffectsModule.run(BigBangV2Effects),
-    EffectsModule.run(PigV1Effects),
-    EffectsModule.run(AnniversaryEffects)
+    EffectsModule.run(AccountEffects)
 ];
 
 @NgModule({
@@ -81,24 +66,8 @@ const APP_EFFECTS = [
             deps: [XHRBackend, RequestOptions, Store]
         },
         HttpService,
-        CheckoutService,
-        CategoryService,
         AccountService,
-        CommonService,
-        AuthService,
-        ProductsService,
-        HomeService,
-        TpoService,
-        CampaignService,
-        StyleFeedService,
-        BrandService,
-        VendorService,
-        RechargeService,
-        VendorCheckoutService,
-        BigBangV2Service,
-        Ship60Service,
-        Pigv1Service,
-        AnniversaryService
+        AuthService
     ],
     declarations: [
     ],

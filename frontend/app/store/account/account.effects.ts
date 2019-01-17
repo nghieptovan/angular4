@@ -47,18 +47,26 @@ export class AccountEffects {
             return this.accountService.register(action.payload)
                 .map((resp) => {
                     const data = resp.json();
-                    if (data.token) {
-                        localStorage.setItem('userInfo', JSON.stringify(data.customer));
-                        this.globalService.syncCustomerCookies();
-                        return new account.RegisterSuccess(data);
-                    } else {
-                        return Observable.of(new account.RegisterFailed(data.message));
-                    }
+                    return new account.RegisterSuccess(data);
                 }).catch((error) => {
                     return Observable.of(new account.RegisterFailed(error));
                 });
         });
+    // delete account
+    @Effect()
+    deleteAccount$ = this._actions.ofType(account.DELETE_ACCOUNT)
+        .switchMap((action) => {
+            return this.accountService.deleteAccount(action.payload)
+                .map((resp) => {
+                    const data = resp.json();
+                    return new account.DeleteAccountSuccess(data);
+                }).catch((error) => {
+                    return Observable.of(new account.DeleteAccountFailed(error));
+                });
+        });
 
+
+        //end of pm
     // Reset password
     @Effect()
     resetPassword$ = this._actions.ofType(account.RESET_PASSWORD)

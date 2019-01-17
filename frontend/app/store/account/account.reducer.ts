@@ -24,6 +24,9 @@ export interface State {
     updateLpoint: any;
     guestOrderTracking: any;
     updateInfoError: any;
+    accountInfo: any;
+    createAccount: any;
+    deleteAccount: any;
 }
 
 const initialState: State = {
@@ -46,16 +49,44 @@ const initialState: State = {
     detailHistoryLpoint: {},
     updateLpoint: {},
     guestOrderTracking: {},
-    updateInfoError: null
+    updateInfoError: null,
+    accountInfo: null,
+    createAccount: null,
+    deleteAccount: null
 };
 
 export function reducer(state = initialState, action: account.AccountActions): State {
     switch (action.type) {
+        case account.LIST_ACCOUNT: {
+            return Object.assign({}, state, {
+                loading: true,
+                loaded: false,
+                accountInfo: null
+            });
+        }
+
+        case account.LIST_ACCOUNT_SUCCESS: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                accountInfo: action.payload
+            });
+        }
+
+        case account.LIST_ACCOUNT_FAILED: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                accountInfo: null,
+                errorMessage: AppHelpers.getErrorMessage(action.payload)
+            });
+        }
 
         case account.REGISTER: {
             return Object.assign({}, state, {
                 loading: true,
-                loaded: false
+                loaded: false,
+                createAccount: null
             });
         }
 
@@ -63,6 +94,7 @@ export function reducer(state = initialState, action: account.AccountActions): S
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
+                createAccount: action.payload,
                 isLoggedIn: true
             });
         }
@@ -71,9 +103,37 @@ export function reducer(state = initialState, action: account.AccountActions): S
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
+                createAccount: null,
                 errorMessage: AppHelpers.getErrorMessage(action.payload)
             });
         }
+
+        case account.DELETE_ACCOUNT: {
+            return Object.assign({}, state, {
+                loading: true,
+                loaded: false,
+                deleteAccount: null
+            });
+        }
+
+        case account.DELETE_ACCOUNT_SUCCESS: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                deleteAccount: action.payload
+            });
+        }
+
+        case account.DELETE_ACCOUNT_FAILED: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                deleteAccount: null,
+                errorMessage: AppHelpers.getErrorMessage(action.payload)
+            });
+        }
+
+        //end of pm
 
         case account.RESET_PASSWORD: {
             return Object.assign({}, state, {
@@ -662,3 +722,8 @@ export const getDetailsLpointHistory = (state: State) => state.detailHistoryLpoi
 export const updateLpoint = (state: State) => state.updateLpoint;
 export const getErrorMessage = (state: State) => state.errorMessage;
 export const getGuestOrderTracking = (state: State) => state.guestOrderTracking;
+export const getAccountInfo = (state: State) => state.accountInfo;
+export const getCreateAccount = (state: State) => state.createAccount;
+export const getDeleteAccount = (state: State) => state.deleteAccount;
+
+

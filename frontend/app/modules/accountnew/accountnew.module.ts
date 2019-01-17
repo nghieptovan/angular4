@@ -5,9 +5,22 @@ import { SlickModule } from 'ngx-slick';
 
 import { AppCommonModule } from '../../app.common.module';
 import { AccountNew } from './accountnew';
+import { AddAccountNew } from './add/add';
+import { EditAccountNew } from './edit/edit';
 
 const routes: Routes = [
-    { path: '', component: AccountNew }
+    {
+        path: '',
+        component: AccountNew
+    },
+    {
+        path: 'cap-nhat/:id',
+        component: EditAccountNew
+    },
+    {
+        path: 'them-tai-khoan',
+        component: AddAccountNew
+    }
 ];
 @NgModule({
     imports: [
@@ -17,7 +30,9 @@ const routes: Routes = [
         SlickModule.forRoot()
     ],
     declarations: [
-        AccountNew
+        AccountNew,
+        EditAccountNew,
+        AddAccountNew
     ],
     exports: [
     ]

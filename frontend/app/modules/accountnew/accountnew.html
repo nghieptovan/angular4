@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col s10 m12">
-            <h5>Quản lý tài khoản</h5>            
+            <h5>Quản lý tài khoản</h5> 
           </div>
        
         </div>
@@ -13,6 +13,7 @@
     <!--breadcrumbs end-->
     <!--start container-->
     <div class="container">
+       
       <div class="section">
         <!-- <p class="caption">Tables are a nice way to organize a lot of data. We provide a few utility classes to help you style your table as easily as possible. In addition, to improve mobile experience, all tables on mobile-screen widths are centered automatically.</p> -->
         <!--Responsive Table-->
@@ -27,47 +28,38 @@
               <table class="responsive-table">
                 <thead>
                   <tr>
-                    <th data-field="id">Name</th>
-                    <th data-field="name">Item Name</th>
-                    <th data-field="price">Item Price</th>
-                    <th data-field="total">Total</th>
-                    <th data-field="status">Status</th>
+                    <th data-field="id">Tên đăng nhập</th>
+                    <th data-field="name">Họ tên</th>
+                    <th data-field="price">Chức vụ</th>
+                    <th data-field="total">Ngày cập nhật</th>
+                    <th data-field="status">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                    <td>$1.87</td>
-                    <td>Yes</td>
+                  <tr *ngFor="let account of listAccount">
+                    <td>{{account?.username}}</td>
+                    <td>{{account?.fullname || 'Chưa có'}}</td>
+                    <td>{{account?.role?.name}}</td>
+                    <td>{{account?.updated_at | date:'hh:mm dd/MM/yyyy'}}</td>
+                    <td>            
+                      <a routerLink="/tai-khoan/cap-nhat/{{account.id}}" class="btn-floating waves-effect waves-light green accent-4" title="Chỉnh sửa thông tin">
+                        <i class="material-icons" >mode_edit</i>
+                      </a>  
+                      <a class="btn-floating waves-effect waves-light red accent-4">
+                        <i class="material-icons" (click)="deleteAccount(account.id)" title="Xóa tài khoản">delete</i>
+                      </a>                    
+                      
+                    </td>
                   </tr>
-                  <tr>
-                    <td>Alan</td>
-                    <td>Jellybean</td>
-                    <td>$3.76</td>
-                    <td>$10.87</td>
-                    <td>No</td>
-                  </tr>
-                  <tr>
-                    <td>Jonathan</td>
-                    <td>Lollipop</td>
-                    <td>$7.00</td>
-                    <td>$12.87</td>
-                    <td>Yes</td>
-                  </tr>
-                  <tr>
-                    <td>Shannon</td>
-                    <td>KitKat</td>
-                    <td>$9.99</td>
-                    <td>$14.87</td>
-                    <td>No</td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>
           </div>
         </div>
+        <a routerLink="/tai-khoan/them-tai-khoan" class="btn-floating activator btn-large btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
+          <i class="material-icons">add</i>
+        </a>
       </div>
 
     </div>
