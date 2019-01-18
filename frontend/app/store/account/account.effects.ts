@@ -64,7 +64,18 @@ export class AccountEffects {
                     return Observable.of(new account.DeleteAccountFailed(error));
                 });
         });
-
+    @Effect()
+    updateUser$ = this._actions.ofType(account.UPDATE_INFO)
+        .switchMap((action) => {
+            return this.accountService.updateAccount(action.payload)
+            .map((resp) => {
+                const data = resp.json();
+                return new account.UpdateInfoSuccess(data);
+            }).catch((error) => {
+                return Observable.of(new account.UpdateInfoFailed(error));
+            });
+        });
+    
 
         //end of pm
     // Reset password
@@ -126,21 +137,6 @@ export class AccountEffects {
                 });
         });
 
-    @Effect()
-    updateUser$ = this._actions.ofType(account.UPDATE_INFO)
-        .switchMap((action) => {
-            return this.accountService.updateCustomerInfo(action.payload)
-                .map(info => info.json())
-                .map(info => {
-                    return new account.UpdateInfoSuccess(info);
-                }).catch((error) => {
-                    try {
-                        return Observable.of(new account.UpdateInfoFailed(error.json()));
-                    } catch (e) {
-                        return Observable.of(new account.UpdateInfoFailed(error));
-                    }
-                });
-        });
 
     @Effect()
     addProductToWishlist$ = this._actions.ofType(account.WISHLIST_ADD_PRODUCT)

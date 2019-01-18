@@ -22,15 +22,122 @@ export class EditAccountNew{
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
-
+    getListAccountSub: any;
+    getUpdateAccountSub: any;
+    accountGetLoadingState: any;
+    accountIsLoading:boolean = false;
+    account: any;
+    roleSet: any;
+    showRole: boolean = false;
+    roleId: any;
+    usernameMessage: any;
+    passwordMessage: any;
+    roleMessage: any;
+    fullnameMessage: any;
+    isLoaded: boolean = false;
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
                 private elementRef: ElementRef,
                 private router: Router,
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute) {
-      
+
+        this.accountGetLoadingState = this.store.select(fromRoot.accountGetLoadingState).subscribe((loading) => {
+            console.log(loading);
+            
+            this.accountIsLoading = loading;
+        });
+                    
+        this.getListAccountSub = this.store.select(fromRoot.accountGetAccountInfo).subscribe((info) => {
+            if(!info){
+                this.router.navigateByUrl('tai-khoan');
+            }else{
+                if(info && info.code == 200){
+                    const userId = this.activatedRoute.params['value'].id;
+                    this.account = _.find(info.data, function(o) { return o.id == userId; });
+                    this.selectRole(this.account.role.name);
+                }
+            }
+            
+        });
+        this.getUpdateAccountSub = this.store.select(fromRoot.accountGetUpdateAccount).subscribe((account) => {
+                if(account && account.code == 200 && this.isLoaded){
+                    // setTimeout(() => {
+                    //     this.router.navigateByUrl('tai-khoan');
+                    //   }, 1500, );
+                    this.toastr.success(account.message);
+                    this.router.navigateByUrl('tai-khoan');
+                }
+        });
     }
+    ngOnDestroy() {
+        this.getListAccountSub.unsubscribe();
+        this.getUpdateAccountSub.unsubscribe();
+        this.accountGetLoadingState.unsubscribe();
+    }
+    setRole(status){
+        if(status == 1)
+            this.showRole = true;
+        if(status == 2)
+            this.showRole = false;
+    }
+
+    selectRole(value){
+        this.roleSet = value;
+        switch (value) {
+            case 'admin':
+                this.roleId = 1;
+                break;
+            case 'Tiếp tân':
+                this.roleId = 2;
+                break;
+            case 'Bác sỹ':
+                this.roleId = 3;
+                break;
+            case 'Phát thuốc':
+                this.roleId = 4;
+                break;        
+            default:
+                break;
+        }
+        this.showRole = false;
+        
+    }
+    update(form){
+        const { value } = form;
+
+        if(form.valid){
+            this.usernameMessage = '';
+            this.passwordMessage = '';
+            this.fullnameMessage = '';
+            this.roleMessage = '';
+
+            const data = {
+                username: value.username,
+                password: value.password,
+                fullname: value.fullname,
+                role_id: this.roleId,
+                image: '',
+                stringlogin: '',
+                id: this.account.id
+            }
+            this.isLoaded = true;
+            this.store.dispatch(new account.UpdateInfo(data));
+            // console.log(data);
+            
+        }else{
+            if(!value.username)
+                this.usernameMessage = AppConstants.MESSAGE_USERNAME;
+            if(!value.password)
+                this.passwordMessage = AppConstants.MESSAGE_PASSWORD;
+            if(!value.fullname)
+                this.fullnameMessage = AppConstants.MESSAGE_FULLNAME;
+            if(!value.role)
+                this.roleMessage = AppConstants.MESSAGE_ROLE;
+            
+        }
+    }
+
 
    
 

@@ -1,0 +1,106 @@
+<section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <!-- Search for small screen -->
+            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m12">
+                     
+                    <h5> <a routerLink="/tai-khoan" class="btn-floating waves-effect waves-light red accent-4">
+                            <i class="material-icons" title="">keyboard_arrow_left</i>
+                        </a>Thêm tài khoản</h5>
+                 
+                </div>
+              
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!-- Form with icon prefixes -->
+              <div class="row">
+                <div class="col s12 m12">
+                  <div class="card-panel">
+                    <div class="row">
+                        <form class="col s12" #loginForm="ngForm" (ngSubmit)="register(loginForm)" id="loginForm">
+                            
+                            <div class="row">
+                                <div class="input-field col s6">
+                                <i class="material-icons prefix">perm_identity</i>
+                                <input type="text" name="fullname"                      
+                                #fullname="ngModel" ngModel id="fullname" autocomplete="off"
+                                class="validate" required>
+                                <label for="fullname">Họ tên</label>
+                                <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+                                <div class="input-field col s6">
+                                        <i class="material-icons prefix">perm_identity</i>
+                                        <input type="text" name="phone"                      
+                                        #phone="ngModel" ngModel id="phone" autocomplete="off"
+                                        class="validate" required>
+                                        <label for="phone">Số điện thoại</label>
+                                        <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+
+                              
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                <i class="material-icons prefix">perm_identity</i>
+                                <input type="text" name="diagnosis"                      
+                                #diagnosis="ngModel" ngModel id="diagnosis" autocomplete="off"
+                                class="validate" required>
+                                <label for="diagnosis">Tiền căn</label>
+                                <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="text" name="address" #address="ngModel" ngModel id="address" autocomplete="off"
+                                    class="validate" required>
+                                    <label for="address">Địa chỉ</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                <i class="material-icons prefix">perm_identity</i>
+                                <input type="text" name="diagnosis"                      
+                                #diagnosis="ngModel" ngModel id="diagnosis" autocomplete="off"
+                                class="validate" required>
+                                <label for="diagnosis">Cân nặng</label>
+                                <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+                                <div class="input-field col s4 date-item">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input (click)="openDatePicker('#birthday')" type="text" name="birthday" #birthday="ngModel" ngModel id="birthday" autocomplete="off"
+                                    class="validate order_search_date datepicker" required>
+                                    <label for="birthday">Ngày sinh</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+                                <div class="input-field col s4">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="text" name="address" #address="ngModel" ngModel id="address" autocomplete="off"
+                                    class="validate" required>
+                                    <label for="address">Giới tính</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+                            </div>
+                    
+                            <div class="row">                                
+                                <div class="input-field col m12 offset-m3 center-align">
+                                    <button class="btn waves-effect waves-light center" type="submit" name="action">Thêm tài khoản</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>

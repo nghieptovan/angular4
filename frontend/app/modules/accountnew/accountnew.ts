@@ -24,11 +24,11 @@ declare var $;
 
 export class AccountNew {
     static isViewLoaded: any;
-    authGetLoadingStateSub: any;
+    accountGetLoadingState: any;
     getListAccountSub: any;
     deleteAccountSub: any;
 
-    // accountIsLoading$: Observable<any>;
+    accountIsLoading$:boolean = false;
 
     usernameMessage: string = '';
     passwordMessage: string = '';
@@ -41,12 +41,9 @@ export class AccountNew {
         dispatcher: Dispatcher, private toastr: ToastrService,) {
         
         const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
-            console.log('lfkjsdfjdsf');
-            
-        
-        // this.authGetLoadingStateSub = this.store.select(fromRoot.authGetLoadingState).subscribe((loading) => {
-        //     this.authGetLoadingState = loading;
-        // });
+        this.accountGetLoadingState = this.store.select(fromRoot.accountGetLoadingState).subscribe((loading) => {
+            this.accountIsLoading$ = loading;
+        });
         
         this.getListAccountSub = this.store.select(fromRoot.accountGetAccountInfo).subscribe((info) => {
             if(!info){
@@ -79,6 +76,7 @@ export class AccountNew {
     ngOnDestroy() {
         this.getListAccountSub.unsubscribe();
         this.deleteAccountSub.unsubscribe();
+        this.accountGetLoadingState.unsubscribe();
     }
 
     deleteAccount(id){

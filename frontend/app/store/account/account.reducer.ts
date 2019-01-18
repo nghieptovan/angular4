@@ -2,6 +2,7 @@ import { AppHelpers } from './../../app.helpers';
 import * as account from './account.actions';
 import * as _ from 'lodash';
 import { LOAD_DETAIL_COMMENT_FAILED } from './account.actions';
+import { GlobalService } from '../../services/global.service';
 
 export interface State {
     loaded: boolean;
@@ -27,6 +28,7 @@ export interface State {
     accountInfo: any;
     createAccount: any;
     deleteAccount: any;
+    updateAccount: any;
 }
 
 const initialState: State = {
@@ -52,7 +54,8 @@ const initialState: State = {
     updateInfoError: null,
     accountInfo: null,
     createAccount: null,
-    deleteAccount: null
+    deleteAccount: null,
+    updateAccount: null
 };
 
 export function reducer(state = initialState, action: account.AccountActions): State {
@@ -91,10 +94,15 @@ export function reducer(state = initialState, action: account.AccountActions): S
         }
 
         case account.REGISTER_SUCCESS: {
+            let accountInfo = state.accountInfo;
+            if(action.payload.code == 200){
+                accountInfo.data = [...accountInfo.data, action.payload.data];
+            }
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
                 createAccount: action.payload,
+                accountInfo: accountInfo,
                 isLoggedIn: true
             });
         }
@@ -129,6 +137,48 @@ export function reducer(state = initialState, action: account.AccountActions): S
                 loaded: true,
                 loading: false,
                 deleteAccount: null,
+                errorMessage: AppHelpers.getErrorMessage(action.payload)
+            });
+        }
+
+
+        case account.UPDATE_INFO: {
+            return Object.assign({}, state, {
+                loading: true,
+                updateAccount: null
+            });
+        }
+
+        case account.UPDATE_INFO_SUCCESS: {
+            let employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
+            let accountInfo = state.accountInfo;
+            if(action.payload.code == 200){                
+                accountInfo.data.forEach((item, index) => {
+                    if(item.id == action.payload.data.id){
+                        
+                        accountInfo.data[index] = action.payload.data;
+                        console.log(action.payload.data.role_id);
+                        
+                        accountInfo.data[index].role = getRole(action.payload.data.role_id);
+                    }
+                });    
+                localStorage.setItem('employeeInfo', JSON.stringify(action.payload.data));
+
+            }
+            
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                accountInfo: accountInfo,
+                updateAccount: action.payload
+            });
+        }
+
+        case account.UPDATE_INFO_FAILED: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                updateAccount: null,
                 errorMessage: AppHelpers.getErrorMessage(action.payload)
             });
         }
@@ -232,29 +282,7 @@ export function reducer(state = initialState, action: account.AccountActions): S
             });
         }
 
-        case account.UPDATE_INFO: {
-            return Object.assign({}, state, {
-                loading: true
-            });
-        }
-
-        case account.UPDATE_INFO_SUCCESS: {
-            localStorage.setItem('userInfo', JSON.stringify(action.payload));
-            localStorage.removeItem('updatedUserInfo');
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                info: action.payload
-            });
-        }
-
-        case account.UPDATE_INFO_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                updateInfoError: action.payload
-            });
-        }
+        
 
         case account.REFRESH_PAGE: {
             const info = JSON.parse(localStorage.getItem('userInfo'));
@@ -671,6 +699,46 @@ export function reducer(state = initialState, action: account.AccountActions): S
     }
 }
 
+function getRole(id) {
+    switch (id) {
+        case 1:
+            return {
+                code: "adm",
+                created_at: null,
+                id: 1,
+                name: "admin",
+                updated_at: null
+            };
+        case 2:
+            return {
+                code: "tt",
+                created_at: null,
+                id: 2,
+                name: "Tiếp tân",
+                updated_at: null
+            };
+        case 3:
+            return {
+                code: "bs",
+                created_at: null,
+                id: 3,
+                name: "Bác sỹ",
+                updated_at: null
+            };
+        case 4:
+            return {
+                code: "bs",
+                created_at: null,
+                id: 4,
+                name: "Phát thuốc",
+                updated_at: null
+            };
+        default:
+            break;
+    }
+    return;
+}
+
 const getPages = (orders) => {
     const setPages = (min, max) => {
         const res = [];
@@ -725,5 +793,6 @@ export const getGuestOrderTracking = (state: State) => state.guestOrderTracking;
 export const getAccountInfo = (state: State) => state.accountInfo;
 export const getCreateAccount = (state: State) => state.createAccount;
 export const getDeleteAccount = (state: State) => state.deleteAccount;
+export const getUpdateAccount = (state: State) => state.updateAccount;
 
 

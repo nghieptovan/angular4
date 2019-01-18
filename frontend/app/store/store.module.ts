@@ -10,6 +10,11 @@ import { AccountEffects } from './account/account.effects';
 import { AccountService } from './account/account.service';
 import { AuthEffects } from './auth/auth.effects';
 import { AuthService } from './auth/auth.service';
+import { PatientEffects } from './patient/patient.effects';
+import { PatientService } from './patient/patient.service';
+
+
+
 import { CategoryEffects } from './categories/categories.effects';
 import { CategoryService } from './categories/categories.service';
 import { CheckoutEffects } from './checkout/checkout.effects';
@@ -50,7 +55,8 @@ import { AnniversaryService } from './anniversary/anniversary.service';
 // Define effects
 const APP_EFFECTS = [    
     EffectsModule.run(AuthEffects),
-    EffectsModule.run(AccountEffects)
+    EffectsModule.run(AccountEffects),
+    EffectsModule.run(PatientEffects)
 ];
 
 @NgModule({
@@ -67,7 +73,8 @@ const APP_EFFECTS = [
         },
         HttpService,
         AccountService,
-        AuthService
+        AuthService,
+        PatientService
     ],
     declarations: [
     ],

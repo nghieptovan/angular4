@@ -1,0 +1,90 @@
+<app-loader *ngIf="pageLoading"></app-loader>
+<section id="content">
+    <!--breadcrumbs start-->
+    <div id="breadcrumbs-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col s10 m12">
+            <h5>Quản lý bệnh nhân</h5> 
+          </div>
+       
+        </div>
+      </div>
+    </div>
+    <!--breadcrumbs end-->
+    <!--start container-->
+    <div class="container">
+       
+      <div class="section">
+        <!-- <p class="caption">Tables are a nice way to organize a lot of data. We provide a few utility classes to help you style your table as easily as possible. In addition, to improve mobile experience, all tables on mobile-screen widths are centered automatically.</p> -->
+        <!--Responsive Table-->
+        <div class="divider"></div>
+        <div id="responsive-table">
+          <!-- <h4 class="header">Responsive Table</h4> -->
+          <div class="row">
+            <!-- <div class="col s12">
+              <p>Add <code class=" language-markup">class="responsive-table"</code> to the table tag to make the table horizontally scrollable on smaller screen widths.</p>
+            </div> -->
+            <div class="col s12">
+              <table class="responsive-table">
+                <thead>
+                  <tr>
+                    <th data-field="id">Mã bệnh nhân</th>
+                    <th data-field="name">Họ tên</th>
+                    <th data-field="sex">Giới tính</th>
+                    <th data-field="dob">Ngày sinh</th>
+                    <th data-field="weight">Cân nặng</th>
+                    <th data-field="phone">Số điện thoại</th>
+                    <th data-field="address">Địa chỉ</th>
+                    <th data-field="status">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let patient of patients">
+<!-- 
+                      address: "5 Bui Minh Truc"
+                      birthday: "01/01/1990 00:00:00"
+                      code: "BN20170922120759"
+                      created_at: "2017-09-22 00:07:59"
+                      diagnosis: "Tien Dinh"
+                      employee: null
+                      employee_id: "0"
+                      id: 3
+                      name: "Huỳnh Thị Thắm"
+                      phone: "09088787854"
+                      sex: 2
+                      status_id: 1
+                      trangthai: {id: 1, status_name: "moidangki"}
+                      updated_at: "2017-09-22 04:57:41"
+                      weight: 70
+                    -->
+                    <td>{{patient?.code}}</td>
+                    <td>{{patient?.name || 'Chưa có'}}</td>
+                    <td>{{patient?.sex == 2 ? 'Nữ' : 'Nam'}}</td>
+                    <td>{{patient?.birthday.substring(0, 10)}}</td>
+                    <td>{{patient?.weight}}</td>
+                    <td>{{patient?.phone}}</td>
+                    <td>{{patient?.address}}</td>
+                    <td>            
+                      <a routerLink="/benh-nhan/cap-nhat/{{patient.id}}" class="btn-floating waves-effect waves-light green accent-4" title="Chỉnh sửa thông tin">
+                        <i class="material-icons" >mode_edit</i>
+                      </a>  
+                      <a class="btn-floating waves-effect waves-light red accent-4">
+                        <i class="material-icons" (click)="deleteAccount(patient.id)" title="Xóa tài khoản">delete</i>
+                      </a>                    
+                      
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <a style="position: fixed;right: 0px;top: 75px;" routerLink="/benh-nhan/them" class="btn-floating activator btn-large btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
+          <i class="material-icons">add</i>
+        </a>
+      </div>
+
+    </div>
+  </section>

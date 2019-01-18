@@ -16,6 +16,12 @@ export const DELETE_ACCOUNT = '[ACCOUNT] delete account';
 export const DELETE_ACCOUNT_SUCCESS = '[ACCOUNT] successfully deleted account';
 export const DELETE_ACCOUNT_FAILED = '[ACCOUNT] failed to delete account';
 
+export const UPDATE_INFO = '[ACCOUNT] Update account info';
+export const UPDATE_INFO_SUCCESS = '[ACCOUNT] successfully updated account info';
+export const UPDATE_INFO_FAILED = '[ACCOUNT] failed to update info';
+
+
+
 export const RESET_PASSWORD = '[USER] User reset password';
 export const RESET_PASSWORD_SUCCESS = '[USER] successfully reset password';
 export const RESET_PASSWORD_FAILED = '[USER] failed to reset password';
@@ -24,9 +30,7 @@ export const LOAD_INFO = '[USER] User loading info';
 export const LOAD_INFO_SUCCESS = '[USER] successfully loaded user info';
 export const LOAD_INFO_FAILED = '[USER] failed to load user info';
 
-export const UPDATE_INFO = '[ACCOUNT] Update account info';
-export const UPDATE_INFO_SUCCESS = '[ACCOUNT] successfully updated account info';
-export const UPDATE_INFO_FAILED = '[ACCOUNT] failed to update info';
+
 
 export const REFRESH_PAGE = '[ACCOUNT] Refresh page';
 

@@ -25,6 +25,9 @@ export class AccountService {
     deleteAccount(data) {
         return this.httpService.postAnonymous('employee/delete/'+ data, {});
     }
+    updateAccount(data){
+        return this.httpService.postAnonymous('employee/'+ data.id, data);
+    }
      //for end pm
 
     

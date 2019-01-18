@@ -26,6 +26,10 @@ const definedRoutes: Routes = [
         path: 'login',
         loadChildren: './modules/login/login.module#LoginModule'
     },
+    {
+        path: 'benh-nhan',
+        loadChildren: './modules/patient/patient.module#PatientModule'
+    },
     // Checkout page
     {
         path: 'checkout',

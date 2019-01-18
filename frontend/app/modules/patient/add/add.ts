@@ -14,11 +14,11 @@ declare var $;
 
 // Redux
 @Component({
-    selector: 'add-accountnew',
+    selector: 'add-patient',
     templateUrl: './add.html',
     styleUrls: ['./add.less']
 })
-export class AddAccountNew {
+export class AddPatient {
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
@@ -115,6 +115,10 @@ export class AddAccountNew {
                 this.roleMessage = AppConstants.MESSAGE_ROLE;
             
         }
+    }
+    openDatePicker(id) {
+        const self = this;
+        $(id).DatePicker();
     }
 
     
