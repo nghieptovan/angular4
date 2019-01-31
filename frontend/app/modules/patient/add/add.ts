@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
 import * as account from '../../../store/account/account.actions';
+import { PatientModel } from '../../../store/patient/patient.model';
 
 declare var $;
 
@@ -39,7 +40,12 @@ export class AddPatient {
                 private elementRef: ElementRef,
                 private router: Router,
                 private toastr: ToastrService,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private patientModel: PatientModel) {
+                    
+        let object = patientModel.getPatientObject();
+        console.log(object);
+        
         this.createAccountSub = this.store.select(fromRoot.accountGetCreateAccount).subscribe((account) => {
             if(account){
                 if(account.code == 200){
@@ -88,37 +94,74 @@ export class AddPatient {
     }
     register(form){
         const { value } = form;
+console.log(value);
 
-        if(form.valid){
-            this.usernameMessage = '';
-            this.passwordMessage = '';
-            this.fullnameMessage = '';
-            this.roleMessage = '';
+        // if(form.valid){
+        //     this.usernameMessage = '';
+        //     this.passwordMessage = '';
+        //     this.fullnameMessage = '';
+        //     this.roleMessage = '';
 
-            const data = {
-                username: value.username,
-                password: value.password,
-                fullname: value.fullname,
-                role_id: this.roleId,
-                image: '',
-                stringlogin: ''
-            }
-            this.store.dispatch(new account.Register(data));
-        }else{
-            if(!value.username)
-                this.usernameMessage = AppConstants.MESSAGE_USERNAME;
-            if(!value.password)
-                this.passwordMessage = AppConstants.MESSAGE_PASSWORD;
-            if(!value.fullname)
-                this.fullnameMessage = AppConstants.MESSAGE_FULLNAME;
-            if(!value.role)
-                this.roleMessage = AppConstants.MESSAGE_ROLE;
+        //     const data = {
+        //         username: value.username,
+        //         password: value.password,
+        //         fullname: value.fullname,
+        //         role_id: this.roleId,
+        //         image: '',
+        //         stringlogin: ''
+        //     }
+        //     this.store.dispatch(new account.Register(data));
+        // }else{
+        //     if(!value.username)
+        //         this.usernameMessage = AppConstants.MESSAGE_USERNAME;
+        //     if(!value.password)
+        //         this.passwordMessage = AppConstants.MESSAGE_PASSWORD;
+        //     if(!value.fullname)
+        //         this.fullnameMessage = AppConstants.MESSAGE_FULLNAME;
+        //     if(!value.role)
+        //         this.roleMessage = AppConstants.MESSAGE_ROLE;
             
-        }
+
+        //         // $patient = new Patient;
+
+        //         // $patient->code = 'BN'.date("Ymdhis");
+        //         // $patient->name = $request->input('name');
+        //         // $patient->sex = $request->input('sex');
+        //         // $patient->weight = $request->input('weight');
+        //         // $patient->birthday = $request->input('birthday');
+        //         // $patient->address = $request->input('address');
+        //         // $patient->phone = $request->input('phone');
+        //         // $patient->diagnosis = $request->input('diagnosis');
+        //         // $patient->employee_id = $request->input('employee_id');
+        //         // $patient->status_id = 1;
+        // }
     }
     openDatePicker(id) {
         const self = this;
-        $(id).DatePicker();
+        const birthdatePicker = $(id).datepicker({
+            prevText: 'Previous', prevStatus: '',
+            prevJumpText: 'Previous', prevJumpStatus: '',
+            nextText: 'Next', nextStatus: '',
+            nextJumpText: 'Next', nextJumpStatus: '',
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            showMonthAfterYear: true,
+            // dateFormat: 'dd/mm/yy',
+            dateFormat: 'd-m-yy',
+            changeMonth: true,
+            changeYear: true,
+            showOn: 'button',
+            buttonImageOnly: true,
+            buttonText: '',
+            showButtonPanel: true,
+            yearRange: '-100:+0',
+            onSelect: function (dateText, inst) {console.log(dateText);
+            
+            }
+        });
+        birthdatePicker.datepicker('show');
     }
 
     

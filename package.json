@@ -59,6 +59,7 @@
         "ng2-nouislider": "^1.7.0",
         "ng2-slimscroll": "^2.0.1",
         "ng2-translate": "^5.0.0",
+        "ngrx-store-localstorage": "^7.0.0",
         "ngrx-store-logger": "^0.2.0",
         "ngx-bar-rating": "^1.1.0",
         "ngx-cookie-service": "^1.0.9",

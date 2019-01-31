@@ -6963,7 +6963,8 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::before {
 
 /* Select Field
    ========================================================================== */
-select {
+   /* comment for datepicker */
+/* select {
   display: none;
 }
 
@@ -6978,8 +6979,8 @@ select {
   border: 1px solid #f2f2f2;
   border-radius: 2px;
   height: 3rem;
-}
-
+} */
+ /* comment for datepicker */
 .input-field select {
   display: block;
   position: absolute;
