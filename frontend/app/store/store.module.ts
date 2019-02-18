@@ -12,7 +12,7 @@ import { AuthEffects } from './auth/auth.effects';
 import { AuthService } from './auth/auth.service';
 import { PatientEffects } from './patient/patient.effects';
 import { PatientService } from './patient/patient.service';
-import { PatientModel } from './patient/patient.model';
+import { DataModel } from './data';
 
 
 
@@ -76,7 +76,7 @@ const APP_EFFECTS = [
         AccountService,
         AuthService,
         PatientService,
-        PatientModel
+        DataModel
     ],
     declarations: [
     ],

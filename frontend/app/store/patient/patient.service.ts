@@ -18,6 +18,9 @@ export class PatientService {
         let url = data != 0 ? 'patient/' + data : 'patient';
         return this.httpService.getAnonymous(url);
     }
+    updatePatient(data){
+        return this.httpService.postAnonymous('patient/'+data.id, data);
+    }
 
    
 }

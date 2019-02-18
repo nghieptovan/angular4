@@ -6,6 +6,7 @@ import { SlickModule } from 'ngx-slick';
 import { AppCommonModule } from '../../app.common.module';
 import { Patient } from './patient';
 import { AddPatient } from './add/add';
+import { EditPatient } from './edit/edit';
 
 const routes: Routes = [
     {
@@ -17,8 +18,8 @@ const routes: Routes = [
         component: AddPatient
     },
     {
-        path: 'cap-nhat',
-        component: Patient
+        path: 'cap-nhat/:id',
+        component: EditPatient
     }
 ];
 @NgModule({
@@ -30,7 +31,8 @@ const routes: Routes = [
     ],
     declarations: [
         Patient,
-        AddPatient
+        AddPatient,
+        EditPatient
     ],
     exports: [
     ]

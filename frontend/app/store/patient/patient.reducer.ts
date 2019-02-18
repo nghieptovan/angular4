@@ -7,12 +7,14 @@ export interface State {
     loaded: boolean;
     loading: boolean;
     listPatient: any;
+    updatePatient: any;
 }
 
 const initialState: State = {
     loaded: false,
     loading: false,
-    listPatient: null
+    listPatient: null,
+    updatePatient: null
 };
 
 export function reducer(state = initialState, action: patient.PatientActions): State {
@@ -41,6 +43,33 @@ export function reducer(state = initialState, action: patient.PatientActions): S
                 errorMessage: AppHelpers.getErrorMessage(action.payload)
             });
         }
+
+        case patient.UPDATE_PATIENT: {
+            return Object.assign({}, state, {
+                loading: true,
+                loaded: false,
+                updatePatient: null
+            });
+        }
+
+        case patient.UPDATE_PATIENT_SUCCESS: {
+            return Object.assign({}, state, {
+                loaded: true,
+                // loading: false,
+                updatePatient: action.payload.data
+            });
+        }
+
+        case patient.UPDATE_PATIENT_FAILED: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                updatePatient: null,
+                errorMessage: AppHelpers.getErrorMessage(action.payload.message)
+            });
+        }
+
+        
        
         default:
             return state;

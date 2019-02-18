@@ -40,6 +40,16 @@ export class PatientEffects {
                     return Observable.of(new patient.ListPatientFailed(error));
                 });
         });
-   
-
+    // update patient
+    @Effect()
+    updatePatient$ = this._actions.ofType(patient.UPDATE_PATIENT)
+        .switchMap((action) => {
+            return this.patientService.updatePatient(action.payload)
+                .map((resp) => {
+                    return new patient.UpdatePatientSuccess(resp.json());
+                }).catch((error) => {
+                    return Observable.of(new patient.UpdatePatientFailed(error));
+                });
+        });
+        
 }

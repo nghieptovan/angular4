@@ -1,0 +1,111 @@
+<app-loader *ngIf="pageLoading"></app-loader>
+<section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <!-- Search for small screen -->
+            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m12">                     
+                    <h5> <a routerLink="/benh-nhan" class="btn-floating waves-effect waves-light red accent-4">
+                            <i class="material-icons" title="">keyboard_arrow_left</i>
+                        </a>Thêm tài khoản</h5>                 
+                </div>
+              
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!-- Form with icon prefixes -->
+              <div class="row">
+                <div class="col s10 m10 offset-m1">
+                  <div class="card-panel">
+                    <div class="row">
+                        <form class="col s12" #loginForm="ngForm" (ngSubmit)="register(loginForm)" id="loginForm">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="text" name="name" [(ngModel)]="patient.name" #name="ngModel" ngModel id="name" autocomplete="off" class="validate" required>
+                                    <label for="name" [ngClass]="{'active': patient.name}">Họ tên</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="text" name="phone" [(ngModel)]="patient.phone" #phone="ngModel" ngModel id="phone" autocomplete="off" class="validate" required>
+                                    <label for="phone" [ngClass]="{'active': patient.phone}">Số điện thoại</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{phoneMessage}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="text" name="address" [(ngModel)]="patient.address" #address="ngModel" ngModel id="address" autocomplete="off" class="validate" required>
+                                    <label for="address" [ngClass]="{'active': patient.address}">Địa chỉ</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{addressMessage}}</span>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="number" name="weight" 
+                                    [(ngModel)]="patient.weight" #weight="ngModel" ngModel id="weight" autocomplete="off" class="validate" required>
+                                    <label for="weight" [ngClass]="{'active': patient.weight}">Cân nặng</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{weightMessage}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6 date-item">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="text" name="birthday" (click)="openDatePicker('#birthday')" readonly 
+                                    [(ngModel)]="patient.birthday" #birthday="ngModel" ngModel id="birthday" autocomplete="off" class="validate" required>
+                                    <label for="birthday" [ngClass]="{'active': patient.birthday}">Ngày sinh</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{birthdayMessage}}</span>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input type="text" name="diagnosis" #diagnosis="ngModel" [(ngModel)]="patient.diagnosis" ngModel id="diagnosis" autocomplete="off"
+                                    class="validate" required>
+                                    <label for="diagnosis" [ngClass]="{'active': patient.diagnosis}">Tiền căn</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">{{diagnosisMessage}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col s4">
+                                        <ul class="collection border-none">
+                                            <li class="collection-item border-none">
+                                                <div class="m-0" style="display: inline-flex;">
+                                                <span class="font-weight-600">Giới tính:</span>
+                                                <span class="font-weight-400" style="margin-left: 50px;">Nam</span>
+                                                <div class="switch">
+                                                    <label>
+                                                    <input *ngIf="!patient.sex" [(ngModel)]="patient.sex" ngModel type="checkbox" name="sex">
+                                                    <input *ngIf="patient.sex " [(ngModel)]="patient.sex" checked="checked" type="checkbox" name="sex">
+                                                    <span class="lever"></span>
+                                                    </label>
+                                                </div>
+                                                <span class="font-weight-400">Nữ</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+    
+                                    </div>
+                                
+                                    
+                            </div>
+                    
+                            <div class="row">                                
+                                <div class="input-field col m12 center-align">
+                                    <button class="btn waves-effect waves-light center" type="submit" name="action">Cập nhật</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>

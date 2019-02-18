@@ -83,6 +83,11 @@ export const AppConstants = {
     },    
     MESSAGE_PASSWORD: 'Vui lòng nhập tên mật khẩu',
     MESSAGE_USERNAME: 'Vui lòng nhập tên đăng nhập',
+    MESSAGE_PHONENUMBER: 'Vui lòng số điện thoại',
+    MESSAGE_ADDRESS: 'Vui lòng nhập địa chỉ',
+    MESSAGE_WEIGHT: 'Vui lòng nhập cân nặng',
+    MESSAGE_DIAGNOSIS: 'Vui lòng nhập tiền căn',
+    MESSAGE_BIRTHDAY: 'Vui lòng nhập ngày sinh',
     MESSAGE_FULLNAME: 'Vui lòng nhập họ tên',
     MESSAGE_ROLE: 'Vui lòng chọn chức vụ',
     LIMIT_ITEMS_CMS: {
