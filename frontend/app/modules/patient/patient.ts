@@ -31,8 +31,7 @@ export class Patient {
     getListPatientSub: any;
     deleteAccountSub: any;
 
-    accountIsLoading$:boolean = false;
-
+    patientIsLoading$: boolean = false;
     usernameMessage: string = '';
     passwordMessage: string = '';
     dispatcherSub: any;
@@ -44,7 +43,7 @@ export class Patient {
         dispatcher: Dispatcher, private toastr: ToastrService,) {
         
         this.patientGetLoadingState = this.store.select(fromRoot.patientGetLoadingState).subscribe((loading) => {
-            this.pageLoading = loading;
+            this.patientIsLoading$ = loading;
         });
         
         this.getListPatientSub = this.store.select(fromRoot.patientGetListPatient).subscribe((patients) => {
@@ -87,6 +86,33 @@ export class Patient {
         this.patientGetLoadingState.unsubscribe();
     }
 
+    actionPatient(action, patient) {
+        
+        if(action != '' && patient.id){
+            switch (action) {
+                case 'toathuoc':
+                    this.globalService.setCurrentPatient(patient);
+                    this.router.navigateByUrl('/benh-nhan/toa-thuoc/'+patient.id);
+                    break;
+                case 'capnhat':
+                    this.globalService.setCurrentPatient(patient);
+                    this.router.navigateByUrl('/benh-nhan/cap-nhat/'+patient.id);
+                    break;
+                case 'xoa':
+                    this.deleteAccount(patient.id);
+                    break;            
+                default:
+                    break;
+            }
+        }
+        // data="/benh-nhan/toa-thuoc/{{patient.id}}"
+        // data="/benh-nhan/cap-nhat/{{patient.id}}" 
+
+        // console.log(action);
+        // console.log(patient);
+        
+    }
+    
     deleteAccount(id){
         this.selectedId = id;
         this.store.dispatch(new account.DeleteAccount(id));

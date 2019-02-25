@@ -29,6 +29,7 @@ import * as fromBrand from './brand/brand.reducer';
 import * as fromVendor from './vendor/vendor.reducer';
 import * as fromRecharge from './recharge/recharge.reducer';
 import * as fromPatient from './patient/patient.reducer';
+import * as fromBill from './bill/bill.reducer';
 
 import * as fromBigBangV2 from './game/bigbangv2/bigbangv2.reducer';
 import * as fromPigV1 from './game/pigv1/pigv1.reducer';
@@ -39,6 +40,7 @@ export interface AppState {
     auth: fromAuth.State;
     account: fromAccount.State;
     patient: fromPatient.State;
+    bill: fromBill.State;
     products: fromProducts.State;
     categories: fromCategories.State;
     checkout: fromCheckout.State;
@@ -61,7 +63,8 @@ export interface AppState {
 export const reducers = {
     auth: fromAuth.reducer,
     account: fromAccount.reducer,
-    patient: fromPatient.reducer
+    patient: fromPatient.reducer,
+    bill: fromBill.reducer
     // products: fromProducts.reducer,
     // categories: fromCategories.reducer,
     // checkout: fromCheckout.reducer,
@@ -144,7 +147,14 @@ export const authGetLoadingState = createSelector(authGetState, fromAuth.getLoad
 export const authGetLoggedInState = createSelector(authGetState, fromAuth.getLoggedInState);
 
 export const authGetErrorMessage = createSelector(authGetState, fromAuth.getErrorMessage);
+/*
+Bill
+ */
 
+export const billGetState = (state: AppState) => state.bill;
+
+export const billGetLoadingState = createSelector(billGetState, fromBill.getLoadingState);
+export const billByPatient = createSelector(billGetState, fromBill.getBillByPatient);
 
 /*
 Patient
@@ -154,6 +164,7 @@ export const patientGetState = (state: AppState) => state.patient;
 
 export const patientGetLoadingState = createSelector(patientGetState, fromPatient.getLoadingState);
 export const patientGetListPatient = createSelector(patientGetState, fromPatient.getListPatient);
+export const patientCurrentPatient = createSelector(patientGetState, fromPatient.getCurrentPatient);
 
 /*
 Account

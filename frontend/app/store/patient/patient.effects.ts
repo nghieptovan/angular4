@@ -26,16 +26,13 @@ export class PatientEffects {
         private globalService: GlobalService) {
 
     }
-
-
-    
     // List patient
     @Effect()
     listPatient$ = this._actions.ofType(patient.LIST_PATIENT)
         .switchMap((action) => {
             return this.patientService.listPatient(action.payload)
                 .map((resp) => {
-                    return new patient.ListPatientSuccess(resp.json());
+                    return new patient.ListPatientSuccess({data: resp.json(), id: action.payload});
                 }).catch((error) => {
                     return Observable.of(new patient.ListPatientFailed(error));
                 });

@@ -43,9 +43,6 @@ export class EditAccountNew{
                 private activatedRoute: ActivatedRoute) {
 
         this.accountGetLoadingState = this.store.select(fromRoot.accountGetLoadingState).subscribe((loading) => {
-            console.log(loading);
-            
-            this.accountIsLoading = loading;
         });
                     
         this.getListAccountSub = this.store.select(fromRoot.accountGetAccountInfo).subscribe((info) => {
@@ -62,9 +59,6 @@ export class EditAccountNew{
         });
         this.getUpdateAccountSub = this.store.select(fromRoot.accountGetUpdateAccount).subscribe((account) => {
                 if(account && account.code == 200 && this.isLoaded){
-                    // setTimeout(() => {
-                    //     this.router.navigateByUrl('tai-khoan');
-                    //   }, 1500, );
                     this.toastr.success(account.message);
                     this.router.navigateByUrl('tai-khoan');
                 }

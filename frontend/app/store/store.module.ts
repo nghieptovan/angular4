@@ -12,6 +12,8 @@ import { AuthEffects } from './auth/auth.effects';
 import { AuthService } from './auth/auth.service';
 import { PatientEffects } from './patient/patient.effects';
 import { PatientService } from './patient/patient.service';
+import { BillEffects } from './bill/bill.effects';
+import { BillService } from './bill/bill.service';
 import { DataModel } from './data';
 
 
@@ -57,7 +59,8 @@ import { AnniversaryService } from './anniversary/anniversary.service';
 const APP_EFFECTS = [    
     EffectsModule.run(AuthEffects),
     EffectsModule.run(AccountEffects),
-    EffectsModule.run(PatientEffects)
+    EffectsModule.run(PatientEffects),
+    EffectsModule.run(BillEffects)
 ];
 
 @NgModule({
@@ -76,6 +79,7 @@ const APP_EFFECTS = [
         AccountService,
         AuthService,
         PatientService,
+        BillService,
         DataModel
     ],
     declarations: [

@@ -54,12 +54,6 @@ export class EditPatient {
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute,
                 private patientModel: DataModel) {
-
-        this.patientGetLoadingState = this.store.select(fromRoot.patientGetLoadingState).subscribe((loading) => {
-            console.log(loading);
-            
-            this.pageLoading = loading;
-        });           
         this.getListPatientSub = this.store.select(fromRoot.patientGetListPatient).subscribe((patients) => {
             if(!patients){
                 this.router.navigateByUrl('benh-nhan');
@@ -81,7 +75,12 @@ export class EditPatient {
                 }
             }
         });
-      
+        this.patientGetLoadingState = this.store.select(fromRoot.patientGetLoadingState).subscribe((loading) => {
+            if(loading){
+                this.toastr.success('Cập nhật thông tin bệnh nhân thành công');
+            }
+        });
+        
     }
 
    

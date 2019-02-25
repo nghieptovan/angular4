@@ -7,6 +7,7 @@ import { AppCommonModule } from '../../app.common.module';
 import { Patient } from './patient';
 import { AddPatient } from './add/add';
 import { EditPatient } from './edit/edit';
+import { DrugPatient } from './drug/drug';
 
 const routes: Routes = [
     {
@@ -20,6 +21,10 @@ const routes: Routes = [
     {
         path: 'cap-nhat/:id',
         component: EditPatient
+    },
+    {
+        path: 'toa-thuoc/:id',
+        component: DrugPatient
     }
 ];
 @NgModule({
@@ -32,7 +37,8 @@ const routes: Routes = [
     declarations: [
         Patient,
         AddPatient,
-        EditPatient
+        EditPatient,
+        DrugPatient
     ],
     exports: [
     ]

@@ -474,4 +474,20 @@ export class GlobalService {
         }
 
     }
+    setCurrentPatient(patient){
+        if(patient && patient.id){
+            localStorage.setItem('currentPatient', JSON.stringify(patient));
+        }
+    }
+    getCurrentPatient(){
+        let patient = JSON.parse(localStorage.getItem('currentPatient'));
+        if(patient && patient.id){
+            return patient;
+        }else{
+            return {
+                id: 0
+            };
+        }
+    }
+    
 }
