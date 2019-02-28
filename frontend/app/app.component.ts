@@ -42,7 +42,7 @@ export class AppComponent {
         private globalService: GlobalService,
         private location: PlatformLocation
     ) {
-        console.log('run');
+        // console.log('run');
         
         
     }

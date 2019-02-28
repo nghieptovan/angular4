@@ -15,6 +15,7 @@ import { AppConstants } from '../../app.constant';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { datatablessources } from '../../../assets/js/data-tables/datatables-sources'; 
 declare var $;
 
 @Component({
@@ -52,6 +53,7 @@ export class Patient {
             }else{
                 if(patients.code == 200){
                     this.patients = patients.data;
+                    datatablessources();
                 }else{
                     this.errorMessage = patients.message;
                 }

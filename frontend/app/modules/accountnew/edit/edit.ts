@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
 import * as account from '../../../store/account/account.actions';
+import {formvalidation } from '../../../../assets/js/form-validation';
 
 declare var $;
 
@@ -52,7 +53,10 @@ export class EditAccountNew{
                 if(info && info.code == 200){
                     const userId = this.activatedRoute.params['value'].id;
                     this.account = _.find(info.data, function(o) { return o.id == userId; });
-                    this.selectRole(this.account.role.name);
+                    console.log(this.account);
+                    
+                    this.selectRole(this.account.role_id);
+                    formvalidation();
                 }
             }
             
@@ -77,59 +81,64 @@ export class EditAccountNew{
     }
 
     selectRole(value){
-        this.roleSet = value;
-        switch (value) {
-            case 'admin':
-                this.roleId = 1;
-                break;
-            case 'Tiếp tân':
-                this.roleId = 2;
-                break;
-            case 'Bác sỹ':
-                this.roleId = 3;
-                break;
-            case 'Phát thuốc':
-                this.roleId = 4;
-                break;        
-            default:
-                break;
-        }
-        this.showRole = false;
+        console.log(value);
+        
+        $('.role-name').val(value).change();
+        // $(".role-name > option[value=" + value + "]").prop("selected",true);
+        // this.roleSet = value;
+        // switch (value) {
+        //     case 'admin':
+        //         this.roleId = 1;
+        //         break;
+        //     case 'Tiếp tân':
+        //         this.roleId = 2;
+        //         break;
+        //     case 'Bác sỹ':
+        //         this.roleId = 3;
+        //         break;
+        //     case 'Phát thuốc':
+        //         this.roleId = 4;
+        //         break;        
+        //     default:
+        //         break;
+        // }
+        // this.showRole = false;
         
     }
     update(form){
         const { value } = form;
+        console.log(value);
+        
+        // if(form.valid){
+        //     this.usernameMessage = '';
+        //     this.passwordMessage = '';
+        //     this.fullnameMessage = '';
+        //     this.roleMessage = '';
 
-        if(form.valid){
-            this.usernameMessage = '';
-            this.passwordMessage = '';
-            this.fullnameMessage = '';
-            this.roleMessage = '';
-
-            const data = {
-                username: value.username,
-                password: value.password,
-                fullname: value.fullname,
-                role_id: this.roleId,
-                image: '',
-                stringlogin: '',
-                id: this.account.id
-            }
-            this.isLoaded = true;
-            this.store.dispatch(new account.UpdateInfo(data));
-            // console.log(data);
+        //     const data = {
+        //         username: value.username,
+        //         password: value.password,
+        //         fullname: value.fullname,
+        //         role_id: this.roleId,
+        //         image: '',
+        //         stringlogin: '',
+        //         id: this.account.id
+        //     }
+        //     this.isLoaded = true;
+        //     this.store.dispatch(new account.UpdateInfo(data));
+        //     // console.log(data);
             
-        }else{
-            if(!value.username)
-                this.usernameMessage = AppConstants.MESSAGE_USERNAME;
-            if(!value.password)
-                this.passwordMessage = AppConstants.MESSAGE_PASSWORD;
-            if(!value.fullname)
-                this.fullnameMessage = AppConstants.MESSAGE_FULLNAME;
-            if(!value.role)
-                this.roleMessage = AppConstants.MESSAGE_ROLE;
+        // }else{
+        //     if(!value.username)
+        //         this.usernameMessage = AppConstants.MESSAGE_USERNAME;
+        //     if(!value.password)
+        //         this.passwordMessage = AppConstants.MESSAGE_PASSWORD;
+        //     if(!value.fullname)
+        //         this.fullnameMessage = AppConstants.MESSAGE_FULLNAME;
+        //     if(!value.role)
+        //         this.roleMessage = AppConstants.MESSAGE_ROLE;
             
-        }
+        // }
     }
 
 

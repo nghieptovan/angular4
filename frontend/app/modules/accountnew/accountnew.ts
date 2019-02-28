@@ -13,6 +13,11 @@ import {Router} from "@angular/router";
 import { AppConstants } from '../../app.constant';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
+
+import { chatjs } from '../../../assets/js/chat'; 
+import { datatablessources } from '../../../assets/js/data-tables/datatables-sources'; 
+import { modaljs } from '../../../assets/js/components-modal.min'; 
+
 declare var $;
 
 @Component({
@@ -51,6 +56,8 @@ export class AccountNew {
             }else{
                 if(info.code == 200){
                     this.listAccount = info.data;
+                    datatablessources();
+                    modaljs();
                 }else{
                     this.errorMessage = info.message;
                 }

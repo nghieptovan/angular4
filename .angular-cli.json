@@ -36,16 +36,12 @@
         "assets/vendors/js/jquery.matchHeight-min.js",
         "assets/vendors/js/screenfull.min.js",
         "assets/vendors/js/pace/pace.min.js",
-        "assets/vendors/js/chartist.min.js",    
+        "assets/vendors/js/chartist.min.js",
+        "assets/js/app-sidebar.js",
+        "assets/js/notification-sidebar.js",
+        "assets/js/customizer.js",
         "assets/vendors/js/datatable/datatables.min.js",
-        "assets/vendors/js/datatable/dataTables.buttons.min.js",
-        "assets/vendors/js/datatable/buttons.flash.min.js",
-        "assets/vendors/js/datatable/jszip.min.js",
-        "assets/vendors/js/datatable/pdfmake.min.js",
-        "assets/vendors/js/datatable/vfs_fonts.js",
-        "assets/vendors/js/datatable/buttons.html5.min.js",
-        "assets/vendors/js/datatable/buttons.print.min.js",
-        "assets/js/data-tables/datatable-advanced.js"
+        "assets/vendors/js/jqBootstrapValidation.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
