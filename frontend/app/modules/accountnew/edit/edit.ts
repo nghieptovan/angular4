@@ -36,13 +36,14 @@ export class EditAccountNew{
     roleMessage: any;
     fullnameMessage: any;
     isLoaded: boolean = false;
+    appConstants: any;
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
                 private elementRef: ElementRef,
                 private router: Router,
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute) {
-
+        this.appConstants = AppConstants;
         this.accountGetLoadingState = this.store.select(fromRoot.accountGetLoadingState).subscribe((loading) => {
         });
                     
@@ -53,9 +54,6 @@ export class EditAccountNew{
                 if(info && info.code == 200){
                     const userId = this.activatedRoute.params['value'].id;
                     this.account = _.find(info.data, function(o) { return o.id == userId; });
-                    console.log(this.account);
-                    
-                    this.selectRole(this.account.role_id);
                     formvalidation();
                 }
             }
@@ -72,6 +70,9 @@ export class EditAccountNew{
         this.getListAccountSub.unsubscribe();
         this.getUpdateAccountSub.unsubscribe();
         this.accountGetLoadingState.unsubscribe();
+    }
+    backToList(){
+        this.router.navigateByUrl('tai-khoan');
     }
     setRole(status){
         if(status == 1)
@@ -107,27 +108,20 @@ export class EditAccountNew{
     }
     update(form){
         const { value } = form;
-        console.log(value);
-        
-        // if(form.valid){
-        //     this.usernameMessage = '';
-        //     this.passwordMessage = '';
-        //     this.fullnameMessage = '';
-        //     this.roleMessage = '';
-
-        //     const data = {
-        //         username: value.username,
-        //         password: value.password,
-        //         fullname: value.fullname,
-        //         role_id: this.roleId,
-        //         image: '',
-        //         stringlogin: '',
-        //         id: this.account.id
-        //     }
-        //     this.isLoaded = true;
-        //     this.store.dispatch(new account.UpdateInfo(data));
-        //     // console.log(data);
-            
+        if(form.valid){
+            const data = {
+                username: value.username,
+                password: value.password,
+                fullname: value.fullname,
+                role_id: value.role_id,
+                image: '',
+                stringlogin: '',
+                id: this.account.id
+            }
+            this.isLoaded = true;
+            this.store.dispatch(new account.UpdateInfo(data));
+            // console.log(data);
+        }
         // }else{
         //     if(!value.username)
         //         this.usernameMessage = AppConstants.MESSAGE_USERNAME;

@@ -13,6 +13,10 @@ export class AccountService {
 
     }
 
+    loadJSONConfig(url) {
+        return this.httpService.getLocalFile(url);
+    }
+
     //for pm
     listaccount() {
         return this.httpService.getAnonymous('employee');

@@ -15,9 +15,9 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "build": "ng build --env=dev --aot --no-sourcemap --deploy-url=.",
-        "build-shop": "ng build --env=prod --prod --aot --no-sourcemap --deploy-url=shop/",
-        "build-dev": "ng build --env=develop --prod --aot --no-sourcemap --deploy-url=shop/",
-        "build-stag": "ng build --env=stag --prod --aot --no-sourcemap --deploy-url=shop/",
+        "build-shop": "ng build --env=prod --prod --aot --no-sourcemap --deploy-url=.",
+        "build-dev": "ng build --env=develop --prod --aot --no-sourcemap --deploy-url=.",
+        "build-stag": "ng build --env=stag --prod --aot --no-sourcemap --deploy-url=.",
         "dev": "ng serve --open --env=develop",
         "stag": "ng serve --open --env=stag"
     },

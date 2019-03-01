@@ -21,7 +21,7 @@ import { PlatformLocation } from '@angular/common'
 import {LocalStorageConstants} from "./components/base/constants/LocalStorageConstants";
 import {LocalStorageManagement} from "./components/base/LocalStorageManagement";
 import {RegionManagement} from "./components/base/RegionManagement";
-
+import {formvalidation } from '../assets/js/form-validation';
 declare var $;
 // import { TranslateService } from 'ng2-translate';
 @Component({
@@ -42,6 +42,8 @@ export class AppComponent {
         private globalService: GlobalService,
         private location: PlatformLocation
     ) {
+        this.store.dispatch(new account.LoadJsonConfig('../assets/config/config.json'));
+        formvalidation();
         // console.log('run');
         
         

@@ -177,6 +177,7 @@ export const accountGetAccountInfo = createSelector(accountGetState, fromAccount
 export const accountGetCreateAccount = createSelector(accountGetState, fromAccount.getCreateAccount);
 export const accountGetDeleteAccount = createSelector(accountGetState, fromAccount.getDeleteAccount);
 export const accountGetUpdateAccount = createSelector(accountGetState, fromAccount.getUpdateAccount);
+export const accountGetConfigJSON = createSelector(accountGetState, fromAccount.getConfigJSON);
 
 export const accountGetInfo = createSelector(accountGetState, fromAccount.getInfo);
 

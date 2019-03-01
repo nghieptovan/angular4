@@ -62,6 +62,13 @@ export class HttpService {
         });
     }
 
+    getLocalFile(url, cache: Boolean = false): Observable<Response> {
+        const header = this.appendHeaders(false);
+        return this.http.get(url, {
+            headers: header
+        });
+    }
+
     postAnonymous(url, data): Observable<Response> {
         const header = this.appendHeaders(false);
         return this.http.post(this.baseURL + url, JSON.stringify(data), {

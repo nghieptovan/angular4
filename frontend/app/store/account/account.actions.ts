@@ -20,6 +20,11 @@ export const UPDATE_INFO = '[ACCOUNT] Update account info';
 export const UPDATE_INFO_SUCCESS = '[ACCOUNT] successfully updated account info';
 export const UPDATE_INFO_FAILED = '[ACCOUNT] failed to update info';
 
+export const LOAD_JSON_CONFIG = '[JSON] load json config';
+export const LOAD_JSON_CONFIG_SUCCESS = '[JSON] successfully loaded json config';
+export const LOAD_JSON_CONFIG_FAILED = '[JSON] failed toload json config';
+
+
 
 
 export const RESET_PASSWORD = '[USER] User reset password';
@@ -123,6 +128,22 @@ export const GUEST_ORDER_TRACKING_SUCCESS = '[GUEST] successfully loaded guest o
 export const GUEST_ORDER_TRACKING_FAILED = '[GUEST] failed to load guest order tracking';
 
 export const RESET_ACCOUNT_MSG_ERRORS = '[User] Reset account messsage errors';
+
+export class LoadJsonConfig implements Action {
+    readonly type = LOAD_JSON_CONFIG;
+    constructor(public payload: any) { }
+}
+
+export class LoadJsonConfigFailed implements Action {
+    readonly type = LOAD_JSON_CONFIG_FAILED;
+    constructor(public payload: any) { }
+}
+
+export class LoadJsonConfigSuccess implements Action {
+    readonly type = LOAD_JSON_CONFIG_SUCCESS;
+    constructor(public payload: any) { }
+}
+
 
 export class ListAccount implements Action {
     readonly type = LIST_ACCOUNT;
@@ -612,4 +633,5 @@ export type AccountActions =
     UpdateLPoint | UpdateLPointFailed | UpdateLPointSuccess |
     LoadGuestTrackingOrder | LoadGuestTrackingOrderFailed | LoadGuestTrackingOrderSuccess | ResetAccountMsgErrors |
     ListAccount | ListAccountFailed | ListAccountSuccess |
-    DeleteAccount | DeleteAccountSuccess | DeleteAccountFailed;
+    DeleteAccount | DeleteAccountSuccess | DeleteAccountFailed |
+    LoadJsonConfig | LoadJsonConfigSuccess | LoadJsonConfigFailed;

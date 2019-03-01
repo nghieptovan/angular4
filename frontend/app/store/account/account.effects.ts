@@ -27,7 +27,17 @@ export class AccountEffects {
 
     }
 
-
+    // load JSON config
+    @Effect()
+    loadJSONConfig$ = this._actions.ofType(account.LOAD_JSON_CONFIG)
+        .switchMap((action) => {
+            return this.accountService.loadJSONConfig(action.payload)
+                .map((resp) => {
+                    return new account.LoadJsonConfigSuccess(resp.json());
+                }).catch((error) => {
+                    return Observable.of(new account.LoadJsonConfigFailed(error));
+                });
+     });
     
     // List account
     @Effect()

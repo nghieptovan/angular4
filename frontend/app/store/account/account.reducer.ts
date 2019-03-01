@@ -29,6 +29,7 @@ export interface State {
     createAccount: any;
     deleteAccount: any;
     updateAccount: any;
+    configJSON: any;
 }
 
 const initialState: State = {
@@ -55,11 +56,20 @@ const initialState: State = {
     accountInfo: null,
     createAccount: null,
     deleteAccount: null,
-    updateAccount: null
+    updateAccount: null,
+    configJSON: {}
 };
 
 export function reducer(state = initialState, action: account.AccountActions): State {
     switch (action.type) {
+
+        case account.LOAD_JSON_CONFIG_SUCCESS: {
+            return Object.assign({}, state, {
+                configJSON: action.payload
+            });
+        }
+
+
         case account.LIST_ACCOUNT: {
             return Object.assign({}, state, {
                 loading: true,
@@ -95,8 +105,12 @@ export function reducer(state = initialState, action: account.AccountActions): S
 
         case account.REGISTER_SUCCESS: {
             let accountInfo = state.accountInfo;
+            let newAccount = action.payload.data;
+            newAccount.role = getRole(newAccount.role_id);
+
             if(action.payload.code == 200){
-                accountInfo.data = [...accountInfo.data, action.payload.data];
+                
+                accountInfo.data = [...accountInfo.data, newAccount];
             }
             return Object.assign({}, state, {
                 loaded: true,
@@ -157,7 +171,6 @@ export function reducer(state = initialState, action: account.AccountActions): S
                     if(item.id == action.payload.data.id){
                         
                         accountInfo.data[index] = action.payload.data;
-                        console.log(action.payload.data.role_id);
                         
                         accountInfo.data[index].role = getRole(action.payload.data.role_id);
                     }
@@ -706,7 +719,7 @@ function getRole(id) {
                 code: "adm",
                 created_at: null,
                 id: 1,
-                name: "admin",
+                name: "Admin",
                 updated_at: null
             };
         case 2:
@@ -794,5 +807,6 @@ export const getAccountInfo = (state: State) => state.accountInfo;
 export const getCreateAccount = (state: State) => state.createAccount;
 export const getDeleteAccount = (state: State) => state.deleteAccount;
 export const getUpdateAccount = (state: State) => state.updateAccount;
+export const getConfigJSON = (state: State) => state.configJSON;
 
 

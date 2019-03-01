@@ -1,102 +1,15 @@
-<!-- <section id="content">
-
-    <div id="breadcrumbs-wrapper">
-      <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
-        <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col s10 m12">
-               
-              <h5> <a routerLink="/tai-khoan" class="btn-floating waves-effect waves-light red accent-4">
-                      <i class="material-icons" title="">keyboard_arrow_left</i>
-                  </a>Cập nhật tài khoản</h5>
-           
-          </div>
-        
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="section">
-        <div class="row">
-          <div class="col s12 m12">
-            <div class="card-panel">
-              <div class="row">
-                  <form class="col s12" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm">
-                      <div class="row">
-                          <div class="input-field col s6">
-                          <i class="material-icons prefix">account_circle</i>
-                          <input type="text" name="username" [(ngModel)]="account.username"                      
-                          #username="ngModel" ngModel id="username" autocomplete="off"
-                          class="validate" required>
-                          <label for="username" class="active">Tên đăng nhập</label>
-                          <span class="helper-text" data-error="wrong" data-success="right">{{usernameMessage}}</span>
-                          </div>
-                          <div class="input-field col s6">
-                              <i class="material-icons prefix">lock_outline</i>
-                              <input type="password" name="password" [(ngModel)]="account.password"                      
-                              #password="ngModel" ngModel id="password" autocomplete="off"
-                              class="validate" required>
-                              <label for="password" class="active" >Mật khẩu</label>
-                              <span class="helper-text" data-error="wrong" data-success="right">{{passwordMessage}}</span>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="input-field col s6">
-                          <i class="material-icons prefix">perm_identity</i>
-                          <input type="text" name="fullname" [(ngModel)]="account.fullname"                     
-                          #fullname="ngModel" ngModel id="fullname" autocomplete="off"
-                          class="validate" required>
-                          <label for="fullname" class="active">Họ tên</label>
-                          <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                          </div>
-                          <div class="input-field col s6">
-                              <i class="material-icons prefix">rowing</i>
-                              <input id="role" type="text" name="role" #role="ngModel" [(ngModel)]="roleSet" autocomplete="off"
-                              class="validate" required (focus)="setRole(1)" placeholder="Chọn chức vụ">
-                              <label for="role" class="active">Chức vụ</label>
-                              <span class="helper-text" data-error="wrong" data-success="right">{{roleMessage}}</span>
-                              <ul id="translation-dropdown" class="dropdown-content" style="left: 60px;width: 200px; top: 48px;" [ngStyle]="{'display': showRole ? 'block' : 'none', 'opacity': showRole ? '1' : '0'}">
-                                      <li (click)="selectRole('admin')">
-                                          <a class="grey-text text-darken-1">admin</a>
-                                      </li>
-                                      <li (click)="selectRole('Tiếp tân')">
-                                          <a class="grey-text text-darken-1">Tiếp tân</a>
-                                      </li>
-                                      <li (click)="selectRole('Bác sỹ')">
-                                          <a class="grey-text text-darken-1">Bác sỹ</a>
-                                      </li>
-                                      <li (click)="selectRole('Phát thuốc')">
-                                          <a class="grey-text text-darken-1">Phát thuốc</a>
-                                      </li>
-                              </ul>
-                          </div>
-
-                        
-                      </div>
-              
-                      <div class="row">                          
-                          <div class="input-field col m6 offset-m3 center-align">
-                              <button class="btn waves-effect waves-light center" type="submit" name="action">Cập nhật</button>
-                          </div>
-                      </div>
-                  </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
   <div class="main-content">
     <div class="content-wrapper">
         <section class="input-validation">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Cập nhật tài khoản</h4>
+                        <div class="card-header">  
+                            <!-- <a (click)="backToList()" class="btn btn-floating btn-large bg-success"><i class="ft-arrow-left"></i></a>                       -->
+                            <h4 class="card-title">Cập nhật tài khoản
+                                    <a routerLink="/tai-khoan" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">Trở về</a>
+                            </h4>
+                            
                         </div>
                         <div class="card-body">
                             <div class="card-block">
@@ -107,7 +20,7 @@
                                                 <h5>Tên đăng nhập<span class="required">*</span></h5>
                                                 <div class="controls">
                                                     <input type="text" name="username" [(ngModel)]="account.username"                      
-                                                    #username="ngModel" ngModel class="form-control" required data-validation-required-message="This field is required">
+                                                    #username="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập tên đăng nhập">
                                                 </div>
                                                 <!-- <p>Add <code>required</code> attribute to field for required validation.</p> -->
                                             </div>
@@ -115,7 +28,7 @@
                                                 <h5>Mật khẩu<span class="required">*</span></h5>
                                                 <div class="controls">
                                                     <input type="password" name="password" [(ngModel)]="account.password"                      
-                                                    #password="ngModel" ngModel class="form-control" required data-validation-required-message="This field is required">
+                                                    #password="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập mật khẩu">
                                                 </div>
                                             </div>
                                             
@@ -125,25 +38,25 @@
                                                 <h5>Họ tên<span class="required">*</span></h5>
                                                 <div class="controls">
                                                     <input type="text" name="fullname" [(ngModel)]="account.fullname"                     
-                                                    #fullname="ngModel" ngModel id="fullname" class="form-control" required data-validation-required-message="This field is required" max="25">
+                                                    #fullname="ngModel" ngModel id="fullname" class="form-control" required data-validation-required-message="Vui lòng nhập họ tên">
                                                 </div>
                                                 <!-- <p>Add <code>required</code> attribute to field for required validation.</p> -->
                                             </div>
                                             <div class="form-group">
                                                 <h5>Chức vụ <span class="required">*</span></h5>
                                                 <div class="controls">
-                                                    <select name="role" id="role" required class="form-control role-name">
-                                                        <option value="1">Admin</option>
-                                                        <option value="2">Tiếp tân</option>
-                                                        <option value="3">Bác sỹ</option>
-                                                        <option value="4">Phát thuốc</option>
+                                                    <select name="role_id" id="role_id" #role_id="ngModel" ngModel [(ngModel)]="account.role_id" required class="form-control role-name">
+                                                        <option [ngValue]="1">Admin</option>
+                                                        <option [ngValue]="2">Tiếp tân</option>
+                                                        <option [ngValue]="3">Bác sỹ</option>
+                                                        <option [ngValue]="4">Phát thuốc</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             
                                             <div class="text-right">
                                                 <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
-                                                <button type="reset" class="btn btn-danger">Reset <i class="fa fa-refresh position-right"></i></button>
+                                                <!-- <button type="reset" class="btn btn-danger">Reset <i class="fa fa-refresh position-right"></i></button> -->
                                             </div>
                                         </div>
                                     </div>

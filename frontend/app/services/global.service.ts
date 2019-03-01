@@ -13,14 +13,14 @@ import {RegionManagement} from "../components/base/RegionManagement";
 import {CART_TYPE} from "../components/base/cart/CartManagement";
 import {GlobalConstants} from "../components/base/constants/GlobalConstants";
 import {FacetTypeConstants} from "../components/base/products/constants/FacetTypeConstants";
-
+import { Http, Response } from '@angular/http';
 declare var $;
 @Injectable()
 export class GlobalService {
 
     cartCookiesTimestamp: any;
     isScriptLoaded: any;
-    constructor(private cookieService: CookieService, private store: Store<fromRoot.AppState>) {
+    constructor(private cookieService: CookieService, private store: Store<fromRoot.AppState>,private http: Http) {
         this.isScriptLoaded = false;
     }
 
@@ -91,7 +91,7 @@ export class GlobalService {
         const appConfigs = this.store.select(fromRoot.commonGetConfigs)
         .do((data) => {
             if (!data.length || data.length < 2) {
-                this.store.dispatch(new common.LoadAppConfigs());
+                // this.store.dispatch(new common.LoadAppConfigs());
             } else {
                 AppConstants.STORE_CONFIG.BASE_URL = data[1].base_url;
                 AppConstants.STORE_CONFIG.LINK_URL = data[1].base_link_url;
@@ -489,5 +489,21 @@ export class GlobalService {
             };
         }
     }
+    readJSONfile(url){
+        console.log('Load Local JSON');
+        return new Promise((resolve, reject) => {
+            this.http.get(url)
+              .map(res => res.json())
+              .first()
+              .subscribe(res => {
+                resolve(res);
+              }, (err) => {
+                reject(err);
+              });
+        });
+    }
     
+
+
+
 }
