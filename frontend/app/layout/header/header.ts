@@ -30,9 +30,18 @@ export class AppHeader {
         private domSanitizer: DomSanitizer,
         private dispatcher: Dispatcher, private dialogService: DialogService,
         private globalService: GlobalService, private cookieService: CookieService) {
+        // const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
+        // if(!employeeInfo){
+        //     window.location.assign('/login');
+        // }
         
     }
     signOut() {
         localStorage.removeItem('employeeInfo');
+        window.location.assign('/login');
+        // this.router.navigate[('login')];
+    }
+    ngAfterViewInit(){
+        
     }
 }

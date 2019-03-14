@@ -1,111 +1,3 @@
-<!-- <section id="content">
-          <div id="breadcrumbs-wrapper">
-            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
-              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
-            </div>
-            <div class="container">
-              <div class="row">
-                <div class="col s10 m12">                     
-                    <h5> <a routerLink="/benh-nhan" class="btn-floating waves-effect waves-light red accent-4">
-                            <i class="material-icons" title="">keyboard_arrow_left</i>
-                        </a>Cập nhật bệnh nhân</h5>                 
-                </div>
-              
-              </div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="section">
-              <div class="row">
-                <div class="col s10 m10 offset-m1">
-                  <div class="card-panel">
-                    <div class="row">
-                        <form class="col s12" #loginForm="ngForm" (ngSubmit)="register(loginForm)" id="loginForm">
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">perm_identity</i>
-                                    <input type="text" name="name" [(ngModel)]="patient.name" #name="ngModel" ngModel id="name" autocomplete="off" class="validate" required>
-                                    <label for="name" [ngClass]="{'active': patient.name}">Họ tên</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                                </div>
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">perm_identity</i>
-                                    <input type="text" name="phone" [(ngModel)]="patient.phone" #phone="ngModel" ngModel id="phone" autocomplete="off" class="validate" required>
-                                    <label for="phone" [ngClass]="{'active': patient.phone}">Số điện thoại</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">{{phoneMessage}}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">perm_identity</i>
-                                    <input type="text" name="address" [(ngModel)]="patient.address" #address="ngModel" ngModel id="address" autocomplete="off" class="validate" required>
-                                    <label for="address" [ngClass]="{'active': patient.address}">Địa chỉ</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">{{addressMessage}}</span>
-                                </div>
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">perm_identity</i>
-                                    <input type="number" name="weight" 
-                                    [(ngModel)]="patient.weight" #weight="ngModel" ngModel id="weight" autocomplete="off" class="validate" required>
-                                    <label for="weight" [ngClass]="{'active': patient.weight}">Cân nặng</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">{{weightMessage}}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6 date-item">
-                                    <i class="material-icons prefix">perm_identity</i>
-                                    <input type="text" name="birthday" (click)="openDatePicker('#birthday')" readonly 
-                                    [(ngModel)]="patient.birthday" #birthday="ngModel" ngModel id="birthday" autocomplete="off" class="validate" required>
-                                    <label for="birthday" [ngClass]="{'active': patient.birthday}">Ngày sinh</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">{{birthdayMessage}}</span>
-                                </div>
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">perm_identity</i>
-                                    <input type="text" name="diagnosis" #diagnosis="ngModel" [(ngModel)]="patient.diagnosis" ngModel id="diagnosis" autocomplete="off"
-                                    class="validate" required>
-                                    <label for="diagnosis" [ngClass]="{'active': patient.diagnosis}">Tiền căn</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">{{diagnosisMessage}}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                    <div class="col s4">
-                                        <ul class="collection border-none">
-                                            <li class="collection-item border-none">
-                                                <div class="m-0" style="display: inline-flex;">
-                                                <span class="font-weight-600">Giới tính:</span>
-                                                <span class="font-weight-400" style="margin-left: 50px;">Nam</span>
-                                                <div class="switch">
-                                                    <label>
-                                                    <input *ngIf="!patient.sex" [(ngModel)]="patient.sex" ngModel type="checkbox" name="sex">
-                                                    <input *ngIf="patient.sex " [(ngModel)]="patient.sex" checked="checked" type="checkbox" name="sex">
-                                                    <span class="lever"></span>
-                                                    </label>
-                                                </div>
-                                                <span class="font-weight-400">Nữ</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-    
-                                    </div>
-                                
-                                    
-                            </div>
-                    
-                            <div class="row">                                
-                                <div class="input-field col m12 center-align">
-                                    <button class="btn waves-effect waves-light center" type="submit" name="action">Cập nhật</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-</section> -->
-
-
-
 <div class="main-content">
     <div class="content-wrapper">
         <section class="input-validation">
@@ -116,7 +8,6 @@
                             <h4 class="card-title">Cập nhật bệnh nhân
                                     <a routerLink="/benh-nhan" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">Trở về</a>
                             </h4>
-                            
                         </div>
                         <div class="card-body">
                             <div class="card-block">
@@ -126,7 +17,7 @@
                                             <div class="form-group">
                                                 <h5>Họ tên<span class="required">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="text" name="name" [(ngModel)]="patient.name" #name="ngModel" ngModel id="name"
+                                                    <input type="text" name="name" [(ngModel)]="patient.name" #name="ngModel" ngModel
                                                      class="form-control" required data-validation-required-message="Vui lòng nhập họ tên">
                                                 </div>
                                             </div>
@@ -134,17 +25,26 @@
                                             <div class="form-group">
                                                 <h5>Địa chỉ<span class="required">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="text" name="address" [(ngModel)]="patient.address" #address="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập mật khẩu">
+                                                    <input type="text" name="address" [(ngModel)]="patient.address" #address="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
                                                 </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <h5>Ngày sinh <span class="required">*</span></h5>
+                                                <div class="input-group">
+                                             
+                                                  <input type="text" name="birthday" [(ngModel)]="birthdaySet" #birthday="ngModel" ngModel (click)="selectDateTime()" class="form-control pickadate" placeholder="Chọn ngày sinh" />
+                                                </div>
+                                              </div>
+                       
+
+                                            <div class="form-group">
+                                                <h5>Tiền căn <span class="required">*</span></h5>
+                                                <div class="controls">
+                                                    <textarea name="diagnosis" id="diagnosis"
+                                                    [(ngModel)]="patient.diagnosis" #diagnosis="ngModel" ngModel class="form-control"  placeholder="Tiền căn" aria-invalid="false"></textarea>
+                                                <div class="help-block"></div></div>
                                             </div>
                                             
-                                            <div class="form-group">
-                                                <h5>Cân nặng<span class="required">*</span></h5>
-                                                <div class="controls">
-                                                    <input type="number" name="weight" 
-                                                    [(ngModel)]="patient.weight" #weight="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập mật khẩu">
-                                                </div>
-                                            </div>
                                             
                                         </div>
                                         <div class="col-lg-6 col-md-12">
@@ -162,9 +62,19 @@
                                                     [(ngModel)]="patient.weight" #weight="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập mật khẩu">
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                <h5>Giới tính <span class="required">*</span></h5>
+                                                <div class="controls">
+                                                    <select name="sex" id="sex" #sex="ngModel" ngModel [(ngModel)]="patient.sex" required class="form-control role-name">
+                                                        <option [ngValue]="1">Nam</option>
+                                                        <option [ngValue]="2">Nữ</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             
                                             <div class="text-right">
-                                                <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
+                                                <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
                                     </div>

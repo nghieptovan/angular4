@@ -165,6 +165,7 @@ export const patientGetState = (state: AppState) => state.patient;
 export const patientGetLoadingState = createSelector(patientGetState, fromPatient.getLoadingState);
 export const patientGetListPatient = createSelector(patientGetState, fromPatient.getListPatient);
 export const patientCurrentPatient = createSelector(patientGetState, fromPatient.getCurrentPatient);
+export const patientUpdatePatient = createSelector(patientGetState, fromPatient.getUpdatePatient);
 
 /*
 Account

@@ -18,6 +18,37 @@ const initialState: State = {
 
 export function reducer(state = initialState, action: auth.AuthActions): State {
     switch (action.type) {
+
+        case auth.GET_ACCOUNT_BY_ID: {
+            return Object.assign({}, state, {
+                errorMessage: null,
+                loading: true
+            });
+        }
+
+        case auth.GET_ACCOUNT_BY_ID_SUCCESS: {
+            if(action.payload.code == 200)
+                localStorage.setItem('employeeInfo', JSON.stringify(action.payload.data));
+            else{
+                localStorage.removeItem('employeeInfo');
+            }
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                isLoggedIn: action.payload.code == 200 ? true : false,
+                errorMessage: action.payload.message
+            });
+        }
+
+        case auth.GET_ACCOUNT_BY_ID_FAILED: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                isLoggedIn: false,
+                errorMessage: action.payload.message
+            });
+        }
+
         case auth.LOGIN: {
             return Object.assign({}, state, {
                 errorMessage: null,
@@ -26,7 +57,6 @@ export function reducer(state = initialState, action: auth.AuthActions): State {
         }
 
         case auth.LOGIN_SUCCESS: {
-            console.log(action.payload);
             if(action.payload.code == 200)
                 localStorage.setItem('employeeInfo', JSON.stringify(action.payload.data));
             else{

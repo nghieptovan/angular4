@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+
+
+<left-sidebar [hidden]="isLoginPage"></left-sidebar>  
+<div class="main-panel">
+    <app-header [hidden]="isLoginPage"></app-header>         
+    <router-outlet></router-outlet>
+    <app-footer [hidden]="isLoginPage"></app-footer>
+</div> 

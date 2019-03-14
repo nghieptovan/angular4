@@ -13,6 +13,7 @@ import * as patient from '../../../store/patient/patient.actions';
 import * as bill from '../../../store/bill/bill.actions';
 import { DataModel } from '../../../store/data';
 import { GlobalService } from '../../../services/global.service';
+import {inboxGrid} from '../../../../assets/js/inbox';
 declare var $;
 
 // Redux
@@ -38,7 +39,7 @@ export class DrugPatient {
                 private activatedRoute: ActivatedRoute,
                 private globalService: GlobalService,
                 private patientModel: DataModel) {
-
+        inboxGrid();
         const patientId = this.activatedRoute.params['value'].id;
         const patientLocal = this.globalService.getCurrentPatient();
         this.store.dispatch(new bill.BillByPatient(patientId));

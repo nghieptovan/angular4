@@ -58,21 +58,38 @@ export function reducer(state = initialState, action: patient.PatientActions): S
         case patient.UPDATE_PATIENT: {
             return Object.assign({}, state, {
                 loading: true,
-                loaded: false,
-                updatePatient: null
+                loaded: false
             });
         }
 
         case patient.UPDATE_PATIENT_SUCCESS: {
-            let { listPatient } = state;
-            const updatedData = action.payload.data;
-            const indexPatient = listPatient.data.findIndex((item) => {
-                return item.id == updatedData.id;
-            });
-            Object.assign(listPatient.data[indexPatient], updatedData);
+            let {currentPatient, listPatient} = state;
+
+            if(action.payload.code == 200){
+                const updatedData = action.payload;
+                console.log(updatedData);
+                
+                if(currentPatient){
+                    currentPatient.data = updatedData.data;
+                }else{
+                    currentPatient = updatedData;
+                }
+
+
+                localStorage.setItem('currentPatient', JSON.stringify(currentPatient));
+
+                if(listPatient && updatedData){
+                    const indexPatient = listPatient.data.findIndex((item) => {
+                        return item.id == updatedData.data.id;
+                    });
+                    Object.assign(listPatient.data[indexPatient], updatedData.data);
+                }
+            }
+
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
+                currentPatient: currentPatient,
                 updatePatient: action.payload,
                 listPatient: listPatient
             });
@@ -87,7 +104,35 @@ export function reducer(state = initialState, action: patient.PatientActions): S
             });
         }
 
-        
+        case patient.LOAD_PATIENT_BY_ID: {
+            return Object.assign({}, state, {
+                loading: true,
+                loaded: false              
+            });
+        }
+
+        case patient.LOAD_PATIENT_BY_ID_SUCCESS: {
+            if(action.payload.code == 200)
+                localStorage.setItem('currentPatient', JSON.stringify(action.payload.data));
+            else{
+                localStorage.removeItem('currentPatient');
+            }
+
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                currentPatient: action.payload
+            });
+        }
+
+        case patient.LOAD_PATIENT_BY_ID_FAILED: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                currentPatient: null,
+                errorMessage: AppHelpers.getErrorMessage(action.payload.message)
+            });
+        }
        
         default:
             return state;
@@ -102,5 +147,6 @@ used in the categories-list component
 export const getLoadingState = (state: State) => state.loading;
 export const getListPatient = (state: State) => state.listPatient;
 export const getCurrentPatient = (state: State) => state.currentPatient;
+export const getUpdatePatient = (state: State) => state.updatePatient;
 
 

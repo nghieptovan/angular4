@@ -15,6 +15,10 @@ export class AuthService {
     login(data) {
         return this.httpService.postAnonymous('employee/login', data);
     }
+    
+    getAccountById(id){
+        return this.httpService.getAnonymous('employee/'+id);
+    }
 
     loginFacebook(data) {
         return this.httpService.postAnonymous('socials/facebook-login', data);

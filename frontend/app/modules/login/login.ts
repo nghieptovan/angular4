@@ -26,41 +26,32 @@ export class LoginPage {
     passwordMessage: string = '';
     dispatcherSub: any;
     authGetLoadingState: boolean = false;
+    isLoginPage: boolean = false;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService,
         dispatcher: Dispatcher) {
         
-        const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
 
-        if(employeeInfo){
-            this.router.navigate(['dashboard']);
-        }
-        this.store.select(fromRoot.authGetLoggedInState).subscribe((isLogged) => {
-            if(isLogged){
-                this.router.navigate(['dashboard']);
-            }else{
-                this.store.select(fromRoot.authGetErrorMessage).subscribe((message) => {
-                    this.passwordMessage = message;
-                });
+        this.dispatcherSub = dispatcher.subscribe((action) => {
+            switch (action.type) {
+                case auth.LOGIN_SUCCESS:
+                    // window.location.assign('/benh-nhan');
+                    this.router.navigate(['benh-nhan']);
+                    break;
             }
         });
 
-        // this.dispatcherSub = dispatcher.subscribe((action) => {
-        //     switch (action.type) {
-        //         case auth.LOGIN_SUCCESS:
-        //             this.router.navigate(['dashboard']);
-        //             break;
-        //     }
-        // });
-        
-        this.authGetLoadingStateSub = this.store.select(fromRoot.authGetLoadingState).subscribe((loading) => {
-            this.authGetLoadingState = loading;
-        });
         
     }
     
     ngOnDestroy() {
-        this.authGetLoadingStateSub.unsubscribe();
-        // this.dispatcherSub.unsubscribe();
+        this.dispatcherSub.unsubscribe();
+    }
+    ngAfterContentInit(){
+        if(window.location.pathname.includes('/login')){
+            this.isLoginPage = true;
+        }else{
+            this.isLoginPage = false;  
+        }
     }
 
     login(form) {
@@ -72,6 +63,8 @@ export class LoginPage {
                 username: value.username,
                 password: value.password,
             }
+            // console.log(data);
+            
             this.store.dispatch(new auth.Login(data));
         }else{
             if(!value.username)

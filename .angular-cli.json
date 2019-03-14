@@ -42,7 +42,11 @@
         "assets/js/notification-sidebar.js",
         "assets/js/customizer.js",
         "assets/vendors/js/datatable/datatables.min.js",
-        "assets/vendors/js/jqBootstrapValidation.js"
+        "assets/vendors/js/jqBootstrapValidation.js",
+        "assets/vendors/js/pickadate/picker.js",
+        "assets/vendors/js/pickadate/picker.date.js",
+        "assets/vendors/js/pickadate/picker.time.js",
+        "assets/vendors/js/pickadate/legacy.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -22,6 +22,7 @@ import {LocalStorageConstants} from "./components/base/constants/LocalStorageCon
 import {LocalStorageManagement} from "./components/base/LocalStorageManagement";
 import {RegionManagement} from "./components/base/RegionManagement";
 import {formvalidation } from '../assets/js/form-validation';
+import {datetimePicker } from '../assets/js/pickdatetime';
 declare var $;
 // import { TranslateService } from 'ng2-translate';
 @Component({
@@ -44,23 +45,11 @@ export class AppComponent {
     ) {
         this.store.dispatch(new account.LoadJsonConfig('../assets/config/config.json'));
         formvalidation();
+        datetimePicker();
         // console.log('run');
+
         
-        
-    }
-    ngOnInit(){
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationStart) {
-                if (event.url.startsWith('/login')) {
-                   this.isLoginPage = true;
-                }else{
-                    this.isLoginPage = false;
-                }
-            }
-        });
     }
 
 
-
- 
 }

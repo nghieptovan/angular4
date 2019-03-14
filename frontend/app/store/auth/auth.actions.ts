@@ -21,6 +21,10 @@ export const REFRESH_PAGE = '[AUTH] Refresh page';
 
 export const RESET_AUTH_MSG_ERRORS = '[AUTH] Reset error messages';
 
+export const GET_ACCOUNT_BY_ID = '[LOGIN] load account by Id';
+export const GET_ACCOUNT_BY_ID_SUCCESS = '[LOGIN] successfully loaded account by Id';
+export const GET_ACCOUNT_BY_ID_FAILED = '[LOGIN] failed to load account by Id';
+
 
 export class Login implements Action {
     readonly type = LOGIN;
@@ -34,6 +38,22 @@ export class LoginFacebook implements Action {
 
 export class LoginFailed implements Action {
     readonly type = LOGIN_FAILED;
+
+    constructor(public payload: any) {
+    }
+}
+export class LoadAccountById implements Action {
+    readonly type = GET_ACCOUNT_BY_ID;
+    constructor(public payload: any) { }
+}
+
+export class LoadAccountByIdSuccess implements Action {
+    readonly type = GET_ACCOUNT_BY_ID_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+export class LoadAccountByIdFailed implements Action {
+    readonly type = GET_ACCOUNT_BY_ID_FAILED;
 
     constructor(public payload: any) {
     }
@@ -91,6 +111,7 @@ export class ResetAuthMsgErrors implements Action {
 
 export type AuthActions =
     Login | LoginFailed | LoginSuccess |
+    LoadAccountById | LoadAccountByIdFailed | LoadAccountByIdSuccess |
     LoginFacebook |
     Logout | LogoutFailed | LogoutSuccess |
     ForgotPassword | ForgotPasswordFailed | ForgotPasswordSuccess |

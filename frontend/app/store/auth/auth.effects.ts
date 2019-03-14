@@ -34,6 +34,17 @@ export class AuthEffects {
                     return Observable.of(new auth.LoginFailed(error));
                 });
         });
+    // Get account by ID
+    @Effect()
+    getAccountById$ = this._actions.ofType(auth.GET_ACCOUNT_BY_ID)
+        .switchMap((action) => {
+            return this.authService.getAccountById(action.payload)
+                .map((token) => {
+                    return new auth.LoadAccountByIdSuccess(token.json());
+                }).catch((error) => {
+                    return Observable.of(new auth.LoadAccountByIdFailed(error));
+                });
+        });
 
     @Effect()
     loginUsingFacebook$ = this._actions.ofType(auth.LOGIN_FACEBOOK)

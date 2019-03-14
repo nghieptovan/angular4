@@ -48,5 +48,17 @@ export class PatientEffects {
                     return Observable.of(new patient.UpdatePatientFailed(error));
                 });
         });
+    // update patient
+    @Effect()
+    loadPatientById$ = this._actions.ofType(patient.LOAD_PATIENT_BY_ID)
+        .switchMap((action) => {
+            return this.patientService.listPatient(action.payload)
+                .map((resp) => {
+                    return new patient.LoadPatientByIdSuccess(resp.json());
+                }).catch((error) => {
+                    return Observable.of(new patient.LoadPatientByIdFailed(error));
+                });
+        });
+        
         
 }

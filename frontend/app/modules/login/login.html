@@ -1,72 +1,49 @@
+ <div class="main-content" [ngStyle]="{'padding-left': isLoginPage ? '0px' : '' }">
+    <div class="content-wrapper">
+    <section id="login">
+        <div class="container-fluid">
+            <div class="row full-height-vh">
+                <div class="col-12 d-flex align-items-center justify-content-center">
+                    <div class="card gradient-indigo-purple text-center width-400">
+                        <div class="card-img overlap">
+                            <img alt="element 06" class="mb-1" src="assets/img/portrait/avatars/avatar-08.png" width="190">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <h2 class="white">Login</h2>
+                                <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" id="loginForm">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input placeholder="Tên đăng nhập" type="text" name="username" #username="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập tên đăng nhập"
+                                            >
+                                          </div>
+                                    </div>
 
-  <!-- Start Page Loading -->
-  <div id="loader-wrapper" *ngIf="authGetLoadingState">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-  </div>
-  <!-- End Page Loading -->
-  <!-- //////////////////////////////////////////////////////////////////////////// -->
-  <!-- //////////////////////////////////////////////////////////////////////////// -->
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control" name="password"                      
+                                            #password="ngModel" ngModel id="inputPass" placeholder="Mật khẩu" required data-validation-required-message="Vui lòng nhập tên mật khẩu">
+                                        </div>
+                                    </div>
 
-  <!-- START WRAPPER -->
-  <div id="login-page" class="wrapper">
+                                
 
-    <!-- //////////////////////////////////////////////////////////////////////////// -->
-    <!-- START CONTENT -->
-    <section id="content">
-      <!--start container-->
-      <div class="container vertical-align-center">
-       
-        <div class="row">
-          <div class="col m4 offset-m4">
-            <div class="card-panel">
-              <div class="row">
-                <form class="col s12" #loginForm="ngForm" (ngSubmit)="login(loginForm)" id="loginForm">
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="material-icons prefix">account_circle</i>
-                      <input id="name3" type="text" name="username"                      
-                      #username="ngModel" ngModel id="username" autocomplete="off"
-                      class="validate" required>
-                      <label for="first_name">Tên đăng nhập</label>
-                      <span class="helper-text" data-error="wrong" data-success="right">{{usernameMessage}}</span>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button  type="submit" class="btn btn-pink btn-block btn-raised">Đăng nhập</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- <div class="card-footer">
+                            <div class="float-left"><a (click)="onForgotPassword()" class="white">Recover Password</a></div>
+                            <div class="float-right"><a (click)="onRegister()" class="white">New User?</a></div>
+                        </div> -->
                     </div>
-                  </div>
-          
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="material-icons prefix">lock_outline</i>
-                      <input id="password3" type="password" name="password"                      
-                      #password="ngModel" ngModel id="password" autocomplete="off"
-                      class="validate" required>
-                      <label for="password" class="">Mật khẩu</label>
-                      <span class="helper-text" data-error="wrong" data-success="right">{{passwordMessage}}</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    
-                      <div class="input-field col m6 offset-m3 center-align">
-                        <button class="btn waves-effect waves-light center" type="submit" name="action">Đăng nhập
-                        </button>
-                      </div>
-                  </div>
-                </form>
-              </div>
+                </div>
             </div>
-          </div>
-          <!-- Form with validation -->
-          
         </div>
-
-      </div>
-      <!--end container-->
     </section>
-    <!-- END CONTENT -->
-
+    </div>
   </div>
-  <!-- END WRAPPER -->
-
-
-
-
