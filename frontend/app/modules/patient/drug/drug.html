@@ -15,56 +15,128 @@
                               <div class="card-block">
                                 <div class="row">
                                     <ng-container *ngIf="bills.length > 0;else noBills;">
-                                        <div class="col-md-4" style="border-right: 1px solid #E4E7ED;">
+                                        <div class="col-md-3" style="border-right: 1px solid #E4E7ED;">
                                             <ul class="list-group">
-                                                <li class="list-group-item list-group-item-action flex-column align-items-start" [ngClass]="{'active': billDetail.id == bill.id}" *ngFor="let bill of bills;let idx = index;">
+                                                <li class="list-group-item list-group-item-action flex-column align-items-start" 
+                                                [ngClass]="{'active': billDetail.id == bill.id}" 
+                                                *ngFor="let bill of bills;let idx = index;"
+                                                (click)="changeSelectBill(bill?.id)">
                                                     <div class="d-flex w-100 justify-content-between">
                                                     <p class="symptom-line">{{bill?.symptom}}</p>
                                                     </div>
                                                     <small>Ngày khám: {{bill?.billdate.substring(0, 10)}} </small>
-                                                    <small>Tái khám: {{bill?.nextdate.substring(0, 10)}}</small>
+                                                    <!-- <small>Tái khám: {{bill?.nextdate.substring(0, 10)}}</small> -->
                                                 </li>
                                                 
                                             </ul>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-9">
                                             <form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm" novalidate>
                                                 <div class="row">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="form-group">
-                                                            <h5>Triệu chứng</h5>
-                                                            <div class="controls">
-                                                                <input type="text" name="name" [(ngModel)]="patient.name" #name="ngModel" ngModel
-                                                                 class="form-control" required data-validation-required-message="Vui lòng nhập họ tên">
-                                                            </div>
-                                                        </div>
                                                        
+                                                    <label class="col-3">Triệu chứng </label>
+                                                    <div class="col-9">
                                                         <div class="form-group">
-                                                            <h5>Địa chỉ<span class="required">*</span></h5>
-                                                            <div class="controls">
-                                                                <input type="text" name="address" [(ngModel)]="patient.address" #address="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
-                                                            </div>
+                                                            <input type="text" [value]="billDetail?.symptom"  class="form-control">
                                                         </div>
-                                                        <div class="form-group">
-                                                            <h5>Ngày sinh <span class="required">*</span></h5>
-                                                            <div class="input-group">
-                                                         
-                                                              <input type="text" name="birthday" [(ngModel)]="birthdaySet" #birthday="ngModel" ngModel (click)="selectDateTime()" class="form-control pickadate" placeholder="Chọn ngày sinh" />
-                                                            </div>
-                                                          </div>
-                                   
-            
-                                                        <div class="form-group">
-                                                            <h5>Tiền căn <span class="required">*</span></h5>
-                                                            <div class="controls">
-                                                                <textarea name="diagnosis" id="diagnosis"
-                                                                [(ngModel)]="patient.diagnosis" #diagnosis="ngModel" ngModel class="form-control"  placeholder="Tiền căn" aria-invalid="false"></textarea>
-                                                            <div class="help-block"></div></div>
-                                                        </div>
-                                                        
-                                                        
                                                     </div>
-                                                   
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-3">Chẩn đoán chính</label>
+                                                    
+                                                    <div class="col-9">
+                                                    <div class="form-group">
+                                                        <input type="text" [value]="billDetail?.diagnosis?.name"  class="form-control">
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-3">Chẩn đoán phụ</label>
+                                                    
+                                                    <div class="col-9">
+                                                        <div class="form-group">
+                                                        <input type="text" [value]="billDetail?.subdiagnosis"  class="form-control">
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <h4 class="form-section" style="margin-bottom: 0px;"><i class="ft-mail"></i>Toa thuốc</h4>
+                                                <div class="row" >
+                                                    <div class="col-sm-12" *ngIf="drugDetail.length > 0; else noDrug">
+                                                        <div class="card custom-style-table">                                                                   
+                                                            <div class="card-body">
+                                                                <div class="card-block">
+                                                                    <table class="table table-striped table-inverse text-left">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Thuốc</th>
+                                                                                <th>Ngày SD</th>
+                                                                                <th>Lần SD</th>
+                                                                                <th>Số ngày</th>
+                                                                                <th>Số lượng</th>
+                                                                                <th>Hướng dẫn</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr *ngFor="let drug of drugDetail;let idx = index">
+                                                                                <td>{{drug?.medicine?.patent_medicine.name}}</td>                                                    
+                                                                                <td>{{drug?.timesperday}}</td>
+                                                                                <td>{{drug?.number}}</td>
+                                                                                <td>{{drug?.daycount}}</td>
+                                                                                <td>{{drug?.timesperday * drug?.number * drug?.daycount}}</td>
+                                                                                <td>{{drug?.description}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <ng-template #noDrug>
+                                                            <span>Chưa có thông tin thuốc</span>
+                                                        </ng-template>
+                                                    </div>                                                   
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                            <div class="row">
+                                                                <label class="col-6">Bác sỹ khám</label>
+                                                                
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                            <input type="text" [value]="billDetail?.doctor?.fullname || billDetail?.doctor?.username"  class="form-control">
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                      
+                                                    </div>
+                                                    <div class="col-6">
+                                                            <div class="row">
+                                                                    <label class="col-6">Tổng tiền</label>
+                                                                    
+                                                                    <div class="col-6">
+                                                                        <div class="form-group">
+                                                                                <input type="text" [value]="billDetail?.totalmoney.toString().toVndCurrency()"  class="form-control">
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-3">Ghi chú</label>
+                                                    
+                                                    <div class="col-9">
+                                                        <div class="form-group">
+                                                        <input type="text" [value]="billDetail?.introduction"  class="form-control">
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-3">Ngày tái khám</label>
+                                                    
+                                                    <div class="col-9">
+                                                        <div class="form-group">
+                                                        <input type="text" [value]="billDetail?.nextdate"  class="form-control">
+                                                    </div>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

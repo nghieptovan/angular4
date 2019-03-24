@@ -31,6 +31,7 @@ export class DrugPatient {
     billDetail: any = {
 
     };
+    drugDetail: any = [];
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
                 private elementRef: ElementRef,
@@ -65,9 +66,19 @@ export class DrugPatient {
             if(bills && bills.code == 200)
                 this.bills = bills.data;
                 this.billDetail = this.bills[0];
+                if(this.billDetail && this.billDetail.details)
+                    this.drugDetail = this.billDetail.details
         });
         
         
+    }
+
+    changeSelectBill(id){
+        this.billDetail = this.bills.find(child =>{
+            return child.id == id;
+        });
+        if(this.billDetail && this.billDetail.details)
+            this.drugDetail = this.billDetail.details;
     }
 
    
