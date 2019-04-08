@@ -67,8 +67,6 @@ export function reducer(state = initialState, action: patient.PatientActions): S
 
             if(action.payload.code == 200){
                 const updatedData = action.payload;
-                console.log(updatedData);
-                
                 if(currentPatient){
                     currentPatient.data = updatedData.data;
                 }else{

@@ -26,7 +26,7 @@ export class MedicineEffects {
         private globalService: GlobalService) {
 
     }
-    // List patient
+    // List medicine
     @Effect()
     listMedicine$ = this._actions.ofType(medicine.LIST_MEDICINE)
         .switchMap((action) => {
@@ -37,7 +37,28 @@ export class MedicineEffects {
                     return Observable.of(new medicine.ListMedicineFailed(error));
                 });
         });
-  
+    // Load medicine
+    @Effect()
+    loadMedicine$ = this._actions.ofType(medicine.LOAD_MEDICINE_BY_ID)
+        .switchMap((action) => {
+            return this.medicineService.loadMedicineById(action.payload)
+                .map((resp) => {
+                    return new medicine.LoadMedicineSuccess({data: resp.json(), id: action.payload});
+                }).catch((error) => {
+                    return Observable.of(new medicine.LoadMedicineFailed(error));
+                });
+        });
+    // Load type_medicine
+    @Effect()
+    loadTypeMedicine$ = this._actions.ofType(medicine.LOAD_TYPE_MEDICINE)
+        .switchMap((action) => {
+            return this.medicineService.loadTypeMedicine(action.payload)
+                .map((resp) => {
+                    return new medicine.LoadTypeMedicineSuccess({data: resp.json(), id: action.payload});
+                }).catch((error) => {
+                    return Observable.of(new medicine.LoadTypeMedicineFailed(error));
+                });
+        });
         
-        
+          
 }

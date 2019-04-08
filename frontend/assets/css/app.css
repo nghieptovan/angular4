@@ -53549,3 +53549,11 @@ input[type='checkbox'].switch, input[type='radio'].switch {
 .main-content .color-palette span.dark {
   color : rgba(0, 0, 0, 0.87);
 }
+.dropdown-below-input{
+  display: none;
+  position: absolute;
+  width: calc(100% - 30px);
+  float: none;
+  top: 72px;
+  margin: 0 15px;
+}

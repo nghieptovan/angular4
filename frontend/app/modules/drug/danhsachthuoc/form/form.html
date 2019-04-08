@@ -1,89 +1,94 @@
-<div class="card-panel">
-        <div class="row">
-            <form class="col s12" #loginForm="ngForm" (ngSubmit)="register(loginForm)" id="loginForm">
-                <div class="row">
-                    <div class="input-field col s6">
-                    <i class="material-icons prefix">perm_identity</i>
-                    <input type="text" name="fullname"                      
-                    #fullname="ngModel" ngModel id="fullname" autocomplete="off"
-                    class="validate" required>
-                    <label for="fullname">Họ tên</label>
-                    <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                    </div>
-                    <div class="input-field col s6">
-                            <i class="material-icons prefix">perm_identity</i>
-                            <input type="text" name="phone"                      
-                            #phone="ngModel" ngModel id="phone" autocomplete="off"
-                            class="validate" required>
-                            <label for="phone">Số điện thoại</label>
-                            <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                    </div>
-
-                  
+<form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm" novalidate>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="form-group">
+                <h5>Biệt dược<span class="required">*</span></h5>
+                <div class="controls">
+                    <input type="text" name="name" #name="ngModel" ngModel
+                     class="form-control" required data-validation-required-message="Vui lòng nhập họ tên">
+                     
                 </div>
-                <div class="row">
-                    
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">perm_identity</i>
-                        <input type="text" name="address" #address="ngModel" ngModel id="address" autocomplete="off"
-                        class="validate" required>
-                        <label for="address">Địa chỉ</label>
-                        <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                    </div>
-                    <div class="input-field col s6">
-                            <i class="material-icons prefix">perm_identity</i>
-                            <input type="number" name="weight"                      
-                            #weight="ngModel" ngModel id="weight" autocomplete="off"
-                            class="validate" required>
-                            <label for="weight">Cân nặng</label>
-                            <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                        </div>
+                <div class="dropdown-menu dropdown-below-input" style="display: block;">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item active" href="#">Something else here</a>
                 </div>
-                <div class="row">
-                    <div class="input-field col s6 date-item">
-                        <i class="material-icons prefix">perm_identity</i>
-                        <input (click)="openDatePicker('#birthday')" type="text" name="birthday" #birthday="ngModel" ngModel id="birthday" autocomplete="off"
-                        class="validate order_search_date" required>
-                        <label for="birthday">Ngày sinh</label>
-                        <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">perm_identity</i>
-                        <input type="text" name="diagnosis"                      
-                        #diagnosis="ngModel" ngModel id="diagnosis" autocomplete="off"
-                        class="validate" required>
-                        <label for="diagnosis">Tiền căn</label>
-                        <span class="helper-text" data-error="wrong" data-success="right">{{fullnameMessage}}</span>
-                    </div>
+            </div>
+           
+            <div class="form-group">
+                <h5>Dược chất<span class="required">*</span></h5>
+                <div class="controls">
+                    <input type="text" name="address"  #address="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
                 </div>
-                <div class="row">
-                        <div class="col s4">
-                            <ul class="collection border-none">
-                                <li class="collection-item border-none">
-                                    <div class="m-0" style="display: inline-flex;">
-                                    <span class="font-weight-600">Giới tính:</span>
-                                    <span class="font-weight-400" style="margin-left: 50px;">Nam</span>
-                                    <div class="switch">
-                                        <label>
-                                        <input checked="checked" type="checkbox" name="sex">
-                                        <span class="lever"></span>
-                                        </label>
-                                    </div>
-                                    <span class="font-weight-400">Nữ</span>
-                                    </div>
-                                </li>
-                            </ul>
-
-                        </div>
-                    
-                        
+                <div class="dropdown-menu dropdown-below-input" style="display: block;">
+                    <a href="javascript:void(0);" (click)="selectTypeMedicine(item)" class="dropdown-item" *ngFor="let item of listTypeMedicine; let idx = index">{{item.name}}</a>
                 </div>
-        
-                <div class="row">                                
-                    <div class="input-field col m12 center-align">
-                        <button class="btn waves-effect waves-light center" type="submit" name="action">Thêm tài khoản</button>
-                    </div>
+            </div>
+            <div class="form-group">
+                <h5>Đơn vị thuốc <span class="required">*</span></h5>
+                <div class="input-group">
+             
+                  <input type="text" name="birthday" #birthday="ngModel" ngModel (click)="selectDateTime()" class="form-control pickadate" placeholder="Chọn ngày sinh" />
                 </div>
-            </form>
+            </div>
+            <div class="form-group">
+                <h5>Phân loại<span class="required">*</span></h5>
+                <div class="controls">
+                    <select name="sex" id="sex" #sex="ngModel" ngModel required class="form-control role-name">
+                        <option [ngValue]="1">Nam</option>
+                        <option [ngValue]="2">Nữ</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <h5>Tiền căn <span class="required">*</span></h5>
+                <div class="controls">
+                    <textarea name="diagnosis" id="diagnosis"
+                   #diagnosis="ngModel" ngModel class="form-control"  placeholder="Tiền căn" aria-invalid="false"></textarea>
+                <div class="help-block"></div></div>
+            </div>
+            
+            
         </div>
-      </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="form-group">
+                <h5>&nbsp;</h5>
+                <div class="controls">
+                    <input type="text" name="phone" #phone="ngModel" ngModel class="form-control" 
+                    required data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="Vui lòng nhập số">
+                  </div>
+            </div>
+            <div class="form-group">
+                <h5>&nbsp;</h5>
+                <div class="controls">
+                    <input type="text" name="weight" 
+                   #weight="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập cân nặng">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h5>Cách sử dụng<span class="required">*</span></h5>
+                <div class="controls">
+                    <select name="sex" id="sex" #sex="ngModel" ngModel required class="form-control role-name">
+                        <option [ngValue]="1">Nam</option>
+                        <option [ngValue]="2">Nữ</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h5>Đơn giá bán<span class="required">*</span></h5>
+                <div class="controls">
+                    <select name="sex" id="sex" #sex="ngModel" ngModel required class="form-control role-name">
+                        <option [ngValue]="1">Nam</option>
+                        <option [ngValue]="2">Nữ</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>

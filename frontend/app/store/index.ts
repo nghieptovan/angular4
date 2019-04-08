@@ -168,8 +168,8 @@ export const medicineGetLoadingState = createSelector(medicineGetState, fromMedi
 export const getListMedicine = createSelector(medicineGetState, fromMedicine.getListMedicine);
 export const getCurrentMedicine = createSelector(medicineGetState, fromMedicine.getCurrentMedicine);
 export const medicineGetErrorMessage = createSelector(medicineGetState, fromMedicine.getErrorMessage);
-
-
+export const getListTypeMedicine = createSelector(medicineGetState, fromMedicine.getListTypeMedicine);
+export const getCurrentTypeMedicine = createSelector(medicineGetState, fromMedicine.getCurrentTypeMedicinee);
 
 
 //End Medicine

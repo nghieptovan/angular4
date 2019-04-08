@@ -11,25 +11,35 @@ import * as fromRoot from '../../../../store';
 import * as account from '../../../../store/account/account.actions';
 
 declare var $;
-
 // Redux
 @Component({
-    selector: 'them-thuoc',
-    templateUrl: './add.html',
-    styleUrls: ['./add.less']
+    selector: 'cap-nhat-thuoc',
+    templateUrl: './edit.html',
+    styleUrls: ['./edit.less']
 })
-export class ThemThuoc {
-    isEdit: boolean = false;
-    // @Output() isEditsssssssssss: boolean = false;
+export class CapNhatThuoc {
+    @Input() uid: any;
+    @ViewChild('updateForm') updateForm: NgForm;
+    @Output('validationChange') validationChange = new EventEmitter<Boolean>();
+    customers: any = {};
+    
+
+    dispatcherSub: any;
+    createAccountSub: any;
+    roleSet: any;
+    usernameMessage: any;
+    passwordMessage: any;
+    roleMessage: any;
+    fullnameMessage: any;
+    roleId: any;
+    showRole: boolean = false;
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
                 private elementRef: ElementRef,
                 private router: Router,
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute) {
-                    
-        
-    
+
       
     }
 

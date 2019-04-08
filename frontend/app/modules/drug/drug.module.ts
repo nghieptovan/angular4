@@ -6,6 +6,7 @@ import { SlickModule } from 'ngx-slick';
 import { AppCommonModule } from '../../app.common.module';
 import { DanhSachThuoc } from './danhsachthuoc/danhsachthuoc';
 import { ThemThuoc } from './danhsachthuoc/add/add';
+import { CapNhatThuoc } from './danhsachthuoc/edit/edit';
 
 const routes: Routes = [
     {
@@ -15,11 +16,14 @@ const routes: Routes = [
     {
         path: 'danh-sach-thuoc',
         component: DanhSachThuoc
-    }
-    ,
+    },
     {
         path: 'them-thuoc',
         component: ThemThuoc
+    },
+    {
+        path: 'cap-nhat-thuoc/:id',
+        component: CapNhatThuoc
     }
     // {
     //     path: 'cap-nhat/:id',
@@ -39,7 +43,8 @@ const routes: Routes = [
     ],
     declarations: [
         DanhSachThuoc,
-        ThemThuoc
+        ThemThuoc,
+        CapNhatThuoc
     ],
     exports: [
     ]

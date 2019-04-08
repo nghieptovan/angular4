@@ -53,6 +53,7 @@ import {ExpiredDateValidatorDirective} from "./directives/ExpiredDateValidator";
 import {CardNoLuhnValidatorDirective} from "./directives/CardNoLuhnValidator";
 import {LtVendorCheckoutCreditCardComponent} from "./components/checkout/vendor-checkout/credit-card/credit-card";
 import {LtHomeFashionCountDown} from "./components/home/countdown/countdown";
+import {EditUpdateMedicine} from "./modules/drug/danhsachthuoc/form/form";
 
 @NgModule({
     imports: [
@@ -112,6 +113,7 @@ import {LtHomeFashionCountDown} from "./components/home/countdown/countdown";
         CommonFSFilterBlinkComponent,
         LtVendorCheckoutCreditCardComponent,
 
+        EditUpdateMedicine,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,
@@ -168,7 +170,7 @@ import {LtHomeFashionCountDown} from "./components/home/countdown/countdown";
         CommonFSFilterOmniComponent,
         CommonFSFilterBlinkComponent,
         LtVendorCheckoutCreditCardComponent,
-
+        EditUpdateMedicine,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,

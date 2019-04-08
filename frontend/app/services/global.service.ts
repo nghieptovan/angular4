@@ -503,7 +503,21 @@ export class GlobalService {
         });
     }
     
-
+    setSessionData(name, data){
+        let dataSet;
+        if(typeof data == 'object'){
+            dataSet = JSON.stringify(data);
+        }
+        sessionStorage.setItem(name,dataSet);
+    }
+    getSessionData(name){
+        let dataReturn = sessionStorage.getItem(name);
+        if(dataReturn){
+            return JSON.parse(dataReturn);
+        }else{
+            return false;
+        }
+    }
 
 
 }

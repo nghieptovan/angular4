@@ -17,6 +17,18 @@ export class MedicineService {
         let url = data != 0 ? 'medicine/' + data : 'medicine';
         return this.httpService.getAnonymous(url);
     }
+    loadMedicineById(data) {
+        let url = data != 0 ? 'medicine/' + data : 'medicine';
+        return this.httpService.getAnonymous(url);
+    }
+    loadTypeMedicine(data){
+        let url = data != 0 ? 'typemedicine/' + data : 'typemedicine';
+        return this.httpService.getAnonymous(url);
+    }
 
+//     Route::get('/api/v1/typemedicine/{id?}', 'TypeMedicines@index');
+//  Route::post('/api/v1/typemedicine', 'TypeMedicines@store');
+// Route::post('/api/v1/typemedicine/{id}', 'TypeMedicines@update');
+// Route::post('/api/v1/typemedicine/delete/{id}', 'TypeMedicines@destroy');
    
 }

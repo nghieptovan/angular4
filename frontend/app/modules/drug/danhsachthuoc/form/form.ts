@@ -13,6 +13,7 @@ import * as patient from '../../../../store/patient/patient.actions';
 import { DataModel } from '../../../../store/data';
 import { GlobalService } from '../../../../services/global.service';
 import {formvalidation } from '../../../../../assets/js/form-validation';
+import * as medicine from '../../../../store/medicine/medicine.actions';
 declare var $;
 
 // Redux
@@ -21,23 +22,12 @@ declare var $;
     templateUrl: './form.html',
     styleUrls: ['./form.less']
 })
-export class EditUpdateMedicine {
-    @Input() uid: any;
-    @ViewChild('updateForm') updateForm: NgForm;
-    @Output('validationChange') validationChange = new EventEmitter<Boolean>();
-  
-    pageLoading: boolean = false;
-    dispatcherSub: any;
-    updatePatientSub: any;
-    loadPatientSub: any;
+export class EditUpdateMedicine implements OnInit {
 
-    patients: any;
-    patient: any;
-    birthdaySet: any = '';
-    minLenght: any;
-    loadJsonConfigSub: any;
-    isSameId: boolean = true;
-    isUpdatePatient: boolean = false;
+    @Input() isEdit: boolean;
+    listTypeMedicineSub: any;
+    listTypeMedicine: any = [];
+    
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
                 private elementRef: ElementRef,
@@ -46,11 +36,40 @@ export class EditUpdateMedicine {
                 private activatedRoute: ActivatedRoute,
                 private globalService: GlobalService,
                 private patientModel: DataModel) {
+        if(!this.globalService.getSessionData('listTypeMedicine')){
+            this.store.dispatch(new medicine.LoadTypeMedicine(0));
+        }else{
+            this.listTypeMedicine = this.globalService.getSessionData('listTypeMedicine');
+        }        
 
-           
-
+        this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
+            if(typeMedicines && typeMedicines.code == 200){
+                this.listTypeMedicine = typeMedicines.data;
+                this.globalService.setSessionData('listTypeMedicine', this.listTypeMedicine);
+            }
+        });
         
     }
-   
+    ngOnInit() {
+        // console.log(this.isEdit);
+        if(this.isEdit){
+            const idMedicine = this.activatedRoute.params['value'].id;
+            this.loadMedicine(idMedicine);
+        }
+    }
+    ngOnDestroy(){
+        this.listTypeMedicineSub.unsubcribe();
+    }
+
+    loadMedicine(idMedicine){
+        this.store.dispatch(new medicine.LoadMedicine(idMedicine));
+        
+    }
+    selectTypeMedicine(item){
+        console.log(item);
+        
+    }
 
 }
+
+
