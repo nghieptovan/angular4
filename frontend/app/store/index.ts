@@ -165,11 +165,23 @@ export const billByPatient = createSelector(billGetState, fromBill.getBillByPati
 export const medicineGetState = (state: AppState) => state.medicine;
 
 export const medicineGetLoadingState = createSelector(medicineGetState, fromMedicine.getLoadingState);
-export const getListMedicine = createSelector(medicineGetState, fromMedicine.getListMedicine);
-export const getCurrentMedicine = createSelector(medicineGetState, fromMedicine.getCurrentMedicine);
+
+
 export const medicineGetErrorMessage = createSelector(medicineGetState, fromMedicine.getErrorMessage);
+
+export const getListMedicine = createSelector(medicineGetState, fromMedicine.getListMedicine);
 export const getListTypeMedicine = createSelector(medicineGetState, fromMedicine.getListTypeMedicine);
-export const getCurrentTypeMedicine = createSelector(medicineGetState, fromMedicine.getCurrentTypeMedicinee);
+export const getListDrugMedicine = createSelector(medicineGetState, fromMedicine.getListDrugMedicine);
+export const getListPatentMedicine = createSelector(medicineGetState, fromMedicine.getListPatentMedicine);
+export const getListUnitMedicine = createSelector(medicineGetState, fromMedicine.getListUnitMedicine);
+export const getListBehaviourMedicine = createSelector(medicineGetState, fromMedicine.getListBehaviourMedicine);
+
+export const getCurrentMedicine = createSelector(medicineGetState, fromMedicine.getCurrentMedicine);
+export const getCurrentTypeMedicine = createSelector(medicineGetState, fromMedicine.getCurrentTypeMedicine);
+export const getCurrentPatentMedicine = createSelector(medicineGetState, fromMedicine.getCurrentPatentMedicine);
+export const getCurrentDrugMedicine = createSelector(medicineGetState, fromMedicine.getCurrentDrugMedicine);
+export const getCurrentUnitMedicine = createSelector(medicineGetState, fromMedicine.getCurrentUnitMedicine);
+export const getCurrentBehaviourMedicine = createSelector(medicineGetState, fromMedicine.getCurrentBehaviourMedicine);
 
 
 //End Medicine

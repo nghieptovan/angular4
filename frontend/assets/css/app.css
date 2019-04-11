@@ -53552,8 +53552,8 @@ input[type='checkbox'].switch, input[type='radio'].switch {
 .dropdown-below-input{
   display: none;
   position: absolute;
-  width: calc(100% - 30px);
+  width: 100%;
   float: none;
-  top: 72px;
-  margin: 0 15px;
+  height: 200px;
+  overflow-y: scroll;
 }

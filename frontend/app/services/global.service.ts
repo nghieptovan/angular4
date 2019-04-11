@@ -519,5 +519,4 @@ export class GlobalService {
         }
     }
 
-
 }

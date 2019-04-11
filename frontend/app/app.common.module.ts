@@ -10,6 +10,7 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { OwlModule } from 'ngx-owl-carousel';
 import { MasonryModule } from 'angular2-masonry';
 import { TextMaskModule } from 'angular2-text-mask';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 import { LtProductsListComponent } from './components/category/products/list/list';
 import { LtProductsPaginationComponent } from './components/category/products/pagination/pagination';
@@ -69,7 +70,8 @@ import {EditUpdateMedicine} from "./modules/drug/danhsachthuoc/form/form";
         CurrencyMaskModule,
         BootstrapModalModule,
         MasonryModule,
-        TextMaskModule
+        TextMaskModule,
+        ClickOutsideModule
     ],
     providers: [
         WishList
@@ -132,6 +134,7 @@ import {EditUpdateMedicine} from "./modules/drug/danhsachthuoc/form/form";
         BootstrapModalModule,
         MasonryModule,
         TextMaskModule,
+        ClickOutsideModule,
 
         AppLoader,
         LotteAccount,

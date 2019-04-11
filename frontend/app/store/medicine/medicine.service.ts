@@ -26,6 +26,26 @@ export class MedicineService {
         return this.httpService.getAnonymous(url);
     }
 
+    loadDrugMedicine(data){
+        let url = data != 0 ? 'drug/' + data : 'drug';
+        return this.httpService.getAnonymous(url);
+    }
+
+    loadPatentMedicine(data){
+        let url = data != 0 ? 'patentmedicine/' + data : 'patentmedicine';
+        return this.httpService.getAnonymous(url);
+    }
+
+    loadUnitMedicine(data){
+        let url = data != 0 ? 'unittomedicine/' + data : 'unittomedicine';
+        return this.httpService.getAnonymous(url);
+    }
+
+    loadBehaviourMedicine(data){
+        let url = data != 0 ? 'behaviourmedicine/' + data : 'behaviourmedicine';
+        return this.httpService.getAnonymous(url);
+    }
+
 //     Route::get('/api/v1/typemedicine/{id?}', 'TypeMedicines@index');
 //  Route::post('/api/v1/typemedicine', 'TypeMedicines@store');
 // Route::post('/api/v1/typemedicine/{id}', 'TypeMedicines@update');

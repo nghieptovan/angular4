@@ -59,6 +59,52 @@ export class MedicineEffects {
                     return Observable.of(new medicine.LoadTypeMedicineFailed(error));
                 });
         });
-        
-          
+    // Load drug_medicine
+    @Effect()
+    loadDrugMedicine$ = this._actions.ofType(medicine.LOAD_DRUG_MEDICINE)
+        .switchMap((action) => {
+        return this.medicineService.loadDrugMedicine(action.payload)
+            .map((resp) => {
+                return new medicine.LoadDrugMedicineSuccess({data: resp.json(), id: action.payload});
+            }).catch((error) => {
+                return Observable.of(new medicine.LoadDrugMedicineFailed(error));
+            });
+    });  
+    
+    // Load patent_medicine
+    @Effect()
+    loadPatentMedicine$ = this._actions.ofType(medicine.LOAD_PATENT_MEDICINE)
+        .switchMap((action) => {
+        return this.medicineService.loadPatentMedicine(action.payload)
+            .map((resp) => {
+                return new medicine.LoadPatentMedicineSuccess({data: resp.json(), id: action.payload});
+            }).catch((error) => {
+                return Observable.of(new medicine.LoadPatentMedicineFailed(error));
+            });
+    });  
+
+    // Load unit_medicine
+    @Effect()
+    loadUnitMedicine$ = this._actions.ofType(medicine.LOAD_UNIT_MEDICINE)
+        .switchMap((action) => {
+        return this.medicineService.loadUnitMedicine(action.payload)
+            .map((resp) => {
+                return new medicine.LoadUnitMedicineSuccess({data: resp.json(), id: action.payload});
+            }).catch((error) => {
+                return Observable.of(new medicine.LoadUnitMedicineFailed(error));
+            });
+    });  
+
+    // Load behaviour_medicine
+    @Effect()
+    loadBehaviourMedicine$ = this._actions.ofType(medicine.LOAD_BEHAVIOUR_MEDICINE)
+        .switchMap((action) => {
+        return this.medicineService.loadBehaviourMedicine(action.payload)
+            .map((resp) => {
+                return new medicine.LoadBehaviourMedicineSuccess({data: resp.json(), id: action.payload});
+            }).catch((error) => {
+                return Observable.of(new medicine.LoadBehaviourMedicineFailed(error));
+            });
+    });  
+           
 }

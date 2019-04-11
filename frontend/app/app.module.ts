@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from './libs/angular4-social-login/index';
 import { CookieService } from 'ngx-cookie-service';
 import { AppConstants } from './app.constant';
-
+import { ClickOutsideModule } from 'ng-click-outside';
 // Import layouts components
 import { AppComponent } from './app.component';
 import { AppHeader } from './layout/header/header';
@@ -99,6 +99,7 @@ const PAGE_MODULES = [
         SocialLoginModule,
         //infinite scroll and masonry
         MasonryModule,
+        ClickOutsideModule,
 
     ],
     exports: [RouterModule],

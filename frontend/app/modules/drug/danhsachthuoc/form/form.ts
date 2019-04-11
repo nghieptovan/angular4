@@ -27,6 +27,17 @@ export class EditUpdateMedicine implements OnInit {
     @Input() isEdit: boolean;
     listTypeMedicineSub: any;
     listTypeMedicine: any = [];
+    listDrugMedicineSub: any;
+    listDrugMedicine: any = [];
+    listPatentMedicineSub: any;
+    listPatentMedicine: any = [];
+    listBehaviourMedicineSub: any;
+    listBehaviourMedicine: any = [];
+    listUnitMedicineSub: any;
+    listUnitMedicine: any = [];
+
+    showPatent: boolean = false;
+    showDrug: boolean = false;
     
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
@@ -36,11 +47,36 @@ export class EditUpdateMedicine implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private globalService: GlobalService,
                 private patientModel: DataModel) {
+
         if(!this.globalService.getSessionData('listTypeMedicine')){
             this.store.dispatch(new medicine.LoadTypeMedicine(0));
         }else{
             this.listTypeMedicine = this.globalService.getSessionData('listTypeMedicine');
-        }        
+        } 
+
+        if(!this.globalService.getSessionData('listDrugMedicine')){
+            this.store.dispatch(new medicine.LoadDrugMedicine(0));
+        }else{
+            this.listDrugMedicine = this.globalService.getSessionData('listDrugMedicine');
+        }
+
+        if(!this.globalService.getSessionData('listPatentMedicine')){
+            this.store.dispatch(new medicine.LoadPatentMedicine(0));
+        }else{
+            this.listPatentMedicine = this.globalService.getSessionData('listPatentMedicine');
+        } 
+
+        if(!this.globalService.getSessionData('listBehaviourMedicine')){
+            this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
+        }else{
+            this.listBehaviourMedicine = this.globalService.getSessionData('listBehaviourMedicine');
+        } 
+
+        if(!this.globalService.getSessionData('listUnitMedicine')){
+            this.store.dispatch(new medicine.LoadUnitMedicine(0));
+        }else{
+            this.listUnitMedicine = this.globalService.getSessionData('listUnitMedicine');
+        } 
 
         this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
             if(typeMedicines && typeMedicines.code == 200){
@@ -48,26 +84,62 @@ export class EditUpdateMedicine implements OnInit {
                 this.globalService.setSessionData('listTypeMedicine', this.listTypeMedicine);
             }
         });
-        
+        this.listDrugMedicineSub = this.store.select(fromRoot.getListDrugMedicine).subscribe((drugMedicines) => {
+            if(drugMedicines && drugMedicines.code == 200){
+                this.listDrugMedicine = drugMedicines.data;
+                this.globalService.setSessionData('listDrugMedicine', this.listDrugMedicine);
+            }
+        });
+        this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
+            if(patentMedicines && patentMedicines.code == 200){
+                this.listPatentMedicine = patentMedicines.data;
+                this.globalService.setSessionData('listPatentMedicine', this.listPatentMedicine);
+            }
+        });
+        this.listBehaviourMedicineSub = this.store.select(fromRoot.getListBehaviourMedicine).subscribe((behaviourMedicines) => {
+            if(behaviourMedicines && behaviourMedicines.code == 200){
+                this.listBehaviourMedicine = behaviourMedicines.data;
+                this.globalService.setSessionData('listBehaviourMedicine', this.listBehaviourMedicine);
+            }
+        });
+        this.listUnitMedicineSub = this.store.select(fromRoot.getListUnitMedicine).subscribe((unitMedicines) => {
+            if(unitMedicines && unitMedicines.code == 200){
+                this.listUnitMedicine = unitMedicines.data;
+                this.globalService.setSessionData('listUnitMedicine', this.listUnitMedicine);
+            }
+        });
+ 
     }
     ngOnInit() {
-        // console.log(this.isEdit);
         if(this.isEdit){
             const idMedicine = this.activatedRoute.params['value'].id;
             this.loadMedicine(idMedicine);
         }
     }
     ngOnDestroy(){
-        this.listTypeMedicineSub.unsubcribe();
+        this.listTypeMedicineSub.unsubscribe();
+        this.listDrugMedicineSub.unsubscribe();
+        this.listPatentMedicineSub.unsubscribe();
+        this.listBehaviourMedicineSub.unsubscribe();
+        this.listUnitMedicineSub.unsubscribe();
     }
 
     loadMedicine(idMedicine){
-        this.store.dispatch(new medicine.LoadMedicine(idMedicine));
-        
+        this.store.dispatch(new medicine.LoadMedicine(idMedicine));        
     }
-    selectTypeMedicine(item){
+    selectDrugMedicine(item){
         console.log(item);
         
+    }
+    selectPatentMedicine(item){
+        console.log(item);
+        
+    }
+    showPatentList(type){
+        this.showPatent = type;
+    }
+    showDrugList(type){
+        this.showDrug = type;
     }
 
 }
