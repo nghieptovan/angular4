@@ -489,8 +489,8 @@ export class GlobalService {
             };
         }
     }
+
     readJSONfile(url){
-        console.log('Load Local JSON');
         return new Promise((resolve, reject) => {
             this.http.get(url)
               .map(res => res.json())

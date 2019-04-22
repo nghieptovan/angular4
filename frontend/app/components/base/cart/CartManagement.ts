@@ -9,7 +9,6 @@ import * as checkout from '../../../store/checkout/checkout.actions';
 import {AbstractCart} from "./AbstractCart";
 import {VendorCart} from "./VendorCart";
 import {NormalCart} from "./NormalCart";
-import {RegionManagement} from "../RegionManagement";
 
 export const CART_TYPE = {
     NORMAL_CART: 1,
@@ -74,14 +73,7 @@ export class CartManagement{
 
         if(cart){
             cart.addToCart(product, qty);
-            const curRegion = RegionManagement.getInstance(this.store).getCurrentRegion();
-            if(curRegion){
-                this.loadShippingRule({
-                    cityId: curRegion.city.id,
-                    districtId: curRegion.district && curRegion.district.id? curRegion.district.id:null,
-                    wardId: curRegion.ward && curRegion.ward.id? curRegion.ward.id:null,
-                }, cart_type);
-            }
+            
         }
     }
 
@@ -101,14 +93,6 @@ export class CartManagement{
 
         if(cart){
             cart.removeCartItem(item);
-            const curRegion = RegionManagement.getInstance(this.store).getCurrentRegion();
-            if(curRegion){
-                this.loadShippingRule({
-                    cityId: curRegion.city.id,
-                    districtId: curRegion.district && curRegion.district.id? curRegion.district.id:null,
-                    wardId: curRegion.ward && curRegion.ward.id? curRegion.ward.id:null,
-                }, cart_type);
-            }
 
         }
     }
@@ -118,14 +102,6 @@ export class CartManagement{
 
         if(cart){
             cart.updateCartItem(item);
-            const curRegion = RegionManagement.getInstance(this.store).getCurrentRegion();
-            if(curRegion){
-                this.loadShippingRule({
-                    cityId: curRegion.city.id,
-                    districtId: curRegion.district && curRegion.district.id? curRegion.district.id:null,
-                    wardId: curRegion.ward && curRegion.ward.id? curRegion.ward.id:null,
-                }, cart_type);
-            }
         }
     }
 

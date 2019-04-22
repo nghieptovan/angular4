@@ -98,11 +98,6 @@ export class RegionManagement{
 
     loadCartShippingRule(cart_type = {type:CART_TYPE.NORMAL_CART, id: null}) {
         if (this.getCheckoutStep() != 3 && this.curRegion && this.curRegion.city && this.curRegion.city.id) {
-            CartManagement.getInstance(this.store).loadShippingRule({
-                cityId: this.curRegion.city.id,
-                districtId: this.curRegion.district && this.curRegion.district.id? this.curRegion.district.id:null,
-                wardId: this.curRegion.ward && this.curRegion.ward.id? this.curRegion.ward.id:null
-            }, cart_type);
         }
 
 

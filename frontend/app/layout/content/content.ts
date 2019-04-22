@@ -17,7 +17,7 @@ export class AppContent {
     isLoginSub: any;
     constructor(private router: Router, private store: Store<fromRoot.AppState>,private toastr: ToastrService) {
         const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
-        console.log(employeeInfo);
+        // console.log(employeeInfo);
         if(!employeeInfo){
             if(!window.location.pathname.includes('login')){
                 this.router.navigate(['login']);

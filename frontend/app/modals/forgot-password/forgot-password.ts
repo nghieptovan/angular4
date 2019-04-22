@@ -62,9 +62,7 @@ export class ForgotPasswordModal extends DialogComponent<null, boolean> {
 
     showRegisterModal() {
         this.closeModal();
-        this.dialogService.addDialog(LoginModal, {
-            isRegisterTab: true
-        });
+       
     }
 
     submitForgotPassword(form) {
