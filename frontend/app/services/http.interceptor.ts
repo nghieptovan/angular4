@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppConstants } from '../app.constant';
 import * as auth from '../store/auth/auth.actions';
-import * as checkout from '../store/checkout/checkout.actions';
 import * as fromRoot from '../store/index';
 
 declare var $;
@@ -215,7 +214,6 @@ export class InterceptedHttp extends Http {
 
     private onUnauthorized() {
         localStorage.clear();
-        this.store.dispatch(new checkout.CartRefresh);
         this.store.dispatch(new auth.RefreshPage());
     }
 
@@ -227,13 +225,11 @@ export class InterceptedHttp extends Http {
                 if (response.parameters && response.parameters.fieldName === 'cartId') {
                     localStorage.removeItem('cartId');
                     localStorage.removeItem('cart');
-                    this.store.dispatch(new checkout.CartRefresh());
                 }
 
                 if (response.parameters && response.parameters.fieldName === 'customerId') {
                     localStorage.removeItem('cartId');
                     localStorage.removeItem('cart');
-                    this.store.dispatch(new checkout.CartRefresh());
                 }
             }
         }
@@ -247,7 +243,6 @@ export class InterceptedHttp extends Http {
                 if (response.parameters && response.parameters.fieldName === 'cartId') {
                     localStorage.removeItem('cartId');
                     localStorage.removeItem('cart');
-                    this.store.dispatch(new checkout.CartRefresh());
                 }
             }
         }

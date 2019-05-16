@@ -43,7 +43,9 @@ export class CapNhatThuoc {
       
     }
 
-
+    goToList(){
+        this.router.navigate(['/thuoc']);
+    }
 
 
 }

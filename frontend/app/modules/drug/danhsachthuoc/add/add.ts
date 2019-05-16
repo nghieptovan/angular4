@@ -27,13 +27,12 @@ export class ThemThuoc {
                 private router: Router,
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute) {
-                    
-        
-    
-      
+                      
     }
 
-
+    goToList(){
+        this.router.navigate(['/thuoc']);
+    }
 
 
 }

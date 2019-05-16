@@ -13,14 +13,8 @@ import { GlobalService } from './services/global.service';
 import * as fromRoot from './store';
 import * as account from './store/account/account.actions';
 import * as auth from './store/auth/auth.actions';
-import * as checkout from './store/checkout/checkout.actions';
-import * as vendorCheckout from './store/checkout/vendor-checkout/checkout.actions';
 import * as common from './store/common/common.actions';
-import * as products from './store/products/products.actions';
 import { PlatformLocation } from '@angular/common'
-import {LocalStorageConstants} from "./components/base/constants/LocalStorageConstants";
-import {LocalStorageManagement} from "./components/base/LocalStorageManagement";
-import {RegionManagement} from "./components/base/RegionManagement";
 import {formvalidation } from '../assets/js/form-validation';
 import {datetimePicker } from '../assets/js/pickdatetime';
 declare var $;

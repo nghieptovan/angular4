@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/index';
-import * as home from '../../store/home/home.actions';
 import * as auth from '../../store/auth/auth.actions';
 import { ToastrService } from 'ngx-toastr';
 @Component({

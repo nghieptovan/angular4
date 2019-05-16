@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as _ from 'lodash';
-import {VendorPriorityConstants} from "../components/base/products/constants/VendorPriorityConstant";
 
 @Pipe({ name: 'arrange2Item1Line' })
 export class Arrange2Item1Line implements PipeTransform {

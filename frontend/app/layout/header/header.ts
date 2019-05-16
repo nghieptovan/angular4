@@ -12,8 +12,6 @@ import { LoginModal } from '../../modals/login/login';
 import { GlobalService } from '../../services/global.service';
 import * as fromRoot from '../../store';
 import * as auth from '../../store/auth/auth.actions';
-import * as categories from '../../store/categories/categories.actions';
-import * as checkout from '../../store/checkout/checkout.actions';
 import * as account from '../../store/account/account.actions';
 import { timeout } from 'rxjs/operator/timeout';
 

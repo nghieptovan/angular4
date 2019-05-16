@@ -1,9 +1,0 @@
-<div class="card-info-block" style="display:none;">
-    <h3>Chọn nhà mạng</h3>
-    <ul class="card-list clearfix">
-        <li *ngFor="let provider of providers">
-            <input type="radio" name="provider" id="provider_{{provider.value}}" [(ngModel)]="selectedProvider.value" value="{{provider.value}}" (click)="selectProvider(provider)" >
-            <label for="provider_{{provider.value}}"><img src="{{provider.img}}" ></label>
-        </li>
-    </ul>
-</div>

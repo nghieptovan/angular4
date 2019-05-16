@@ -35,8 +35,8 @@ export class EditUpdateMedicine implements OnInit {
     listBehaviourMedicine: any = [];
     listUnitMedicineSub: any;
     listUnitMedicine: any = [];
-
-    currentMedicine: any = {
+    currentMedicine: any;
+    defaultCurrentMedicine: any = {
         "id": 0,
         "name": "",
         "display_name": "",
@@ -113,6 +113,21 @@ export class EditUpdateMedicine implements OnInit {
             this.listUnitMedicine = this.globalService.getSessionData('listUnitMedicine');
         } 
 
+        
+        
+    }
+    ngOnInit() {
+        console.log(this.isEdit);
+        
+        if(this.isEdit){
+            const idMedicine = this.activatedRoute.params['value'].id;
+            if(idMedicine){
+                this.loadMedicine(idMedicine);
+            }
+        }else{
+            this.currentMedicine = this.defaultCurrentMedicine;
+        }
+
         this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
             if(typeMedicines && typeMedicines.code == 200){
                 this.listTypeMedicine = typeMedicines.data;
@@ -147,26 +162,13 @@ export class EditUpdateMedicine implements OnInit {
             if(medicine && medicine.code == 200 && medicine.data){               
                 this.currentMedicine = medicine.data;
             }
+            if(!this.isEdit){
+                this.currentMedicine = this.defaultCurrentMedicine;
+            }
         });
-        const idMedicine = this.activatedRoute.params['value'].id;
-        if(idMedicine){
-            this.loadMedicine(idMedicine);
-        }
-    }
-    ngOnInit() {
-        // if(this.isEdit){
-        //     const idMedicine = this.activatedRoute.params['value'].id;
-        //     console.log(idMedicine);            
-        //     this.loadMedicine(idMedicine);
-        // }
     }
     ngOnDestroy(){
-        this.listTypeMedicineSub.unsubscribe();
-        this.listDrugMedicineSub.unsubscribe();
-        this.listPatentMedicineSub.unsubscribe();
-        this.listBehaviourMedicineSub.unsubscribe();
-        this.listUnitMedicineSub.unsubscribe();
-        this.currentMedicineSub.unsubscribe();
+
     }
 
     loadMedicine(idMedicine){
@@ -188,6 +190,11 @@ export class EditUpdateMedicine implements OnInit {
     }
     showDrugList(type){
         this.showDrug = type;
+    }
+    saveForm(form){
+        
+        console.log(form.value);
+        
     }
 
 }

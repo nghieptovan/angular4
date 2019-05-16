@@ -11,7 +11,6 @@ import { AuthService, FacebookLoginProvider } from '../../libs/angular4-social-l
 import * as fromRoot from '../../store';
 import * as account from '../../store/account/account.actions';
 import * as auth from '../../store/auth/auth.actions';
-import { ForgotPasswordModal } from '../forgot-password/forgot-password';
 
 export interface ILoginModal {
     isRegisterTab: Boolean;
@@ -185,8 +184,5 @@ export class LoginModal extends DialogComponent<ILoginModal, boolean> implements
         this.close();
     }
 
-    showForgotPasswordModal() {
-        this.closeModal();
-        this.dialogService.addDialog(ForgotPasswordModal);
-    }
+
 }

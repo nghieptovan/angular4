@@ -1,4 +1,4 @@
-<form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm" novalidate>
+<form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="saveForm(loginForm)" id="loginForm" novalidate>
     <div class="row">
         <div class="col-md-6 col-12">
             <div class="px-3">
@@ -10,7 +10,7 @@
 
                     <div class="dropdown-menu dropdown-below-input" [ngStyle]="{'display': showPatent? 'block': 'none'}">
                         <a href="javascript:void(0);" (click)="selectPatentMedicine(patent)" class="dropdown-item" 
-                        *ngFor="let patent of listPatentMedicine">{{patent.name}}</a>
+                        *ngFor="let patent of listPatentMedicine">{{patent?.name}}</a>
                     </div>
                 </fieldset>
             </div>
@@ -19,8 +19,8 @@
             <div class="px-3">
                 <p>Đơn vị thuốc<span class="required">*</span></p>
                 <fieldset class="form-group position-relative">
-                    <select class="form-control" id="DefaultSelect">
-                        <option value="{{unit.id}}" *ngFor="let unit of listUnitMedicine">{{unit.name}}</option>                        
+                    <select class="form-control" id="unit" name="unit" #unit="ngModel" [(ngModel)]="currentMedicine.unit_id">
+                        <option [ngValue]="unit.id" *ngFor="let unit of listUnitMedicine">{{unit?.name}}</option>                        
                     </select>
                 </fieldset>
             </div>
@@ -33,7 +33,7 @@
                     [(ngModel)]="currentMedicine.drug.name" #drug="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
                      <div class="dropdown-menu dropdown-below-input" [ngStyle]="showDrug && {'display':'block'}">
                         <a href="javascript:void(0);" (click)="selectDrugMedicine(drug)" class="dropdown-item" 
-                        *ngFor="let drug of listDrugMedicine">{{drug.name}}</a>
+                        *ngFor="let drug of listDrugMedicine">{{drug?.name}}</a>
                     </div>
                 </fieldset>
             </div>
@@ -42,8 +42,8 @@
             <div class="px-3">
                 <p>Cách sử dụng<span class="required">*</span></p>
                 <fieldset class="form-group position-relative">
-                    <select class="form-control" id="DefaultSelect">
-                        <option [ngValue]="behaviour" *ngFor="let behaviour of listBehaviourMedicine">{{behaviour.name}}</option>
+                    <select class="form-control" id="behaviour_medicine" name="behaviour_medicine" #behaviour_medicine="ngModel" [(ngModel)]="currentMedicine.behaviourmedicine_id">
+                        <option [ngValue]="behaviour.id" *ngFor="let behaviour of listBehaviourMedicine">{{behaviour?.name}}</option>
                     </select>
                 </fieldset>
             </div>
@@ -53,7 +53,7 @@
                 <p>Đơn giá bán<span class="required">*</span></p>
                 <fieldset class="form-group position-relative">
                     <input type="text" id="sellprice" name="sellprice"
-                     #sellprice="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
+                     #sellprice="ngModel" [(ngModel)]="currentMedicine.sellprice" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
                 </fieldset>
             </div>
         </div>
@@ -61,8 +61,8 @@
             <div class="px-3">
                 <p>Phân loại<span class="required">*</span></p>
                 <fieldset class="form-group position-relative">
-                    <select class="form-control" id="DefaultSelect">
-                        <option value="{{type.id}}" *ngFor="let type of listTypeMedicine">{{type.name}}</option>
+                    <select class="form-control" id="type_medicine" name="type_medicine" #type_medicine="ngModel" [(ngModel)]="currentMedicine.typemedicine_id">
+                        <option [ngValue]="type.id" *ngFor="let type of listTypeMedicine">{{type?.name}}</option>
                     </select>
                 </fieldset>
             </div>
@@ -71,8 +71,8 @@
             <div class="px-3">
                 <p>Hướng dẫn/lưu ý<span class="required">*</span></p>
                 <fieldset class="form-group position-relative">
-                    <input type="text" id="sellprice" name="sellprice"
-                     #sellprice="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
+                    <input type="text" id="description" name="description"
+                     #description="ngModel" [(ngModel)]="currentMedicine.description" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
                 </fieldset>
             </div>
         </div>

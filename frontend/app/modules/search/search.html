@@ -1,5 +1,0 @@
-<lt-sidebar *ngIf="(searchResults$ | async)?.hits?.length || (requestBody$ | async)?.params?.numericFilters"> </lt-sidebar>
-
-<lt-products *ngIf="(searchResults$ | async)?.hits?.length || (requestBody$ | async)?.params?.numericFilters"> </lt-products>
-
-<lt-search-noresults *ngIf="!(productIsLoading$ | async) && !(searchResults$ | async)?.hits?.length && !(requestBody$ | async)?.params?.numericFilters"></lt-search-noresults>

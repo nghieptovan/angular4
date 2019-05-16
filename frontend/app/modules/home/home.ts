@@ -4,7 +4,6 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { GlobalService } from '../../services/global.service';
 import * as fromRoot from '../../store';
-import * as home from '../../store/home/home.actions';
 import { Observable } from 'rxjs/Observable';
 import {Router} from "@angular/router";
 

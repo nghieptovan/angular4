@@ -46,13 +46,14 @@ export class DanhSachThuoc {
                     this.medicine = medicines.data;
                     datatablessources();
                 }
-                // else{
-                //     this.errorMessage = medicines.message;
-                // }
             }
         });
 
         
+    }
+
+    goToDrug(medicineId){
+        this.router.navigate(['/thuoc/cap-nhat-thuoc/', medicineId],{ replaceUrl: true });
     }
     ngOnDestroy(){
         this.loadMedicineSub.unsubscribe();

@@ -1,6 +1,6 @@
 import * as auth from './auth.actions';
-import {LocalStorageManagement} from "../../components/base/LocalStorageManagement";
-import {LocalStorageConstants} from "../../components/base/constants/LocalStorageConstants";
+// import {LocalStorageManagement} from "../../components/base/LocalStorageManagement";
+// import {LocalStorageConstants} from "../../components/base/constants/LocalStorageConstants";
 
 export interface State {
     loaded: boolean;
@@ -167,7 +167,7 @@ export function reducer(state = initialState, action: auth.AuthActions): State {
 
 function clearLocalStorage() {
     // Keep local strorage save ship info.
-    LocalStorageManagement.getInstance().clearExclude([LocalStorageConstants.KEY_USER_SHIPPING_ADDRESS, 'rememberEmail']);
+    // LocalStorageManagement.getInstance().clearExclude([LocalStorageConstants.KEY_USER_SHIPPING_ADDRESS, 'rememberEmail']);
 }
 
 /*

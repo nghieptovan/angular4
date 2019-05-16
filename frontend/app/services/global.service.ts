@@ -4,15 +4,9 @@ import * as _ from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs/Observable';
 
-import * as checkout from '../store/checkout/checkout.actions';
 import * as common from '../store/common/common.actions';
 import * as fromRoot from '../store/index';
 import { AppConstants } from './../app.constant';
-import {FacetsDefaultConstants} from "../components/base/products/constants/FacetsDefaultConstants";
-import {RegionManagement} from "../components/base/RegionManagement";
-import {CART_TYPE} from "../components/base/cart/CartManagement";
-import {GlobalConstants} from "../components/base/constants/GlobalConstants";
-import {FacetTypeConstants} from "../components/base/products/constants/FacetTypeConstants";
 import { Http, Response } from '@angular/http';
 declare var $;
 @Injectable()
@@ -83,7 +77,6 @@ export class GlobalService {
             return 0;
         }
 
-        this.store.dispatch(new checkout.CartRefresh());
         return 1;
     }
 
@@ -104,7 +97,6 @@ export class GlobalService {
                 AppConstants.DISABLED_TRACKING_CODE = data[1].disabled_tracking_code;
                 AppConstants.DEFAULT_META_TAGS = data[1].default_meta_tags;
                 AppConstants.DEFAULT_META_TAGS = data[1].default_meta_tags;
-                AppConstants.CHECKOUT.VIETTIN_GATEWAY_URL = data[1].vietin_gateway_url;
                 localStorage.setItem('vietin_gateway_url', data[1].vietin_gateway_url);
                 sessionStorage.setItem('facebookAppId', data[1].fb_app_id);
             }
@@ -119,8 +111,8 @@ export class GlobalService {
         
     }
 
-    loadShippingRuleForCurrentLocation(cart_type = {type:CART_TYPE.NORMAL_CART, id: null}) {
-        RegionManagement.getInstance(this.store).loadCartShippingRule(cart_type);
+    loadShippingRuleForCurrentLocation(cart_type = {type:'', id: null}) {
+        // RegionManagement.getInstance(this.store).loadCartShippingRule(cart_type);
     }
 
     loadTrackingCodeScript(data) {
@@ -275,13 +267,13 @@ export class GlobalService {
         _.each(_.get(params, 'facetFilters', []), (filter) => {
             const key = Object.getOwnPropertyNames(filter)[0];
             const value = filter[Object.getOwnPropertyNames(filter)[0]];
-            if(!(
-                   (params.isOmni && key === FacetTypeConstants.FACET_TYPE_VENDOR_ID) ||
-                   (params.isBlink && key === FacetTypeConstants.FACET_MKT_DELIVERY_TIME)
-                )
-            ){
-                result[key] = value;
-            }
+            // if(!(
+            //        (params.isOmni && key === FacetTypeConstants.FACET_TYPE_VENDOR_ID) ||
+            //        (params.isBlink && key === FacetTypeConstants.FACET_MKT_DELIVERY_TIME)
+            //     )
+            // ){
+            //     result[key] = value;
+            // }
         });
 
         const min = _.get(params, 'numericFilters[0].price_default.gte', 0);
@@ -309,7 +301,6 @@ export class GlobalService {
             hitsPerPage: params.count || 40,
             // facets: ['categories', 'product_brand', 'color', 'size', 'vendor', 'product_brand_id', 'vendor_id'],
             // facets: ['categories', 'product_brand', 'color', 'vendor'],
-            facets: facets.length > 0? facets:FacetsDefaultConstants.facets,
             order: params.order,
             isOmni: params.isOmni,
             isBlink: params.isBlink,
@@ -327,21 +318,7 @@ export class GlobalService {
             result['query'] = params.q;
         }
         // const filterValues = ['categories', 'product_brand', 'color', 'size', 'vendor'];
-        const filterValues = result.facets;
 
-        _.each(filterValues, (val) => {
-            let type = val.type;
-
-            if (params[type]) {
-                const temp = {};
-                if (_.isString(params[type])) {
-                    temp[type] = [params[type]];
-                } else {
-                    temp[type] = params[type];
-                }
-                result.facetFilters.push(temp);
-            }
-        });
 
         if (params.lte) {
             result.numericFilters[0].price_default['lte'] = Number.parseInt(params.lte);
@@ -353,13 +330,13 @@ export class GlobalService {
 
         if(params.isOmni){
             let temp = {};
-            temp[FacetTypeConstants.FACET_TYPE_VENDOR_ID] = GlobalConstants.MART_SELLER_IDS;
+            // temp[FacetTypeConstants.FACET_TYPE_VENDOR_ID] = GlobalConstants.MART_SELLER_IDS;
             result.facetFilters.push(temp);
         }
 
         if(params.isBlink){
             let temp = {};
-            temp[FacetTypeConstants.FACET_MKT_DELIVERY_TIME] = GlobalConstants.SHIPPING_BLINK;
+            // temp[FacetTypeConstants.FACET_MKT_DELIVERY_TIME] = GlobalConstants.SHIPPING_BLINK;
             result.facetFilters.push(temp);
         }
 

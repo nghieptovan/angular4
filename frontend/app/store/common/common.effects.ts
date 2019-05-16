@@ -12,8 +12,6 @@ import { GlobalService } from '../../services/global.service';
 import { CommonService } from './common.service';
 import * as account from '../account/account.actions';
 import * as auth from '../auth/auth.actions';
-import * as checkout from '../checkout/checkout.actions';
-import * as rechargeAction from '../recharge/recharge.actions';
 import * as fromRoot from '../index';
 import { environment } from './../../../environments/environment.prod';
 import * as common from './common.actions';
@@ -112,9 +110,7 @@ export class CommonEffects {
                     localStorage.removeItem('cartId');
                 }
 
-                if (localStorage.getItem('cartId') && !location.href.includes('checkout/failure') && !location.href.includes('checkout/onepage')) {
-                    this.store.dispatch(new checkout.CartLoad());
-                }
+               
 
                 if (localStorage.getItem('token')) {
                     this.store.dispatch(new account.LoadInfo());
@@ -122,9 +118,6 @@ export class CommonEffects {
                     /*this.store.dispatch(new account.LoadOrders(null));*/
                 }
 
-                if (location.href.includes('mobilerecharge')) {
-                    this.store.dispatch(new rechargeAction.LoadConfig(null));
-                }
 
                 this.store.dispatch(new auth.RefreshPage());
                 this.store.dispatch(new account.RefreshPage());

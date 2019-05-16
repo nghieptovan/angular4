@@ -1,7 +1,0 @@
-<div class="form-inner payment-form">
-    <lt-credit-card *ngIf="promotionType === promotion.code && paymentType === 'vietin_gateway'"
-        [uid]="promotion.code" [(card)]="card" (validationChange)="isCardValid = $event;" class="payment-method-content newCard">
-    </lt-credit-card>
-</div>
-
-<button class="action primary checkout" type="submit" [disabled]="!isCardValid || (cartIsLoading$ | async)" (click)='submitPayment()' ></button>

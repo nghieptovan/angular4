@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as _ from 'lodash';
-import {FacetTypeConstants} from "../components/base/products/constants/FacetTypeConstants";
+// import {FacetTypeConstants} from "../components/base/products/constants/FacetTypeConstants";
 
 @Pipe({name: 'facets'})
 export class SelectedFacetsPipe implements PipeTransform {
@@ -13,22 +13,22 @@ export class SelectedFacetsPipe implements PipeTransform {
                     let name = value;
                     let id = value;
 
-                    if(
-                        type === FacetTypeConstants.FACET_TYPE_VENDOR_ID
-                        || type === FacetTypeConstants.FACET_MKT_DELIVERY_TIME
-                    ) return;
+                    // if(
+                    //     type === FacetTypeConstants.FACET_TYPE_VENDOR_ID
+                    //     || type === FacetTypeConstants.FACET_MKT_DELIVERY_TIME
+                    // ) return;
 
-                    // Array use for category, otherwise, use for brand, seller, search ...
-                    if(type === FacetTypeConstants.FACET_TYPE_LEAF_CATEGORY){
-                        const facet = _.find(state.products.facets[type], item => {
-                            if(item.name == name) return item;
-                        })
+                    // // Array use for category, otherwise, use for brand, seller, search ...
+                    // if(type === FacetTypeConstants.FACET_TYPE_LEAF_CATEGORY){
+                    //     const facet = _.find(state.products.facets[type], item => {
+                    //         if(item.name == name) return item;
+                    //     })
 
-                        if(facet){
-                            name = facet.value;
-                            id = facet.name;
-                        }
-                    }
+                    //     if(facet){
+                    //         name = facet.value;
+                    //         id = facet.name;
+                    //     }
+                    // }
 
                     arr.push({
                         type: type,
