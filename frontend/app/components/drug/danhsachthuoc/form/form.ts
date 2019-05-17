@@ -113,20 +113,6 @@ export class EditUpdateMedicine implements OnInit {
             this.listUnitMedicine = this.globalService.getSessionData('listUnitMedicine');
         } 
 
-        
-        
-    }
-    ngOnInit() {
-        console.log(this.isEdit);
-        
-        if(this.isEdit){
-            const idMedicine = this.activatedRoute.params['value'].id;
-            if(idMedicine){
-                this.loadMedicine(idMedicine);
-            }
-        }else{
-            this.currentMedicine = this.defaultCurrentMedicine;
-        }
 
         this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
             if(typeMedicines && typeMedicines.code == 200){
@@ -166,6 +152,22 @@ export class EditUpdateMedicine implements OnInit {
                 this.currentMedicine = this.defaultCurrentMedicine;
             }
         });
+        
+        
+    }
+    ngOnInit() {
+        console.log(this.isEdit);
+        
+        if(this.isEdit){
+            const idMedicine = this.activatedRoute.params['value'].id;
+            if(idMedicine){
+                this.loadMedicine(idMedicine);
+            }
+        }else{
+            this.currentMedicine = this.defaultCurrentMedicine;
+        }
+
+        
     }
     ngOnDestroy(){
 
@@ -191,6 +193,7 @@ export class EditUpdateMedicine implements OnInit {
     showDrugList(type){
         this.showDrug = type;
     }
+    
     saveForm(form){
         
         console.log(form.value);

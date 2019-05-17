@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { AppConstants } from '../../app.constant';
-import { LoginModal } from '../../modals/login/login';
 import { GlobalService } from '../../services/global.service';
 import * as fromRoot from '../../store';
 import * as auth from '../../store/auth/auth.actions';

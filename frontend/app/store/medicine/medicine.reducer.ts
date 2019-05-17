@@ -62,10 +62,27 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                     listMedicine: action.payload.data
                 });
             }else{
+                let defaultMed = getDefaultMedicine();
+                let { data } = action.payload.data;
+                for (var property in data) {
+                    if (data.hasOwnProperty(property)) {
+                        if(data[property]){
+                            // console.log(property,data[property]);
+                            
+                            defaultMed[property] = data[property]
+                        }  
+                    }
+                }
+                console.log(data);
+                console.log(defaultMed);
+                
+                data = defaultMed;
+                console.log(data);
+                
                 return Object.assign({}, state, {
                     loaded: true,
                     loading: false,
-                    currentMedicine: action.payload.data
+                    currentMedicine: data
                 });
             }
             
@@ -258,6 +275,42 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
     }
 }
 
+function getDefaultMedicine(){
+    return {
+        "id": 0,
+        "name": "",
+        "display_name": "",
+        "description": "",
+        "amount": 0,
+        "typemedicine_id": 0,
+        "behaviourmedicine_id": 0,
+        "sellprice": 0,
+        "importedprice": 0,
+        "drug_id": 0,
+        "patentmedicine_id": 0,
+        "unit_id": 0,
+        "type_medicine": {
+          "name": "",
+          "code": ""
+        },
+        "behaviour_medicine": {
+          "name": "",
+          "code": ""
+        },
+        "unit": {
+          "name": "",
+          "code": ""
+        },
+        "drug": {
+          "code": "",
+          "name": ""
+        },
+        "patent_medicine": {
+          "name": "",
+          "code": ""
+        }
+      };
+}
 
 /*
 Selectors for the state that will be later

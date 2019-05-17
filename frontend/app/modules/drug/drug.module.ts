@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { SlickModule } from 'ngx-slick';
 
 import { AppCommonModule } from '../../app.common.module';
-import { DanhSachThuoc } from './danhsachthuoc/danhsachthuoc';
-import { ThemThuoc } from './danhsachthuoc/add/add';
-import { CapNhatThuoc } from './danhsachthuoc/edit/edit';
+
+import { DanhSachThuoc } from '../../components/drug/danhsachthuoc/danhsachthuoc';
+import { ThemThuoc } from '../../components/drug/danhsachthuoc/add/add';
+import { CapNhatThuoc } from '../../components/drug/danhsachthuoc/edit/edit';
 
 const routes: Routes = [
     {

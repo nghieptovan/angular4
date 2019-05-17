@@ -4,16 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { SlickModule } from 'ngx-slick';
 
 import { AppCommonModule } from '../../app.common.module';
-import { Patient } from './patient';
-import { AddPatient } from './add/add';
-import { EditPatient } from './edit/edit';
-import { DrugPatient } from './drug/drug';
+import { AddPatient } from '../../components/patient/add/add';
+import { EditPatient } from '../../components/patient/edit/edit';
+import { DrugPatient } from '../../components/patient/drug/drug';
+import { Patient } from '../../components/patient/list/patient';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: Patient
-    },
     {
         path: 'them',
         component: AddPatient
@@ -25,6 +21,9 @@ const routes: Routes = [
     {
         path: 'toa-thuoc/:id',
         component: DrugPatient
+    },{
+        path: '',
+        component: Patient
     }
 ];
 @NgModule({
@@ -35,10 +34,10 @@ const routes: Routes = [
         SlickModule.forRoot()
     ],
     declarations: [
-        Patient,
         AddPatient,
         EditPatient,
-        DrugPatient
+        DrugPatient,
+        Patient
     ],
     exports: [
     ]

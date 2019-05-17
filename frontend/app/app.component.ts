@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppConstants } from './app.constant';
-import { RegisterSuccessModal } from './modals/login/success/success';
 import { GlobalService } from './services/global.service';
 import * as fromRoot from './store';
 import * as account from './store/account/account.actions';

@@ -5,7 +5,6 @@ import { Dispatcher, Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
-
 import { AppConstants } from '../../../../app.constant';
 import * as fromRoot from '../../../../store';
 import * as account from '../../../../store/account/account.actions';
@@ -22,7 +21,6 @@ export class CapNhatThuoc {
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
     customers: any = {};
-    
 
     dispatcherSub: any;
     createAccountSub: any;

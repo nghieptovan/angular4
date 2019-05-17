@@ -19,7 +19,8 @@ import { RunScriptsDirective } from './directives/RunScript';
 import {EqualValidatorDirective} from "./directives/EqualValidator";
 import {ExpiredDateValidatorDirective} from "./directives/ExpiredDateValidator";
 import {CardNoLuhnValidatorDirective} from "./directives/CardNoLuhnValidator";
-import {EditUpdateMedicine} from "./modules/drug/danhsachthuoc/form/form";
+import {EditUpdateMedicine} from "./components/drug/danhsachthuoc/form/form";
+
 
 @NgModule({
     imports: [
@@ -46,6 +47,7 @@ import {EditUpdateMedicine} from "./modules/drug/danhsachthuoc/form/form";
         RunScriptsDirective,
 
         EditUpdateMedicine,
+
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,
@@ -65,12 +67,8 @@ import {EditUpdateMedicine} from "./modules/drug/danhsachthuoc/form/form";
         MasonryModule,
         TextMaskModule,
         ClickOutsideModule,
-
-        AppLoader,
-     
-        RunScriptsDirective,
-
-        
+        AppLoader,     
+        RunScriptsDirective,       
      
         EditUpdateMedicine,
         // Directives

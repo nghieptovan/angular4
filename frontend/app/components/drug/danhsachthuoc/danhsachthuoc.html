@@ -6,7 +6,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Quản lý thuốc</h4>
-                                <a routerLink="/thuoc/them-thuoc" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">Thêm thuốc</a>
+                                <a routerLink="them-thuoc" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">Thêm thuốc</a>
                             </div>
                             <div class="card-body">
                                 <div class="card-block">
@@ -23,20 +23,21 @@
                                                 </thead>
                                                 <tbody>                                         
                                                     <tr *ngFor="let med of medicine">
-                                                            <td>{{med?.drug?.name}}</td>
-                                                            <td>{{med?.patent_medicine?.name}}</td>
-                                                            <td>{{med?.description}}</td>
-                                                            <td>{{med?.importedprice.toString().toVndCurrency()}}</td>
-                                                            <td>{{med?.sellprice.toString().toVndCurrency()}}</td>
-                                                            <td>           
-                                                                <a (click)="goToDrug(med.id)" class="success p-0" data-original-title="" title="" >
-                                                                    <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                                                                </a>
-                                                                <a class="danger p-0" data-original-title="" title="" (click)="deleteMedicine(med.id)">
-                                                                    <i class="ft-x font-medium-3 mr-2"></i>
-                                                                </a>
-                                                            </td>
+                                                        <td>{{med?.drug?.name}}</td>
+                                                        <td>{{med?.patent_medicine?.name}}</td>
+                                                        <td>{{med?.description}}</td>
+                                                        <td>{{med?.importedprice.toString().toVndCurrency()}}</td>
+                                                        <td>{{med?.sellprice.toString().toVndCurrency()}}</td>
+                                                        <td>           
+                                                            <a routerLink="cap-nhat-thuoc/{{med.id}}" class="success p-0" data-original-title="" title="" >
+                                                                <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                                                            </a>
+                                                            <a class="danger p-0" data-original-title="" title="" (click)="deleteMedicine(med.id)">
+                                                                <i class="ft-x font-medium-3 mr-2"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
+                                                </tbody>
                                             </table>
                                 </div>
                             </div>
