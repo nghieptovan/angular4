@@ -7,10 +7,8 @@ import { AppHelpers } from '../app/app.helpers';
 
 export const environment = {
   production: !AppHelpers.isLocalhost(),
-  environment: 'stag',
+  environment: 'default',
   ENVIRONMENT_DEV: AppHelpers.isLocalhost(),
-  API_ENDPOINT: 'http://phongmach.dev/api/v1/',
-  HOST_NAME: 'http://staging.lotte.vn',
-  ELASTIC_API_ENDPOINT: 'https://els-staging.lotte.vn/api/v1/',
-  ASSET_URL:  'shop/'
+  API_ENDPOINT: 'https://phongmach.dev/api/v1/',
+  ASSET_URL:  '/'
 };

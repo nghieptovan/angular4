@@ -14,7 +14,7 @@ export class PatientService {
     }
 
     //for pm
-    listPatient(data) {
+    getPatient(data) {
         let url = data != 0 ? 'patient/' + data : 'patient';
         return this.httpService.getAnonymous(url);
     }

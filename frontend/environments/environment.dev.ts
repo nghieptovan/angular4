@@ -9,8 +9,6 @@ export const environment = {
   production: !AppHelpers.isLocalhost(),
   environment: 'develop',
   ENVIRONMENT_DEV: AppHelpers.isLocalhost(),
-  API_ENDPOINT: 'http://phongmach.dev/api/v1/',
-  HOST_NAME: 'http://dev.lotte.vn',
-  ELASTIC_API_ENDPOINT: 'https://els-dev.lotte.vn/api/v1/',
+  API_ENDPOINT: 'https://phongmach.dev/api/v1/',
   ASSET_URL:  ''
 };

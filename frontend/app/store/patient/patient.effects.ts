@@ -30,7 +30,7 @@ export class PatientEffects {
     @Effect()
     listPatient$ = this._actions.ofType(patient.LIST_PATIENT)
         .switchMap((action) => {
-            return this.patientService.listPatient(action.payload)
+            return this.patientService.getPatient(action.payload)
                 .map((resp) => {
                     return new patient.ListPatientSuccess({data: resp.json(), id: action.payload});
                 }).catch((error) => {
@@ -51,13 +51,18 @@ export class PatientEffects {
     // update patient
     @Effect()
     loadPatientById$ = this._actions.ofType(patient.LOAD_PATIENT_BY_ID)
-        .switchMap((action) => {
-            return this.patientService.listPatient(action.payload)
+        .switchMap( (action) => {
+            if(action.payload == -1){
+                return Observable.of(new patient.LoadPatientByIdSuccess({type: action.payload, data: {}}));
+            }else{
+                return this.patientService.getPatient(action.payload)
                 .map((resp) => {
-                    return new patient.LoadPatientByIdSuccess(resp.json());
+                    return new patient.LoadPatientByIdSuccess({type: action.payload, data: resp.json()});
                 }).catch((error) => {
                     return Observable.of(new patient.LoadPatientByIdFailed(error));
                 });
+            }
+
         });
         
         

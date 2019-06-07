@@ -1,7 +1,6 @@
 import { DefaultUrlSerializer, Routes, UrlSerializer, UrlTree } from '@angular/router';
 
 import { AppNotFound } from './layout/404/404';
-import { Patient } from './modules/patient/patient';
 
 
 const definedRoutes: Routes = [
@@ -23,8 +22,7 @@ const definedRoutes: Routes = [
     },
     {
         path: 'benh-nhan',
-        loadChildren: './modules/patient/patient.module#PatientModule',
-        component: Patient
+        loadChildren: './modules/patient/patient.module#PatientModule'
     },
     {
         path: 'thuoc',

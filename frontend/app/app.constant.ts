@@ -1,11 +1,11 @@
 import { environment } from '../environments/environment';
-
+console.log(environment.environment);
 export const AppConstants = {
-    API_ENDPOINT: environment.API_ENDPOINT,
-    HOST_NAME: environment.HOST_NAME,
+    API_ENDPOINT: environment.API_ENDPOINT,    
     ENVIRONMENT_DEV: environment.ENVIRONMENT_DEV,
     ASSET_URL: environment.ASSET_URL,
-    ELASTIC_API_ENDPOINT: environment.ELASTIC_API_ENDPOINT,
+    HOST_NAME: 'environment.HOST_NAME',
+    ELASTIC_API_ENDPOINT: 'environment.ELASTIC_API_ENDPOINT',
     DISABLED_TRACKING_CODE: false,
     OAUTH: {
         TOKEN: 'b1ja8rrbc5uinw55lmrnxaqb4o9sh8k6',

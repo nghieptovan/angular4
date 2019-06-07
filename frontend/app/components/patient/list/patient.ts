@@ -3,19 +3,19 @@ import { Store, Dispatcher } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 
 
-import { GlobalService } from '../../services/global.service';
-import * as fromRoot from '../../store';
-import * as account from '../../store/account/account.actions';
-import * as patient from '../../store/patient/patient.actions';
+import { GlobalService } from '../../../services/global.service';
+import * as fromRoot from '../../../store';
+import * as account from '../../../store/account/account.actions';
+import * as patient from '../../../store/patient/patient.actions';
 
-import * as auth from '../../store/auth/auth.actions';
+import * as auth from '../../../store/auth/auth.actions';
 import { Observable } from 'rxjs/Observable';
 import {Router} from "@angular/router";
-import { AppConstants } from '../../app.constant';
+import { AppConstants } from '../../../app.constant';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { datatablessources } from '../../../assets/js/data-tables/datatables-sources'; 
+import { datatablessources } from '../../../../assets/js/data-tables/datatables-sources'; 
 declare var $;
 
 @Component({
@@ -49,7 +49,7 @@ export class Patient {
         
         this.getListPatientSub = this.store.select(fromRoot.patientGetListPatient).subscribe((patients) => {
             if(!patients){
-                this.store.dispatch(new patient.ListPatient(0));
+                this.store.dispatch(new patient.LoadPatientById(0));
             }else{
                 if(patients.code == 200){
                     this.patients = patients.data;
@@ -106,13 +106,7 @@ export class Patient {
                 default:
                     break;
             }
-        }
-        // data="/benh-nhan/toa-thuoc/{{patient.id}}"
-        // data="/benh-nhan/cap-nhat/{{patient.id}}" 
-
-        // console.log(action);
-        // console.log(patient);
-        
+        }        
     }
     
     deleteAccount(id){
