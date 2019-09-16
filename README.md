@@ -212,3 +212,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     └───environments
 
 ```
+
+
+update: 20/08/2019
+
+    - Set "--extractCss=true" to build command
+
+        --extractCss=true|false	
+        Extract css from global styles into css files instead of js ones.
+
+        Default: false
