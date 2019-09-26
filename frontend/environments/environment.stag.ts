@@ -9,6 +9,6 @@ export const environment = {
   production: !AppHelpers.isLocalhost(),
   environment: 'stag',
   ENVIRONMENT_DEV: AppHelpers.isLocalhost(),
-  API_ENDPOINT: 'http://phongmach.dev/api/v1/',
-  ASSET_URL:  'shop/'
+  API_ENDPOINT: 'http://api_phm.web/api/v1/',
+  ASSET_URL:  ''
 };

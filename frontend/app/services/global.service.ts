@@ -80,37 +80,6 @@ export class GlobalService {
         return 1;
     }
 
-    ensureConfigLoadedForGame(){
-        const appConfigs = this.store.select(fromRoot.commonGetConfigs)
-        .do((data) => {
-            if (!data.length || data.length < 2) {
-                // this.store.dispatch(new common.LoadAppConfigs());
-            } else {
-                AppConstants.STORE_CONFIG.BASE_URL = data[1].base_url;
-                AppConstants.STORE_CONFIG.LINK_URL = data[1].base_link_url;
-                AppConstants.STORE_CONFIG.MEDIA_URL = data[1].base_media_url;
-                AppConstants.STORE_CONFIG.PRODUCT_BASE_URL = data[1].base_media_url + 'catalog/product/';
-                AppConstants.STORE_CONFIG.STATIC_URL = data[1].base_static_url;
-                AppConstants.STORE_CONFIG.CURRENCY_SYMBOL = data[1].currency_symbol;
-                AppConstants.ELASTIC_API_ENDPOINT = data[1].elastic_server;
-                AppConstants.OAUTH.ELASTIC_TOKEN = data[1].elastic_access_token;
-                AppConstants.DISABLED_TRACKING_CODE = data[1].disabled_tracking_code;
-                AppConstants.DEFAULT_META_TAGS = data[1].default_meta_tags;
-                AppConstants.DEFAULT_META_TAGS = data[1].default_meta_tags;
-                localStorage.setItem('vietin_gateway_url', data[1].vietin_gateway_url);
-                sessionStorage.setItem('facebookAppId', data[1].fb_app_id);
-            }
-        })
-        .filter((data) => data.length >= 2)
-        .take(1);
-    return Observable.combineLatest(appConfigs)
-        .toPromise();
-    }
-
-    ensureConfigLoaded() {
-        
-    }
-
     loadShippingRuleForCurrentLocation(cart_type = {type:'', id: null}) {
         // RegionManagement.getInstance(this.store).loadCartShippingRule(cart_type);
     }
@@ -350,32 +319,6 @@ export class GlobalService {
         return result;
     }
 
-    loadAppStyle(version) {
-        $('head').prepend(AppConstants.APP_STYLES(version)['LOTTE_VN']);
-        $('head').prepend(AppConstants.APP_STYLES(version)['LOTTE_DEPARTMENT']);
-        $('head').prepend(AppConstants.APP_STYLES(version)['LOTTE_MART']);
-        $('head').prepend(AppConstants.APP_STYLES(version)['LOTTE_DATVIET']);
-    }
-
-    addTempstyles() {
-        const tempStyles =
-            `<div id="lt-lotte-styles">
-            <link rel="stylesheet" type="text/css"
-                href="https://www.lotte.vn/static/version1529389773/frontend/SM/Lottevec/vi_VN/css/styles-l.css" media="all"/>
-            <link class="lt-lazy-css department-store" rel="stylesheet" type="text/css"
-                data-href="https://www.lotte.vn/static/version1529389773/frontend/SM/LottevecDepartment/vi_VN/css/styles-l.css" media="all"/>
-            <link class="lt-lazy-css lotte-mart" rel="stylesheet" type="text/css"
-            data-href="https://www.lotte.vn/static/version1529389773/frontend/SM/LottevecMart/vi_VN/css/styles-l.css" media="all"/>
-            <link class="lt-lazy-css home-shopping" rel="stylesheet" type="text/css"
-                data-href="https://www.lotte.vn/static/version1529389773/frontend/SM/LottevecShopping/vi_VN/css/styles-l.css" media="all"/>
-            <link rel="stylesheet" type="text/css"
-                href="https://www.lotte.vn/static/version1529389773/frontend/SM/Lottevec/vi_VN/css/vec/style_vec.css" media="all"/>
-            <link rel="stylesheet" type="text/css"
-                href="https://www.lotte.vn/static/version1529389773/frontend/SM/Lottevec/vi_VN/css/print.css" media="print"/>
-            <link rel="stylesheet" type="text/css"
-                href="https://www.lotte.vn/static/frontend/SM/Lottevec/vi_VN/fashion_style/css/style_ec.css" media="all"/>`;
-        $('head').append(tempStyles);
-    }
 
     parseHref(href) {
         const a = document.createElement('a');

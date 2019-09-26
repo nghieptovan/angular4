@@ -3,6 +3,7 @@ import * as account from './account.actions';
 import * as _ from 'lodash';
 import { LOAD_DETAIL_COMMENT_FAILED } from './account.actions';
 import { GlobalService } from '../../services/global.service';
+import { AppConstants } from '../../app.constant';
 
 export interface State {
     loaded: boolean;
@@ -64,6 +65,24 @@ export function reducer(state = initialState, action: account.AccountActions): S
     switch (action.type) {
 
         case account.LOAD_JSON_CONFIG_SUCCESS: {
+            let useConfig = AppConstants.USE_CONFIG_TEXT;
+            let config = action.payload;
+
+            console.log(action.payload);
+            if(useConfig){
+                _.forOwn(config, (value, key) => {
+                    // console.log(key);
+                    _.forOwn(value, (val, k) => {
+                        if(_.isNumber(val)){
+                            value.k = k;
+                        }    
+                        console.log(k, val);
+                    });
+                    
+                });
+            }
+           console.log(config);
+           
             return Object.assign({}, state, {
                 configJSON: action.payload
             });

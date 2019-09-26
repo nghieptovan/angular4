@@ -26,31 +26,17 @@ export class LoginPage {
     dispatcherSub: any;
     authGetLoadingState: boolean = false;
     isLoginPage: boolean = false;
+    userInfoSub: any;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService,
         dispatcher: Dispatcher) {
         
 
-        this.dispatcherSub = dispatcher.subscribe((action) => {
-            switch (action.type) {
-                case auth.LOGIN_SUCCESS:
-                    // window.location.assign('/benh-nhan');
-                    this.router.navigate(['benh-nhan']);
-                    break;
-            }
+        this.store.select(fromRoot.getLoggedIn).subscribe((getLoggedIn) => {
+            if(getLoggedIn == 2){
+                this.router.navigate(['benh-nhan']); 
+            }            
         });
-
         
-    }
-    
-    ngOnDestroy() {
-        this.dispatcherSub.unsubscribe();
-    }
-    ngAfterContentInit(){
-        if(window.location.pathname.includes('/login')){
-            this.isLoginPage = true;
-        }else{
-            this.isLoginPage = false;  
-        }
     }
 
     login(form) {
@@ -62,8 +48,6 @@ export class LoginPage {
                 username: value.username,
                 password: value.password,
             }
-            // console.log(data);
-            
             this.store.dispatch(new auth.Login(data));
         }else{
             if(!value.username)

@@ -19,8 +19,13 @@ export class PatientService {
         return this.httpService.getAnonymous(url);
     }
     updatePatient(data){
-        return this.httpService.postAnonymous('patient/'+data.id, data);
+        if(data.id)
+            return this.httpService.postAnonymous('patient/'+data.id, data);
+        else
+            return this.httpService.postAnonymous('patient', data);
     }
-
+    deletePatient(data) {
+        return this.httpService.postAnonymous('patient/delete/'+ data, {});
+    }
    
 }

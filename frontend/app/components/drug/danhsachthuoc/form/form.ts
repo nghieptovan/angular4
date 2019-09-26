@@ -25,6 +25,7 @@ declare var $;
 export class EditUpdateMedicine implements OnInit {
 
     @Input() isEdit: boolean;
+    @Input() currentMedicine: any;
     listTypeMedicineSub: any;
     listTypeMedicine: any = [];
     listDrugMedicineSub: any;
@@ -35,42 +36,42 @@ export class EditUpdateMedicine implements OnInit {
     listBehaviourMedicine: any = [];
     listUnitMedicineSub: any;
     listUnitMedicine: any = [];
-    currentMedicine: any;
-    defaultCurrentMedicine: any = {
-        "id": 0,
-        "name": "",
-        "display_name": "",
-        "description": "",
-        "amount": 0,
-        "typemedicine_id": 0,
-        "behaviourmedicine_id": 0,
-        "sellprice": 0,
-        "importedprice": 0,
-        "drug_id": 0,
-        "patentmedicine_id": 0,
-        "unit_id": 0,
-        "type_medicine": {
-          "name": "",
-          "code": ""
-        },
-        "behaviour_medicine": {
-          "name": "",
-          "code": ""
-        },
-        "unit": {
-          "name": "",
-          "code": ""
-        },
-        "drug": {
-          "code": "",
-          "name": ""
-        },
-        "patent_medicine": {
-          "name": "",
-          "code": ""
-        }
-      };
-    currentMedicineSub: any;
+    // currentMedicine: any;
+    // defaultCurrentMedicine: any = {
+    //     "id": 0,
+    //     "name": "",
+    //     "display_name": "",
+    //     "description": "",
+    //     "amount": 0,
+    //     "typemedicine_id": 0,
+    //     "behaviourmedicine_id": 0,
+    //     "sellprice": 0,
+    //     "importedprice": 0,
+    //     "drug_id": 0,
+    //     "patentmedicine_id": 0,
+    //     "unit_id": 0,
+    //     "type_medicine": {
+    //       "name": "",
+    //       "code": ""
+    //     },
+    //     "behaviour_medicine": {
+    //       "name": "",
+    //       "code": ""
+    //     },
+    //     "unit": {
+    //       "name": "",
+    //       "code": ""
+    //     },
+    //     "drug": {
+    //       "code": "",
+    //       "name": ""
+    //     },
+    //     "patent_medicine": {
+    //       "name": "",
+    //       "code": ""
+    //     }
+    //   };
+    // currentMedicineSub: any;
     showPatent: boolean = false;
     showDrug: boolean = false;
     
@@ -144,28 +145,20 @@ export class EditUpdateMedicine implements OnInit {
                 this.globalService.setSessionData('listUnitMedicine', this.listUnitMedicine);
             }
         });
-        this.currentMedicineSub = this.store.select(fromRoot.getCurrentMedicine).subscribe((medicine) => {
-            if(medicine && medicine.code == 200 && medicine.data){               
-                this.currentMedicine = medicine.data;
-            }
-            if(!this.isEdit){
-                this.currentMedicine = this.defaultCurrentMedicine;
-            }
-        });
-        
-        
+              
     }
     ngOnInit() {
         console.log(this.isEdit);
         
-        if(this.isEdit){
-            const idMedicine = this.activatedRoute.params['value'].id;
-            if(idMedicine){
-                this.loadMedicine(idMedicine);
-            }
-        }else{
-            this.currentMedicine = this.defaultCurrentMedicine;
-        }
+        // if(this.isEdit){
+        //     const idMedicine = this.activatedRoute.params['value'].id;
+        //     if(idMedicine){
+        //         this.loadMedicine(idMedicine);
+        //     }
+        // }
+        // else{
+        //     this.currentMedicine = this.defaultCurrentMedicine;
+        // }
 
         
     }

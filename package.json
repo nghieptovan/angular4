@@ -14,10 +14,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "build": "ng build --env=dev --aot --no-sourcemap --deploy-url=pm",
-        "build-shop": "ng build --env=prod --prod --aot --no-sourcemap --deploy-url=pm",
-        "build-dev": "ng build --env=develop --prod --aot --no-sourcemap --deploy-url=pm",
-        "build-stag": "ng build --env=stag --prod --aot --no-sourcemap --deploy-url=pm",
+        "build": "ng build --env=prod --extractCss=true --prod --aot --no-sourcemap --deploy-url=",
         "dev": "ng serve --open --env=develop",
         "stag": "ng serve --open --env=stag"
     },

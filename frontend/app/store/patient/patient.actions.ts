@@ -16,6 +16,10 @@ export const LOAD_PATIENT_BY_ID = '[PATIENT] LoadPatientById';
 export const LOAD_PATIENT_BY_ID_SUCCESS = '[PATIENT] successfully LoadPatientById';
 export const LOAD_PATIENT_BY_ID_FAILED = '[PATIENT] failed to LoadPatientById';
 
+export const DELETE_PATIENT = '[PATIENT] delete patient';
+export const DELETE_PATIENT_SUCCESS = '[PATIENT] successfully delete patient';
+export const DELETE_PATIENT_FAILED = '[PATIENT] failed to delete patient';
+
 //list patient
 export class ListPatient implements Action {
     readonly type = LIST_PATIENT;
@@ -63,10 +67,26 @@ export class LoadPatientByIdSuccess implements Action {
     readonly type = LOAD_PATIENT_BY_ID_SUCCESS;
     constructor(public payload: any) { }
 }
+//delete patient by id
+export class DeletePatient implements Action {
+    readonly type = DELETE_PATIENT;
+    constructor(public payload: any) { }
+}
+
+export class DeletePatientSuccess implements Action {
+    readonly type = DELETE_PATIENT_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+export class DeletePatientFailed implements Action {
+    readonly type = DELETE_PATIENT_FAILED;
+    constructor(public payload: any) { }
+}
 
 
 export type PatientActions =
 ListPatient | ListPatientFailed | ListPatientSuccess
 | UpdatePatient | UpdatePatientFailed | UpdatePatientSuccess
 | LoadPatientById | LoadPatientByIdFailed | LoadPatientByIdSuccess
+| DeletePatient | DeletePatientFailed | DeletePatientSuccess
 ;

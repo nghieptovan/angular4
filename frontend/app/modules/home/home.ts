@@ -21,13 +21,13 @@ export class LotteFashion {
     isTopBanner$: Observable<any>;
     isLoading: boolean = false;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService) {
-        const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
+        // const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
         
-        if(employeeInfo && employeeInfo.username){
-            console.log(employeeInfo);
-        }else{
-            this.router.navigate(['login']);
-        }
+        // if(employeeInfo && employeeInfo.username){
+        //     console.log(employeeInfo);
+        // }else{
+        //     this.router.navigate(['login']);
+        // }
     }
     ngOnInit(){
         

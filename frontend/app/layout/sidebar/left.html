@@ -30,7 +30,9 @@
    
            <li class=" nav-item"><a routerLink="/benh-nhan"><i class="ft-message-square"></i><span data-i18n="" class="menu-title">Bệnh nhân</span></a>
            </li>
-           <li class=" nav-item"><a routerLink="/tai-khoan"><i class="ft-file-text"></i><span data-i18n="" class="menu-title">Tài khoản</span></a>
+           <li *ngIf="isAdmin" class="nav-item"><a routerLink="/tai-khoan"><i class="ft-file-text"></i><span data-i18n="" class="menu-title">Tài khoản</span></a>
+           </li>
+           <li class="nav-item"><a routerLink="/thuoc"><i class="ft-file-text"></i><span data-i18n="" class="menu-title">Danh sách thuốc</span></a>
            </li>
           <li class="has-sub nav-item">
               <a href="javascript:void(0)"><i class="ft-aperture"></i><span data-i18n="" class="menu-title">Quản lí thuốc</span></a>

@@ -9,6 +9,7 @@ export interface State {
     listPatient: any;
     updatePatient: any;
     currentPatient: any;
+    deletePatient: any;
 }
 
 const initialState: State = {
@@ -16,7 +17,8 @@ const initialState: State = {
     loading: false,
     listPatient: null,
     updatePatient: null,
-    currentPatient: null
+    currentPatient: null,
+    deletePatient: null
 };
 
 export function reducer(state = initialState, action: patient.PatientActions): State {
@@ -142,6 +144,31 @@ export function reducer(state = initialState, action: patient.PatientActions): S
                 errorMessage: AppHelpers.getErrorMessage(action.payload.message)
             });
         }
+
+        case patient.DELETE_PATIENT: {
+            return Object.assign({}, state, {
+                loading: true,
+                loaded: false,
+                deletePatient: null
+            });
+        }
+
+        case patient.DELETE_PATIENT_SUCCESS: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                deletePatient: action.payload
+            });
+        }
+
+        case patient.DELETE_PATIENT_FAILED: {
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                deletePatient: null,
+                errorMessage: AppHelpers.getErrorMessage(action.payload)
+            });
+        }
        
         default:
             return state;
@@ -170,5 +197,6 @@ export const getLoadingState = (state: State) => state.loading;
 export const getListPatient = (state: State) => state.listPatient;
 export const getCurrentPatient = (state: State) => state.currentPatient;
 export const getUpdatePatient = (state: State) => state.updatePatient;
+export const getDeletePatient = (state: State) => state.deletePatient;
 
 

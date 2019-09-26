@@ -24,15 +24,43 @@ export class AuthEffects {
     }
 
     // Login
-    @Effect()
-    login$ = this._actions.ofType(auth.LOGIN)
+    @Effect() login$ = this._actions.ofType(auth.LOGIN)
         .switchMap((action) => {
-            return this.authService.login(action.payload)
-                .map((token) => {
-                    return new auth.LoginSuccess(token.json());
-                }).catch((error) => {
-                    return Observable.of(new auth.LoginFailed(error));
-                });
+            const currentTimestamp = new Date().getTime();
+            const lastSavedTimestamp = localStorage.getItem('loggedTimestamp') ? Number.parseInt(localStorage.getItem('loggedTimestamp')) : 0;
+            const secondsAfterSaved = Math.floor(((currentTimestamp - lastSavedTimestamp) / 1000));
+            const loggedUser = localStorage.getItem('loggedUser');
+            if (secondsAfterSaved > 604800 || !loggedUser) {
+                return this.authService.login(action.payload)
+                    .map((loggedUser) => {
+                        if(loggedUser.code == 200){
+                            let data = loggedUser.data;
+                            delete data.password;
+                            localStorage.setItem('loggedUser', JSON.stringify(data));
+                            localStorage.setItem('loggedTimestamp', currentTimestamp.toString());
+                            return new auth.LoginSuccess(data);
+                        }else{
+                            return new auth.LoginFailed(loggedUser);
+                        }                       
+                    }).catch((error) => {
+                        return Observable.of(new auth.LoginFailed(error));
+                    });
+            } else {    
+                return Observable.of(new auth.LoginSuccess(JSON.parse(loggedUser)));            
+            }
+        });
+    // Login
+    @Effect() GetCurrentUser$ = this._actions.ofType(auth.CURRENT_USER)
+        .switchMap((action) => {
+            const currentTimestamp = new Date().getTime();
+            const lastSavedTimestamp = localStorage.getItem('loggedTimestamp') ? Number.parseInt(localStorage.getItem('loggedTimestamp')) : 0;
+            const secondsAfterSaved = Math.floor(((currentTimestamp - lastSavedTimestamp) / 1000));
+            const loggedUser = localStorage.getItem('loggedUser');
+            if (secondsAfterSaved > 604800 || !loggedUser) {
+                return Observable.of(new auth.GetCurrentUserSuccess({data: loggedUser, status: false}));
+            } else {    
+                return Observable.of(new auth.GetCurrentUserSuccess({data: JSON.parse(loggedUser), status: true}));            
+            }
         });
     // Get account by ID
     @Effect()
@@ -46,35 +74,13 @@ export class AuthEffects {
                 });
         });
 
-    @Effect()
-    loginUsingFacebook$ = this._actions.ofType(auth.LOGIN_FACEBOOK)
-        .switchMap((action) => {
-            return this.authService.loginFacebook(action.payload)
-                .map((resp) => {
-                    const data = resp.json();
-                    if (data.status && data.customer_token) {
-                        this.globalService.syncCustomerCookies();
-                        setTimeout(() => {
-                            localStorage.setItem('isFacebookLoggedIn', '1');
-                        }, 1000);
-                        return new auth.LoginSuccess(data.customer_token);
-                    }
-                    return new auth.LoginFailed(resp.json());
-                }).catch((error) => {
-                    return Observable.of(new auth.LoginFailed(error));
-                });
-        });
-
     // Logouterr
     @Effect()
     logout$ = this._actions.ofType(auth.LOGOUT)
         .switchMap((action) => {
-            return this.authService.logout()
-                .map((data) => {
-                    return new auth.LogoutSuccess(data);
-                }).catch((error) => {
-                    return Observable.of(new auth.LogoutFailed(error));
-                });
+            localStorage.removeItem('loggedUser');
+            localStorage.removeItem('loggedTimestamp');
+            return Observable.of(new auth.LogoutSuccess({status: false}));
         });
 
     // Forgot password

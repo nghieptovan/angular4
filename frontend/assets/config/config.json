@@ -2,6 +2,10 @@
     "MIN_LENGTH_6": {
         "length": 6,
         "text": "Vui lòng nhập tối thiểu 6 kí tự"
+    },
+    "TEXT_LABEL": {
+        "update_patient": "Cập nhật bệnh nhân",
+        "add_patient": "Thêm bệnh nhân"
     }
 }
 

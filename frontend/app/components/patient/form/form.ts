@@ -101,7 +101,7 @@ export class EditUpdatePatient implements OnInit {
     const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
     if(form.valid){
         const data = {
-            id: this.patient$.id,
+            id: this.patient$.id  == 0 ? null : this.patient$.id,
             name: value.name,
             phone: value.phone,
             address: value.address,

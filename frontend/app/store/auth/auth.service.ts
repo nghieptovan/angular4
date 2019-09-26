@@ -13,7 +13,7 @@ export class AuthService {
     }
 
     login(data) {
-        return this.httpService.postAnonymous('employee/login', data);
+        return this.httpService.postAnonymous('employee/login', data).map((data) => data.json());
     }
     
     getAccountById(id){

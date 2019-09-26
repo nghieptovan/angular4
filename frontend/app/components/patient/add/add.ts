@@ -41,6 +41,7 @@ export class AddPatient {
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute,
                 ) {
+      console.log('add patient');
       
     }
 

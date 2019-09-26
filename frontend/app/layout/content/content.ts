@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,34 +12,24 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./content.less']
 })
 export class AppContent {
+    @Input() user: any;
     isLoginPage: boolean = false;
+    isContentPage: boolean = false;
     isLoginSub: any;
     constructor(private router: Router, private store: Store<fromRoot.AppState>,private toastr: ToastrService) {
-        const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
-        // console.log(employeeInfo);
-        if(!employeeInfo){
-            if(!window.location.pathname.includes('login')){
-                this.router.navigate(['login']);
-            }
-            this.isLoginPage = true; 
-        }else{
-            this.store.dispatch(new auth.LoadAccountById(employeeInfo.id));
-            if(window.location.pathname.includes('login')){
-                this.router.navigate(['benh-nhan']);
-            }
-            this.isLoginPage = false;
-            
-        }
-
-        this.isLoginSub = this.store.select(fromRoot.authGetLoggedInState).subscribe((isLogin) => {
-            if(isLogin){
-                this.isLoginPage = false;
-            }else{
+        this.isLoginSub = this.store.select(fromRoot.getLoggedIn).subscribe((getLoggedIn) => {
+            if(getLoggedIn == 3){
                 this.isLoginPage = true;
-            }
+                this.router.navigate(['login']); 
+            }            
         });
+        console.log(this.isLoginPage);
+        
     }
   
+    ngOnInit() {
+     
+    }
     ngOnDestroy() {
         this.isLoginSub.unsubscribe();
     }

@@ -64,6 +64,17 @@ export class PatientEffects {
             }
 
         });
-        
+            // delete account
+    @Effect()
+    deleteAccount$ = this._actions.ofType(patient.DELETE_PATIENT)
+        .switchMap((action) => {
+            return this.patientService.deletePatient(action.payload)
+                .map((resp) => {
+                    const data = resp.json();
+                    return new patient.DeletePatientSuccess(data);
+                }).catch((error) => {
+                    return Observable.of(new patient.DeletePatientFailed(error));
+                });
+        });
         
 }

@@ -5,13 +5,14 @@ import { Action } from '@ngrx/store';
  each of the stages of the request.
  */
 export const LOGIN = '[LOGIN] loging in';
-export const LOGIN_FACEBOOK = '[LOGIN] logging in using facebook';
 export const LOGIN_SUCCESS = '[LOGIN] successfully logged in';
 export const LOGIN_FAILED = '[LOGIN] failed to login';
 
+export const CURRENT_USER = '[USER] get current user';
+export const CURRENT_USER_SUCCESS = '[USER] successfully get current user';
+
 export const LOGOUT = '[LOGOUT] Logging out';
 export const LOGOUT_SUCCESS = '[LOGOUT] successfully logged out';
-export const LOGOUT_FAILED = '[LOGOUT] failed to log out';
 
 export const FORGOT_PASSWORD = '[FORGOT PASSWORD] Forgot password';
 export const FORGOT_PASSWORD_SUCCESS = '[FORGOT PASSWORD] successfully forgot password';
@@ -26,22 +27,34 @@ export const GET_ACCOUNT_BY_ID_SUCCESS = '[LOGIN] successfully loaded account by
 export const GET_ACCOUNT_BY_ID_FAILED = '[LOGIN] failed to load account by Id';
 
 
+export class GetCurrentUser implements Action {
+    readonly type = CURRENT_USER;
+    constructor() { }
+}
+export class GetCurrentUserSuccess implements Action {
+    readonly type = CURRENT_USER_SUCCESS;
+    constructor(public payload: any) {
+    }
+}
+
 export class Login implements Action {
     readonly type = LOGIN;
     constructor(public payload: any) { }
 }
-
-export class LoginFacebook implements Action {
-    readonly type = LOGIN_FACEBOOK;
-    constructor(public payload: any) { }
+export class LoginSuccess implements Action {
+    readonly type = LOGIN_SUCCESS;
+    constructor(public payload: any) {
+    }
 }
-
 export class LoginFailed implements Action {
     readonly type = LOGIN_FAILED;
 
     constructor(public payload: any) {
     }
 }
+
+
+
 export class LoadAccountById implements Action {
     readonly type = GET_ACCOUNT_BY_ID;
     constructor(public payload: any) { }
@@ -58,21 +71,11 @@ export class LoadAccountByIdFailed implements Action {
     constructor(public payload: any) {
     }
 }
-export class LoginSuccess implements Action {
-    readonly type = LOGIN_SUCCESS;
-    constructor(public payload: any) {
-    }
-}
+
 
 export class Logout implements Action {
     readonly type = LOGOUT;
-    constructor(public payload: any) { }
-}
-
-export class LogoutFailed implements Action {
-    readonly type = LOGOUT_FAILED;
-    constructor(public payload: any) {
-    }
+    constructor() { }
 }
 
 export class LogoutSuccess implements Action {
@@ -112,8 +115,8 @@ export class ResetAuthMsgErrors implements Action {
 export type AuthActions =
     Login | LoginFailed | LoginSuccess |
     LoadAccountById | LoadAccountByIdFailed | LoadAccountByIdSuccess |
-    LoginFacebook |
-    Logout | LogoutFailed | LogoutSuccess |
+    Logout | LogoutSuccess |
     ForgotPassword | ForgotPasswordFailed | ForgotPasswordSuccess |
-    RefreshPage | ResetAuthMsgErrors;
+    RefreshPage | ResetAuthMsgErrors
+     | GetCurrentUser | GetCurrentUserSuccess;
 

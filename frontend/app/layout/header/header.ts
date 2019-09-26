@@ -22,23 +22,22 @@ declare var $;
 })
 
 export class AppHeader {
-    
+
+    userInfoSub: any;
+    userInfo: any;
+
     constructor(private store: Store<fromRoot.AppState>, private router: Router,
         private domSanitizer: DomSanitizer,
         private dispatcher: Dispatcher, private dialogService: DialogService,
         private globalService: GlobalService, private cookieService: CookieService) {
-        // const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
-        // if(!employeeInfo){
-        //     window.location.assign('/login');
-        // }
-        
+
+        this.store.select(fromRoot.getLoggedIn).subscribe((getLoggedIn) => {
+            if(getLoggedIn == 3){
+                this.router.navigate(['login']); 
+            }            
+        });
     }
     signOut() {
-        localStorage.removeItem('employeeInfo');
-        window.location.assign('/login');
-        // this.router.navigate[('login')];
-    }
-    ngAfterViewInit(){
-        
+        this.store.dispatch(new auth.Logout());     
     }
 }

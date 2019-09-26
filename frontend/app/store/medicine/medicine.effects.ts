@@ -74,14 +74,19 @@ export class MedicineEffects {
     // Load patent_medicine
     @Effect()
     loadPatentMedicine$ = this._actions.ofType(medicine.LOAD_PATENT_MEDICINE)
-        .switchMap((action) => {
-        return this.medicineService.loadPatentMedicine(action.payload)
+    .switchMap((action) => {
+        const listPatentMedicine = this.globalService.getSessionData('listPatentMedicine')
+        if (listPatentMedicine) {
+            return Observable.of(new medicine.LoadPatentMedicineSuccess({data: listPatentMedicine, id: action.payload}));
+        } else {    
+            return this.medicineService.loadPatentMedicine(action.payload)
             .map((resp) => {
-                return new medicine.LoadPatentMedicineSuccess({data: resp.json(), id: action.payload});
+                return new medicine.LoadPatentMedicineSuccess({data: resp.data, id: action.payload});
             }).catch((error) => {
                 return Observable.of(new medicine.LoadPatentMedicineFailed(error));
             });
-    });  
+        }
+    });
 
     // Load unit_medicine
     @Effect()

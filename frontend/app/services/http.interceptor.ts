@@ -72,7 +72,7 @@ export class InterceptedHttp extends Http {
         options?: RequestOptionsArgs
     ): Observable<Response> {
         const listUrl = this.getExceptionListUrl();
-        const elsEndPoint = AppConstants.ELASTIC_API_ENDPOINT;
+        // const elsEndPoint = AppConstants.ELASTIC_API_ENDPOINT;
         const isCheckoutPage = window.location.href.includes('checkout');
         const isCheckoutStep2 = window.location.href.includes('checkout?step=2');
         const isExcept = _.findIndex(listUrl, (pattern) => {
@@ -81,7 +81,7 @@ export class InterceptedHttp extends Http {
         // Exception apis
         if (isExcept // In exception list
             || res['url'].includes('integration/tracking-code') // Is tracking code api
-            || (elsEndPoint && res['url'].toString().includes(elsEndPoint)) // are els apis
+            // || (elsEndPoint && res['url'].toString().includes(elsEndPoint)) // are els apis
             || res['url'].toString().includes('lotte_cart/shipping-rule') // shipping rule in step 2
             || res['url'].includes('multi-homepages/section-store-hot-product')
             || res['url'].includes('multi-homepages/section-top-promotions')

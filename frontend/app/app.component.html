@@ -1,4 +1,9 @@
-<div class="wrapper">
-        <app-content></app-content>
+<div class="wrapper nav-collapsed menu-collapsed">
+        <left-sidebar *ngIf="showHeader"></left-sidebar>  
+        <div class="main-panel">
+                <app-header *ngIf="showSidebar"></app-header>         
+                <app-content></app-content>
+                <app-footer *ngIf="showFooter"></app-footer>
+        </div>        
 </div>
 

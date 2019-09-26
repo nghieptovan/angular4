@@ -23,8 +23,8 @@
                                                 </thead>
                                                 <tbody>                                         
                                                     <tr *ngFor="let med of medicine">
-                                                        <td>{{med?.drug?.name}}</td>
-                                                        <td>{{med?.patent_medicine?.name}}</td>
+                                                        <td>{{med?.drug_id != 0 ? med?.drug?.name : med?.name}}</td>
+                                                        <td>{{med?.patentmedicine_id != 0 ? med?.patent_medicine?.name : med?.display_name}}</td>
                                                         <td>{{med?.description}}</td>
                                                         <td>{{med?.importedprice.toString().toVndCurrency()}}</td>
                                                         <td>{{med?.sellprice.toString().toVndCurrency()}}</td>

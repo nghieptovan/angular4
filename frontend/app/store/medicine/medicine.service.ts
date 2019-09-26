@@ -33,7 +33,7 @@ export class MedicineService {
 
     loadPatentMedicine(data){
         let url = data != 0 ? 'patentmedicine/' + data : 'patentmedicine';
-        return this.httpService.getAnonymous(url);
+        return this.httpService.getAnonymous(url).map((data) => data.json());;
     }
 
     loadUnitMedicine(data){

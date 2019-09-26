@@ -97,12 +97,12 @@ Authorize
  */
 
 export const authGetState = (state: AppState) => state.auth;
-
 export const authGetLoadingState = createSelector(authGetState, fromAuth.getLoadingState);
-
 export const authGetLoggedInState = createSelector(authGetState, fromAuth.getLoggedInState);
-
 export const authGetErrorMessage = createSelector(authGetState, fromAuth.getErrorMessage);
+export const getLoginUser = createSelector(authGetState, fromAuth.getLoginUser);
+export const getLoggedOut = createSelector(authGetState, fromAuth.getLoggedOut);
+export const getLoggedIn = createSelector(authGetState, fromAuth.getLoggedIn);
 /*
 Bill
  */
@@ -150,6 +150,7 @@ export const patientGetLoadingState = createSelector(patientGetState, fromPatien
 export const patientGetListPatient = createSelector(patientGetState, fromPatient.getListPatient);
 export const patientCurrentPatient = createSelector(patientGetState, fromPatient.getCurrentPatient);
 export const patientUpdatePatient = createSelector(patientGetState, fromPatient.getUpdatePatient);
+export const patientDeletePatient = createSelector(patientGetState, fromPatient.getDeletePatient);
 
 /*
 Account

@@ -7,13 +7,19 @@ export interface State {
     loading: boolean;
     isLoggedIn: boolean;
     errorMessage: any;
+    loginUser: any;
+    loggedOut: number; 
+    loggedIn: number; 
 }
 
 const initialState: State = {
     loaded: false,
     loading: false,
     isLoggedIn: false,
-    errorMessage: null
+    errorMessage: null,
+    loginUser: null,
+    loggedOut: 0,
+    loggedIn: 0
 };
 
 export function reducer(state = initialState, action: auth.AuthActions): State {
@@ -49,24 +55,49 @@ export function reducer(state = initialState, action: auth.AuthActions): State {
             });
         }
 
+        case auth.CURRENT_USER: {
+            return Object.assign({}, state, {
+                errorMessage: null,
+                loading: true,
+                loggedIn: 1
+            });
+        }
+
+        case auth.CURRENT_USER_SUCCESS: {
+            let { data, status } = action.payload;
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                isLoggedIn: status,
+                loginUser: status ? data : null,
+                loggedIn: status ? 2 : 3,
+                errorMessage: null
+            });
+        }
+
         case auth.LOGIN: {
             return Object.assign({}, state, {
                 errorMessage: null,
-                loading: true
+                loading: true,
+                loggedIn: 1
+            });
+        }
+
+        case auth.LOGOUT: {
+            return Object.assign({}, state, {
+                loggedOut: 1
             });
         }
 
         case auth.LOGIN_SUCCESS: {
-            if(action.payload.code == 200)
-                localStorage.setItem('employeeInfo', JSON.stringify(action.payload.data));
-            else{
-                localStorage.removeItem('employeeInfo');
-            }
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
-                isLoggedIn: action.payload.code == 200 ? true : false,
-                errorMessage: action.payload.message
+                isLoggedIn: true,
+                loginUser: action.payload,
+                errorMessage: null,
+                loggedOut: 2,
+                loggedIn: 2
             });
         }
 
@@ -75,30 +106,18 @@ export function reducer(state = initialState, action: auth.AuthActions): State {
                 loaded: true,
                 loading: false,
                 isLoggedIn: false,
+                loggedIn: 3,
                 errorMessage: action.payload.message
             });
         }
 
-        case auth.LOGOUT: {
-            return Object.assign({}, state, {
-                loading: true
-            });
-        }
-
         case auth.LOGOUT_SUCCESS: {
-            clearLocalStorage();
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
-                isLoggedIn: false
-            });
-        }
-
-        case auth.LOGOUT_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                isLoggedIn: true
+                loginUser: null,
+                isLoggedIn: false,
+                loggedIn: 3
             });
         }
 
@@ -177,3 +196,6 @@ function clearLocalStorage() {
 export const getLoadingState = (state: State) => state.loading;
 export const getLoggedInState = (state: State) => state.isLoggedIn;
 export const getErrorMessage = (state: State) => state.errorMessage;
+export const getLoginUser = (state: State) => state.loginUser;
+export const getLoggedOut = (state: State) => state.loggedOut;
+export const getLoggedIn = (state: State) => state.loggedIn;

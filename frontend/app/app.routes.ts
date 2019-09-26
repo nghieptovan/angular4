@@ -18,7 +18,8 @@ const definedRoutes: Routes = [
     },
     {
         path: 'login',
-        loadChildren: './modules/login/login.module#LoginModule'
+        loadChildren: './modules/login/login.module#LoginModule',
+        data: { showHeader: false, showSidebar: false, showFooter: false }
     },
     {
         path: 'benh-nhan',

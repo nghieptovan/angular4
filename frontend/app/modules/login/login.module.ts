@@ -7,7 +7,7 @@ import { AppCommonModule } from '../../app.common.module';
 import { LoginPage } from './login';
 
 const routes: Routes = [
-    { path: '', component: LoginPage }
+    { path: '', component: LoginPage}
 ];
 @NgModule({
     imports: [

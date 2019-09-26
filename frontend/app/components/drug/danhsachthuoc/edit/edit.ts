@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import { AppConstants } from '../../../../app.constant';
 import * as fromRoot from '../../../../store';
-import * as account from '../../../../store/account/account.actions';
+import * as medicine from '../../../../store/medicine/medicine.actions';
 
 declare var $;
 // Redux
@@ -22,15 +22,9 @@ export class CapNhatThuoc {
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
     customers: any = {};
 
-    dispatcherSub: any;
-    createAccountSub: any;
-    roleSet: any;
-    usernameMessage: any;
-    passwordMessage: any;
-    roleMessage: any;
-    fullnameMessage: any;
-    roleId: any;
-    showRole: boolean = false;
+    currentMedicineSub: any;
+    currentMedicine: any;
+
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
                 private elementRef: ElementRef,
@@ -38,9 +32,23 @@ export class CapNhatThuoc {
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute) {
 
+            this.activatedRoute.params.subscribe(routeParams => {
+                if(routeParams.id){
+                    this.store.dispatch(new medicine.ListMedicine(routeParams.id));        
+                }                
+            });
+
+            this.currentMedicineSub = this.store.select(fromRoot.getCurrentMedicine).subscribe((medicine) => {
+                if(medicine && medicine.code == 200 && medicine.data){               
+                    this.currentMedicine = medicine.data;
+                }
+            });
       
     }
 
+    ngOnDestroy() {
+        this.currentMedicineSub.unsubcribe();
+    }
     goToList(){
         this.router.navigate(['/thuoc']);
     }

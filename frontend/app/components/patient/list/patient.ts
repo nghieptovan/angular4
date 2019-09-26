@@ -59,19 +59,19 @@ export class Patient {
                 }
             }
         });
-        // this.deleteAccountSub = this.store.select(fromRoot.accountGetDeleteAccount).subscribe((account) => {
-        //     if(account){
-        //         if(account.code == 200){
-        //             this.toastr.show(account.message);
-        //             this.listAccount  = _.filter(this.listAccount, (item) => { return item.id != this.selectedId; });
-        //             this.selectedId = null;
-        //             this.toastr.success(account.message);
-        //         }else{
-        //             this.toastr.error(account.message);
-        //             this.errorMessage = account.message;
-        //         }
-        //     }
-        // });
+        this.deleteAccountSub = this.store.select(fromRoot.patientDeletePatient).subscribe((patient) => {
+            if(patient){
+                if(patient.code == 200){
+                    this.toastr.show(patient.message);
+                    this.patients  = _.filter(this.patients, (item) => { return item.id != this.selectedId; });
+                    this.selectedId = null;
+                    this.toastr.success(patient.message);
+                }else{
+                    this.toastr.error(patient.message);
+                    this.errorMessage = patient.message;
+                }
+            }
+        });
         
         
     }
@@ -111,6 +111,6 @@ export class Patient {
     
     deleteAccount(id){
         this.selectedId = id;
-        this.store.dispatch(new account.DeleteAccount(id));
+        this.store.dispatch(new patient.DeletePatient(id));
     }
 }

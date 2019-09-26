@@ -131,46 +131,13 @@ export class CommonEffects {
 
     @Effect() detectCurrentLocation$ = this._actions.ofType(common.DETECT_CURRENT_LOCATION)
         .switchMap((action) => {
-            const currentLocation = JSON.parse(sessionStorage.getItem('currentLocation'));
-            if (currentLocation && currentLocation.region_id) {
-                AppConstants.DEFAULT_REGION.CITY_ID = currentLocation.region_id;
-                AppConstants.DEFAULT_REGION.DISTRICT_ID = currentLocation.district_id;
-                return Observable.of(new common.DetectCurrentLocationSuccess(currentLocation));
-            } else {
-                return this.commonService.getCurrentLocation(action.payload.latitude, action.payload.longitude)
-                    .map((resp) => {
-                        let location = resp.json();
-                        if(location && location.region_id){
-                            AppConstants.DEFAULT_REGION.CITY_ID = location.region_id;
-                            AppConstants.DEFAULT_REGION.DISTRICT_ID = location.district_id;
-                        } else {
-                            location.region_id = 1086;
-                            location.district_id = 711;
-                        }
-                        sessionStorage.setItem('currentLocation', JSON.stringify(location));
-                        return new common.DetectCurrentLocationSuccess(location);
-                    }).catch(err => {
-                        sessionStorage.setItem('currentLocation', JSON.stringify({'region_id':1086,'district_id':711}));
-                        return Observable.of(new common.DetectCurrentLocationFailed(err));
-                    });
-            }
+            return Observable.of(new common.DetectCurrentLocationFailed({}));
 
         });
 
     @Effect() loadTrackingCode$ = this._actions.ofType(common.LOAD_TRACKING_CODE)
         .switchMap((action) => {
-            if (AppConstants.DISABLED_TRACKING_CODE) {
-                return Observable.of();
-            } else {
-                return this.commonService.loadTrackingCode(action.payload.type, action.payload.id, action.payload.q)
-                    .map((resp) => {
-                        this.globalService.loadTrackingCodeScript(resp.json());
-                        return new common.LoadTrackingCodeSuccess(resp.json());
-                    }).catch(err => {
-                        this.globalService.removeTrackingCode();
-                        return Observable.of(new common.LoadTrackingCodeFailed(err));
-                    });
-            }
+            return Observable.of(new common.DetectCurrentLocationFailed({}));
         });
 
     @Effect() subscribeNewsLetter$ = this._actions.ofType(common.SUBSCRIBE_NEWSLETTER)

@@ -1,5 +1,5 @@
 import { Component, HostListener, ElementRef } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router, NavigationEnd } from '@angular/router';
 import { Dispatcher, Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { DialogService } from 'ng2-bootstrap-modal';
@@ -26,7 +26,11 @@ declare var $;
 
 export class AppComponent {
     isLoginPage: boolean = false;
-
+    userInfoSub: any;
+    user: any;
+    showHeader: boolean;
+    showSidebar: boolean;
+    showFooter: boolean;
     constructor(private router: Router, private activatedRoute: ActivatedRoute,
         private store: Store<fromRoot.AppState>,
         private dispatcher: Dispatcher,
@@ -36,12 +40,37 @@ export class AppComponent {
         private globalService: GlobalService,
         private location: PlatformLocation
     ) {
+        this.store.dispatch(new auth.GetCurrentUser());
         this.store.dispatch(new account.LoadJsonConfig('../assets/config/config.json'));
         formvalidation();
         datetimePicker();
-        // console.log('run');
+
+        // this.userInfoSub = this.store.select(fromRoot.getLoginUser).subscribe( (user) => {
+        //     if(user && user.id){
+        //         this.user = user;
+        //     }else{
+        //         this.router.navigate(['login']);
+        //     }  
+        // });
+        this.store.select(fromRoot.getLoggedIn).subscribe((getLoggedIn) => {
+            if(getLoggedIn == 3){
+                // this.router.navigate([{ outlets: { login: [ 'login'] }}]);
+            }            
+        });
 
         
+    }
+    
+    ngOnInit() {
+        this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+            console.log(this.activatedRoute.firstChild.snapshot.data);
+            
+            this.showHeader = this.activatedRoute.firstChild.snapshot.data.showHeader !== false;
+            this.showSidebar = this.activatedRoute.firstChild.snapshot.data.showSidebar !== false;
+            this.showFooter = this.activatedRoute.firstChild.snapshot.data.showFooter !== false;
+        }
+        });
     }
 
 
