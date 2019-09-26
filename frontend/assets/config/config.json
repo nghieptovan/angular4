@@ -4,8 +4,12 @@
         "text": "Vui lòng nhập tối thiểu 6 kí tự"
     },
     "TEXT_LABEL": {
-        "update_patient": "Cập nhật bệnh nhân",
-        "add_patient": "Thêm bệnh nhân"
+        "back_txt": "Trở về",
+        "patient_update": "Cập nhật bệnh nhân",
+        "patient_add": "Thêm bệnh nhân",
+        "employee_update": "Cập nhật nhân viên",
+        "employee_add": "Thêm nhân viên",
+        "employee_manage": "Quản lý nhân viên"
     }
 }
 

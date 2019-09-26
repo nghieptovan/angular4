@@ -21,61 +21,23 @@ declare global {
     }
 }
 
-// String.prototype.toStaticUrl = function () {
-//     if (this.startsWith('/')) {
-//         return AppConstants.STORE_CONFIG.STATIC_URL + this.replace('/', '');
-//     }
-//     return AppConstants.STORE_CONFIG.STATIC_URL + this;
-// };
 
-// String.prototype.toMediaUrl = function () {
-//     if (this.startsWith('/')) {
-//         return AppConstants.STORE_CONFIG.MEDIA_URL + this.replace('/', '');
-//     }
-//     return AppConstants.STORE_CONFIG.MEDIA_URL + this;
-// };
+String.prototype.toVndCurrency = function () {
+    if (this) {
+        return this.replace(/./g, (c, i, a) => {
+            return i && c !== ',' && ((a.length - i) % 3 === 0) ? '.' + c : c;
+        }) + ' đ';
+    }
+    return this;
+};
 
-// String.prototype.toBaseUrl = function () {
-//     return AppConstants.STORE_CONFIG.BASE_URL + this;
-// };
+String.prototype.padZero = function (zeroCount) {
+    return Array(Math.max(zeroCount - this.length + 1, 0)).join('0') + this;
+};
 
-
-// String.prototype.toHostName = function () {
-//     return AppConstants.HOST_NAME + this;
-// };
-
-
-// String.prototype.toLinkUrl = function () {
-//     return AppConstants.STORE_CONFIG.LINK_URL + this;
-// };
-
-// String.prototype.toProductUrl = function () {
-//     if (this.startsWith('/')) {
-//         return AppConstants.STORE_CONFIG.PRODUCT_BASE_URL + this.replace('/', '');
-//     }
-//     return AppConstants.STORE_CONFIG.PRODUCT_BASE_URL + this;
-// };
-
-// String.prototype.toVndCurrency = function () {
-//     if (this) {
-//         return this.replace(/./g, (c, i, a) => {
-//             return i && c !== ',' && ((a.length - i) % 3 === 0) ? '.' + c : c;
-//         }) + ' ' + AppConstants.STORE_CONFIG.CURRENCY_SYMBOL;
-//     }
-//     return this;
-// };
-
-// String.prototype.padZero = function (zeroCount) {
-//     return Array(Math.max(zeroCount - this.length + 1, 0)).join('0') + this;
-// };
-
-// String.prototype.removeHtmlTag = function (tagName) {
-//     return this.replace(/<script.*?<\/script>/i, '');
-// };
-
-// String.prototype.toSupportUrl = function () {
-//     return AppConstants.STORE_CONFIG.REDIRECT_URL + btoa(AppConstants.STORE_CONFIG.ZENDESK_SUPPORT_URL + this);
-// };
+String.prototype.removeHtmlTag = function (tagName) {
+    return this.replace(/<script.*?<\/script>/i, '');
+};
 
 String.prototype.toUrlKey = function () {
     if (this) {

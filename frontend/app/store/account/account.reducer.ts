@@ -8,24 +8,6 @@ import { AppConstants } from '../../app.constant';
 export interface State {
     loaded: boolean;
     loading: boolean;
-    info: any;
-    wishlist: any;
-    sharedWishlist: any;
-    orders: any;
-    orderDetail: any;
-    orderTracking: any;
-    lpoint: Number;
-    errorMessage: String;
-    isSubscribed: boolean;
-    pendingRatings: any;
-    ratedSellers: any;
-    QAs: any;
-    detailComment: any;
-    historyLpoint: any;
-    detailHistoryLpoint: any;
-    updateLpoint: any;
-    guestOrderTracking: any;
-    updateInfoError: any;
     accountInfo: any;
     createAccount: any;
     deleteAccount: any;
@@ -36,29 +18,11 @@ export interface State {
 const initialState: State = {
     loaded: false,
     loading: false,
-    info: {},
-    wishlist: [],
-    sharedWishlist: [],
-    orders: [],
-    orderDetail: {},
-    orderTracking: {},
-    lpoint: 0,
-    errorMessage: null,
-    isSubscribed: false,
-    pendingRatings: [],
-    ratedSellers: [],
-    QAs: [],
-    detailComment: {},
-    historyLpoint: {},
-    detailHistoryLpoint: {},
-    updateLpoint: {},
-    guestOrderTracking: {},
-    updateInfoError: null,
     accountInfo: null,
     createAccount: null,
     deleteAccount: null,
     updateAccount: null,
-    configJSON: {}
+    configJSON: null
 };
 
 export function reducer(state = initialState, action: account.AccountActions): State {
@@ -68,23 +32,18 @@ export function reducer(state = initialState, action: account.AccountActions): S
             let useConfig = AppConstants.USE_CONFIG_TEXT;
             let config = action.payload;
 
-            console.log(action.payload);
-            if(useConfig){
+            // console.log(action.payload);
+            if(!useConfig){
                 _.forOwn(config, (value, key) => {
-                    // console.log(key);
                     _.forOwn(value, (val, k) => {
-                        if(_.isNumber(val)){
-                            value.k = k;
-                        }    
-                        console.log(k, val);
+                        value[k] = k;
                     });
-                    
                 });
             }
-           console.log(config);
-           
+            //    console.log(config);
+            AppConstants.CONFIG_DATA = config;
             return Object.assign({}, state, {
-                configJSON: action.payload
+                configJSON: config
             });
         }
 
@@ -255,132 +214,6 @@ export function reducer(state = initialState, action: account.AccountActions): S
         }
 
         case account.LOAD_INFO_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false
-            });
-        }
-
-        case account.LOAD_WISHLIST: {
-            return Object.assign({}, state, {
-                loading: true
-            });
-        }
-
-        case account.LOAD_WISHLIST_SUCCESS: {
-            const payload = action.payload;
-            if (payload.id) {
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    sharedWishlist: payload.wishlist
-                });
-            } else {
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    wishlist: payload.wishlist
-                });
-            }
-
-        }
-
-        case account.LOAD_WISHLIST_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false
-            });
-        }
-
-        case account.UPDATE_WISHLIST: {
-            return Object.assign({}, state, {
-                loading: true
-            });
-        }
-
-        case account.UPDATE_WISHLIST_SUCCESS: {
-            const wishlist = action.payload;
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                wishlist: wishlist
-            });
-        }
-
-        case account.UPDATE_WISHLIST_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false
-            });
-        }
-
-        
-
-        case account.REFRESH_PAGE: {
-            const info = JSON.parse(localStorage.getItem('userInfo'));
-            return Object.assign({}, state, {
-                info: info ? info : {},
-                wishlist: []
-            });
-        }
-
-        case account.WISHLIST_ADD_PRODUCT: {
-            return Object.assign({}, state, {
-                loaded: false,
-                loading: true
-            });
-        }
-        case account.WISHLIST_ADD_PRODUCT_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false
-            });
-        }
-        case account.WISHLIST_ADD_PRODUCT_SUCCESS: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false
-            });
-        }
-
-        case account.WISHLIST_DELETE_PRODUCT: {
-            return Object.assign({}, state, {
-                loaded: false,
-                loading: true
-            });
-        }
-        case account.WISHLIST_DELETE_PRODUCT_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false
-            });
-        }
-        case account.WISHLIST_DELETE_PRODUCT_SUCCESS: {
-            const wishlistProductId = action.payload;
-            const wishlist = _.filter(state.wishlist, (item: any) => {
-                return item.wishlist_item_id !== action.payload;
-            });
-
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                wishlist: wishlist
-            });
-        }
-
-        case account.WISHLIST_SHARE_EMAIL: {
-            return Object.assign({}, state, {
-                loaded: false,
-                loading: true
-            });
-        }
-        case account.WISHLIST_SHARE_EMAIL_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false
-            });
-        }
-        case account.WISHLIST_SHARE_EMAIL_SUCCESS: {
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false
@@ -805,23 +638,6 @@ Selectors for the state that will be later
 used in the categories-list component
 */
 export const getLoadingState = (state: State) => state.loading;
-export const getInfo = (state: State) => state.info;
-export const getWishList = (state: State) => state.wishlist;
-export const getSharedWishlist = (state: State) => state.sharedWishlist;
-export const getOrders = (state: State) => state.orders;
-export const getOrderDetail = (state: State) => state.orderDetail;
-export const getOrderTracking = (state: State) => state.orderTracking;
-export const getLPoint = (state: State) => state.lpoint;
-export const getIsSubscribed = (state: State) => state.isSubscribed;
-export const getRatingSellerPending = (state: State) => state.pendingRatings;
-export const getRatedSeller = (state: State) => state.ratedSellers;
-export const getQA = (state: State) => state.QAs;
-export const getDetailComment = (state: State) => state.detailComment;
-export const getLpointHistory = (state: State) => state.historyLpoint;
-export const getDetailsLpointHistory = (state: State) => state.detailHistoryLpoint;
-export const updateLpoint = (state: State) => state.updateLpoint;
-export const getErrorMessage = (state: State) => state.errorMessage;
-export const getGuestOrderTracking = (state: State) => state.guestOrderTracking;
 export const getAccountInfo = (state: State) => state.accountInfo;
 export const getCreateAccount = (state: State) => state.createAccount;
 export const getDeleteAccount = (state: State) => state.deleteAccount;

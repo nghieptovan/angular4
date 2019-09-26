@@ -57,15 +57,11 @@ export class AppComponent {
                 // this.router.navigate([{ outlets: { login: [ 'login'] }}]);
             }            
         });
-
-        
     }
     
     ngOnInit() {
         this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
-            console.log(this.activatedRoute.firstChild.snapshot.data);
-            
             this.showHeader = this.activatedRoute.firstChild.snapshot.data.showHeader !== false;
             this.showSidebar = this.activatedRoute.firstChild.snapshot.data.showSidebar !== false;
             this.showFooter = this.activatedRoute.firstChild.snapshot.data.showFooter !== false;

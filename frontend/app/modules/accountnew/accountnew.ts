@@ -42,6 +42,7 @@ export class AccountNew {
     listAccount: any;
     errorMessage: string = '';
     selectedId: any;
+    textLabel: any;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService,
         dispatcher: Dispatcher, private toastr: ToastrService,) {
         
@@ -75,6 +76,12 @@ export class AccountNew {
                     this.errorMessage = account.message;
                 }
             }
+        });
+
+        this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+            if(config) {
+                this.textLabel = config.TEXT_LABEL;
+            }            
         });
         
         

@@ -37,6 +37,9 @@ export class EditAccountNew{
     fullnameMessage: any;
     isLoaded: boolean = false;
     appConstants: any;
+    minLenght: any;
+    textLabel: any;
+    loadJsonConfigSub: any;
     constructor(private store: Store<fromRoot.AppState>,
                 private dispatcher: Dispatcher,
                 private elementRef: ElementRef,
@@ -65,9 +68,17 @@ export class EditAccountNew{
                     this.router.navigateByUrl('tai-khoan');
                 }
         });
+
+        this.loadJsonConfigSub = this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+            if(config) {
+                this.minLenght = config.MIN_LENGTH_6;
+                this.textLabel = config.TEXT_LABEL;
+            }            
+        });
     }
     ngOnDestroy() {
         this.getListAccountSub.unsubscribe();
+        this.loadJsonConfigSub.unsubscribe();
         this.getUpdateAccountSub.unsubscribe();
         this.accountGetLoadingState.unsubscribe();
     }

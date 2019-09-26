@@ -173,8 +173,7 @@ export class AccountEffects {
 
     @Effect()
     loadOrders$ = this._actions.ofType(account.LOAD_ORDERS)
-        .withLatestFrom(this.store.select(fromRoot.accountGetOrders))
-        .switchMap(([action, orders]) => {
+        .switchMap((action) => {
             return this.accountService.getCustomerOrders(action.payload)
                 .map(resp => {
                     this.currentOrder = action.payload;

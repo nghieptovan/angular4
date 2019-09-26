@@ -164,37 +164,3 @@ export const accountGetCreateAccount = createSelector(accountGetState, fromAccou
 export const accountGetDeleteAccount = createSelector(accountGetState, fromAccount.getDeleteAccount);
 export const accountGetUpdateAccount = createSelector(accountGetState, fromAccount.getUpdateAccount);
 export const accountGetConfigJSON = createSelector(accountGetState, fromAccount.getConfigJSON);
-
-export const accountGetInfo = createSelector(accountGetState, fromAccount.getInfo);
-
-export const accountGetWishList = createSelector(accountGetState, fromAccount.getWishList);
-
-export const accountGetSharedWishlist = createSelector(accountGetState, fromAccount.getSharedWishlist);
-
-export const accountGetOrders = createSelector(accountGetState, fromAccount.getOrders);
-
-export const accountGetOrderDetail = createSelector(accountGetState, fromAccount.getOrderDetail);
-
-export const accountGetOrderTracking = createSelector(accountGetState, fromAccount.getOrderTracking);
-
-export const accountGetLPoint = createSelector(accountGetState, fromAccount.getLPoint);
-
-export const accountGetIsSubscribed = createSelector(accountGetState, fromAccount.getIsSubscribed);
-
-export const accountGetRatingSellerPending = createSelector(accountGetState, fromAccount.getRatingSellerPending);
-
-export const accountGetRatedSeller = createSelector(accountGetState, fromAccount.getRatedSeller);
-
-export const accountGetQA = createSelector(accountGetState, fromAccount.getQA);
-
-export const accountGetDetailComment = createSelector(accountGetState, fromAccount.getDetailComment);
-
-export const accountGetLpointHistory = createSelector(accountGetState, fromAccount.getLpointHistory);
-
-export const accountGetDetailLpointHistory = createSelector(accountGetState, fromAccount.getDetailsLpointHistory);
-
-export const accountUpdateLpoint = createSelector(accountGetState, fromAccount.updateLpoint);
-
-export const accountGetErrorMessage = createSelector(accountGetState, fromAccount.getErrorMessage);
-
-export const accountGetGuestOrderTracking = createSelector(accountGetState, fromAccount.getGuestOrderTracking);

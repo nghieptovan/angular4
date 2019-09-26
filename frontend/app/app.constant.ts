@@ -1,10 +1,11 @@
 import { environment } from '../environments/environment';
-console.log(environment.environment);
+// console.log(environment.environment);
 export const AppConstants = {
-    USE_CONFIG_TEXT: true,
+    USE_CONFIG_TEXT: false,
     API_ENDPOINT: environment.API_ENDPOINT,    
     ENVIRONMENT_DEV: environment.ENVIRONMENT_DEV,
     ASSET_URL: environment.ASSET_URL,
+    CONFIG_DATA: {TEXT_LABEL: {}},
     HOST_NAME: 'environment.HOST_NAME', 
     MESSAGE_PASSWORD: 'Vui lòng nhập tên mật khẩu',
     MESSAGE_USERNAME: 'Vui lòng nhập tên đăng nhập',
