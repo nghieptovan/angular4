@@ -8,7 +8,6 @@ import { NouisliderModule } from 'ng2-nouislider/src/nouislider';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { OwlModule } from 'ngx-owl-carousel';
-import { MasonryModule } from 'angular2-masonry';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ClickOutsideModule } from 'ng-click-outside';
 
@@ -36,7 +35,6 @@ import {EditUpdatePatient} from "./components/patient/form/form";
         NouisliderModule,
         CurrencyMaskModule,
         BootstrapModalModule,
-        MasonryModule,
         TextMaskModule,
         ClickOutsideModule
     ],
@@ -66,7 +64,6 @@ import {EditUpdatePatient} from "./components/patient/form/form";
         NouisliderModule,
         CurrencyMaskModule,
         BootstrapModalModule,
-        MasonryModule,
         TextMaskModule,
         ClickOutsideModule,
         AppLoader,     

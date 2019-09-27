@@ -20,16 +20,8 @@ export class AppNotFound {
     common404PageSub: any;
     constructor(private store: Store<fromRoot.AppState>, private domSanitizer: DomSanitizer) {
         // this.store.dispatch(new common.Load404Page());
-        this.common404PageSub = this.store.select(fromRoot.commonGet404Page)
-            .subscribe((html) => {
-                if (html.content) {
-                    this.content = this.domSanitizer.bypassSecurityTrustHtml(html.content);
-                    this.contentHeading = html.content_heading;
-                }
-            });
+        
     }
 
-    ngOnDestroy() {
-        this.common404PageSub.unsubscribe();
-    }
+ 
 }

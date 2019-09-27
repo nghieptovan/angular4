@@ -41,7 +41,6 @@
         "@types/lodash": "^4.14.74",
         "@types/moment": "^2.13.0",
         "@zeitiger/elevatezoom": "^2.5.4",
-        "angular2-masonry": "^0.4.0",
         "angular2-text-mask": "^9.0.0",
         "bootstrap": "^3.3.7",
         "bxslider": "^4.2.13",

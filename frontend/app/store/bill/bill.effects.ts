@@ -30,7 +30,7 @@ export class BillEffects {
     @Effect()
     getBillPatientId$ = this._actions.ofType(bill.BILL_BY_PATIENT)
     .switchMap((action) => {
-        return this.billService.getBillByPatient(action.payload)
+        return this.billService.getBillByPatient((action as any).payload)
             .map((data) => {
                 return new bill.BillByPatientSuccess(data.json());
             }).catch((error) => {

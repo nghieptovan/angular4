@@ -53,7 +53,7 @@ export class CommonEffects {
         });
 
     @Effect() loadUrlInfo$ = this._actions.ofType(common.LOAD_URL_INFO)
-        .switchMap((action) => this.commonService.getUrlInformation(action.payload.slug, action.payload.type, action.payload.id, action.payload.pathname)
+        .switchMap((action) => this.commonService.getUrlInformation((action as any).payload.slug, (action as any).payload.type, (action as any).payload.id, (action as any).payload.pathname)
             .map(urlInfo => urlInfo.json())
             .map(urlInfo => {
                 if (urlInfo && urlInfo.meta_tags) {
@@ -142,7 +142,7 @@ export class CommonEffects {
 
     @Effect() subscribeNewsLetter$ = this._actions.ofType(common.SUBSCRIBE_NEWSLETTER)
         .switchMap((action) => {
-            return this.http.post(action.payload.url, action.payload.data)
+            return this.http.post((action as any).payload.url, (action as any).payload.data)
                 .map((resp) => {
                     return new common.SubscribeNewsLetterSuccess(resp.json());
                 }).catch((error) => {
@@ -161,18 +161,8 @@ export class CommonEffects {
         });
 
     @Effect() load404Page$ = this._actions.ofType(common.LOAD_404_PAGE)
-        .withLatestFrom(this.store.select(fromRoot.commonGet404Page))
-        .switchMap(([action, static404Page]) => {
-            if (!static404Page || _.isEmpty(static404Page)) {
-                return this.commonService.get404Page()
-                    .map(html => {
-                        return new common.Load404PageSuccess(html.json());
-                    }).catch((error) => {
-                        return Observable.of(new common.Load404PageFailed(error));
-                    });
-            } else {
-                return Observable.of(new common.Load404PageSuccess(static404Page));
-            }
+        .switchMap((action) => {
+            return Observable.of(new common.Load404PageSuccess({}));
         });
 
     reformatRegionData(data) {

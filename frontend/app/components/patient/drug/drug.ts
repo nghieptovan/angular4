@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Dispatcher, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
@@ -33,7 +33,7 @@ export class DrugPatient {
     };
     drugDetail: any = [];
     constructor(private store: Store<fromRoot.AppState>,
-                private dispatcher: Dispatcher,
+                
                 private elementRef: ElementRef,
                 private router: Router,
                 private toastr: ToastrService,

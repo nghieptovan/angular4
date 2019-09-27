@@ -8,18 +8,18 @@ import { createSelector } from 'reselect';
 import { storeLogger } from 'ngrx-store-logger';
 
 import { compose } from '@ngrx/core';
-import { combineReducers, State } from '@ngrx/store';
+import { combineReducers, State, ActionReducerMap, ActionReducer } from '@ngrx/store';
 import { state } from '@angular/core';
 
 /*
  Import the layout state
  */
 import * as fromAuth from './auth/auth.reducer';
-import * as fromCommon from './common/common.reducer';
 import * as fromAccount from './account/account.reducer';
 import * as fromPatient from './patient/patient.reducer';
 import * as fromBill from './bill/bill.reducer';
 import * as fromMedicine from './medicine/medicine.reducer';
+import { AppConstants } from '../app.constant';
 
 
 export interface AppState {
@@ -28,69 +28,23 @@ export interface AppState {
     patient: fromPatient.State;
     bill: fromBill.State;
     medicine: fromMedicine.State;
-    common: fromCommon.State;
 }
 
-export const reducers = {
+
+export const reducers: ActionReducerMap<AppState> = {
     auth: fromAuth.reducer,
     account: fromAccount.reducer,
     patient: fromPatient.reducer,
     bill: fromBill.reducer,
     medicine: fromMedicine.reducer
-};
+  };
+  
 
-
-const productionReducer: Function = compose(combineReducers)(reducers);
-const developmentReducer: Function = compose(storeLogger(), combineReducers)(reducers);
-
-
-export function reducer(state: any, action: any) {
-    if (window.location.hostname.includes('localhost') || window.location.hostname.includes('dev.lotte')) {
-        return developmentReducer(state, action);
-    }
-    return productionReducer(state, action);
-}
-
-/*
-Common
- */
-export const commonGetState = (state: AppState) => state.common;
-
-export const commonGetLoadingState = createSelector(commonGetState, fromCommon.getLoadingState);
-
-export const commonGetCmsContents = createSelector(commonGetState, fromCommon.getCmsContents);
-
-export const commonGetCurrencySybol = createSelector(commonGetState, fromCommon.getCurrentSymbol);
-
-export const commonGetConfigs = createSelector(commonGetState, fromCommon.getConfigs);
-
-export const commonGetNsoBaseUrl = createSelector(commonGetState, fromCommon.getNsoBaseUrl);
-
-export const commonGetStoreLogos = createSelector(commonGetState, fromCommon.getStoreLogos);
-
-export const commonGetUrlInfo = createSelector(commonGetState, fromCommon.getUrlInfo);
-
-export const commonGetProductBaseUrl = createSelector(commonGetState, fromCommon.getProductBaseUrl);
-
-export const commonGetStaticBaseUrl = createSelector(commonGetState, fromCommon.getStaticBaseUrl);
-
-export const commonGetLinkBaseUrl = createSelector(commonGetState, fromCommon.getLinkBaseUrl);
-
-export const commonGetRegions = createSelector(commonGetState, fromCommon.getRegions);
-
-export const commonGetSharedSession = createSelector(commonGetState, fromCommon.getSharedSession);
-
-export const commonGetCurrentLocation = createSelector(commonGetState, fromCommon.getCurrentLocation);
-
-export const commonGetRecentProducts = createSelector(commonGetState, fromCommon.getRecentProducts);
-
-export const commonGet404Page = createSelector(commonGetState, fromCommon.get404Page);
-
-export const commonGetIsTopBanner = createSelector(commonGetState, fromCommon.getIsTopBanner);
-
-export const commonGetIsProductPage = createSelector(commonGetState, fromCommon.getIsProductPage);
-
-export const commonGetPreventScrollTop = createSelector(commonGetState, fromCommon.getPreventScrollTop);
+export function logger(reducer: ActionReducer<AppState>): any {
+    return storeLogger()(reducer);
+  }
+  
+export const metaReducers = !AppConstants.ENVIRONMENT_DEV ? [] : [logger];
 
 /*
 Authorize

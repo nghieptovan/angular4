@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Store, Dispatcher } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -41,7 +41,7 @@ export class Patient {
     errorMessage: string = '';
     selectedId: any;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService,
-        dispatcher: Dispatcher, private toastr: ToastrService,) {
+        private toastr: ToastrService,) {
         
         this.patientGetLoadingState = this.store.select(fromRoot.patientGetLoadingState).subscribe((loading) => {
             this.patientIsLoading$ = loading;

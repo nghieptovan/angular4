@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { Dispatcher, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { CookieService } from 'ngx-cookie-service';
@@ -28,7 +28,7 @@ export class AppHeader {
 
     constructor(private store: Store<fromRoot.AppState>, private router: Router,
         private domSanitizer: DomSanitizer,
-        private dispatcher: Dispatcher, private dialogService: DialogService,
+         private dialogService: DialogService,
         private globalService: GlobalService, private cookieService: CookieService) {
 
         this.store.select(fromRoot.getLoggedIn).subscribe((getLoggedIn) => {

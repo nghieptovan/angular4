@@ -8,7 +8,7 @@ import { AppHelpers } from '../app/app.helpers';
 export const environment = {
   production: !AppHelpers.isLocalhost(),
   environment: 'default',
-  ENVIRONMENT_DEV: AppHelpers.isLocalhost(),
+  ENVIRONMENT_DEV: true,
   API_ENDPOINT: 'http://api_phm.web/api/v1/',
   ASSET_URL:  ''
 };

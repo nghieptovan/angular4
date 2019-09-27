@@ -31,7 +31,7 @@ export class AccountEffects {
     @Effect()
     loadJSONConfig$ = this._actions.ofType(account.LOAD_JSON_CONFIG)
         .switchMap((action) => {
-            return this.accountService.loadJSONConfig(action.payload)
+            return this.accountService.loadJSONConfig((action as any).payload)
                 .map((resp) => {
                     return new account.LoadJsonConfigSuccess(resp.json());
                 }).catch((error) => {
@@ -54,7 +54,7 @@ export class AccountEffects {
     @Effect()
     register$ = this._actions.ofType(account.REGISTER)
         .switchMap((action) => {
-            return this.accountService.register(action.payload)
+            return this.accountService.register((action as any).payload)
                 .map((resp) => {
                     const data = resp.json();
                     return new account.RegisterSuccess(data);
@@ -66,7 +66,7 @@ export class AccountEffects {
     @Effect()
     deleteAccount$ = this._actions.ofType(account.DELETE_ACCOUNT)
         .switchMap((action) => {
-            return this.accountService.deleteAccount(action.payload)
+            return this.accountService.deleteAccount((action as any).payload)
                 .map((resp) => {
                     const data = resp.json();
                     return new account.DeleteAccountSuccess(data);
@@ -77,7 +77,7 @@ export class AccountEffects {
     @Effect()
     updateUser$ = this._actions.ofType(account.UPDATE_INFO)
         .switchMap((action) => {
-            return this.accountService.updateAccount(action.payload)
+            return this.accountService.updateAccount((action as any).payload)
             .map((resp) => {
                 const data = resp.json();
                 return new account.UpdateInfoSuccess(data);
@@ -92,7 +92,7 @@ export class AccountEffects {
     @Effect()
     resetPassword$ = this._actions.ofType(account.RESET_PASSWORD)
         .switchMap((action) => {
-            return this.accountService.resetPassword(action.payload)
+            return this.accountService.resetPassword((action as any).payload)
                 .map((data) => {
                     this.router.navigate(['account/resetpassword-success']);
                     return new account.ResetPasswordSuccess(data.json());
@@ -116,9 +116,9 @@ export class AccountEffects {
     @Effect()
     getUserWishlist$ = this._actions.ofType(account.LOAD_WISHLIST)
         .mergeMap((action) => {
-            return this.accountService.getWishlist(action.payload)
+            return this.accountService.getWishlist((action as any).payload)
                 .map((wishlist) => {
-                    return new account.LoadWishListSuccess({ id: action.payload, wishlist: wishlist.json() });
+                    return new account.LoadWishListSuccess({ id: (action as any).payload, wishlist: wishlist.json() });
                 }).catch((error) => {
                     return Observable.of(new account.LoadWishListFailed(error));
                 });
@@ -127,9 +127,9 @@ export class AccountEffects {
     @Effect()
     updateUserWishlist$ = this._actions.ofType(account.UPDATE_WISHLIST)
         .switchMap((action) => {
-            return this.accountService.updateWishlist(action.payload)
+            return this.accountService.updateWishlist((action as any).payload)
                 .map((wishlist) => {
-                    return new account.UpdateWishListSuccess(action.payload);
+                    return new account.UpdateWishListSuccess((action as any).payload);
                 }).catch((error) => {
                     return Observable.of(new account.UpdateWishListFailed(error));
                 });
@@ -138,10 +138,10 @@ export class AccountEffects {
     @Effect()
     shareWishlistViaEmail$ = this._actions.ofType(account.WISHLIST_SHARE_EMAIL)
         .switchMap((action) => {
-            return this.accountService.shareWishlistViaMail(action.payload)
+            return this.accountService.shareWishlistViaMail((action as any).payload)
                 .map((wishlist) => {
                     this.router.navigate(['account/wishlist']);
-                    return new account.ShareWishlistViaEmailSuccess(action.payload);
+                    return new account.ShareWishlistViaEmailSuccess((action as any).payload);
                 }).catch((error) => {
                     return Observable.of(new account.ShareWishlistViaEmailFailed(error.json()));
                 });
@@ -151,7 +151,7 @@ export class AccountEffects {
     @Effect()
     addProductToWishlist$ = this._actions.ofType(account.WISHLIST_ADD_PRODUCT)
         .switchMap((action) => {
-            return this.accountService.addProductToWishlist(action.payload)
+            return this.accountService.addProductToWishlist((action as any).payload)
                 .map(resp => {
                     this.store.dispatch(new account.LoadWishList(0));
                     return new account.AddProductToWishListSuccess(resp);
@@ -163,9 +163,9 @@ export class AccountEffects {
     @Effect()
     deleteProductFromWishlist$ = this._actions.ofType(account.WISHLIST_DELETE_PRODUCT)
         .switchMap((action) => {
-            return this.accountService.deleteProductInWishlist(action.payload)
+            return this.accountService.deleteProductInWishlist((action as any).payload)
                 .map(resp => {
-                    return new account.DeleteProductFromWishListSuccess(action.payload);
+                    return new account.DeleteProductFromWishListSuccess((action as any).payload);
                 }).catch((error) => {
                     return Observable.of(new account.DeleteProductFromWishListFailed(error));
                 });
@@ -174,9 +174,9 @@ export class AccountEffects {
     @Effect()
     loadOrders$ = this._actions.ofType(account.LOAD_ORDERS)
         .switchMap((action) => {
-            return this.accountService.getCustomerOrders(action.payload)
+            return this.accountService.getCustomerOrders((action as any).payload)
                 .map(resp => {
-                    this.currentOrder = action.payload;
+                    this.currentOrder = (action as any).payload;
                     return new account.LoadOrdersSuccess(resp.json());
                 }).catch((error) => {
                     return Observable.of(new account.LoadOrdersFailed(error));
@@ -186,7 +186,7 @@ export class AccountEffects {
     @Effect()
     loadOrderById$ = this._actions.ofType(account.LOAD_ORDER_BY_ID)
         .switchMap((action) => {
-            return this.accountService.getCustomerOrderById(action.payload)
+            return this.accountService.getCustomerOrderById((action as any).payload)
                 .map(resp => {
                     return new account.LoadOrderByIdSuccess(resp.json());
                 }).catch((error) => {
@@ -197,7 +197,7 @@ export class AccountEffects {
     @Effect()
     loadOrderTracking$ = this._actions.ofType(account.LOAD_ORDER_TRACKING)
         .switchMap((action) => {
-            return this.accountService.getOrderTracking(action.payload)
+            return this.accountService.getOrderTracking((action as any).payload)
                 .map(resp => {
                     return new account.LoadOrderTrackingSuccess(resp.json());
                 }).catch((error) => {
@@ -208,7 +208,7 @@ export class AccountEffects {
     @Effect()
     cancelOrder$ = this._actions.ofType(account.CANCEL_ORDER)
         .switchMap((action) => {
-            return this.accountService.cancelCustomerOrder(action.payload)
+            return this.accountService.cancelCustomerOrder((action as any).payload)
                 .map(resp => {
                     return new account.CancelOrderSuccess(resp.json());
                 }).catch((error) => {
@@ -280,7 +280,7 @@ export class AccountEffects {
     @Effect()
     submitRating$ = this._actions.ofType(account.SUBMIT_RATING_SELLER)
         .switchMap((action) =>
-            this.accountService.submitRating(action.payload)
+            this.accountService.submitRating((action as any).payload)
                 .map((resp) => {
                     return new account.SubmitRatingSuccess(resp.json());
                 }).catch((error) => {
@@ -289,7 +289,7 @@ export class AccountEffects {
     @Effect()
     getQAs$ = this._actions.ofType(account.LOAD_QA)
         .switchMap((action) =>
-            this.accountService.getQA(action.payload)
+            this.accountService.getQA((action as any).payload)
                 .map((response) => {
                     return new account.LoadQASuccess(response.json());
                 }).catch((error) => {
@@ -299,7 +299,7 @@ export class AccountEffects {
     @Effect()
     getDetailComment$ = this._actions.ofType(account.LOAD_DETAIL_COMMENT)
         .switchMap((action) =>
-            this.accountService.getDetailComment(action.payload.id, action.payload.customer_id)
+            this.accountService.getDetailComment((action as any).payload.id, (action as any).payload.customer_id)
                 .map((response) => {
                     return new account.LoadDetailCommentSuccess(response.json());
                 }).catch((error) => {
@@ -309,7 +309,7 @@ export class AccountEffects {
     @Effect()
     getLpointHistory$ = this._actions.ofType(account.LOAD_LPOINT_HISTORY)
         .switchMap((action) =>
-            this.accountService.getLpointHistory(action.payload.page)
+            this.accountService.getLpointHistory((action as any).payload.page)
                 .map((response) => {
                     return new account.LoadLpointHistorySuccess(response.json());
                 }).catch((error) => {
@@ -319,7 +319,7 @@ export class AccountEffects {
     @Effect()
     getDetailLpointHistory$ = this._actions.ofType(account.LOAD_DETAIL_LPOINT_HISTORY)
         .switchMap((action) =>
-            this.accountService.getDetailLpointHistory(action.payload.order_id)
+            this.accountService.getDetailLpointHistory((action as any).payload.order_id)
                 .map((response) => {
                     return new account.LoadDetailLpointHistorySuccess(response.json());
                 }).catch((error) => {
@@ -337,7 +337,7 @@ export class AccountEffects {
     @Effect()
     loadGuestOrderTracking$ = this._actions.ofType(account.GUEST_ORDER_TRACKING)
         .switchMap((action) => {
-            return this.accountService.getGuestTrackingOrder(action.payload)
+            return this.accountService.getGuestTrackingOrder((action as any).payload)
                 .map(resp => {
                     return new account.LoadGuestTrackingOrderSuccess(resp.json());
                 }).catch((error) => {

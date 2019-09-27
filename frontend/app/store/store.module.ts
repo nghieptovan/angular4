@@ -3,7 +3,7 @@ import { Http, HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
 
-import { reducer } from '.';
+import { reducers, metaReducers } from './index';
 import { httpFactory } from '../services/http.factory';
 import { HttpService } from '../services/http.service';
 import { AccountEffects } from './account/account.effects';
@@ -21,20 +21,16 @@ import { DataModel } from './data';
 // Import services
 // Define effects
 const APP_EFFECTS = [    
-    EffectsModule.run(AuthEffects),
-    EffectsModule.run(AccountEffects),
-    EffectsModule.run(PatientEffects),
-    EffectsModule.run(BillEffects),
-    EffectsModule.run(MedicineEffects)
+    EffectsModule.forRoot([AuthEffects, AccountEffects, PatientEffects, BillEffects, MedicineEffects])
 ];
 
 @NgModule({
-    imports: [
-        ...APP_EFFECTS,
-        HttpModule,
-        StoreModule.provideStore(reducer),
+    imports: [   
+        StoreModule.forRoot(reducers, {metaReducers}), 
+        EffectsModule.forRoot([AuthEffects, AccountEffects, PatientEffects, BillEffects, MedicineEffects]),    
+        HttpModule          
     ],
-    providers: [
+    providers: [        
         {
             provide: Http,
             useFactory: httpFactory,

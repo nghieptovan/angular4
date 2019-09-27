@@ -31,7 +31,7 @@ export class AuthEffects {
             const secondsAfterSaved = Math.floor(((currentTimestamp - lastSavedTimestamp) / 1000));
             const loggedUser = localStorage.getItem('loggedUser');
             if (secondsAfterSaved > 604800 || !loggedUser) {
-                return this.authService.login(action.payload)
+                return this.authService.login((action as any).payload)
                     .map((loggedUser) => {
                         if(loggedUser.code == 200){
                             let data = loggedUser.data;
@@ -66,7 +66,7 @@ export class AuthEffects {
     @Effect()
     getAccountById$ = this._actions.ofType(auth.GET_ACCOUNT_BY_ID)
         .switchMap((action) => {
-            return this.authService.getAccountById(action.payload)
+            return this.authService.getAccountById((action as any).payload)
                 .map((token) => {
                     return new auth.LoadAccountByIdSuccess(token.json());
                 }).catch((error) => {
@@ -87,7 +87,7 @@ export class AuthEffects {
     @Effect()
     forgotPassword = this._actions.ofType(auth.FORGOT_PASSWORD)
         .switchMap((action) =>
-            this.authService.forgotPassword(action.payload)
+            this.authService.forgotPassword((action as any).payload)
                 .map((resp) => {
                     return new auth.ForgotPasswordSuccess(resp.json());
                 })).catch((error) => {

@@ -40,7 +40,6 @@ import './extensions/string.extension';
 import { AppStoreModule } from './store/store.module';
 import { AppCommonModule } from './app.common.module';
 // import masonry and infinitescroll
-import { MasonryModule } from 'angular2-masonry';
 
 const PAGE_MODULES = [
     AppStoreModule,
@@ -75,7 +74,6 @@ const PAGE_MODULES = [
         }),
         SocialLoginModule,
         //infinite scroll and masonry
-        MasonryModule,
         ClickOutsideModule,
 
     ],

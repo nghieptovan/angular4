@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Store, Dispatcher } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -27,8 +27,11 @@ export class LoginPage {
     authGetLoadingState: boolean = false;
     isLoginPage: boolean = false;
     userInfoSub: any;
-    constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService,
-        dispatcher: Dispatcher) {
+    constructor(private store: Store<fromRoot.AppState>, 
+        private globalService: GlobalService, 
+        private router: Router, 
+        private cookieService: CookieService
+        ) {
         
 
         this.store.select(fromRoot.getLoggedIn).subscribe((getLoggedIn) => {

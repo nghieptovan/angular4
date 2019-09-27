@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Store, Dispatcher } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -43,8 +43,7 @@ export class AccountNew {
     errorMessage: string = '';
     selectedId: any;
     textLabel: any;
-    constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService,
-        dispatcher: Dispatcher, private toastr: ToastrService,) {
+    constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService, private toastr: ToastrService,) {
         
         const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
         this.accountGetLoadingState = this.store.select(fromRoot.accountGetLoadingState).subscribe((loading) => {

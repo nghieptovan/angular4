@@ -1,6 +1,6 @@
 import { Component, HostListener, ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router, NavigationEnd } from '@angular/router';
-import { Dispatcher, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { ToastrService } from 'ngx-toastr';
@@ -33,7 +33,6 @@ export class AppComponent {
     showFooter: boolean;
     constructor(private router: Router, private activatedRoute: ActivatedRoute,
         private store: Store<fromRoot.AppState>,
-        private dispatcher: Dispatcher,
         private toastr: ToastrService,
         private dialogService: DialogService,
         private _elementRef : ElementRef,

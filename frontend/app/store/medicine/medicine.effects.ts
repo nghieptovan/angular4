@@ -30,9 +30,9 @@ export class MedicineEffects {
     @Effect()
     listMedicine$ = this._actions.ofType(medicine.LIST_MEDICINE)
         .switchMap((action) => {
-            return this.medicineService.loadListMedicine(action.payload)
+            return this.medicineService.loadListMedicine((action as any).payload)
                 .map((resp) => {
-                    return new medicine.ListMedicineSuccess({data: resp.json(), id: action.payload});
+                    return new medicine.ListMedicineSuccess({data: resp.json(), id: (action as any).payload});
                 }).catch((error) => {
                     return Observable.of(new medicine.ListMedicineFailed(error));
                 });
@@ -41,9 +41,9 @@ export class MedicineEffects {
     @Effect()
     loadMedicine$ = this._actions.ofType(medicine.LOAD_MEDICINE_BY_ID)
         .switchMap((action) => {
-            return this.medicineService.loadMedicineById(action.payload)
+            return this.medicineService.loadMedicineById((action as any).payload)
                 .map((resp) => {
-                    return new medicine.LoadMedicineSuccess({data: resp.json(), id: action.payload});
+                    return new medicine.LoadMedicineSuccess({data: resp.json(), id: (action as any).payload});
                 }).catch((error) => {
                     return Observable.of(new medicine.LoadMedicineFailed(error));
                 });
@@ -52,9 +52,9 @@ export class MedicineEffects {
     @Effect()
     loadTypeMedicine$ = this._actions.ofType(medicine.LOAD_TYPE_MEDICINE)
         .switchMap((action) => {
-            return this.medicineService.loadTypeMedicine(action.payload)
+            return this.medicineService.loadTypeMedicine((action as any).payload)
                 .map((resp) => {
-                    return new medicine.LoadTypeMedicineSuccess({data: resp.json(), id: action.payload});
+                    return new medicine.LoadTypeMedicineSuccess({data: resp.json(), id: (action as any).payload});
                 }).catch((error) => {
                     return Observable.of(new medicine.LoadTypeMedicineFailed(error));
                 });
@@ -63,9 +63,9 @@ export class MedicineEffects {
     @Effect()
     loadDrugMedicine$ = this._actions.ofType(medicine.LOAD_DRUG_MEDICINE)
         .switchMap((action) => {
-        return this.medicineService.loadDrugMedicine(action.payload)
+        return this.medicineService.loadDrugMedicine((action as any).payload)
             .map((resp) => {
-                return new medicine.LoadDrugMedicineSuccess({data: resp.json(), id: action.payload});
+                return new medicine.LoadDrugMedicineSuccess({data: resp.json(), id: (action as any).payload});
             }).catch((error) => {
                 return Observable.of(new medicine.LoadDrugMedicineFailed(error));
             });
@@ -77,11 +77,11 @@ export class MedicineEffects {
     .switchMap((action) => {
         const listPatentMedicine = this.globalService.getSessionData('listPatentMedicine')
         if (listPatentMedicine) {
-            return Observable.of(new medicine.LoadPatentMedicineSuccess({data: listPatentMedicine, id: action.payload}));
+            return Observable.of(new medicine.LoadPatentMedicineSuccess({data: listPatentMedicine, id: (action as any).payload}));
         } else {    
-            return this.medicineService.loadPatentMedicine(action.payload)
+            return this.medicineService.loadPatentMedicine((action as any).payload)
             .map((resp) => {
-                return new medicine.LoadPatentMedicineSuccess({data: resp.data, id: action.payload});
+                return new medicine.LoadPatentMedicineSuccess({data: resp.data, id: (action as any).payload});
             }).catch((error) => {
                 return Observable.of(new medicine.LoadPatentMedicineFailed(error));
             });
@@ -92,9 +92,9 @@ export class MedicineEffects {
     @Effect()
     loadUnitMedicine$ = this._actions.ofType(medicine.LOAD_UNIT_MEDICINE)
         .switchMap((action) => {
-        return this.medicineService.loadUnitMedicine(action.payload)
+        return this.medicineService.loadUnitMedicine((action as any).payload)
             .map((resp) => {
-                return new medicine.LoadUnitMedicineSuccess({data: resp.json(), id: action.payload});
+                return new medicine.LoadUnitMedicineSuccess({data: resp.json(), id: (action as any).payload});
             }).catch((error) => {
                 return Observable.of(new medicine.LoadUnitMedicineFailed(error));
             });
@@ -104,9 +104,9 @@ export class MedicineEffects {
     @Effect()
     loadBehaviourMedicine$ = this._actions.ofType(medicine.LOAD_BEHAVIOUR_MEDICINE)
         .switchMap((action) => {
-        return this.medicineService.loadBehaviourMedicine(action.payload)
+        return this.medicineService.loadBehaviourMedicine((action as any).payload)
             .map((resp) => {
-                return new medicine.LoadBehaviourMedicineSuccess({data: resp.json(), id: action.payload});
+                return new medicine.LoadBehaviourMedicineSuccess({data: resp.json(), id: (action as any).payload});
             }).catch((error) => {
                 return Observable.of(new medicine.LoadBehaviourMedicineFailed(error));
             });
