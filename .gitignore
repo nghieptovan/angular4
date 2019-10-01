@@ -95,4 +95,4 @@ atlassian*
 /.vscode
 /debug.log
 /huytt_patch
-/frontend/.idea
+/src/.idea

@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./frontend/app",
+    "baseUrl": "./src/app",
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
