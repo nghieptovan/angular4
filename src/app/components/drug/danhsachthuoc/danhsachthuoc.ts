@@ -26,7 +26,11 @@ declare var $;
 export class DanhSachThuoc {
     medicine: any;
     loadMedicineSub: any;
+    loadJsonConfigSub: any;
     errorMessage: any;
+    minLenght: any;
+    textLabel: any;
+    fieldLabel: any;
 
     constructor(private store: Store<fromRoot.AppState>,
                 private elementRef: ElementRef,
@@ -36,7 +40,13 @@ export class DanhSachThuoc {
                 private globalService: GlobalService,
                 private patientModel: DataModel) {
       
-       
+        this.loadJsonConfigSub = this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+            if(config) {
+                this.minLenght = config.MIN_LENGTH_6;
+                this.textLabel = config.TEXT_LABEL;
+                this.fieldLabel = config.MEDICINE_LABEL;
+            }            
+        });
         this.loadMedicineSub = this.store.select(fromRoot.getListMedicine).subscribe((medicines) =>{            
             if(!medicines){
                 this.store.dispatch(new medicine.ListMedicine(0));
@@ -55,6 +65,7 @@ export class DanhSachThuoc {
         this.router.navigate(['/thuoc/cap-nhat-thuoc/', medicineId],{ replaceUrl: true });
     }
     ngOnDestroy(){
+        this.loadJsonConfigSub.unsubscribe();
         this.loadMedicineSub.unsubscribe();
     }
 

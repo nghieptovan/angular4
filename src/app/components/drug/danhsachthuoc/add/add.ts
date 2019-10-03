@@ -20,13 +20,56 @@ declare var $;
 })
 export class ThemThuoc {
     isEdit: boolean = false;
-    // @Output() isEditsssssssssss: boolean = false;
+    currentMedicine: any = {
+        "id": 0,
+        "name": "",
+        "display_name": "",
+        "description": "",
+        "amount": 0,
+        "typemedicine_id": 0,
+        "behaviourmedicine_id": 0,
+        "sellprice": 0,
+        "importedprice": 0,
+        "drug_id": 0,
+        "patentmedicine_id": 0,
+        "unit_id": 0,
+        "type_medicine": {
+          "name": "",
+          "code": ""
+        },
+        "behaviour_medicine": {
+          "name": "",
+          "code": ""
+        },
+        "unit": {
+          "name": "",
+          "code": ""
+        },
+        "drug": {
+          "code": "",
+          "name": ""
+        },
+        "patent_medicine": {
+          "name": "",
+          "code": ""
+        }
+    };
+    minLenght: any;
+    textLabel: any;
+    fieldLabel: any;
+    loadJsonConfigSub: any;
     constructor(private store: Store<fromRoot.AppState>,
-                private elementRef: ElementRef,
-                private router: Router,
-                private toastr: ToastrService,
-                private activatedRoute: ActivatedRoute) {
-                      
+        private elementRef: ElementRef,
+        private router: Router,
+        private toastr: ToastrService,
+        private activatedRoute: ActivatedRoute) {
+        this.loadJsonConfigSub = this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+            if(config) {
+                this.minLenght = config.MIN_LENGTH_6;
+                this.textLabel = config.TEXT_LABEL;
+                this.fieldLabel = config.MEDICINE_LABEL;
+            }            
+        });        
     }
 
     goToList(){

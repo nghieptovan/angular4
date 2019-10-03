@@ -1,22 +1,22 @@
 <div class="main-content">
-  <div class="content-wrapper">
-      <section class="input-validation">
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="card">
-                      <div class="card-header">  
-                          <h4 class="card-title">Thêm thuốc
-                                  <a (click)="goToList()" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">Trở về</a>
-                          </h4>
-                      </div>
-                      <div class="card-body">
-                          <div class="card-block">
-                              <edit-update-medicine [isEdit]="false"></edit-update-medicine>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-  </div>
+    <div class="content-wrapper">
+        <section class="input-validation">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">  
+                            <h4 class="card-title">{{fieldLabel.lbl_medicine_add}}
+                                <a (click)="goToList()" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.back_txt}}</a>
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <edit-update-medicine [currentMedicine]="currentMedicine" [isEdit]="false"></edit-update-medicine>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

@@ -5,13 +5,13 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">  
-                            <h4 class="card-title">Cập nhật thuốc
-                                <a (click)="goToList()" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">Trở về</a>
+                            <h4 class="card-title">{{fieldLabel.lbl_medicine_update}}
+                                <a (click)="goToList()" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.back_txt}}</a>
                             </h4>
                         </div>
                         <div class="card-body">
                             <div class="card-block">
-                                <edit-update-medicine [isEdit]="true" [currentMedicine]="currentMedicine"></edit-update-medicine>
+                                <edit-update-medicine *ngIf="currentMedicine" [isEdit]="true" [currentMedicine]="currentMedicine"></edit-update-medicine>
                             </div>
                         </div>
                     </div>

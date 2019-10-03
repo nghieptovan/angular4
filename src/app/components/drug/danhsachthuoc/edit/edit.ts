@@ -23,25 +23,35 @@ export class CapNhatThuoc {
     customers: any = {};
 
     currentMedicineSub: any;
+    loadJsonConfigSub: any;
     currentMedicine: any;
+    minLenght: any;
+    textLabel: any;
+    fieldLabel: any;
 
     constructor(private store: Store<fromRoot.AppState>,
-                private elementRef: ElementRef,
-                private router: Router,
-                private toastr: ToastrService,
-                private activatedRoute: ActivatedRoute) {
+        private elementRef: ElementRef,
+        private router: Router,
+        private toastr: ToastrService,
+        private activatedRoute: ActivatedRoute) {
+        this.loadJsonConfigSub = this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+            if(config) {
+                this.minLenght = config.MIN_LENGTH_6;
+                this.textLabel = config.TEXT_LABEL;
+                this.fieldLabel = config.MEDICINE_LABEL;
+            }            
+        });
+        this.activatedRoute.params.subscribe(routeParams => {
+            if(routeParams.id){
+                this.store.dispatch(new medicine.ListMedicine(routeParams.id));        
+            }                
+        });
 
-            this.activatedRoute.params.subscribe(routeParams => {
-                if(routeParams.id){
-                    this.store.dispatch(new medicine.ListMedicine(routeParams.id));        
-                }                
-            });
-
-            this.currentMedicineSub = this.store.select(fromRoot.getCurrentMedicine).subscribe((medicine) => {
-                if(medicine && medicine.code == 200 && medicine.data){               
-                    this.currentMedicine = medicine.data;
-                }
-            });
+        this.currentMedicineSub = this.store.select(fromRoot.getCurrentMedicine).subscribe((medicine) => {
+            if(medicine && medicine.code == 200 && medicine.data){               
+                this.currentMedicine = medicine.data;
+            }
+        });
       
     }
 

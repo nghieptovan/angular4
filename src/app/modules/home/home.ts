@@ -6,7 +6,7 @@ import { GlobalService } from '../../services/global.service';
 import * as fromRoot from '../../store';
 import { Observable } from 'rxjs/Observable';
 import {Router} from "@angular/router";
-
+import * as medicine from '../../store/medicine/medicine.actions';
 declare var $;
 
 @Component({
@@ -21,13 +21,11 @@ export class LotteFashion {
     isTopBanner$: Observable<any>;
     isLoading: boolean = false;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService) {
-        // const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
-        
-        // if(employeeInfo && employeeInfo.username){
-        //     console.log(employeeInfo);
-        // }else{
-        //     this.router.navigate(['login']);
-        // }
+        this.store.dispatch(new medicine.LoadPatentMedicine(0));
+        this.store.dispatch(new medicine.LoadDrugMedicine(0));
+        this.store.dispatch(new medicine.LoadTypeMedicine(0));
+        this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
+        this.store.dispatch(new medicine.LoadUnitMedicine(0));
     }
     ngOnInit(){
         

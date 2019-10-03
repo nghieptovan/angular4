@@ -5,11 +5,53 @@
     },
     "TEXT_LABEL": {
         "back_txt": "Trở về",
+        "add_txt": "Thêm",
+        "submit_txt": "Xác nhận",
         "patient_update": "Cập nhật bệnh nhân",
         "patient_add": "Thêm bệnh nhân",
+        "patient_manage": "Quản lý bệnh nhân",
         "employee_update": "Cập nhật nhân viên",
         "employee_add": "Thêm nhân viên",
         "employee_manage": "Quản lý nhân viên"
+    },
+    "PAITENT_LABEL": {
+        "lbl_name": "Họ tên",
+        "lbl_sex": "Giới tính",
+        "lbl_dob": "Ngày sinh",
+        "lbl_weight": "Cân nặng",
+        "lbl_phone": "Số điện thoại",
+        "lbl_address": "Địa chỉ",
+        "lbl_diagnosis": "Tiền căn",
+        "lbl_action": "Thao tác"
+    },
+    "EMPLOYEE_LABEL": {
+        "lbl_name": "Họ tên",
+        "lbl_username": "Tên đăng nhập",
+        "lbl_role": "Chức vụ",
+        "lbl_update_at": "Ngày cập nhật",
+        "lbl_action": "Thao tác",
+        "lbl_password": "Mật khẩu"
+    },
+    "MEDICINE_LABEL": {
+        "lbl_medicine_add": "Thêm thuốc",
+        "lbl_medicine_update": "Cập nhật thuốc",
+        "lbl_medicine_manage": "Quản lý thuốc",
+        "lbl_drug": "Dược chất",
+        "lbl_patent": "Biệt dược",
+        "lbl_description": "Hướng dẫn/ Lưu ý",
+        "lbl_importedprice": "Đơn giá nhập",
+        "lbl_sellprice": "Đơn giá bán",
+        "lbl_action": "Thao tác",
+        "lbl_unit": "Đơn vị thuốc",
+        "lbl_behaviour": "Cách sử dụng",
+        "lbl_type": "Phân loại"
+    },
+    "PATENT_MEDICINE":{
+        "lbl_patent_add":"Thêm biệt dược",
+        "lbl_patent_edit":"Cập nhật biệt dược",
+        "lbl_patent_manage":"Quản lý biệt dược",
+        "lbl_patent_name":"Tên biệt dược",
+        "lbl_patent_code":"Mã biệt dược"        
     }
 }
 

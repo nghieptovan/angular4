@@ -14,11 +14,11 @@ declare var $;
  
 // Redux
 @Component({
-    selector: 'add-patient',
+    selector: 'add-patent',
     templateUrl: './add.html',
     styleUrls: ['./add.less']
 })
-export class AddPatient {
+export class AddPatent {
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();

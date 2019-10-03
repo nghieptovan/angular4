@@ -39,6 +39,7 @@ export class EditAccountNew{
     appConstants: any;
     minLenght: any;
     textLabel: any;
+    fieldLabel: any;
     loadJsonConfigSub: any;
     constructor(private store: Store<fromRoot.AppState>,
                 
@@ -73,8 +74,11 @@ export class EditAccountNew{
             if(config) {
                 this.minLenght = config.MIN_LENGTH_6;
                 this.textLabel = config.TEXT_LABEL;
+                this.fieldLabel = config.EMPLOYEE_LABEL;
             }            
         });
+
+       
     }
     ngOnDestroy() {
         this.getListAccountSub.unsubscribe();

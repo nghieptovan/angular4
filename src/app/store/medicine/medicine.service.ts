@@ -12,7 +12,6 @@ export class MedicineService {
     constructor(private httpService: HttpService) {
 
     }
-
     loadListMedicine(data) {
         let url = data != 0 ? 'medicine/' + data : 'medicine';
         return this.httpService.getAnonymous(url);
@@ -33,7 +32,7 @@ export class MedicineService {
 
     loadPatentMedicine(data){
         let url = data != 0 ? 'patentmedicine/' + data : 'patentmedicine';
-        return this.httpService.getAnonymous(url).map((data) => data.json());;
+        return this.httpService.getAnonymous(url);
     }
 
     loadUnitMedicine(data){

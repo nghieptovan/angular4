@@ -43,14 +43,6 @@ export class AppComponent {
         this.store.dispatch(new account.LoadJsonConfig('../assets/config/config.json'));
         formvalidation();
         datetimePicker();
-
-        // this.userInfoSub = this.store.select(fromRoot.getLoginUser).subscribe( (user) => {
-        //     if(user && user.id){
-        //         this.user = user;
-        //     }else{
-        //         this.router.navigate(['login']);
-        //     }  
-        // });
         this.store.select(fromRoot.getLoggedIn).subscribe((getLoggedIn) => {
             if(getLoggedIn == 3){
                 // this.router.navigate([{ outlets: { login: [ 'login'] }}]);

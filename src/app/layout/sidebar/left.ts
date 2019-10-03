@@ -25,15 +25,11 @@ export class LeftSidebar {
         private domSanitizer: DomSanitizer,
          private dialogService: DialogService,
         private globalService: GlobalService, private cookieService: CookieService) {
-
-        // this.userInfoSub = this.store.select(fromRoot.getLoginUser).subscribe( (user) => {
-        //     if(user && user.role_id == 1){
-        //         this.isAdmin = true;
-        //     }else{
-        //         this.isAdmin = false;
-        //     }         
-        // });
-        
+            this.store.select(fromRoot.getLoginUser).subscribe((getLoginUser) => {
+                if(getLoginUser && getLoginUser.role_id){
+                    this.isAdmin = getLoginUser.role_id == 1;
+                }
+            });
     }
     showmenu(){
         this.hideMenu = !this.hideMenu;     

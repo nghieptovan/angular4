@@ -35,6 +35,8 @@ export class AddAccountNew {
     loadJsonConfigSub: any;
     isCreate: boolean = false;
     textLabel: any;
+    fieldLabel: any;
+    
     constructor(private store: Store<fromRoot.AppState>,
                 
                 private elementRef: ElementRef,
@@ -58,11 +60,12 @@ export class AddAccountNew {
                 }
             }
         });
-
+   
         this.loadJsonConfigSub = this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.minLenght = config.MIN_LENGTH_6;
                 this.textLabel = config.TEXT_LABEL;
+                this.fieldLabel = config.EMPLOYEE_LABEL;
             }            
         });
       

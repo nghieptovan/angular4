@@ -26,54 +26,26 @@ export class EditUpdateMedicine implements OnInit {
 
     @Input() isEdit: boolean;
     @Input() currentMedicine: any;
+    loadJsonConfigSub: any;
     listTypeMedicineSub: any;
     listTypeMedicine: any = [];
     listDrugMedicineSub: any;
     listDrugMedicine: any = [];
+    filterDrug: any = [];
     listPatentMedicineSub: any;
     listPatentMedicine: any = [];
+    filterPatent: any = [];
     listBehaviourMedicineSub: any;
     listBehaviourMedicine: any = [];
     listUnitMedicineSub: any;
     listUnitMedicine: any = [];
     // currentMedicine: any;
-    // defaultCurrentMedicine: any = {
-    //     "id": 0,
-    //     "name": "",
-    //     "display_name": "",
-    //     "description": "",
-    //     "amount": 0,
-    //     "typemedicine_id": 0,
-    //     "behaviourmedicine_id": 0,
-    //     "sellprice": 0,
-    //     "importedprice": 0,
-    //     "drug_id": 0,
-    //     "patentmedicine_id": 0,
-    //     "unit_id": 0,
-    //     "type_medicine": {
-    //       "name": "",
-    //       "code": ""
-    //     },
-    //     "behaviour_medicine": {
-    //       "name": "",
-    //       "code": ""
-    //     },
-    //     "unit": {
-    //       "name": "",
-    //       "code": ""
-    //     },
-    //     "drug": {
-    //       "code": "",
-    //       "name": ""
-    //     },
-    //     "patent_medicine": {
-    //       "name": "",
-    //       "code": ""
-    //     }
-    //   };
-    // currentMedicineSub: any;
+
     showPatent: boolean = false;
     showDrug: boolean = false;
+    minLenght: any;
+    textLabel: any;
+    fieldLabel: any;
     
     constructor(private store: Store<fromRoot.AppState>,
                 private elementRef: ElementRef,
@@ -81,93 +53,60 @@ export class EditUpdateMedicine implements OnInit {
                 private toastr: ToastrService,
                 private activatedRoute: ActivatedRoute,
                 private globalService: GlobalService,
-                private patientModel: DataModel) {
-
-        if(!this.globalService.getSessionData('listTypeMedicine')){
-            this.store.dispatch(new medicine.LoadTypeMedicine(0));
-        }else{
-            this.listTypeMedicine = this.globalService.getSessionData('listTypeMedicine');
-        } 
-
-        if(!this.globalService.getSessionData('listDrugMedicine')){
-            this.store.dispatch(new medicine.LoadDrugMedicine(0));
-        }else{
-            this.listDrugMedicine = this.globalService.getSessionData('listDrugMedicine');
-        }
-
-        if(!this.globalService.getSessionData('listPatentMedicine')){
-            this.store.dispatch(new medicine.LoadPatentMedicine(0));
-        }else{
-            this.listPatentMedicine = this.globalService.getSessionData('listPatentMedicine');
-        } 
-
-        if(!this.globalService.getSessionData('listBehaviourMedicine')){
-            this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
-        }else{
-            this.listBehaviourMedicine = this.globalService.getSessionData('listBehaviourMedicine');
-        } 
-
-        if(!this.globalService.getSessionData('listUnitMedicine')){
-            this.store.dispatch(new medicine.LoadUnitMedicine(0));
-        }else{
-            this.listUnitMedicine = this.globalService.getSessionData('listUnitMedicine');
-        } 
-
-
-        this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
-            if(typeMedicines && typeMedicines.code == 200){
-                this.listTypeMedicine = typeMedicines.data;
-                this.globalService.setSessionData('listTypeMedicine', this.listTypeMedicine);
-            }
+                private patientModel: DataModel) {        
+        this.loadJsonConfigSub = this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+            if(config) {
+                this.minLenght = config.MIN_LENGTH_6;
+                this.textLabel = config.TEXT_LABEL;
+                this.fieldLabel = config.MEDICINE_LABEL;
+            }            
         });
-        this.listDrugMedicineSub = this.store.select(fromRoot.getListDrugMedicine).subscribe((drugMedicines) => {
-            if(drugMedicines && drugMedicines.code == 200){
-                this.listDrugMedicine = drugMedicines.data;
-                this.globalService.setSessionData('listDrugMedicine', this.listDrugMedicine);
-            }
+        this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
+            if(typeMedicines){
+                this.listDrugMedicine = typeMedicines;
+                this.filterDrug = typeMedicines;
+            }else{
+                this.store.dispatch(new medicine.LoadTypeMedicine(0));
+            }    
         });
         this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
-            if(patentMedicines && patentMedicines.code == 200){
-                this.listPatentMedicine = patentMedicines.data;
-                this.globalService.setSessionData('listPatentMedicine', this.listPatentMedicine);
-            }
+            if(patentMedicines){
+                this.listPatentMedicine = patentMedicines;
+                this.filterPatent = patentMedicines;
+            }else{
+                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+            }  
+        });
+        this.listDrugMedicineSub = this.store.select(fromRoot.getListDrugMedicine).subscribe((drugMedicines) => {
+            if(drugMedicines){
+                this.listDrugMedicine = drugMedicines;
+            }else{
+                this.store.dispatch(new medicine.LoadDrugMedicine(0));
+            }  
         });
         this.listBehaviourMedicineSub = this.store.select(fromRoot.getListBehaviourMedicine).subscribe((behaviourMedicines) => {
-            if(behaviourMedicines && behaviourMedicines.code == 200){
-                this.listBehaviourMedicine = behaviourMedicines.data;
-                this.globalService.setSessionData('listBehaviourMedicine', this.listBehaviourMedicine);
-            }
-        });
+            if(behaviourMedicines){
+                this.listBehaviourMedicine = behaviourMedicines;
+            }else{
+                this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
+            }  
+        });      
         this.listUnitMedicineSub = this.store.select(fromRoot.getListUnitMedicine).subscribe((unitMedicines) => {
-            if(unitMedicines && unitMedicines.code == 200){
-                this.listUnitMedicine = unitMedicines.data;
-                this.globalService.setSessionData('listUnitMedicine', this.listUnitMedicine);
-            }
+            if(unitMedicines){
+                this.listUnitMedicine = unitMedicines;
+            }else{
+                this.store.dispatch(new medicine.LoadUnitMedicine(0));
+            }  
         });
               
     }
     ngOnInit() {
-        console.log(this.isEdit);
-        
-        // if(this.isEdit){
-        //     const idMedicine = this.activatedRoute.params['value'].id;
-        //     if(idMedicine){
-        //         this.loadMedicine(idMedicine);
-        //     }
-        // }
-        // else{
-        //     this.currentMedicine = this.defaultCurrentMedicine;
-        // }
-
         
     }
     ngOnDestroy(){
-
+        this.loadJsonConfigSub.unsubscribe();
     }
 
-    loadMedicine(idMedicine){
-        this.store.dispatch(new medicine.ListMedicine(idMedicine));        
-    }
     selectDrugMedicine(item){
         this.currentMedicine.drug = item;
         this.currentMedicine.drug_id = item.id;
@@ -189,6 +128,11 @@ export class EditUpdateMedicine implements OnInit {
     saveForm(form){
         
         console.log(form.value);
+        
+    }
+    filterValue(type, value){
+        console.log(type);
+        console.log(value);
         
     }
 

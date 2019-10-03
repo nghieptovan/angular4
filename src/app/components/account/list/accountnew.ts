@@ -3,20 +3,20 @@ import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 
 
-import { GlobalService } from '../../services/global.service';
-import * as fromRoot from '../../store';
-import * as account from '../../store/account/account.actions';
+import { GlobalService } from '../../../services/global.service';
+import * as fromRoot from '../../../store';
+import * as account from '../../../store/account/account.actions';
 
-import * as auth from '../../store/auth/auth.actions';
+import * as auth from '../../../store/auth/auth.actions';
 import { Observable } from 'rxjs/Observable';
 import {Router} from "@angular/router";
-import { AppConstants } from '../../app.constant';
+import { AppConstants } from '../../../app.constant';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 
-import { chatjs } from '../../../assets/js/chat'; 
-import { datatablessources } from '../../../assets/js/data-tables/datatables-sources'; 
-import { modaljs } from '../../../assets/js/components-modal.min'; 
+import { chatjs } from '../../../../assets/js/chat'; 
+import { datatablessources } from '../../../../assets/js/data-tables/datatables-sources'; 
+import { modaljs } from '../../../../assets/js/components-modal.min'; 
 
 declare var $;
 
@@ -43,6 +43,7 @@ export class AccountNew {
     errorMessage: string = '';
     selectedId: any;
     textLabel: any;
+    fieldLabel: any;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService, private toastr: ToastrService,) {
         
         const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
@@ -80,6 +81,7 @@ export class AccountNew {
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
+                this.fieldLabel = config.EMPLOYEE_LABEL;
             }            
         });
         

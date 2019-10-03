@@ -29,8 +29,10 @@ const definedRoutes: Routes = [
         path: 'thuoc',
         loadChildren: './modules/drug/drug.module#DrugModule'
     },
-
-
+    {
+        path: 'biet-duoc',
+        loadChildren: './modules/patent/patent.module#PatentModule'
+    },
     {
         path: '404',
         component: AppNotFound

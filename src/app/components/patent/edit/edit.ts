@@ -21,7 +21,7 @@ declare var $;
     templateUrl: './edit.html',
     styleUrls: ['./edit.less']
 })
-export class EditPatient {
+export class EditPatent {
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();

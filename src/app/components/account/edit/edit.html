@@ -16,7 +16,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-12">
                                             <div class="form-group">
-                                                <h5>Tên đăng nhập<span class="required">*</span></h5>
+                                                <h5>{{fieldLabel.lbl_username}}<span class="required">*</span></h5>
                                                 <div class="controls">
                                                     <input type="text" name="username" [(ngModel)]="account.username"                      
                                                     #username="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập tên đăng nhập">
@@ -24,7 +24,7 @@
                                                 <!-- <p>Add <code>required</code> attribute to field for required validation.</p> -->
                                             </div>
                                             <div class="form-group">
-                                                <h5>Mật khẩu<span class="required">*</span></h5>
+                                                <h5>{{fieldLabel.lbl_password}}<span class="required">*</span></h5>
                                                 <div class="controls">
                                                     <input type="password" name="password" [(ngModel)]="account.password"                      
                                                     #password="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập mật khẩu">
@@ -34,14 +34,14 @@
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="form-group">
-                                                <h5>Họ tên<span class="required">*</span></h5>
+                                                <h5>{{fieldLabel.lbl_name}}<span class="required">*</span></h5>
                                                 <div class="controls">
                                                     <input type="text" name="fullname" [(ngModel)]="account.fullname"                     
                                                     #fullname="ngModel" ngModel id="fullname" class="form-control" required data-validation-required-message="Vui lòng nhập họ tên">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <h5>Chức vụ <span class="required">*</span></h5>
+                                                <h5>{{fieldLabel.lbl_role}}<span class="required">*</span></h5>
                                                 <div class="controls">
                                                     <select name="role_id" id="role_id" #role_id="ngModel" ngModel [(ngModel)]="account.role_id" required class="form-control role-name">
                                                         <option [ngValue]="1">Admin</option>
@@ -53,8 +53,7 @@
                                             </div>
                                             
                                             <div class="text-right">
-                                                <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
-                                                <!-- <button type="reset" class="btn btn-danger">Reset <i class="fa fa-refresh position-right"></i></button> -->
+                                                <button type="submit" class="btn btn-success">{{textLabel.submit_txt}}<i class="fa fa-thumbs-o-up position-right"></i></button>
                                             </div>
                                         </div>
                                     </div>

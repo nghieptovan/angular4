@@ -13,7 +13,6 @@ declare var $;
 @Injectable()
 export class InterceptedHttp extends Http {
     store: any;
-    public pendingRequests: any = 0;
     public showLoading: boolean;
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, store: Store<fromRoot.AppState>) {
         super(backend, defaultOptions);
@@ -38,33 +37,13 @@ export class InterceptedHttp extends Http {
     }
 
     intercept(observable: Observable<Response>): Observable<Response> {
-        this.pendingRequests++;
-        this.addLoader();
         return observable
             .do((res: Response) => {
+                
             }, (err: any) => {
             })
             .finally(() => {
-                const timer = Observable.timer(200);
-                timer.subscribe(t => {
-                    this.removeLoader();
-                });
             });
-    }
-
-    addLoader() {
-        if (!this.showLoading) {
-            this.showLoading = true;
-            $('.lt-loader').css('visibility', 'visible');
-        }
-    }
-
-    removeLoader() {
-        this.pendingRequests--;
-        if (this.pendingRequests <= 0) {
-            this.showLoading = false;
-            $('.lt-loader').css('visibility', 'hidden');
-        }
     }
 
     request(
@@ -72,32 +51,10 @@ export class InterceptedHttp extends Http {
         options?: RequestOptionsArgs
     ): Observable<Response> {
         const listUrl = this.getExceptionListUrl();
-        // const elsEndPoint = AppConstants.ELASTIC_API_ENDPOINT;
-        const isCheckoutPage = window.location.href.includes('checkout');
-        const isCheckoutStep2 = window.location.href.includes('checkout?step=2');
         const isExcept = _.findIndex(listUrl, (pattern) => {
             return pattern.test(res['url'].toString());
         }) > -1;
-        // Exception apis
-        if (isExcept // In exception list
-            || res['url'].includes('integration/tracking-code') // Is tracking code api
-            // || (elsEndPoint && res['url'].toString().includes(elsEndPoint)) // are els apis
-            || res['url'].toString().includes('lotte_cart/shipping-rule') // shipping rule in step 2
-            || res['url'].includes('multi-homepages/section-store-hot-product')
-            || res['url'].includes('multi-homepages/section-top-promotions')
-            || res['url'].includes('integration/url-information?type=cms')
-            || res['url'].includes('lotte_product/related')
-            || res['url'].includes('integration/url-information?type=promotions')
-            || res['url'].includes('fashion-homepages/new-arrived')
-            || res['url'].includes('stylefeed/homepage/posts')
-            || res['url'].includes('stylefeed/category')
-            || res['url'].includes('/products')
-            || res['url'].includes('/ipwishlist')
-            || res['url'].includes('shipping-rule-product')
-            || res['url'].includes('shipping-rule')
-            || res['url'].includes('lotte_carts/checkcard')
-            || (res['url'].includes('lotte_product/product_reviews') && !res['method'])
-        ) {
+        if (isExcept) {
             return super.request(res, options);
         } else {
             return this.intercept(super.request(res, options));
