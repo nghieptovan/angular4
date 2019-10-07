@@ -69,7 +69,7 @@ $(document).ready(function() {
 
     $('.language-file').DataTable({
         "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Vietnamese.json"
         }
     });
 

@@ -8,14 +8,16 @@ import * as fromRoot from '../../../store';
 import * as account from '../../../store/account/account.actions';
 import * as patient from '../../../store/patient/patient.actions';
 
-import * as auth from '../../../store/auth/auth.actions';
+import * as medicine from '../../../store/medicine/medicine.actions';
 import { Observable } from 'rxjs/Observable';
 import {Router} from "@angular/router";
 import { AppConstants } from '../../../app.constant';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { datatablessources } from '../../../../assets/js/data-tables/datatables-sources'; 
+import { datatablessources, deleteRow, destroytable } from '../../../../assets/js/data-tables/datatables-sources'; 
+import { DialogService } from 'ng2-bootstrap-modal';
+import { ConfirmComponent } from '../../../modals/confirm.component';
 declare var $;
 
 @Component({
@@ -27,93 +29,82 @@ export class Patent {
     static isViewLoaded: any;
     patientGetLoadingState: any;
     pageLoading: boolean = false;
-    getListPatientSub: any;
+    listPatentMedicineSub: any;
+    deletePatentSub: any;
+    listPatentMedicine: any;
     deleteAccountSub: any;
-
-    patientIsLoading$: boolean = false;
-    usernameMessage: string = '';
-    passwordMessage: string = '';
-    dispatcherSub: any;
-    authGetLoadingState: boolean = false;
-    patients: any;
-    errorMessage: string = '';
     selectedId: any;
     textLabel: any;
     fieldLabel: any;
-    constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService,
-        private toastr: ToastrService,) {
-
+    constructor(private store: Store<fromRoot.AppState>, 
+        private globalService: GlobalService, 
+        private router: Router, 
+        private cookieService: CookieService,
+        private toastr: ToastrService,
+        private dialogService:DialogService) {
+           
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.PAITENT_LABEL;
+                this.fieldLabel = config.PATENT_MEDICINE;
             }            
         });
-        this.patientGetLoadingState = this.store.select(fromRoot.patientGetLoadingState).subscribe((loading) => {
-            this.patientIsLoading$ = loading;
-        });
-        
-        this.getListPatientSub = this.store.select(fromRoot.patientGetListPatient).subscribe((patients) => {
-            if(!patients){
-                this.store.dispatch(new patient.LoadPatientById(0));
+        this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
+            if(patentMedicines){
+                this.listPatentMedicine = patentMedicines;
+                datatablessources(3);                
             }else{
-                if(patients.code == 200){
-                    this.patients = patients.data;
-                    datatablessources();
-                }else{
-                    this.errorMessage = patients.message;
-                }
-            }
+                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+            }  
         });
-        this.deleteAccountSub = this.store.select(fromRoot.patientDeletePatient).subscribe((patient) => {
-            if(patient){
-                if(patient.code == 200){
-                    this.toastr.show(patient.message);
-                    this.patients  = _.filter(this.patients, (item) => { return item.id != this.selectedId; });
-                    this.selectedId = null;
-                    this.toastr.success(patient.message);
-                }else{
-                    this.toastr.error(patient.message);
-                    this.errorMessage = patient.message;
-                }
+
+        this.deletePatentSub = this.store.select(fromRoot.typeMedDelete).subscribe((type) => {
+            if(type =='patent_success'){
+                this.toastr.success('Đã xóa biệt dược thành công.');
+                destroytable();
+                datatablessources(3);   
+                // deleteRow(3);
             }
-        });
-        
-        
+            if(type == 'patent_failed'){
+                this.toastr.error('Có lỗi xảy ra, vui lòng thử lại sau.');
+            }
+        })
+   
     }
-    setDate(date){
-        return date.substring(0, 10);
-    }
+  
     
     ngOnDestroy() {
-        this.getListPatientSub.unsubscribe();
-        // this.deleteAccountSub.unsubscribe();
-        this.patientGetLoadingState.unsubscribe();
+        this.listPatentMedicineSub.unsubscribe();
+        this.deletePatentSub.unsubscribe();
     }
-
-    actionPatient(action, patient) {
+    actionPatent(action, patent) {
         
-        if(action != '' && patient.id){
+        if(action != '' && patent.id){
             switch (action) {
-                case 'toathuoc':
-                    this.globalService.setCurrentPatient(patient);
-                    this.router.navigateByUrl('/benh-nhan/toa-thuoc/'+patient.id);
-                    break;
                 case 'capnhat':
-                    this.globalService.setCurrentPatient(patient);
-                    this.router.navigateByUrl('/benh-nhan/cap-nhat/'+patient.id);
+                    this.router.navigateByUrl('/biet-duoc/cap-nhat/'+patent.id);
                     break;
                 case 'xoa':
-                    this.deleteAccount(patient.id);
-                    break;            
+                        this.dialogService.addDialog(ConfirmComponent, {
+                            title:'Confirm title', 
+                            message:'Bạn muốn xóa biệt dược'})
+                            .subscribe((isConfirmed)=>{
+                                if(isConfirmed) {
+                                    this.deletePatent(patent.id);
+                                }
+                            });
+                    break;         
                 default:
                     break;
             }
         }        
     }
-    
-    deleteAccount(id){
+    deletePatent(id){
         this.selectedId = id;
-        this.store.dispatch(new patient.DeletePatient(id));
+        this.store.dispatch(new medicine.DeleteDataMedicine({
+            type: 'patent',
+            data: id
+        }));
     }
+
 }

@@ -18,121 +18,90 @@ declare var $;
 
 // Redux
 @Component({
-    selector: 'edit-update-patient',
+    selector: 'edit-update-patent',
     templateUrl: './form.html',
     styleUrls: ['./form.less']
 })
-export class EditUpdatePatient implements OnInit {
+export class EditUpdatePatent implements OnInit {
 
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
     @Input() isEdit: boolean;
-    pageLoading: boolean = false;
-    dispatcherSub: any;
-    updatePatientSub: any;
-    loadPatientSub: any;
-
-    patients: any;
-    patient$: any = null;
-    birthdaySet: any = '';
+    @Input() patent: any;
+    patentId: any;
     minLenght: any;
     fieldLabel: any;
     textLabel: any;
     loadJsonConfigSub: any;
-    isSameId: boolean = true;
+    getCurrentPatentMedicineSub: any;
+    medStatusCreateOrUpdateSub: any;
+    loadedPatent: boolean = false;
     isUpdatePatient: boolean = false;
+
     
-    constructor(private store: Store<fromRoot.AppState>,
-        
+    constructor(private store: Store<fromRoot.AppState>,        
         private elementRef: ElementRef,
         private router: Router,
         private toastr: ToastrService,
         private activatedRoute: ActivatedRoute,
         private globalService: GlobalService,
         private patientModel: DataModel) {
-
-        this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+        this.patentId = activatedRoute.params['value'].id;
+        formvalidation();
+        this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) => {
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.PAITENT_LABEL;
+                this.fieldLabel = config.PATENT_MEDICINE;
             }            
         });
 
-        this.loadPatientSub = this.store.select(fromRoot.patientCurrentPatient).subscribe((patient) => {
-            if(patient && patient.code == 200){
-                this.patient$ = patient.data;
-                this.setBirthday();
+        this.getCurrentPatentMedicineSub = this.store.select(fromRoot.getCurrentPatentMedicine).subscribe((patent) => {
+            if(patent && patent.id > 0){
+                this.patent = patent;
+            }
+            if(patent && patent.id == -1){
+                this.toastr.error('Không tìm thấy biệt dược, vui lòng thử lại');
+                this.router.navigateByUrl('biet-duoc');
             }
         });
-        formvalidation();
-        
 
-        
-        this.updatePatientSub = this.store.select(fromRoot.patientUpdatePatient).subscribe((patient) => {
-            if(patient && this.isUpdatePatient){
+        this.medStatusCreateOrUpdateSub = this.store.select(fromRoot.medStatusCreateOrUpdate).subscribe((status) => {
+            if(status == 2 && this.isUpdatePatient){
+                this.toastr.success(this.isEdit ? "Cập nhật biệt dược "+this.patent.name+" thành công.": "Thêm biệt dược "+this.patent.name+" thành công");
                 this.isUpdatePatient = false;
-                this.toastr.success('Cập nhật thông tin bệnh nhân thành công');
+                this.router.navigateByUrl('biet-duoc');
+            }
+            if(status == 3 && this.isUpdatePatient){
+                this.toastr.error("Có lỗi xảy ra vui lòng thử lại");
+                this.isUpdatePatient = false;
             }
         });
-
-
     }
-    ngOnInit() {
-        let patientId = -1;
+    ngOnInit() {        
         if(this.isEdit){
-            patientId = this.activatedRoute.params['value'].id;
-        }
-        console.log(this.isEdit, patientId);
-        this.store.dispatch(new patient.LoadPatientById(patientId));       
-        
+            this.store.dispatch(new medicine.LoadPatentMedicine(this.patentId));
+        }  
     }
-    setBirthday(){
-        if(this.patient$.birthday){
-            this.birthdaySet = this.patient$.birthday.substring(0,10);
-        }
 
-    }
 
     update(form){
-
-    let { value } = form;
-    const employeeInfo = JSON.parse(localStorage.getItem('employeeInfo'));
-    if(form.valid){
-        const data = {
-            id: this.patient$.id  == 0 ? null : this.patient$.id,
-            name: value.name,
-            phone: value.phone,
-            address: value.address,
-            weight: value.weight,
-            birthday: this.birthdaySet,
-            diagnosis: value.diagnosis,
-            sex: value.sex,
-            status_id: this.patient$.status_id,
-            employee_id: employeeInfo.id ? employeeInfo.id : 0
+        let { value } = form;       
+        if(form.valid){
+            const data = {
+                name: value.name,
+                code: value.code,
+                patentId: this.patentId || 0
+            }
+            this.store.dispatch(new medicine.UpdatePatentMedicine(data));
+            this.isUpdatePatient = true;
         }
-        this.isUpdatePatient = true;
-        this.store.dispatch(new patient.UpdatePatient(data));
-    }
     }
 
 
     ngOnDestroy() {
-    this.loadPatientSub.unsubscribe();
-    this.updatePatientSub.unsubscribe();
-    }
-
-    selectDateTime(){
-    $('.pickadate').pickadate({
-        format: 'dd/mm/yyyy',
-        formatSubmit: 'dd/mm/yyyy',
-        selectMonths: true,
-        selectYears: true,
-        onSet: function(context) {
-            moment.locale('vi');
-            this.birthdaySet = moment.unix(context.select/1000).format("L");
-        }
-    });	
+        this.getCurrentPatentMedicineSub.unsubscribe();
+        this.medStatusCreateOrUpdateSub.unsubscribe();
     }
 
 }

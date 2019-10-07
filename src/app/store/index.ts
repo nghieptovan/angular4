@@ -89,6 +89,9 @@ export const getCurrentPatentMedicine = createSelector(medicineGetState, fromMed
 export const getCurrentDrugMedicine = createSelector(medicineGetState, fromMedicine.getCurrentDrugMedicine);
 export const getCurrentUnitMedicine = createSelector(medicineGetState, fromMedicine.getCurrentUnitMedicine);
 export const getCurrentBehaviourMedicine = createSelector(medicineGetState, fromMedicine.getCurrentBehaviourMedicine);
+export const medStatusCreateOrUpdate = createSelector(medicineGetState, fromMedicine.medStatusCreateOrUpdate);
+export const typeMedDelete = createSelector(medicineGetState, fromMedicine.typeMedDelete);
+export const dataMedDelete = createSelector(medicineGetState, fromMedicine.dataMedDelete);
 
 
 //End Medicine

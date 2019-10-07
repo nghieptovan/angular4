@@ -25,9 +25,14 @@ export const LOAD_DRUG_MEDICINE = '[DRUG_MEDICINE] load dược chất';
 export const LOAD_DRUG_MEDICINE_SUCCESS = '[DRUG_MEDICINE] successfully load dược chất';
 export const LOAD_DRUG_MEDICINE_FAILED = '[DRUG_MEDICINE] failed to load dược chất';
 
+//biệt dược
 export const LOAD_PATENT_MEDICINE = '[PATENT_MEDICINE] load biệt dược';
 export const LOAD_PATENT_MEDICINE_SUCCESS = '[PATENT_MEDICINE] successfully load biệt dược';
 export const LOAD_PATENT_MEDICINE_FAILED = '[PATENT_MEDICINE] failed to load biệt dược';
+export const UPDATE_PATENT_MEDICINE = '[PATENT_MEDICINE] create/update biệt dược';
+export const UPDATE_PATENT_MEDICINE_SUCCESS = '[PATENT_MEDICINE] successfully create/update biệt dược';
+export const UPDATE_PATENT_MEDICINE_FAILED = '[PATENT_MEDICINE] failed to create/update biệt dược';
+//biệt dược
 
 export const LOAD_UNIT_MEDICINE = '[UNIT_MEDICINE] load biệt dược';
 export const LOAD_UNIT_MEDICINE_SUCCESS = '[UNIT_MEDICINE] successfully load biệt dược';
@@ -36,6 +41,27 @@ export const LOAD_UNIT_MEDICINE_FAILED = '[UNIT_MEDICINE] failed to load biệt 
 export const LOAD_BEHAVIOUR_MEDICINE = '[BEHAVIOUR_MEDICINE] load behaviour';
 export const LOAD_BEHAVIOUR_MEDICINE_SUCCESS = '[BEHAVIOUR_MEDICINE] successfully load behaviour';
 export const LOAD_BEHAVIOUR_MEDICINE_FAILED = '[BEHAVIOUR_MEDICINE] failed to load behaviour';
+
+
+export const DELETE_DATA_MEDICINE = '[DELETE_DATA_MEDICINE] xóa dữ liệu thuốc';
+export const DELETE_DATA_MEDICINE_SUCCESS = '[DELETE_DATA_MEDICINE] xóa dữ liệu thuốc thành công';
+export const DELETE_DATA_MEDICINE_FAILED = '[DELETE_DATA_MEDICINE] xóa dữ liệu thuốc thất bại';
+
+//xóa dữ liệu thuốc
+export class DeleteDataMedicine implements Action {
+    readonly type = DELETE_DATA_MEDICINE;
+    constructor(public payload: any) { }
+}
+
+export class DeleteDataMedicineFailed implements Action {
+    readonly type = DELETE_DATA_MEDICINE_FAILED;
+    constructor(public payload: any) { }
+}
+
+export class DeleteDataMedicineSuccess implements Action {
+    readonly type = DELETE_DATA_MEDICINE_SUCCESS;
+    constructor(public payload: any) { }
+}
 
 
 //list patient
@@ -116,6 +142,23 @@ export class LoadPatentMedicineSuccess implements Action {
     readonly type = LOAD_PATENT_MEDICINE_SUCCESS;
     constructor(public payload: any) { }
 }
+export class UpdatePatentMedicine implements Action {
+    readonly type = UPDATE_PATENT_MEDICINE;
+    constructor(public payload: any) { }
+}
+
+export class UpdatePatentMedicineFailed implements Action {
+    readonly type = UPDATE_PATENT_MEDICINE_FAILED;
+    constructor(public payload: any) { }
+}
+
+export class UpdatePatentMedicineSuccess implements Action {
+    readonly type = UPDATE_PATENT_MEDICINE_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+
+
 // load unit medicine
 export class LoadUnitMedicine implements Action {
     readonly type = LOAD_UNIT_MEDICINE;
@@ -155,4 +198,6 @@ ListMedicine | ListMedicineFailed | ListMedicineSuccess
 | LoadPatentMedicine | LoadPatentMedicineFailed | LoadPatentMedicineSuccess
 | LoadUnitMedicine | LoadUnitMedicineFailed | LoadUnitMedicineSuccess
 | LoadBehaviourMedicine | LoadBehaviourMedicineSuccess | LoadBehaviourMedicineFailed
+| UpdatePatentMedicine | UpdatePatentMedicineFailed | UpdatePatentMedicineSuccess
+| DeleteDataMedicine | DeleteDataMedicineSuccess | DeleteDataMedicineFailed
 ;

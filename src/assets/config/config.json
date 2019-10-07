@@ -51,7 +51,9 @@
         "lbl_patent_edit":"Cập nhật biệt dược",
         "lbl_patent_manage":"Quản lý biệt dược",
         "lbl_patent_name":"Tên biệt dược",
-        "lbl_patent_code":"Mã biệt dược"        
+        "lbl_update_at": "Ngày cập nhật",
+        "lbl_patent_code":"Mã biệt dược",
+        "lbl_action": "Thao tác"       
     }
 }
 

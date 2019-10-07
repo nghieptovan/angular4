@@ -19,39 +19,30 @@ declare var $;
     styleUrls: ['./add.less']
 })
 export class AddPatent {
-    @Input() uid: any;
-    @ViewChild('updateForm') updateForm: NgForm;
-    @Output('validationChange') validationChange = new EventEmitter<Boolean>();
-    customers: any = {};
-    
-
-    dispatcherSub: any;
-    createAccountSub: any;
-    roleSet: any;
-    usernameMessage: any;
-    passwordMessage: any;
-    roleMessage: any;
-    fullnameMessage: any;
-    roleId: any;
+    patent: any = {
+        'code': "",
+        'created_at': "",
+        'id': 0,
+        'name': " ",
+        'updated_at': ""
+    };
     textLabel: any;
-    showRole: boolean = false;
-    constructor(private store: Store<fromRoot.AppState>,
-                
-                private elementRef: ElementRef,
-                private router: Router,
-                private toastr: ToastrService,
-                private activatedRoute: ActivatedRoute,
-                ) {
-                    this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
-                        if(config) {
-                            this.textLabel = config.TEXT_LABEL;
-                        }            
-                    });
-      console.log('add patient');
+    fieldLabel: any;
+
+    constructor(
+        private store: Store<fromRoot.AppState>,                
+        private elementRef: ElementRef,
+        private router: Router,
+        private toastr: ToastrService,
+        private activatedRoute: ActivatedRoute,
+        ) {
+            this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
+                if(config) {
+                    this.textLabel = config.TEXT_LABEL;
+                    this.fieldLabel = config.PATENT_MEDICINE;
+                }            
+            });
       
     }
-
-
-
 
 }

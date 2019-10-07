@@ -99,15 +99,14 @@ export class MedicineEffects {
     loadPatentMedicine$ = this._actions.ofType(medicine.LOAD_PATENT_MEDICINE)
         .switchMap((action) => {
             let listPatentMedicine = this.globalService.getSessionData('listPatentMedicine');
-            if(listPatentMedicine){
+            if(listPatentMedicine && (action as any).payload == 0){
                 return Observable.of(new medicine.LoadPatentMedicineSuccess({data: listPatentMedicine, id: (action as any).payload}));
             }else{
                 return this.medicineService.loadPatentMedicine((action as any).payload)
                 .map((resp) => {
                     let dataRes = resp.json();
                     if(dataRes && dataRes.code == 200){
-                        if((action as any).payload == 0) this.globalService.setSessionData('listPatentMedicine', dataRes.data);
-                        
+                        if((action as any).payload == 0) this.globalService.setSessionData('listPatentMedicine', dataRes.data);                        
                         return new medicine.LoadPatentMedicineSuccess({data: dataRes.data, id: (action as any).payload});
                     }else{
                         return new medicine.LoadPatentMedicineFailed({data: {}, id: (action as any).payload});
@@ -118,6 +117,35 @@ export class MedicineEffects {
             }        
     });
 
+    // Load deleteDataMedicine
+    @Effect()
+    deleteDataMedicine$ = this._actions.ofType(medicine.DELETE_DATA_MEDICINE)
+        .switchMap((action) => {
+            return this.medicineService.deleteDataMedicine((action as any).payload)
+                .map((resp) => {
+                    let dataRes = resp.json();
+                    return new medicine.DeleteDataMedicineSuccess({data: dataRes, payload: (action as any).payload});                  
+                }).catch((error) => {
+                    return Observable.of(new medicine.DeleteDataMedicineFailed({data: error, payload: (action as any).payload}));
+                });   
+    });
+
+    // create update patent_medicine
+    @Effect()
+    updatePatentMedicine$ = this._actions.ofType(medicine.UPDATE_PATENT_MEDICINE)
+        .switchMap((action) => {
+            return this.medicineService.patentMedicineUpdateAndCreate((action as any).payload)
+                .map((resp) => {
+                    let dataRes = resp.json();
+                    if(dataRes && dataRes.code == 200){
+                        return new medicine.UpdatePatentMedicineSuccess({data: dataRes.data, error: false});
+                    }else{
+                        return new medicine.UpdatePatentMedicineFailed({data: {}, error: true });
+                    }   
+                }).catch((error) => {
+                    return Observable.of(new medicine.UpdatePatentMedicineFailed({data: error, error: true }));
+                });      
+    });
     // Load unit_medicine
     @Effect()
     loadUnitMedicine$ = this._actions.ofType(medicine.LOAD_UNIT_MEDICINE)

@@ -19,12 +19,16 @@ export interface State {
 
     listPatentMedicine: any;
     currentPatentMedicine: any;
+    statusCreateOrUpdate: number;
 
     listUnitMedicine: any;
     currentUnitMedicine: any;
 
     listBehaviourMedicine: any;
     currentBehaviourMedicine: any;
+
+    typeMedDelete: any;
+    dataMedDelete: any;
 }
 
 const initialState: State = {
@@ -39,10 +43,13 @@ const initialState: State = {
     currentDrugMedicine: null,
     listPatentMedicine: null,
     currentPatentMedicine: null,
+    statusCreateOrUpdate: 0,
     listUnitMedicine: null,
     currentUnitMedicine: null,
     listBehaviourMedicine: null,
-    currentBehaviourMedicine: null
+    currentBehaviourMedicine: null,
+    typeMedDelete: null,
+    dataMedDelete: null
 };
 
 export function reducer(state = initialState, action: medicine.MedicineActions): State {
@@ -169,8 +176,7 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
 
         case medicine.LOAD_PATENT_MEDICINE: {
             return Object.assign({}, state, {
-                loading: true,
-                loaded: false
+                currentPatentMedicine: {}
             });
         }
 
@@ -192,14 +198,77 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
         }
 
         case medicine.LOAD_PATENT_MEDICINE_FAILED: {
+            let { data, id } = action.payload;
+            if(id == 0){
+                return Object.assign({}, state, {
+                    loaded: true,
+                    loading: false,
+                    listPatentMedicine: [],
+                    errorMessage: AppHelpers.getErrorMessage(data)
+                });
+            }else{
+                return Object.assign({}, state, {
+                    loaded: true,
+                    loading: false,
+                    currentPatentMedicine: {id: -1},
+                    errorMessage: "Không tìm thấy biệt dược. Vui lòng kiểm tra lại."
+                });
+            }
+            
+        }
+
+
+        case medicine.UPDATE_PATENT_MEDICINE: {
+            return Object.assign({}, state, {
+                statusCreateOrUpdate: 1
+            });
+        }
+
+        case medicine.UPDATE_PATENT_MEDICINE_SUCCESS: {
+            let {data, error} = action.payload;
+            let listPatentMedicine = [];
+            if(getSessionData('listPatentMedicine'))
+                listPatentMedicine = getSessionData('listPatentMedicine');
+            if(!error){
+                let findPatent = _.findIndex(listPatentMedicine, { id : data.id });
+                if(findPatent >= 0){
+                    listPatentMedicine[findPatent] = data;
+                }else{
+                    listPatentMedicine = [...listPatentMedicine, ...data];
+                }
+                setSessionData('listPatentMedicine', listPatentMedicine);
+                return Object.assign({}, state, {
+                    listPatentMedicine: listPatentMedicine,
+                    statusCreateOrUpdate: 2
+                });
+            }else{
+                let message = "";
+                if(data){
+                    message = 'Biệt dược không tồn tại';
+                }else{
+                    message = 'Có lỗi xảy ra, vui lòng thử lại';
+                }
+                return Object.assign({}, state, {
+                    errorMessage: message,
+                    statusCreateOrUpdate: 3
+                });
+                
+            } 
+        }
+
+        case medicine.UPDATE_PATENT_MEDICINE_FAILED: {
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
                 listPatentMedicine: null,
                 currentPatentMedicine: null,
+                statusCreateOrUpdate: 3,
                 errorMessage: AppHelpers.getErrorMessage(action.payload)
             });
         }
+
+
+
 
         case medicine.LOAD_UNIT_MEDICINE: {
             return Object.assign({}, state, {
@@ -269,6 +338,49 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
             });
         }
 
+        case medicine.DELETE_DATA_MEDICINE: {
+            let { type } = action.payload;
+            return Object.assign({}, state, {
+                typeMedDelete: ''
+            });
+        }
+        case medicine.DELETE_DATA_MEDICINE_SUCCESS: {
+            let { data, payload } = action.payload;
+            let keyData = '';
+            let { listPatentMedicine } = state;
+            switch (payload.type) {
+                case 'patent':
+                    keyData = 'listPatentMedicine';
+                    break;        
+                default:
+                    break;
+            }
+            let listDataMedicine = [];
+            if(getSessionData(keyData)){
+                listDataMedicine = getSessionData(keyData);
+                _.remove(listDataMedicine, (med) => {
+                    return med.id == payload.data
+                });
+                setSessionData(keyData, listDataMedicine);
+            }
+
+            console.log(keyData);
+            console.log(listDataMedicine);
+            console.log(listPatentMedicine);
+            
+            return Object.assign({}, state, {
+                typeMedDelete: payload.type +'_success',
+                listPatentMedicine: keyData == 'listPatentMedicine' ? listDataMedicine : listPatentMedicine
+            });
+        }
+
+        case medicine.DELETE_DATA_MEDICINE_FAILED: {
+            let { data, payload } = action.payload;
+            return Object.assign({}, state, {
+                typeMedDelete: payload.type+'_failed',
+                dataMedDelete: data
+            });
+        }
        
         default:
             return state;
@@ -311,6 +423,21 @@ function getDefaultMedicine(){
         }
       };
 }
+function setSessionData(name, data){
+    let dataSet;
+    if(typeof data == 'object'){
+        dataSet = JSON.stringify(data);
+    }
+    sessionStorage.setItem(name,dataSet);
+}
+function getSessionData(name){
+    let dataReturn = sessionStorage.getItem(name);
+    if(dataReturn){
+        return JSON.parse(dataReturn);
+    }else{
+        return false;
+    }
+}
 
 /*
 Selectors for the state that will be later
@@ -332,5 +459,8 @@ export const getCurrentDrugMedicine = (state: State) => state.currentDrugMedicin
 export const getCurrentPatentMedicine = (state: State) => state.currentPatentMedicine;
 export const getCurrentUnitMedicine = (state: State) => state.currentUnitMedicine;
 export const getCurrentBehaviourMedicine = (state: State) => state.currentBehaviourMedicine;
+export const medStatusCreateOrUpdate = (state: State) => state.statusCreateOrUpdate;
+export const typeMedDelete = (state: State) => state.typeMedDelete;
+export const dataMedDelete = (state: State) => state.dataMedDelete;
 
 

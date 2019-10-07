@@ -10,7 +10,6 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { OwlModule } from 'ngx-owl-carousel';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ClickOutsideModule } from 'ng-click-outside';
-
 import { AppLoader } from './layout/loader/loader';
 // import { AppModalsModule } from './modals/modals.module';
 import { AppPipesModule } from './pipes/pipes.module';
@@ -20,6 +19,7 @@ import {ExpiredDateValidatorDirective} from "./directives/ExpiredDateValidator";
 import {CardNoLuhnValidatorDirective} from "./directives/CardNoLuhnValidator";
 import {EditUpdateMedicine} from "./components/drug/danhsachthuoc/form/form";
 import {EditUpdatePatient} from "./components/patient/form/form";
+import {EditUpdatePatent} from "./components/patent/form/form";
 
 
 @NgModule({
@@ -47,7 +47,7 @@ import {EditUpdatePatient} from "./components/patient/form/form";
 
         EditUpdateMedicine,
         EditUpdatePatient,
-
+        EditUpdatePatent,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,
@@ -71,6 +71,7 @@ import {EditUpdatePatient} from "./components/patient/form/form";
      
         EditUpdateMedicine,
         EditUpdatePatient,
+        EditUpdatePatent,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,

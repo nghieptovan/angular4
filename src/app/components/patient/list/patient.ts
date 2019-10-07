@@ -53,7 +53,7 @@ export class Patient {
             }else{
                 if(patients.code == 200){
                     this.patients = patients.data;
-                    datatablessources();
+                    datatablessources(0);
                 }else{
                     this.errorMessage = patients.message;
                 }

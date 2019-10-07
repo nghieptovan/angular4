@@ -11,13 +11,14 @@ import { Http, Response } from '@angular/http';
 declare var $;
 @Injectable()
 export class GlobalService {
-
+    
     cartCookiesTimestamp: any;
     isScriptLoaded: any;
+    static toastr: any;
+
     constructor(private cookieService: CookieService, private store: Store<fromRoot.AppState>,private http: Http) {
         this.isScriptLoaded = false;
     }
-
     syncCartCookies() {
         const cartCookies = this.cookieService.get('section_data_ids');
         this.cookieService.delete('section_data_ids', '/');
@@ -438,5 +439,4 @@ export class GlobalService {
             return false;
         }
     }
-
 }

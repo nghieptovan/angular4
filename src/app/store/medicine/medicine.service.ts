@@ -35,6 +35,15 @@ export class MedicineService {
         return this.httpService.getAnonymous(url);
     }
 
+    patentMedicineUpdateAndCreate(data){
+        let input = {
+            name: data.name,
+            code: data.code
+        }
+        let url = data.patentId != 0 ? 'patentmedicine/' + data.patentId : 'patentmedicine';
+        return this.httpService.postAnonymous(url, input);
+    }
+
     loadUnitMedicine(data){
         let url = data != 0 ? 'unittomedicine/' + data : 'unittomedicine';
         return this.httpService.getAnonymous(url);
@@ -43,6 +52,20 @@ export class MedicineService {
     loadBehaviourMedicine(data){
         let url = data != 0 ? 'behaviourmedicine/' + data : 'behaviourmedicine';
         return this.httpService.getAnonymous(url);
+    }
+
+    deleteDataMedicine(input){
+        let { type, data } = input;
+        let url = ''; 
+        console.log(type, data);
+        switch (type) {
+            case 'patent':
+                url = 'patentmedicine/delete/'+ data;
+                break;        
+            default:
+                break;
+        }
+        return this.httpService.postAnonymous(url, input);
     }
 
 //     Route::get('/api/v1/typemedicine/{id?}', 'TypeMedicines@index');

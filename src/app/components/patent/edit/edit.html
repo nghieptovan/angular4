@@ -5,12 +5,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">  
-                            <h4 class="card-title">{{textLabel.patient_update}}</h4>
-                            <a routerLink="/benh-nhan" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.back_txt}}</a>
+                            <h4 class="card-title">{{fieldLabel.lbl_patent_edit}}</h4>
+                            <a routerLink="/biet-duoc" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.back_txt}}</a>
                         </div>
                         <div class="card-body">
                             <div class="card-block">
-                                <edit-update-patient [isEdit]="true"></edit-update-patient>
+                                <edit-update-patent [isEdit]="true"></edit-update-patent>
                             </div>
                         </div>
                     </div>

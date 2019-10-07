@@ -57,7 +57,7 @@ export class AccountNew {
             }else{
                 if(info.code == 200){
                     this.listAccount = info.data;
-                    datatablessources();
+                    datatablessources(0);
                     modaljs();
                 }else{
                     this.errorMessage = info.message;

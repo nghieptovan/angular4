@@ -53,7 +53,7 @@ export class DanhSachThuoc {
             }else{
                 if(medicines && medicines.code == 200){
                     this.medicine = medicines.data;
-                    datatablessources();
+                    datatablessources(0);
                 }
             }
         });

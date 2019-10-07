@@ -1,65 +1,21 @@
-<form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm" novalidate *ngIf="patient$">
+<form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm" novalidate *ngIf="patent">
     <div class="row">
         <div class="col-lg-6 col-md-12">
             <div class="form-group">
-                <h5>{{fieldLabel.lbl_name}}<span class="required">*</span></h5>
+                <h5>{{fieldLabel.lbl_patent_name}}<span class="required">*</span></h5>
                 <div class="controls">
-                    <input type="text" name="name" [(ngModel)]="patient$.name" #name="ngModel" ngModel
-                     class="form-control" required data-validation-required-message="Vui lòng nhập họ tên">
+                    <input type="text" name="name" [(ngModel)]="patent.name" #name="ngModel" ngModel
+                     class="form-control" required data-validation-required-message="Vui lòng nhập tên">
                 </div>
             </div>
-           
-            <div class="form-group">
-                <h5>{{fieldLabel.lbl_address}}<span class="required">*</span></h5>
-                <div class="controls">
-                    <input type="text" name="address" [(ngModel)]="patient$.address" #address="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
-                </div>
-            </div>
-            <div class="form-group">
-                <h5>{{fieldLabel.lbl_dob}} <span class="required">*</span></h5>
-                <div class="input-group">             
-                  <input type="text" name="birthday" [(ngModel)]="birthdaySet" #birthday="ngModel" ngModel (click)="selectDateTime()" class="form-control pickadate" placeholder="Chọn ngày sinh" />
-                </div>
-              </div>
-
-
-            <div class="form-group">
-                <h5>{{fieldLabel.lbl_diagnosis}}<span class="required">*</span></h5>
-                <div class="controls">
-                    <textarea name="diagnosis" id="diagnosis"
-                    [(ngModel)]="patient$.diagnosis" #diagnosis="ngModel" ngModel class="form-control"  placeholder="Tiền căn" aria-invalid="false"></textarea>
-                <div class="help-block"></div></div>
-            </div>
-            
-            
         </div>
         <div class="col-lg-6 col-md-12">
             <div class="form-group">
-                <h5>{{fieldLabel.lbl_phone}}<span class="required">*</span></h5>
+                <h5>{{fieldLabel.lbl_patent_code}}</h5>
                 <div class="controls">
-                    <input type="text" name="phone" [(ngModel)]="patient$.phone" #phone="ngModel" ngModel class="form-control" 
-                    required data-validation-containsnumber-regex="(\d)+"
-                    required data-validation-required-message="Vui lòng nhập số điện thoại" data-validation-containsnumber-message="Vui lòng nhập số">
+                    <input type="text" name="code" [(ngModel)]="patent.code" #code="ngModel" ngModel class="form-control">
                   </div>
             </div>
-            <div class="form-group">
-                <h5>{{fieldLabel.lbl_weight}}<span class="required">*</span></h5>
-                <div class="controls">
-                    <input type="text" name="weight" 
-                    [(ngModel)]="patient$.weight" #weight="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập cân nặng">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <h5>{{fieldLabel.lbl_sex}}<span class="required">*</span></h5>
-                <div class="controls">
-                    <select name="sex" id="sex" #sex="ngModel" ngModel [(ngModel)]="patient$.sex" required class="form-control role-name">
-                        <option [ngValue]="1">Nam</option>
-                        <option [ngValue]="2">Nữ</option>
-                    </select>
-                </div>
-            </div>
-            
             <div class="text-right">
                 <button type="submit" class="btn btn-success">{{textLabel.submit_txt}}</button>
             </div>

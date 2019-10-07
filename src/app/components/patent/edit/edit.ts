@@ -8,8 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
-import * as account from '../../../store/account/account.actions';
-import * as patient from '../../../store/patient/patient.actions';
+import * as medicine from '../../../store/medicine/medicine.actions';
 import { DataModel } from '../../../store/data';
 import { GlobalService } from '../../../services/global.service';
 import {formvalidation } from '../../../../assets/js/form-validation';
@@ -17,28 +16,15 @@ declare var $;
 
 // Redux
 @Component({
-    selector: 'edit-patient',
+    selector: 'edit-patent',
     templateUrl: './edit.html',
     styleUrls: ['./edit.less']
 })
 export class EditPatent {
-    @Input() uid: any;
-    @ViewChild('updateForm') updateForm: NgForm;
-    @Output('validationChange') validationChange = new EventEmitter<Boolean>();
-  
-    pageLoading: boolean = false;
-    dispatcherSub: any;
-    updatePatientSub: any;
-    loadPatientSub: any;
-
-    patients: any;
-    patient: any;
-    birthdaySet: any = '';
     minLenght: any;
+    fieldLabel: any;
     textLabel: any;
-    loadJsonConfigSub: any;
-    isSameId: boolean = true;
-    isUpdatePatient: boolean = false;
+    getCurrentPatentMedicineSub: any;
     constructor(
         private store: Store<fromRoot.AppState>,
         
@@ -48,15 +34,16 @@ export class EditPatent {
         private activatedRoute: ActivatedRoute,
         private globalService: GlobalService,
         private patientModel: DataModel
-    ) {
+    ) {        
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-            }            
+                this.fieldLabel = config.PATENT_MEDICINE;
+            }          
         });
-        console.log('edit patient');
-                    
+                          
     }
-   
+    ngOnDestroy() {
+    }
 
 }

@@ -1,1 +1,3 @@
-export declare function datatablessources();
+export declare function datatablessources(col);
+export declare function deleteRow(row);
+export declare function destroytable();

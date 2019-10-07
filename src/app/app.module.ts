@@ -21,7 +21,7 @@ import { LeftSidebar } from './layout/sidebar/left';
 import { RightSidebar } from './layout/sidebar/right';
 import { AppContent } from './layout/content/content';
 import { AppNotFound } from './layout/404/404';
-
+import { ConfirmComponent } from './modals/confirm.component';
 // Import custom components
 
 // Import directives
@@ -41,6 +41,7 @@ import { AppStoreModule } from './store/store.module';
 import { AppCommonModule } from './app.common.module';
 // import masonry and infinitescroll
 
+
 const PAGE_MODULES = [
     AppStoreModule,
     AppCommonModule
@@ -55,12 +56,9 @@ const PAGE_MODULES = [
         AppFooter,
         LeftSidebar,
         RightSidebar,
+        ConfirmComponent,
         AppContent,
-        AppNotFound,
-
-
-
-
+        AppNotFound
     ],
     imports: [
         BrowserModule,
@@ -77,6 +75,9 @@ const PAGE_MODULES = [
         ClickOutsideModule,
 
     ],
+    entryComponents: [
+        ConfirmComponent
+      ],
     exports: [RouterModule],
     providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
