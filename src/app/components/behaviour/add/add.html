@@ -1,0 +1,21 @@
+<div class="main-content">
+  <div class="content-wrapper">
+      <section class="input-validation">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card">
+                      <div class="card-header">  
+                          <h4 class="card-title">{{fieldLabel.lbl_behaviour_add}}</h4>
+                          <a routerLink="/quy-cach-su-dung" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.back_txt}}</a>
+                      </div>
+                      <div class="card-body">
+                          <div class="card-block">
+                              <edit-update-behaviour [isEdit]="false" [behaviour]="behaviour" [behaviourId]="behaviourId"></edit-update-behaviour>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
+</div>

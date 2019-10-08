@@ -18,10 +18,14 @@ import {EqualValidatorDirective} from "./directives/EqualValidator";
 import {ExpiredDateValidatorDirective} from "./directives/ExpiredDateValidator";
 import {CardNoLuhnValidatorDirective} from "./directives/CardNoLuhnValidator";
 import {EditUpdateMedicine} from "./components/medicine/danhsachthuoc/form/form";
+
 import {EditUpdatePatient} from "./components/patient/form/form";
+
 import {EditUpdatePatent} from "./components/patent/form/form";
 import {EditUpdateDrug} from "./components/drug/form/form";
 import {EditUpdateUnit} from "./components/unit/form/form";
+import {EditUpdateType} from "./components/type/form/form";
+import {EditUpdateBehaviour} from "./components/behaviour/form/form";
 
 
 @NgModule({
@@ -52,6 +56,8 @@ import {EditUpdateUnit} from "./components/unit/form/form";
         EditUpdatePatent,
         EditUpdateDrug,
         EditUpdateUnit,
+        EditUpdateType,
+        EditUpdateBehaviour,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,
@@ -78,6 +84,8 @@ import {EditUpdateUnit} from "./components/unit/form/form";
         EditUpdatePatent,
         EditUpdateDrug,
         EditUpdateUnit,
+        EditUpdateType,
+        EditUpdateBehaviour,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,

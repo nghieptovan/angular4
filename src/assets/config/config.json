@@ -79,6 +79,38 @@
         "lbl_unit_failed": "Có lỗi xảy ra, vui lòng thử lại sau.",
         "type_success": "unit_success",
         "type_failed": "unit_failed"
+    },
+    "BEHAVIOUR_MEDICINE":{
+        "lbl_behaviour_add":"Thêm quy cách sử dung",
+        "lbl_behaviour_edit":"Cập nhật quy cách sử dung",
+        "lbl_behaviour_manage":"Quản lý quy cách sử dung",
+        "lbl_behaviour_name":"Tên quy cách sử dung",
+        "lbl_update_at": "Ngày cập nhật",
+        "lbl_behaviour_code":"Mã quy cách sử dung",
+        "lbl_action": "Thao tác",
+        "lbl_name_exist": "Tên quy cách sử dung đã tồn tại",  
+        "lbl_code_exist": "Mã quy cách sử dung đã tồn tại",
+        "lbl_behaviour_delete": "Bạn muốn xóa quy cách sử dung?",
+        "lbl_behaviour_delete_success": "Xóa quy cách sử dung thành công.",
+        "lbl_behaviour_failed": "Có lỗi xảy ra, vui lòng thử lại sau.",
+        "type_success": "behaviour_success",
+        "type_failed": "behaviour_failed"
+    },
+    "TYPE_MEDICINE":{
+        "lbl_type_add":"Thêm phân loại thuốc",
+        "lbl_type_edit":"Cập nhật phân loại thuốc",
+        "lbl_type_manage":"Quản lý phân loại thuốc",
+        "lbl_type_name":"Tên phân loại thuốc",
+        "lbl_update_at": "Ngày cập nhật",
+        "lbl_type_code":"Mã phân loại thuốc",
+        "lbl_action": "Thao tác",
+        "lbl_name_exist": "Tên phân loại thuốc đã tồn tại",  
+        "lbl_code_exist": "Mã phân loại thuốc đã tồn tại",
+        "lbl_type_delete": "Bạn muốn xóa phân loại thuốc?",
+        "lbl_type_delete_success": "Xóa phân loại thuốc thành công.",
+        "lbl_type_failed": "Có lỗi xảy ra, vui lòng thử lại sau.",
+        "type_success": "type_success",
+        "type_failed": "type_failed"
     }
 }
 

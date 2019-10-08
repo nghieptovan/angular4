@@ -29,9 +29,6 @@ export const LOAD_DRUG_MEDICINE_FAILED = '[DRUG_MEDICINE] failed to load dược
 export const LOAD_PATENT_MEDICINE = '[PATENT_MEDICINE] load biệt dược';
 export const LOAD_PATENT_MEDICINE_SUCCESS = '[PATENT_MEDICINE] successfully load biệt dược';
 export const LOAD_PATENT_MEDICINE_FAILED = '[PATENT_MEDICINE] failed to load biệt dược';
-export const UPDATE_PATENT_MEDICINE = '[PATENT_MEDICINE] create/update biệt dược';
-export const UPDATE_PATENT_MEDICINE_SUCCESS = '[PATENT_MEDICINE] successfully create/update biệt dược';
-export const UPDATE_PATENT_MEDICINE_FAILED = '[PATENT_MEDICINE] failed to create/update biệt dược';
 //biệt dược
 
 export const LOAD_UNIT_MEDICINE = '[UNIT_MEDICINE] load biệt dược';
@@ -160,21 +157,6 @@ export class LoadPatentMedicineSuccess implements Action {
     readonly type = LOAD_PATENT_MEDICINE_SUCCESS;
     constructor(public payload: any) { }
 }
-export class UpdatePatentMedicine implements Action {
-    readonly type = UPDATE_PATENT_MEDICINE;
-    constructor(public payload: any) { }
-}
-
-export class UpdatePatentMedicineFailed implements Action {
-    readonly type = UPDATE_PATENT_MEDICINE_FAILED;
-    constructor(public payload: any) { }
-}
-
-export class UpdatePatentMedicineSuccess implements Action {
-    readonly type = UPDATE_PATENT_MEDICINE_SUCCESS;
-    constructor(public payload: any) { }
-}
-
 
 
 // load unit medicine
@@ -216,7 +198,6 @@ ListMedicine | ListMedicineFailed | ListMedicineSuccess
 | LoadPatentMedicine | LoadPatentMedicineFailed | LoadPatentMedicineSuccess
 | LoadUnitMedicine | LoadUnitMedicineFailed | LoadUnitMedicineSuccess
 | LoadBehaviourMedicine | LoadBehaviourMedicineSuccess | LoadBehaviourMedicineFailed
-| UpdatePatentMedicine | UpdatePatentMedicineFailed | UpdatePatentMedicineSuccess
 | DeleteDataMedicine | DeleteDataMedicineSuccess | DeleteDataMedicineFailed
 | UpdateDataMedicine | UpdateDataMedicineSuccess | UpdateDataMedicineFailed
 ;

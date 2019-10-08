@@ -221,59 +221,6 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
             
         }
 
-
-        case medicine.UPDATE_PATENT_MEDICINE: {
-            return Object.assign({}, state, {
-                statusCreateOrUpdate: 1
-            });
-        }
-
-        case medicine.UPDATE_PATENT_MEDICINE_SUCCESS: {
-            let {data, error} = action.payload;
-            let listPatentMedicine = [];
-            if(getSessionData('listPatentMedicine'))
-                listPatentMedicine = getSessionData('listPatentMedicine');
-            if(!error){
-                let findPatent = _.findIndex(listPatentMedicine, { id : data.id });
-                if(findPatent >= 0){
-                    listPatentMedicine[findPatent] = data;
-                }else{
-                    listPatentMedicine = [...listPatentMedicine, ...data];
-                }
-                setSessionData('listPatentMedicine', listPatentMedicine);
-                return Object.assign({}, state, {
-                    listPatentMedicine: listPatentMedicine,
-                    statusCreateOrUpdate: 2
-                });
-            }else{
-                let message = "";
-                if(data){
-                    message = 'Biệt dược không tồn tại';
-                }else{
-                    message = 'Có lỗi xảy ra, vui lòng thử lại';
-                }
-                return Object.assign({}, state, {
-                    errorMessage: message,
-                    statusCreateOrUpdate: 3
-                });
-                
-            } 
-        }
-
-        case medicine.UPDATE_PATENT_MEDICINE_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                listPatentMedicine: null,
-                currentPatentMedicine: null,
-                statusCreateOrUpdate: 3,
-                errorMessage: AppHelpers.getErrorMessage(action.payload)
-            });
-        }
-
-
-
-
         case medicine.LOAD_UNIT_MEDICINE: {
             return Object.assign({}, state, {
                 loading: true,
@@ -351,7 +298,7 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
         case medicine.DELETE_DATA_MEDICINE_SUCCESS: {
             let { data, payload } = action.payload;
             let keyData = '';
-            let { listPatentMedicine, listDrugMedicine, listUnitMedicine } = state;
+            let { listPatentMedicine, listDrugMedicine, listUnitMedicine, listTypeMedicine, listBehaviourMedicine } = state;
             switch (payload.type) {
                 case 'patent':
                     keyData = 'listPatentMedicine';
@@ -361,6 +308,12 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                     break;        
                 case 'drug':
                     keyData = 'listDrugMedicine';
+                    break;        
+                case 'type':
+                    keyData = 'listTypeMedicine';
+                    break;        
+                case 'behaviour':
+                    keyData = 'listBehaviourMedicine';
                     break;        
                 default:
                     break;
@@ -378,7 +331,9 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                 typeMedDelete: payload.type +'_success',
                 listPatentMedicine: keyData == 'listPatentMedicine' ? listDataMedicine : listPatentMedicine,
                 listDrugMedicine: keyData == 'listDrugMedicine' ? listDataMedicine : listDrugMedicine,
-                listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine
+                listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine,
+                listTypeMedicine: keyData == 'listTypeMedicine' ? listDataMedicine : listTypeMedicine,
+                listBehaviourMedicine: keyData == 'listBehaviourMedicine' ? listDataMedicine : listBehaviourMedicine
             });
         }
 
@@ -400,7 +355,7 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
         case medicine.UPDATE_DATA_MEDICINE_SUCCESS: {
             let { data, payload } = action.payload;
             let keyData = '';
-            let { listPatentMedicine, listDrugMedicine, listUnitMedicine} = state;
+            let { listPatentMedicine, listDrugMedicine, listUnitMedicine, listTypeMedicine, listBehaviourMedicine} = state;
             switch (payload.type) {
                 case 'patent':
                     keyData = 'listPatentMedicine';
@@ -410,6 +365,12 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                     break;
                 case 'unit':
                     keyData = 'listUnitMedicine';
+                    break;   
+                case 'type':
+                    keyData = 'listTypeMedicine';
+                    break;           
+                case 'behaviour':
+                    keyData = 'listBehaviourMedicine';
                     break;           
                 default:
                     break;
@@ -436,7 +397,9 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                 statusCreateOrUpdate: 2,
                 listPatentMedicine: keyData == 'listPatentMedicine' ? listDataMedicine : listPatentMedicine,
                 listDrugMedicine: keyData == 'listDrugMedicine' ? listDataMedicine : listDrugMedicine,
-                listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine
+                listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine,
+                listTypeMedicine: keyData == 'listTypeMedicine' ? listDataMedicine : listTypeMedicine,
+                listBehaviourMedicine: keyData == 'listBehaviourMedicine' ? listDataMedicine : listBehaviourMedicine
             });
         }
 

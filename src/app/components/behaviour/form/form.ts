@@ -18,28 +18,27 @@ declare var $;
 
 // Redux
 @Component({
-    selector: 'edit-update-patent',
+    selector: 'edit-update-behaviour',
     templateUrl: './form.html',
     styleUrls: ['./form.less']
 })
-export class EditUpdatePatent implements OnInit {
+export class EditUpdateBehaviour implements OnInit {
 
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
     @Input() isEdit: boolean;
-    @Input() patent: any;
-    @Input() patentId: any = 0;
+    @Input() behaviour: any;
+    @Input() behaviourId: any = 0;
     minLenght: any;
     fieldLabel: any;
     textLabel: any;
     loadJsonConfigSub: any;
     getCurrentPatentMedicineSub: any;
     medStatusCreateOrUpdateSub: any;
-    listPatentMedicineSub: any;
-    listPatentMedicine: any;
-    loadedPatent: boolean = false;
-    isUpdatePatient: boolean = false;
+    listBehaviourMedicineSub: any;
+    listBehaviourMedicine: any;
+    isUpdateBehaviour: boolean = false;
 
     
     constructor(private store: Store<fromRoot.AppState>,        
@@ -53,40 +52,30 @@ export class EditUpdatePatent implements OnInit {
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) => {
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.PATENT_MEDICINE;
+                this.fieldLabel = config.BEHAVIOUR_MEDICINE;
             }            
         });
 
-        // this.getCurrentPatentMedicineSub = this.store.select(fromRoot.getCurrentPatentMedicine).subscribe((patent) => {
-        //     if(patent && patent.id > 0){
-        //         this.patent = patent;
-        //     }
-        //     if(patent && patent.id == -1){
-        //         this.toastr.error('Không tìm thấy biệt dược, vui lòng thử lại');
-        //         this.router.navigateByUrl('biet-duoc');
-        //     }
-        // });
-
         this.medStatusCreateOrUpdateSub = this.store.select(fromRoot.medStatusCreateOrUpdate).subscribe((status) => {
-            if(status == 2 && this.isUpdatePatient){
-                this.toastr.success(this.isEdit ? "Cập nhật biệt dược "+this.patent.name+" thành công.": "Thêm biệt dược "+this.patent.name+" thành công");
-                this.isUpdatePatient = false;
-                this.router.navigateByUrl('biet-duoc');
+            if(status == 2 && this.isUpdateBehaviour){
+                this.toastr.success(this.isEdit ? "Cập nhật quy cách dử dụng "+this.behaviour.name+" thành công.": "Thêm quy cách dử dụng "+this.behaviour.name+" thành công");
+                this.isUpdateBehaviour = false;
+                this.router.navigateByUrl('quy-cach-su-dung');
             }
-            if(status == 3 && this.isUpdatePatient){
+            if(status == 3 && this.isUpdateBehaviour){
                 this.toastr.error("Có lỗi xảy ra vui lòng thử lại");
-                this.isUpdatePatient = false;
+                this.isUpdateBehaviour = false;
             }
         });
 
         
     }
     ngOnInit() {     
-        this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
-            if(patentMedicines){
-                this.listPatentMedicine = patentMedicines;               
+        this.listBehaviourMedicineSub = this.store.select(fromRoot.getListBehaviourMedicine).subscribe((behaviourMedicines) => {
+            if(behaviourMedicines){
+                this.listBehaviourMedicine = behaviourMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+                this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
             }  
         });
     }
@@ -98,28 +87,28 @@ export class EditUpdatePatent implements OnInit {
 
     update(form){
         let { value } = form;       
-        if(form.valid && this.checkDataExist(value, this.patentId)){
+        if(form.valid && this.checkDataExist(value, this.behaviourId)){
             const data = {
                 name: value.name,
                 code: value.code,
-                id: this.patentId || 0
+                id: this.behaviourId || 0
             }
             this.store.dispatch(new medicine.UpdateDataMedicine({
-                type: 'patent', 
+                type: 'behaviour', 
                 data: data
             }));
-            this.isUpdatePatient = true;
+            this.isUpdateBehaviour = true;
         }
     }
 
 
     ngOnDestroy() {
         this.medStatusCreateOrUpdateSub.unsubscribe();
-        this.listPatentMedicineSub.unsubscribe();
+        this.listBehaviourMedicineSub.unsubscribe();
     }
 
     checkDataExist(value, currentId){
-        let checkList = this.listPatentMedicine;
+        let checkList = this.listBehaviourMedicine;
         checkList = _.filter(checkList, function(o) { return o.id != currentId; });        
         if(_.findIndex(checkList, { 'name': value.name }) != -1){
             this.toastr.error(this.fieldLabel.lbl_name_exist);

@@ -42,6 +42,14 @@ const definedRoutes: Routes = [
         loadChildren: './modules/unit/unit.module#UnitModule'
     },
     {
+        path: 'phan-loai-thuoc',
+        loadChildren: './modules/type/type.module#TypeModule'
+    },
+    {
+        path: 'quy-cach-su-dung',
+        loadChildren: './modules/behaviour/behaviour.module#BehaviourModule'
+    },
+    {
         path: '404',
         component: AppNotFound
     },
