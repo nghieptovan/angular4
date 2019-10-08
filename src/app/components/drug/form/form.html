@@ -1,19 +1,19 @@
-<form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm" novalidate *ngIf="patent">
+<form class="form-horizontal" #loginForm="ngForm" (ngSubmit)="update(loginForm)" id="loginForm" novalidate *ngIf="drug">
     <div class="row">
         <div class="col-lg-6 col-md-12">
             <div class="form-group">
-                <h5>{{fieldLabel.lbl_patent_name}}<span class="required">*</span></h5>
+                <h5>{{fieldLabel.lbl_drug_name}}<span class="required">*</span></h5>
                 <div class="controls">
-                    <input type="text" name="name" [(ngModel)]="patent.name" #name="ngModel" ngModel class="form-control" 
+                    <input type="text" name="name" [(ngModel)]="drug.name" #name="ngModel" ngModel class="form-control" 
                     required data-validation-required-message="Vui lòng nhập tên">
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-12">
             <div class="form-group">
-                <h5>{{fieldLabel.lbl_patent_code}}</h5>
+                <h5>{{fieldLabel.lbl_drug_code}}</h5>
                 <div class="controls">
-                    <input type="text" name="code" [(ngModel)]="patent.code" #code="ngModel" ngModel class="form-control">
+                    <input type="text" name="code" [(ngModel)]="drug.code" #code="ngModel" ngModel class="form-control">
                   </div>
             </div>
             <div class="text-right">

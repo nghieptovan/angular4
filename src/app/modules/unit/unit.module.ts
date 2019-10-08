@@ -3,23 +3,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppCommonModule } from '../../app.common.module';
-import { AddDrug } from '../../components/drug/add/add';
-import { EditDrug } from '../../components/drug/edit/edit';
-import { Drug } from '../../components/drug/list/drug';
+import { AddUnit } from '../../components/unit/add/add';
+import { EditUnit } from '../../components/unit/edit/edit';
+import { Unit } from '../../components/unit/list/unit';
 
 
 const routes: Routes = [
     {
         path: 'them',
-        component: AddDrug
+        component: AddUnit
     },
     {
         path: 'cap-nhat/:id',
-        component: EditDrug
+        component: EditUnit
     },
 {
         path: '',
-        component: Drug
+        component: Unit
     }
 ];
 @NgModule({
@@ -29,11 +29,11 @@ const routes: Routes = [
         AppCommonModule
     ],
     declarations: [
-        AddDrug,
-        EditDrug,
-        Drug
+        AddUnit,
+        EditUnit,
+        Unit
     ],
     exports: [
     ]
 })
-export class DrugModule { }
+export class UnitModule { }

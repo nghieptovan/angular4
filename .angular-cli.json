@@ -41,6 +41,7 @@
         "assets/js/notification-sidebar.js",
         "assets/js/customizer.js",
         "assets/vendors/js/datatable/datatables.min.js",
+        "assets/vendors/js/datatable/dataTables.responsive.min.js",
         "assets/vendors/js/jqBootstrapValidation.js",
         "assets/vendors/js/pickadate/picker.js",
         "assets/vendors/js/pickadate/picker.date.js",

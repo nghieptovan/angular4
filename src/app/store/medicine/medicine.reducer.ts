@@ -29,6 +29,8 @@ export interface State {
 
     typeMedDelete: any;
     dataMedDelete: any;
+    typeMedUpdate: any;
+    dataMedUpdate: any;
 }
 
 const initialState: State = {
@@ -49,7 +51,9 @@ const initialState: State = {
     listBehaviourMedicine: null,
     currentBehaviourMedicine: null,
     typeMedDelete: null,
-    dataMedDelete: null
+    dataMedDelete: null,
+    typeMedUpdate: null,
+    dataMedUpdate: null
 };
 
 export function reducer(state = initialState, action: medicine.MedicineActions): State {
@@ -341,16 +345,22 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
         case medicine.DELETE_DATA_MEDICINE: {
             let { type } = action.payload;
             return Object.assign({}, state, {
-                typeMedDelete: ''
+                typeMedDelete: type
             });
         }
         case medicine.DELETE_DATA_MEDICINE_SUCCESS: {
             let { data, payload } = action.payload;
             let keyData = '';
-            let { listPatentMedicine } = state;
+            let { listPatentMedicine, listDrugMedicine, listUnitMedicine } = state;
             switch (payload.type) {
                 case 'patent':
                     keyData = 'listPatentMedicine';
+                    break;        
+                case 'unit':
+                    keyData = 'listUnitMedicine';
+                    break;        
+                case 'drug':
+                    keyData = 'listDrugMedicine';
                     break;        
                 default:
                     break;
@@ -364,13 +374,11 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                 setSessionData(keyData, listDataMedicine);
             }
 
-            console.log(keyData);
-            console.log(listDataMedicine);
-            console.log(listPatentMedicine);
-            
             return Object.assign({}, state, {
                 typeMedDelete: payload.type +'_success',
-                listPatentMedicine: keyData == 'listPatentMedicine' ? listDataMedicine : listPatentMedicine
+                listPatentMedicine: keyData == 'listPatentMedicine' ? listDataMedicine : listPatentMedicine,
+                listDrugMedicine: keyData == 'listDrugMedicine' ? listDataMedicine : listDrugMedicine,
+                listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine
             });
         }
 
@@ -379,6 +387,65 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
             return Object.assign({}, state, {
                 typeMedDelete: payload.type+'_failed',
                 dataMedDelete: data
+            });
+        }
+
+        case medicine.UPDATE_DATA_MEDICINE: {
+            let { type } = action.payload;
+            return Object.assign({}, state, {
+                typeMedUpdate: '',
+                statusCreateOrUpdate: 1
+            });
+        }
+        case medicine.UPDATE_DATA_MEDICINE_SUCCESS: {
+            let { data, payload } = action.payload;
+            let keyData = '';
+            let { listPatentMedicine, listDrugMedicine, listUnitMedicine} = state;
+            switch (payload.type) {
+                case 'patent':
+                    keyData = 'listPatentMedicine';
+                    break;   
+                case 'drug':
+                    keyData = 'listDrugMedicine';
+                    break;
+                case 'unit':
+                    keyData = 'listUnitMedicine';
+                    break;           
+                default:
+                    break;
+            }
+            let listDataMedicine = [];
+            if(getSessionData(keyData)){
+                listDataMedicine = getSessionData(keyData);
+                if(payload.data.id == 0){
+                    listDataMedicine = [...listDataMedicine, data.data];
+                }else{
+                    let findIndex = _.findIndex(listDataMedicine, (dat) => {
+                        return dat.id == payload.data.id;
+                    })
+                    if(findIndex >= 0){
+                        listDataMedicine[findIndex] = data.data;
+                    }
+                }
+                
+                setSessionData(keyData, listDataMedicine);
+            }
+
+            return Object.assign({}, state, {
+                typeMedUpdate: payload.type +'_success',
+                statusCreateOrUpdate: 2,
+                listPatentMedicine: keyData == 'listPatentMedicine' ? listDataMedicine : listPatentMedicine,
+                listDrugMedicine: keyData == 'listDrugMedicine' ? listDataMedicine : listDrugMedicine,
+                listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine
+            });
+        }
+
+        case medicine.UPDATE_DATA_MEDICINE_FAILED: {
+            let { data, payload } = action.payload;
+            return Object.assign({}, state, {
+                typeMedUpdate: payload.type+'_failed',
+                dataMedUpdate: data,
+                statusCreateOrUpdate: 3
             });
         }
        
@@ -462,5 +529,7 @@ export const getCurrentBehaviourMedicine = (state: State) => state.currentBehavi
 export const medStatusCreateOrUpdate = (state: State) => state.statusCreateOrUpdate;
 export const typeMedDelete = (state: State) => state.typeMedDelete;
 export const dataMedDelete = (state: State) => state.dataMedDelete;
+export const typeMedUpdate = (state: State) => state.typeMedUpdate;
+export const dataMedUpdate = (state: State) => state.dataMedUpdate;
 
 

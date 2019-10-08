@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{fieldLabel.lbl_patent_manage}}</h4>
+                            <h4 class="card-title">{{fieldLabel.lbl_unit_manage}}</h4>
                             <a routerLink="them" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.add_txt}}</a>
                         </div>
                         <div class="card-body">
@@ -14,23 +14,23 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>{{fieldLabel.lbl_patent_name}}</th>
-                                                <th>{{fieldLabel.lbl_patent_code}}</th>                                                
+                                                <th>{{fieldLabel.lbl_unit_name}}</th>
+                                                <th>{{fieldLabel.lbl_unit_code}}</th>                                                
                                                 <th>{{fieldLabel.lbl_update_at}}</th>                                                
                                                 <th>{{fieldLabel.lbl_action}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>                                         
-                                            <tr *ngFor="let patent of listPatentMedicine;let idx = index" id="{{patent.id}}">      
-                                                <td>{{patent?.id}}</td>    
-                                                <td>{{patent?.name}}</td>
-                                                <td>{{patent?.code}}</td>
-                                                <td>{{patent?.updated_at}}</td>
+                                            <tr *ngFor="let unit of listUnitMedicine;let idx = index" id="{{unit.id}}">      
+                                                <td>{{unit?.id}}</td>    
+                                                <td>{{unit?.name}}</td>
+                                                <td>{{unit?.code}}</td>
+                                                <td>{{unit?.updated_at}}</td>
                                                 <td>  
-                                                    <a routerLink="/biet-duoc/cap-nhat/{{patent.id}}" class="success p-0" data-original-title="" title="">
+                                                    <a routerLink="/don-vi-thuoc/cap-nhat/{{unit.id}}" class="success p-0" data-original-title="" title="">
                                                         <i class="ft-edit-2 font-medium-3 mr-2"></i>
                                                     </a>
-                                                    <a (click)="deletePatent(patent?.id)" class="danger p-0" data-original-title="" title="">
+                                                    <a (click)="deleteUnit(unit?.id)" class="danger p-0" data-original-title="" title="">
                                                         <i class="ft-x font-medium-3 mr-2"></i>
                                                     </a>
                                                 </td>

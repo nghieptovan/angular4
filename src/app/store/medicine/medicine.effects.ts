@@ -130,6 +130,19 @@ export class MedicineEffects {
                 });   
     });
 
+    // Load updateDataMedicine
+    @Effect()
+    updateDataMedicine$ = this._actions.ofType(medicine.UPDATE_DATA_MEDICINE)
+        .switchMap((action) => {
+            return this.medicineService.updateDataMedicine((action as any).payload)
+                .map((resp) => {
+                    let dataRes = resp.json();
+                    return new medicine.UpdateDataMedicineSuccess({data: dataRes, payload: (action as any).payload});                  
+                }).catch((error) => {
+                    return Observable.of(new medicine.UpdateDataMedicineFailed({data: error, payload: (action as any).payload}));
+                });   
+    });
+
     // create update patent_medicine
     @Effect()
     updatePatentMedicine$ = this._actions.ofType(medicine.UPDATE_PATENT_MEDICINE)

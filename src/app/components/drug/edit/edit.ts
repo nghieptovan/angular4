@@ -16,18 +16,18 @@ declare var $;
 
 // Redux
 @Component({
-    selector: 'edit-patent',
+    selector: 'edit-drug',
     templateUrl: './edit.html',
     styleUrls: ['./edit.less']
 })
-export class EditPatent {
+export class EditDrug {
     minLenght: any;
     fieldLabel: any;
-    patentId: any = 0;
+    drugId: any = 0;
     textLabel: any;
-    patent: any;
-    listPatentMedicineSub: any;
-    listPatentMedicine: any;
+    drug: any;
+    listDrugMedicineSub: any;
+    listDrugMedicine: any;
     constructor(
         private store: Store<fromRoot.AppState>,
         
@@ -38,18 +38,18 @@ export class EditPatent {
         private globalService: GlobalService,
         private patientModel: DataModel
     ) {        
-        this.patentId = activatedRoute.params['value'].id;
+        this.drugId = activatedRoute.params['value'].id;
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.PATENT_MEDICINE;
+                this.fieldLabel = config.DRUG_MEDICINE;
             }      
-            this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
-                if(patentMedicines){
-                    this.listPatentMedicine = patentMedicines;
-                    if(this.patentId != 0){
-                        this.patent = _.find(patentMedicines, (patent) => {
-                            return patent.id == this.patentId;
+            this.listDrugMedicineSub = this.store.select(fromRoot.getListDrugMedicine).subscribe((drugMedicines) => {
+                if(drugMedicines){
+                    this.listDrugMedicine = drugMedicines;
+                    if(this.drugId != 0){
+                        this.drug = _.find(drugMedicines, (drug) => {
+                            return drug.id == this.drugId;
                         })
                     }
                 }else{

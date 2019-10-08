@@ -21,17 +21,17 @@ import { ConfirmComponent } from '../../../modals/confirm.component';
 declare var $;
 
 @Component({
-    selector: 'patent',
-    templateUrl: './patent.html'
+    selector: 'unit',
+    templateUrl: './unit.html'
 })
 
-export class Patent {
+export class Unit {
     static isViewLoaded: any;
     patientGetLoadingState: any;
     pageLoading: boolean = false;
-    listPatentMedicineSub: any;
-    deletePatentSub: any;
-    listPatentMedicine: any;
+    listUnitMedicineSub: any;
+    deleteUnitSub: any;
+    listUnitMedicine: any;
     deleteAccountSub: any;
     selectedId: any;
     textLabel: any;
@@ -47,26 +47,27 @@ export class Patent {
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.PATENT_MEDICINE;
+                this.fieldLabel = config.UNIT_MEDICINE;
             }            
         });
-        this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
-            if(patentMedicines){
-                this.listPatentMedicine = patentMedicines;
-                datatablessources(3);                
+
+        this.listUnitMedicineSub = this.store.select(fromRoot.getListUnitMedicine).subscribe((unitMedicines) => {
+            if(unitMedicines){
+                this.listUnitMedicine = unitMedicines;
+                datatablessources(3); 
             }else{
-                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+                this.store.dispatch(new medicine.LoadUnitMedicine(0));
             }  
         });
 
-        this.deletePatentSub = this.store.select(fromRoot.typeMedDelete).subscribe((type) => {
-            if(type =='patent_success'){
+        this.deleteUnitSub = this.store.select(fromRoot.typeMedDelete).subscribe((type) => {
+            if(type == 'unit_success' && this.isDeleting){
                 deleteRow(this.selectedId);
-                this.toastr.success('Đã xóa biệt dược thành công.');
+                this.toastr.success(this.fieldLabel.lbl_unit_delete_success);
                 this.isDeleting = false;
             }
-            if(type == 'patent_failed'){
-                this.toastr.error('Có lỗi xảy ra, vui lòng thử lại sau.');
+            if(type == 'unit_failed' && this.isDeleting){
+                this.toastr.error(this.fieldLabel.lbl_unit_failed);
                 this.isDeleting = false;
             }
         })
@@ -75,48 +76,24 @@ export class Patent {
   
     
     ngOnDestroy() {
-        this.listPatentMedicineSub.unsubscribe();
-        this.deletePatentSub.unsubscribe();
-    }
-    actionPatent(action, patent) {
-        console.log(patent);
-        console.log(action);
-        
-        if(action != '' && patent.id){
-            switch (action) {
-                case 'capnhat':
-                    this.router.navigateByUrl('/biet-duoc/cap-nhat/'+patent.id);
-                    break;
-                case 'xoa':
-                        this.dialogService.addDialog(ConfirmComponent, {
-                            title:'Confirm title', 
-                            message:'Bạn muốn xóa biệt dược'})
-                            .subscribe((isConfirmed)=>{
-                                if(isConfirmed) {
-                                    this.deletePatent(patent.id);
-                                }
-                            });
-                    break;         
-                default:
-                    break;
-            }
-        }        
+        this.listUnitMedicineSub.unsubscribe();
+        this.deleteUnitSub.unsubscribe();
     }
     deleteData(id){
         this.isDeleting = true;
         this.selectedId = id;
         this.store.dispatch(new medicine.DeleteDataMedicine({
-            type: 'patent',
+            type: 'unit',
             data: id
         }));
     }
-    deletePatent(patentId){
+    deleteUnit(Id){
         this.dialogService.addDialog(ConfirmComponent, {
             title:'Confirm title', 
-            message:'Bạn muốn xóa biệt dược'})
+            message: this.fieldLabel.lbl_unit_delete})
             .subscribe((isConfirmed)=>{
                 if(isConfirmed) {
-                    this.deleteData(patentId);
+                    this.deleteData(Id);
                 }
             });
     }

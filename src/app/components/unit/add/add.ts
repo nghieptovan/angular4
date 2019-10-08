@@ -14,19 +14,19 @@ declare var $;
  
 // Redux
 @Component({
-    selector: 'add-patent',
+    selector: 'add-unit',
     templateUrl: './add.html',
     styleUrls: ['./add.less']
 })
-export class AddPatent {
-    patent: any = {
+export class AddUnit {
+    unit: any = {
         'code': "",
         'created_at': "",
         'id': 0,
         'name': "",
         'updated_at': ""
     };
-    patentId: any = 0;
+    unitId: any = 0;
     textLabel: any;
     fieldLabel: any;
 
@@ -40,7 +40,7 @@ export class AddPatent {
             this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
                 if(config) {
                     this.textLabel = config.TEXT_LABEL;
-                    this.fieldLabel = config.PATENT_MEDICINE;
+                    this.fieldLabel = config.UNIT_MEDICINE;
                 }            
             });
       

@@ -14,12 +14,12 @@ declare var $;
  
 // Redux
 @Component({
-    selector: 'add-patent',
+    selector: 'add-drug',
     templateUrl: './add.html',
     styleUrls: ['./add.less']
 })
-export class AddPatent {
-    patent: any = {
+export class AddDrug {
+    drug: any = {
         'code': "",
         'created_at': "",
         'id': 0,

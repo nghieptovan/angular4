@@ -27,11 +27,19 @@ const definedRoutes: Routes = [
     },
     {
         path: 'thuoc',
-        loadChildren: './modules/drug/drug.module#DrugModule'
+        loadChildren: './modules/medicine/medicine.module#MedicineModule'
     },
     {
         path: 'biet-duoc',
         loadChildren: './modules/patent/patent.module#PatentModule'
+    },
+    {
+        path: 'duoc-chat',
+        loadChildren: './modules/drug/drug.module#DrugModule'
+    },
+    {
+        path: 'don-vi-thuoc',
+        loadChildren: './modules/unit/unit.module#UnitModule'
     },
     {
         path: '404',

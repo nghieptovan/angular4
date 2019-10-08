@@ -18,28 +18,28 @@ declare var $;
 
 // Redux
 @Component({
-    selector: 'edit-update-patent',
+    selector: 'edit-update-drug',
     templateUrl: './form.html',
     styleUrls: ['./form.less']
 })
-export class EditUpdatePatent implements OnInit {
+export class EditUpdateDrug implements OnInit {
 
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
     @Input() isEdit: boolean;
-    @Input() patent: any;
-    @Input() patentId: any = 0;
+    @Input() drug: any;
+    @Input() drugId: any = 0;
     minLenght: any;
     fieldLabel: any;
     textLabel: any;
     loadJsonConfigSub: any;
     getCurrentPatentMedicineSub: any;
     medStatusCreateOrUpdateSub: any;
-    listPatentMedicineSub: any;
-    listPatentMedicine: any;
+    listDrugMedicineSub: any;
+    listDrugMedicine: any;
     loadedPatent: boolean = false;
-    isUpdatePatient: boolean = false;
+    isUpdateDrug: boolean = false;
 
     
     constructor(private store: Store<fromRoot.AppState>,        
@@ -53,40 +53,30 @@ export class EditUpdatePatent implements OnInit {
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) => {
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.PATENT_MEDICINE;
+                this.fieldLabel = config.DRUG_MEDICINE;
             }            
         });
 
-        // this.getCurrentPatentMedicineSub = this.store.select(fromRoot.getCurrentPatentMedicine).subscribe((patent) => {
-        //     if(patent && patent.id > 0){
-        //         this.patent = patent;
-        //     }
-        //     if(patent && patent.id == -1){
-        //         this.toastr.error('Không tìm thấy biệt dược, vui lòng thử lại');
-        //         this.router.navigateByUrl('biet-duoc');
-        //     }
-        // });
-
         this.medStatusCreateOrUpdateSub = this.store.select(fromRoot.medStatusCreateOrUpdate).subscribe((status) => {
-            if(status == 2 && this.isUpdatePatient){
-                this.toastr.success(this.isEdit ? "Cập nhật biệt dược "+this.patent.name+" thành công.": "Thêm biệt dược "+this.patent.name+" thành công");
-                this.isUpdatePatient = false;
-                this.router.navigateByUrl('biet-duoc');
+            if(status == 2 && this.isUpdateDrug){
+                this.toastr.success(this.isEdit ? "Cập nhật dược chất "+this.drug.name+" thành công.": "Thêm dược chất "+this.drug.name+" thành công");
+                this.isUpdateDrug = false;
+                this.router.navigateByUrl('duoc-chat');
             }
-            if(status == 3 && this.isUpdatePatient){
+            if(status == 3 && this.isUpdateDrug){
                 this.toastr.error("Có lỗi xảy ra vui lòng thử lại");
-                this.isUpdatePatient = false;
+                this.isUpdateDrug = false;
             }
         });
 
         
     }
     ngOnInit() {     
-        this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
-            if(patentMedicines){
-                this.listPatentMedicine = patentMedicines;               
+        this.listDrugMedicineSub = this.store.select(fromRoot.getListDrugMedicine).subscribe((drugMedicines) => {
+            if(drugMedicines){
+                this.listDrugMedicine = drugMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+                this.store.dispatch(new medicine.LoadDrugMedicine(0));
             }  
         });
     }
@@ -102,29 +92,32 @@ export class EditUpdatePatent implements OnInit {
             const data = {
                 name: value.name,
                 code: value.code,
-                patentId: this.patentId || 0
+                id: this.drugId || 0
             }
-            this.store.dispatch(new medicine.UpdatePatentMedicine(data));
-            this.isUpdatePatient = true;
+            this.store.dispatch(new medicine.UpdateDataMedicine({
+                type: 'drug', 
+                data: data
+            }));
+            this.isUpdateDrug = true;
         }
     }
 
 
     ngOnDestroy() {
         this.medStatusCreateOrUpdateSub.unsubscribe();
-        this.listPatentMedicineSub.unsubscribe();
+        this.listDrugMedicineSub.unsubscribe();
     }
 
     checkDataExist(value){
-        let checkList = this.listPatentMedicine;
-        let currentPatentId = this.patentId;
-        checkList = _.filter(checkList, function(o) { return o.id != currentPatentId; });        
+        let checkList = this.listDrugMedicine;
+        let currentDrugtId = this.drugId;
+        checkList = _.filter(checkList, function(o) { return o.id != currentDrugtId; });        
         if(_.findIndex(checkList, { 'name': value.name }) != -1){
-            this.toastr.error('Tên biệt dược đã tồn tại');
+            this.toastr.error('Tên dược chất đã tồn tại');
             return false;
         }
         if(_.findIndex(checkList, { 'code': value.code }) != -1){
-            this.toastr.error('Mã biệt dược đã tồn tại');
+            this.toastr.error('Mã dược chất đã tồn tại');
             return false;
         }
         return true;

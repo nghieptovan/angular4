@@ -46,6 +46,9 @@ export const LOAD_BEHAVIOUR_MEDICINE_FAILED = '[BEHAVIOUR_MEDICINE] failed to lo
 export const DELETE_DATA_MEDICINE = '[DELETE_DATA_MEDICINE] xóa dữ liệu thuốc';
 export const DELETE_DATA_MEDICINE_SUCCESS = '[DELETE_DATA_MEDICINE] xóa dữ liệu thuốc thành công';
 export const DELETE_DATA_MEDICINE_FAILED = '[DELETE_DATA_MEDICINE] xóa dữ liệu thuốc thất bại';
+export const UPDATE_DATA_MEDICINE = '[DELETE_DATA_MEDICINE] cập nhật dữ liệu thuốc';
+export const UPDATE_DATA_MEDICINE_SUCCESS = '[DELETE_DATA_MEDICINE] cập nhật dữ liệu thuốc thành công';
+export const UPDATE_DATA_MEDICINE_FAILED = '[DELETE_DATA_MEDICINE] cập nhật dữ liệu thuốc thất bại';
 
 //xóa dữ liệu thuốc
 export class DeleteDataMedicine implements Action {
@@ -60,6 +63,21 @@ export class DeleteDataMedicineFailed implements Action {
 
 export class DeleteDataMedicineSuccess implements Action {
     readonly type = DELETE_DATA_MEDICINE_SUCCESS;
+    constructor(public payload: any) { }
+}
+//cập nhật dữ liệu thuốc
+export class UpdateDataMedicine implements Action {
+    readonly type = UPDATE_DATA_MEDICINE;
+    constructor(public payload: any) { }
+}
+
+export class UpdateDataMedicineFailed implements Action {
+    readonly type = UPDATE_DATA_MEDICINE_FAILED;
+    constructor(public payload: any) { }
+}
+
+export class UpdateDataMedicineSuccess implements Action {
+    readonly type = UPDATE_DATA_MEDICINE_SUCCESS;
     constructor(public payload: any) { }
 }
 
@@ -200,4 +218,5 @@ ListMedicine | ListMedicineFailed | ListMedicineSuccess
 | LoadBehaviourMedicine | LoadBehaviourMedicineSuccess | LoadBehaviourMedicineFailed
 | UpdatePatentMedicine | UpdatePatentMedicineFailed | UpdatePatentMedicineSuccess
 | DeleteDataMedicine | DeleteDataMedicineSuccess | DeleteDataMedicineFailed
+| UpdateDataMedicine | UpdateDataMedicineSuccess | UpdateDataMedicineFailed
 ;

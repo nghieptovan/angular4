@@ -8,27 +8,18 @@ export function datatablessources(col){
             order: [[ col, 'desc' ]],
             pagingType: "full_numbers",
             stateSave: true,
-            bDestroy: true
+            bDestroy: true,
+            destroy: true
         } );
         
     } );
 }
 
-
-
-export function deleteRow(col){
-    var table = $('.sourced-data').DataTable();
-    table.destroy();
-
-    $('.sourced-data').DataTable( {
-        order: [[ col, 'desc' ]],
-        pagingType: "full_numbers",
-        stateSave: true,
-        bDestroy: true
-    } );
-
-
+export function deleteRow(row){
+    var tableselectionDelete = $('.sourced-data').DataTable();
+    tableselectionDelete.destroy();
 }
+
 export function destroytable(){
     var table = $('.sourced-data').DataTable();
     table.destroy();

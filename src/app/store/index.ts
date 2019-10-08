@@ -92,6 +92,8 @@ export const getCurrentBehaviourMedicine = createSelector(medicineGetState, from
 export const medStatusCreateOrUpdate = createSelector(medicineGetState, fromMedicine.medStatusCreateOrUpdate);
 export const typeMedDelete = createSelector(medicineGetState, fromMedicine.typeMedDelete);
 export const dataMedDelete = createSelector(medicineGetState, fromMedicine.dataMedDelete);
+export const dataMedUpdate = createSelector(medicineGetState, fromMedicine.dataMedUpdate);
+export const typeMedUpdate = createSelector(medicineGetState, fromMedicine.typeMedUpdate);
 
 
 //End Medicine

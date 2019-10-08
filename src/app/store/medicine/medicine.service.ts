@@ -57,10 +57,14 @@ export class MedicineService {
     deleteDataMedicine(input){
         let { type, data } = input;
         let url = ''; 
-        console.log(type, data);
         switch (type) {
             case 'patent':
                 url = 'patentmedicine/delete/'+ data;
+                break;        
+            case 'drug':
+                url = 'drug/delete/'+ data;
+            case 'unit':
+                url = 'unittomedicine/delete/'+ data;
                 break;        
             default:
                 break;
@@ -68,9 +72,24 @@ export class MedicineService {
         return this.httpService.postAnonymous(url, input);
     }
 
-//     Route::get('/api/v1/typemedicine/{id?}', 'TypeMedicines@index');
-//  Route::post('/api/v1/typemedicine', 'TypeMedicines@store');
-// Route::post('/api/v1/typemedicine/{id}', 'TypeMedicines@update');
-// Route::post('/api/v1/typemedicine/delete/{id}', 'TypeMedicines@destroy');
+    updateDataMedicine(input){
+        // data = { name, code ,id}
+        let { type, data } = input;
+        let url = ''; 
+        switch (type) {
+            case 'patent':
+                url = data.id != 0 ? 'patentmedicine/' + data.id : 'patentmedicine';
+                break;  
+            case 'drug':
+                url = data.id != 0 ? 'drug/' + data.id : 'drug';
+                break;        
+            case 'unit':
+                url = data.id != 0 ? 'unittomedicine/' + data.id : 'unittomedicine';
+                break;        
+            default:
+                break;
+        }
+        return this.httpService.postAnonymous(url, {name: data.name, code: data.code});
+    }
    
 }
