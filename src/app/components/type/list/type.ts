@@ -54,7 +54,7 @@ export class Type {
                 this.listTypeMedicine = typeMedicines;
                 datatablessources(3); 
             }else{
-                this.store.dispatch(new medicine.LoadTypeMedicine(0));
+                this.globalService.loadList('type');
             }  
         });
 

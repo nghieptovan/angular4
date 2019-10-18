@@ -75,7 +75,7 @@ export class EditUpdateType implements OnInit {
             if(typeMedicines){
                 this.listTypeMedicine = typeMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadTypeMedicine(0));
+                this.globalService.loadList('type');
             }  
         });
     }

@@ -8,8 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
-import * as account from '../../../store/account/account.actions';
-
+import { GlobalService } from '../../../services/global.service';
 declare var $;
  
 // Redux
@@ -35,6 +34,7 @@ export class AddType {
         private elementRef: ElementRef,
         private router: Router,
         private toastr: ToastrService,
+        private globalService: GlobalService,
         private activatedRoute: ActivatedRoute,
         ) {
             this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
@@ -44,6 +44,9 @@ export class AddType {
                 }            
             });
       
+    }
+    loadList(){
+        this.globalService.loadList('type');
     }
 
 }

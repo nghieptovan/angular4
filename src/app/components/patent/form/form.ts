@@ -56,17 +56,6 @@ export class EditUpdatePatent implements OnInit {
                 this.fieldLabel = config.PATENT_MEDICINE;
             }            
         });
-
-        // this.getCurrentPatentMedicineSub = this.store.select(fromRoot.getCurrentPatentMedicine).subscribe((patent) => {
-        //     if(patent && patent.id > 0){
-        //         this.patent = patent;
-        //     }
-        //     if(patent && patent.id == -1){
-        //         this.toastr.error('Không tìm thấy biệt dược, vui lòng thử lại');
-        //         this.router.navigateByUrl('biet-duoc');
-        //     }
-        // });
-
         this.medStatusCreateOrUpdateSub = this.store.select(fromRoot.medStatusCreateOrUpdate).subscribe((status) => {
             if(status == 2 && this.isUpdatePatient){
                 this.toastr.success(this.isEdit ? "Cập nhật biệt dược "+this.patent.name+" thành công.": "Thêm biệt dược "+this.patent.name+" thành công");
@@ -86,15 +75,10 @@ export class EditUpdatePatent implements OnInit {
             if(patentMedicines){
                 this.listPatentMedicine = patentMedicines;               
             }else{
-                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+                this.globalService.loadList('patent');
             }  
         });
     }
-
-    ngAfterContentInit() {
-        
-    }
-
 
     update(form){
         let { value } = form;       

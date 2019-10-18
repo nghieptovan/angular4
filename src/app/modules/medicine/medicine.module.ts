@@ -5,9 +5,9 @@ import { SlickModule } from 'ngx-slick';
 
 import { AppCommonModule } from '../../app.common.module';
 
-import { DanhSachThuoc } from '../../components/medicine/danhsachthuoc/danhsachthuoc';
-import { ThemThuoc } from '../../components/medicine/danhsachthuoc/add/add';
-import { CapNhatThuoc } from '../../components/medicine/danhsachthuoc/edit/edit';
+import { DanhSachThuoc } from '../../components/medicine/danhsachthuoc';
+import { ThemThuoc } from '../../components/medicine/add/add';
+import { CapNhatThuoc } from '../../components/medicine/edit/edit';
 
 const routes: Routes = [
     {

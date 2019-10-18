@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
-
+import { GlobalService } from '../../../services/global.service';
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
 import * as account from '../../../store/account/account.actions';
@@ -35,6 +35,7 @@ export class AddDrug {
         private elementRef: ElementRef,
         private router: Router,
         private toastr: ToastrService,
+        private globalService: GlobalService,
         private activatedRoute: ActivatedRoute,
         ) {
             this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
@@ -44,6 +45,9 @@ export class AddDrug {
                 }            
             });
       
+    }
+    loadList(){
+        this.globalService.loadList('drug');
     }
 
 }

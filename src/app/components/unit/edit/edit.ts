@@ -53,7 +53,7 @@ export class EditUnit {
                         })
                     }
                 }else{
-                    this.store.dispatch(new medicine.LoadUnitMedicine(0));
+                    this.globalService.loadList('unit');
                 }  
             });    
         });
@@ -61,6 +61,9 @@ export class EditUnit {
     }
     ngOnDestroy() {
         this.listUnitMedicineSub.unsubscribe();
+    }
+    loadList(){
+        this.globalService.loadList('unit');
     }
 
 }

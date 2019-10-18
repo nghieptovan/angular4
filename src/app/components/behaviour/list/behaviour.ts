@@ -54,7 +54,7 @@ export class Behaviour {
                 this.listBehaviourMedicine = behaviourMedicines;
                 datatablessources(3); 
             }else{
-                this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
+                this.loadData();
             }  
         });
 
@@ -70,6 +70,10 @@ export class Behaviour {
             }
         })
    
+    }
+
+    loadData(){
+        this.globalService.loadList('behaviour');
     }
   
     

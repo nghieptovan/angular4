@@ -50,6 +50,10 @@ const definedRoutes: Routes = [
         loadChildren: './modules/behaviour/behaviour.module#BehaviourModule'
     },
     {
+        path: 'chan-doan',
+        loadChildren: './modules/diagnosis/diagnosis.module#DiagnosisModule'
+    },
+    {
         path: '404',
         component: AppNotFound
     },

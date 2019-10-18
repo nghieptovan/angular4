@@ -76,13 +76,13 @@ export class EditUpdateDrug implements OnInit {
             if(drugMedicines){
                 this.listDrugMedicine = drugMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadDrugMedicine(0));
+                this.loadList();
             }  
         });
     }
 
-    ngAfterContentInit() {
-        
+    loadList(){
+        this.globalService.loadList('drug');
     }
 
 

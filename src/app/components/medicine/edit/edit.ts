@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
-import { AppConstants } from '../../../../app.constant';
-import * as fromRoot from '../../../../store';
-import * as medicine from '../../../../store/medicine/medicine.actions';
-
+import { AppConstants } from '../../../app.constant';
+import * as fromRoot from '../../../store';
+import * as medicine from '../../../store/medicine/medicine.actions';
+import { GlobalService } from '../../../services/global.service';
 declare var $;
 // Redux
 @Component({
@@ -28,12 +28,17 @@ export class CapNhatThuoc {
     minLenght: any;
     textLabel: any;
     fieldLabel: any;
+    medicineId: any = 0;
 
     constructor(private store: Store<fromRoot.AppState>,
         private elementRef: ElementRef,
         private router: Router,
         private toastr: ToastrService,
+        private globalService: GlobalService,
         private activatedRoute: ActivatedRoute) {
+
+        this.medicineId = activatedRoute.params['value'].id;
+
         this.loadJsonConfigSub = this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.minLenght = config.MIN_LENGTH_6;
@@ -48,8 +53,10 @@ export class CapNhatThuoc {
         });
 
         this.currentMedicineSub = this.store.select(fromRoot.getCurrentMedicine).subscribe((medicine) => {
-            if(medicine && medicine.code == 200 && medicine.data){               
-                this.currentMedicine = medicine.data;
+            if(medicine){               
+                this.currentMedicine = medicine;
+            }else{
+                this.globalService.loadList('medicine', this.medicineId);
             }
         });
       

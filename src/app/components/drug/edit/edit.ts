@@ -53,13 +53,17 @@ export class EditDrug {
                         })
                     }
                 }else{
-                    this.store.dispatch(new medicine.LoadPatentMedicine(0));
+                    this.globalService.loadList('patent');
                 }  
             });    
         });
                           
     }
     ngOnDestroy() {
+    }
+
+    loadList(){
+        this.globalService.loadList('drug');
     }
 
 }

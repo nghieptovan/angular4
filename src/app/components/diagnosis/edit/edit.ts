@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
-import * as medicine from '../../../store/medicine/medicine.actions';
 import { DataModel } from '../../../store/data';
 import { GlobalService } from '../../../services/global.service';
 import {formvalidation } from '../../../../assets/js/form-validation';
@@ -16,18 +15,18 @@ declare var $;
 
 // Redux
 @Component({
-    selector: 'edit-patent',
+    selector: 'edit-diagnosis',
     templateUrl: './edit.html',
     styleUrls: ['./edit.less']
 })
-export class EditPatent {
+export class EditDiagnosis {
     minLenght: any;
     fieldLabel: any;
-    patentId: any = 0;
+    diagnosisId: any = 0;
     textLabel: any;
-    patent: any;
-    listPatentMedicineSub: any;
-    listPatentMedicine: any;
+    diagnosis: any;
+    listDiagnosisSub: any;
+    listDiagnosis: any;
     constructor(
         private store: Store<fromRoot.AppState>,
         
@@ -38,31 +37,31 @@ export class EditPatent {
         private globalService: GlobalService,
         private patientModel: DataModel
     ) {        
-        this.patentId = activatedRoute.params['value'].id;
+        this.diagnosisId = activatedRoute.params['value'].id;
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.PATENT_MEDICINE;
+                this.fieldLabel = config.DIAGNOSIS;
             }      
-            this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
-                if(patentMedicines){
-                    this.listPatentMedicine = patentMedicines;
-                    if(this.patentId != 0){
-                        this.patent = _.find(patentMedicines, (patent) => {
-                            return patent.id == this.patentId;
+            this.listDiagnosisSub = this.store.select(fromRoot.getListDiagnosis).subscribe((listDiagnosis) => {
+                if(listDiagnosis){
+                    this.listDiagnosis = listDiagnosis;
+                    if(this.diagnosisId != 0){
+                        this.diagnosis = _.find(listDiagnosis, (diagnosis) => {
+                            return diagnosis.id == this.diagnosisId;
                         })
                     }
                 }else{
-                    this.globalService.loadList('patent');
+                    this.globalService.loadList('diagnosis');
                 }  
             });    
         });
                           
     }
-    loadList(){
-        this.globalService.loadList('patent');
-    }
     ngOnDestroy() {
+    }
+    loadList(){
+        this.globalService.loadList('diagnosis');
     }
 
 }

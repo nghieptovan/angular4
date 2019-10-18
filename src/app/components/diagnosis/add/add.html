@@ -5,12 +5,12 @@
               <div class="col-md-12">
                   <div class="card">
                       <div class="card-header">  
-                          <h4 class="card-title">{{fieldLabel.lbl_drug_add}}</h4>
-                          <a (click)="loadList()" routerLink="/duoc-chat" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.back_txt}}</a>
+                          <h4 class="card-title">{{fieldLabel.lbl_diagnosis_add}}</h4>
+                          <a (click)="loadList()" routerLink="/chan-doan" class="btn btn-raised btn-success round btn-min-width mr-1 mb-1 float-right">{{textLabel.back_txt}}</a>
                       </div>
                       <div class="card-body">
                           <div class="card-block">
-                              <edit-update-drug [isEdit]="false" [drug]="drug" [drugId]="drugId"></edit-update-drug>
+                              <edit-update-diagnosis [isEdit]="false" [diagnosis]="diagnosis" [diagnosisId]="diagnosisId"></edit-update-diagnosis>
                           </div>
                       </div>
                   </div>

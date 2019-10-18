@@ -8,8 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
-import * as account from '../../../store/account/account.actions';
-
+import { GlobalService } from '../../../services/global.service';
 declare var $;
  
 // Redux
@@ -36,6 +35,7 @@ export class AddPatent {
         private router: Router,
         private toastr: ToastrService,
         private activatedRoute: ActivatedRoute,
+        private globalService: GlobalService,
         ) {
             this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
                 if(config) {
@@ -44,6 +44,9 @@ export class AddPatent {
                 }            
             });
       
+    }
+    loadList(){
+        this.globalService.loadList('patent');
     }
 
 }

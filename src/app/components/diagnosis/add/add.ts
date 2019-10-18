@@ -14,19 +14,20 @@ declare var $;
  
 // Redux
 @Component({
-    selector: 'add-unit',
+    selector: 'add-diagnosis',
     templateUrl: './add.html',
     styleUrls: ['./add.less']
 })
-export class AddUnit {
-    unit: any = {
+export class AddDiagnosis {
+    diagnosis: any = {
         'code': "",
         'created_at': "",
         'id': 0,
         'name': "",
+        'short_name': "",
         'updated_at': ""
     };
-    unitId: any = 0;
+    diagnosisId: any = 0;
     textLabel: any;
     fieldLabel: any;
 
@@ -41,12 +42,13 @@ export class AddUnit {
             this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
                 if(config) {
                     this.textLabel = config.TEXT_LABEL;
-                    this.fieldLabel = config.UNIT_MEDICINE;
+                    this.fieldLabel = config.PATENT_MEDICINE;
                 }            
             });
+      
     }
     loadList(){
-        this.globalService.loadList('unit');
+        this.globalService.loadList('diagnosis');
     }
 
 }

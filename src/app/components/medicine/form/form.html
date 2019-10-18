@@ -5,9 +5,9 @@
                 <p>{{fieldLabel.lbl_patent}}<span class="required">*</span></p>
                 <fieldset class="form-group position-relative">
                     <input [disabled]="isEdit" type="text" id="patent" (clickOutside)="showPatentList(false)" (click)="showPatentList(true)" 
-                    name="patent" [(ngModel)]="currentMedicine.patent_medicine.name" #patent="ngModel" ngModel
+                    name="patent" [(ngModel)]="currentMedicine.patent_medicine_name" #patent="ngModel" ngModel
                      class="form-control" required data-validation-required-message="Vui lòng nhập họ tên"
-                     (keyup)="filterValue('patent', currentMedicine.patent_medicine.name)">
+                     (keyup)="filterValue('patent', currentMedicine.patent_medicine_name)">
 
                     <div class="dropdown-menu dropdown-below-input" [ngStyle]="{'display': showPatent? 'block': 'none'}">
                         <a href="javascript:void(0);" (click)="selectPatentMedicine(patent)" class="dropdown-item" 
@@ -31,7 +31,7 @@
                 <p>{{fieldLabel.lbl_drug}}<span class="required">*</span></p>
                 <fieldset class="form-group position-relative">
                     <input [disabled]="isEdit" type="text" id="drug" name="drug" (clickOutside)="showDrugList(false)" (click)="showDrugList(true)"
-                    [(ngModel)]="currentMedicine.drug.name" #drug="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
+                    [(ngModel)]="currentMedicine.drug_name" #drug="ngModel" ngModel class="form-control" required data-validation-required-message="Vui lòng nhập địa chỉ">
                      <div class="dropdown-menu dropdown-below-input" [ngStyle]="showDrug && {'display':'block'}">
                         <a href="javascript:void(0);" (click)="selectDrugMedicine(drug)" class="dropdown-item" 
                         *ngFor="let drug of listDrugMedicine">{{drug?.name}}</a>

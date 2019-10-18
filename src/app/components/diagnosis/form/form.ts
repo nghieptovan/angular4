@@ -9,36 +9,36 @@ import * as moment from 'moment';
 import { AppConstants } from '../../../app.constant';
 import * as fromRoot from '../../../store';
 import * as account from '../../../store/account/account.actions';
-import * as patient from '../../../store/patient/patient.actions';
+import * as medicine from '../../../store/medicine/medicine.actions';
 import { DataModel } from '../../../store/data';
 import { GlobalService } from '../../../services/global.service';
 import {formvalidation } from '../../../../assets/js/form-validation';
-import * as medicine from '../../../store/medicine/medicine.actions';
 declare var $;
 
 // Redux
 @Component({
-    selector: 'edit-update-unit',
+    selector: 'edit-update-diagnosis',
     templateUrl: './form.html',
     styleUrls: ['./form.less']
 })
-export class EditUpdateUnit implements OnInit {
+export class EditUpdateDiagnosis implements OnInit {
 
     @Input() uid: any;
     @ViewChild('updateForm') updateForm: NgForm;
     @Output('validationChange') validationChange = new EventEmitter<Boolean>();
     @Input() isEdit: boolean;
-    @Input() unit: any;
-    @Input() unitId: any = 0;
+    @Input() diagnosis: any;
+    @Input() diagnosisId: any = 0;
     minLenght: any;
     fieldLabel: any;
     textLabel: any;
     loadJsonConfigSub: any;
     getCurrentPatentMedicineSub: any;
     medStatusCreateOrUpdateSub: any;
-    listUnitMedicineSub: any;
-    listUnitMedicine: any;
-    isUpdateUnit: boolean = false;
+    listDiagnosisSub: any;
+    listDiagnosis: any;
+    loadedPatent: boolean = false;
+    isUpdateDiagnosis: boolean = false;
 
     
     constructor(private store: Store<fromRoot.AppState>,        
@@ -52,63 +52,59 @@ export class EditUpdateUnit implements OnInit {
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) => {
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.UNIT_MEDICINE;
+                this.fieldLabel = config.DIAGNOSIS;
             }            
         });
 
         this.medStatusCreateOrUpdateSub = this.store.select(fromRoot.medStatusCreateOrUpdate).subscribe((status) => {
-            if(status == 2 && this.isUpdateUnit){
-                this.toastr.success(this.isEdit ? "Cập nhật dược chất "+this.unit.name+" thành công.": "Thêm dược chất "+this.unit.name+" thành công");
-                this.isUpdateUnit = false;
-                this.router.navigateByUrl('don-vi-thuoc');
+            if(status == 2 && this.isUpdateDiagnosis){
+                this.toastr.success(this.isEdit ? "Cập nhật chẩn đoán "+this.diagnosis.name+" thành công.": "Thêm chẩn đoán "+this.diagnosis.name+" thành công");
+                this.isUpdateDiagnosis = false;
+                this.router.navigateByUrl('chan-doan');
             }
-            if(status == 3 && this.isUpdateUnit){
+            if(status == 3 && this.isUpdateDiagnosis){
                 this.toastr.error("Có lỗi xảy ra vui lòng thử lại");
-                this.isUpdateUnit = false;
+                this.isUpdateDiagnosis = false;
             }
         });
 
         
     }
     ngOnInit() {     
-        this.listUnitMedicineSub = this.store.select(fromRoot.getListUnitMedicine).subscribe((unitMedicines) => {
-            if(unitMedicines){
-                this.listUnitMedicine = unitMedicines;
+        this.listDiagnosisSub = this.store.select(fromRoot.getListDiagnosis).subscribe((listDiagnosis) => {
+            if(listDiagnosis){
+                this.listDiagnosis = listDiagnosis;
             }else{
-                this.globalService.loadList('unit');
+                this.globalService.loadList('diagnosis');
             }  
         });
     }
 
-    ngAfterContentInit() {
-        
-    }
-
-
     update(form){
         let { value } = form;       
-        if(form.valid && this.checkDataExist(value, this.unitId)){
+        if(form.valid && this.checkDataExist(value, this.diagnosisId)){
             const data = {
                 name: value.name,
                 code: value.code,
-                id: this.unitId || 0
+                short_name: value.short_name,
+                id: this.diagnosisId || 0
             }
             this.store.dispatch(new medicine.UpdateDataMedicine({
-                type: 'unit', 
+                type: 'diagnosis', 
                 data: data
             }));
-            this.isUpdateUnit = true;
+            this.isUpdateDiagnosis = true;
         }
     }
 
 
     ngOnDestroy() {
         this.medStatusCreateOrUpdateSub.unsubscribe();
-        this.listUnitMedicineSub.unsubscribe();
+        this.listDiagnosisSub.unsubscribe();
     }
 
     checkDataExist(value, currentId){
-        let checkList = this.listUnitMedicine;
+        let checkList = this.listDiagnosis;
         checkList = _.filter(checkList, function(o) { return o.id != currentId; });        
         if(_.findIndex(checkList, { 'name': value.name }) != -1){
             this.toastr.error(this.fieldLabel.lbl_name_exist);

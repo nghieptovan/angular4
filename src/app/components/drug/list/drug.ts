@@ -56,7 +56,7 @@ export class Drug {
                 this.listDrugMedicine = drugMedicines;
                 datatablessources(3); 
             }else{
-                this.store.dispatch(new medicine.LoadDrugMedicine(0));
+               this.loadList();
             }  
         });
 
@@ -74,7 +74,9 @@ export class Drug {
    
     }
   
-    
+    loadList(){
+        this.globalService.loadList('drug');
+    }
     ngOnDestroy() {
         this.listDrugMedicineSub.unsubscribe();
         this.deleteDrugSub.unsubscribe();

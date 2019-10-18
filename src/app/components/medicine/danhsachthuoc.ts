@@ -6,15 +6,15 @@ import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 
-import { AppConstants } from '../../../app.constant';
-import * as fromRoot from '../../../store';
-import * as account from '../../../store/account/account.actions';
-import * as medicine from '../../../store/medicine/medicine.actions';
-import * as bill from '../../../store/bill/bill.actions';
-import { DataModel } from '../../../store/data';
-import { GlobalService } from '../../../services/global.service';
-import {inboxGrid} from '../../../../assets/js/inbox';
-import { datatablessources } from '../../../../assets/js/data-tables/datatables-sources'; 
+import { AppConstants } from '../../app.constant';
+import * as fromRoot from '../../store';
+import * as account from '../../store/account/account.actions';
+import * as medicine from '../../store/medicine/medicine.actions';
+import * as bill from '../../store/bill/bill.actions';
+import { DataModel } from '../../store/data';
+import { GlobalService } from '../../services/global.service';
+import {inboxGrid} from '../../../assets/js/inbox';
+import { datatablessources } from '../../../assets/js/data-tables/datatables-sources'; 
 declare var $;
 
 // Redux

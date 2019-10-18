@@ -47,12 +47,16 @@ export class EditBehaviour {
                         })
                     }
                 }else{
-                    this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
+                    this.loadData();
                 }  
             });    
         });
                           
     }
+    loadData(){
+        this.globalService.loadList('behaviour');
+    }
+    
     ngOnDestroy() {
         this.listBehaviourMedicineSub.unsubscribe();
     }

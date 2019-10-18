@@ -17,7 +17,7 @@ import { RunScriptsDirective } from './directives/RunScript';
 import {EqualValidatorDirective} from "./directives/EqualValidator";
 import {ExpiredDateValidatorDirective} from "./directives/ExpiredDateValidator";
 import {CardNoLuhnValidatorDirective} from "./directives/CardNoLuhnValidator";
-import {EditUpdateMedicine} from "./components/medicine/danhsachthuoc/form/form";
+import {EditUpdateMedicine} from "./components/medicine/form/form";
 
 import {EditUpdatePatient} from "./components/patient/form/form";
 
@@ -26,6 +26,7 @@ import {EditUpdateDrug} from "./components/drug/form/form";
 import {EditUpdateUnit} from "./components/unit/form/form";
 import {EditUpdateType} from "./components/type/form/form";
 import {EditUpdateBehaviour} from "./components/behaviour/form/form";
+import {EditUpdateDiagnosis} from "./components/diagnosis/form/form";
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {EditUpdateBehaviour} from "./components/behaviour/form/form";
         EditUpdateUnit,
         EditUpdateType,
         EditUpdateBehaviour,
+        EditUpdateDiagnosis,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,
@@ -86,6 +88,7 @@ import {EditUpdateBehaviour} from "./components/behaviour/form/form";
         EditUpdateUnit,
         EditUpdateType,
         EditUpdateBehaviour,
+        EditUpdateDiagnosis,
         // Directives
         EqualValidatorDirective,
         ExpiredDateValidatorDirective,

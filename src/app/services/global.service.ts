@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs/Observable';
 
-import * as common from '../store/common/common.actions';
+import * as medicine from '../store/medicine/medicine.actions';
 import * as fromRoot from '../store/index';
 import { AppConstants } from './../app.constant';
 import { Http, Response } from '@angular/http';
@@ -18,6 +18,15 @@ export class GlobalService {
 
     constructor(private cookieService: CookieService, private store: Store<fromRoot.AppState>,private http: Http) {
         this.isScriptLoaded = false;
+    }
+
+    loadList(typeLoad, idInput = 0){
+        this.store.dispatch(new medicine.LoadDataMedicine({
+            type: typeLoad,
+            data: {
+                id: idInput
+            }
+        }));  
     }
     syncCartCookies() {
         const cartCookies = this.cookieService.get('section_data_ids');
@@ -431,6 +440,7 @@ export class GlobalService {
         }
         sessionStorage.setItem(name,dataSet);
     }
+    
     getSessionData(name){
         let dataReturn = sessionStorage.getItem(name);
         if(dataReturn){
@@ -438,5 +448,49 @@ export class GlobalService {
         }else{
             return false;
         }
+    }
+    setSessionDataFromType(type, data){
+        let name = this.mapTypeToName(type);
+        let dataSet;
+        if(typeof data == 'object'){
+            dataSet = JSON.stringify(data);
+        }
+        sessionStorage.setItem(name,dataSet);
+    }
+
+    getSessionDataFromType(type){
+        let name = this.mapTypeToName(type);
+        let dataReturn = sessionStorage.getItem(name);
+        if(dataReturn){
+            return JSON.parse(dataReturn);
+        }else{
+            return false;
+        }
+    }
+    mapTypeToName(type){
+        let name = "";
+        switch (type) {
+            case 'diagnosis':
+                name = 'listDiagnosis';
+                break;
+            case 'drug':
+                name = 'listDrugMedicine';
+                break;
+            case 'type':
+                name = 'listTypeMedicine';
+                break;
+            case 'behaviour':
+                name = 'listBehaviourMedicine';
+                break;
+            case 'patent':
+                name = 'listPatentMedicine';
+                break;
+            case 'unit':
+                name = 'listUnitMedicine';
+                break;
+            default:
+                break;
+        }
+        return name;
     }
 }

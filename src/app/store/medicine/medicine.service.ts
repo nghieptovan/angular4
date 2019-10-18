@@ -54,6 +54,7 @@ export class MedicineService {
                 break;        
             case 'drug':
                 url = 'drug/delete/'+ data;
+                break;
             case 'unit':
                 url = 'unittomedicine/delete/'+ data;
                 break;        
@@ -62,6 +63,9 @@ export class MedicineService {
                 break;        
             case 'behaviour':
                 url = 'behaviourmedicine/delete/'+ data;
+                break;        
+            case 'diagnosis':
+                url = 'diagnosis/delete/'+ data;
                 break;        
             default:
                 break;
@@ -89,10 +93,47 @@ export class MedicineService {
             case 'behaviour':
                 url = data.id != 0 ? 'behaviourmedicine/' + data.id : 'behaviourmedicine';
                 break;        
+            case 'diagnosis':
+                url = data.id != 0 ? 'diagnosis/' + data.id : 'diagnosis';
+                break;        
             default:
                 break;
         }
-        return this.httpService.postAnonymous(url, {name: data.name, code: data.code});
+        let inputData = {};
+        _.forOwn(data, (value, key) => {
+            if(key != 'id')
+                inputData[key] = value;
+        });
+        return this.httpService.postAnonymous(url, inputData);
+    }
+
+    loadDataMedicine(input){
+        // data = { name, code ,id}
+        let { type, data } = input;
+        let url = ''; 
+        switch (type) {
+            case 'patent':
+                url = data.id != 0 ? 'patentmedicine/' + data.id : 'patentmedicine';
+                break;  
+            case 'drug':
+                url = data.id != 0 ? 'drug/' + data.id : 'drug';
+                break;        
+            case 'unit':
+                url = data.id != 0 ? 'unittomedicine/' + data.id : 'unittomedicine';
+                break;        
+            case 'type':
+                url = data.id != 0 ? 'typemedicine/' + data.id : 'typemedicine';
+                break;        
+            case 'behaviour':
+                url = data.id != 0 ? 'behaviourmedicine/' + data.id : 'behaviourmedicine';
+                break;
+            case 'diagnosis':
+                url = data.id != 0 ? 'diagnosis/' + data.id : 'diagnosis';
+                break;        
+            default:
+                break;
+        }
+        return this.httpService.getAnonymous(url);
     }
    
 }

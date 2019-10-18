@@ -50,73 +50,10 @@ export class MedicineEffects {
                 });
         });
     // Load type_medicine
-    @Effect()
-    loadTypeMedicine$ = this._actions.ofType(medicine.LOAD_TYPE_MEDICINE)
-        .switchMap((action) => {
-            let listTypeMedicine = this.globalService.getSessionData('listTypeMedicine');
-            if(listTypeMedicine){
-                return Observable.of(new medicine.LoadTypeMedicineSuccess({data: listTypeMedicine, id: (action as any).payload}));
-            }else{
-                return this.medicineService.loadTypeMedicine((action as any).payload)
-                .map((resp) => {
-                    let dataRes = resp.json();
-                    if(dataRes && dataRes.code == 200){
-                        if((action as any).payload == 0) this.globalService.setSessionData('listTypeMedicine', dataRes.data);
-                        return new medicine.LoadTypeMedicineSuccess({data: dataRes.data, id: (action as any).payload});
-                    }else{
-                        return new medicine.LoadTypeMedicineFailed({data: {}, id: (action as any).payload});
-                    }                    
-                }).catch((error) => {
-                    return Observable.of(new medicine.LoadTypeMedicineFailed({data: error, id: (action as any).payload}));
-                });
-            }
-        });
-    // Load drug_medicine
-    @Effect()
-    loadDrugMedicine$ = this._actions.ofType(medicine.LOAD_DRUG_MEDICINE)
-        .switchMap((action) => {
-            let listDrugMedicine = this.globalService.getSessionData('listDrugMedicine');
-            if(listDrugMedicine){
-                return Observable.of(new medicine.LoadDrugMedicineSuccess({data: listDrugMedicine, id: (action as any).payload}));
-            }else{
-                return this.medicineService.loadDrugMedicine((action as any).payload)
-                .map((resp) => {
-                    let dataRes = resp.json();
-                    if(dataRes && dataRes.code == 200){
-                        if((action as any).payload == 0) this.globalService.setSessionData('listDrugMedicine', dataRes.data);
-                        return new medicine.LoadDrugMedicineSuccess({data: dataRes.data, id: (action as any).payload});
-                    }else{
-                        return new medicine.LoadDrugMedicineFailed({data: {}, id: (action as any).payload});
-                    }                    
-                }).catch((error) => {
-                    return Observable.of(new medicine.LoadDrugMedicineFailed({data: error, id: (action as any).payload}));
-                });
-            }
-    });  
-    
+    // Load drug_medicine    
     // Load patent_medicine
-    @Effect()
-    loadPatentMedicine$ = this._actions.ofType(medicine.LOAD_PATENT_MEDICINE)
-        .switchMap((action) => {
-            let listPatentMedicine = this.globalService.getSessionData('listPatentMedicine');
-            if(listPatentMedicine && (action as any).payload == 0){
-                return Observable.of(new medicine.LoadPatentMedicineSuccess({data: listPatentMedicine, id: (action as any).payload}));
-            }else{
-                return this.medicineService.loadPatentMedicine((action as any).payload)
-                .map((resp) => {
-                    let dataRes = resp.json();
-                    if(dataRes && dataRes.code == 200){
-                        if((action as any).payload == 0) this.globalService.setSessionData('listPatentMedicine', dataRes.data);                        
-                        return new medicine.LoadPatentMedicineSuccess({data: dataRes.data, id: (action as any).payload});
-                    }else{
-                        return new medicine.LoadPatentMedicineFailed({data: {}, id: (action as any).payload});
-                    }                    
-                }).catch((error) => {
-                    return Observable.of(new medicine.LoadPatentMedicineFailed({data: error, id: (action as any).payload}));
-                });
-            }        
-    });
-
+    // Load unit_medicine
+    // Load behaviour_medicine 
     // Load deleteDataMedicine
     @Effect()
     deleteDataMedicine$ = this._actions.ofType(medicine.DELETE_DATA_MEDICINE)
@@ -143,50 +80,30 @@ export class MedicineEffects {
                 });   
     });
 
-    // Load unit_medicine
+    // Load DataMedicine
     @Effect()
-    loadUnitMedicine$ = this._actions.ofType(medicine.LOAD_UNIT_MEDICINE)
+    loadDataMedicine$ = this._actions.ofType(medicine.LOAD_DATA_MEDICINE)
         .switchMap((action) => {
-            let listUnitMedicine = this.globalService.getSessionData('listUnitMedicine');
-            if(listUnitMedicine){
-                return Observable.of(new medicine.LoadUnitMedicineSuccess({data: listUnitMedicine, id: (action as any).payload}));
+            let dataLoaded = this.globalService.getSessionDataFromType((action as any).payload.type);
+            if(dataLoaded){
+                return Observable.of(new medicine.LoadDataMedicineSuccess({data: dataLoaded, payload: (action as any).payload}));
             }else{
-                return this.medicineService.loadUnitMedicine((action as any).payload)
+                return this.medicineService.loadDataMedicine((action as any).payload)
                 .map((resp) => {
                     let dataRes = resp.json();
                     if(dataRes && dataRes.code == 200){
-                        if((action as any).payload == 0) this.globalService.setSessionData('listUnitMedicine', dataRes.data);
-                        return new medicine.LoadUnitMedicineSuccess({data: dataRes.data, id: (action as any).payload});
+                        this.globalService.setSessionDataFromType((action as any).payload.type, dataRes.data);
+                        return new medicine.LoadDataMedicineSuccess({data: dataRes.data, payload: (action as any).payload});
                     }else{
-                        return new medicine.LoadUnitMedicineFailed({data: {}, id: (action as any).payload});
-                    }                    
+                        return new medicine.LoadDataMedicineFailed({data: {}, payload: (action as any).payload});
+                    }   
                 }).catch((error) => {
-                    return Observable.of(new medicine.LoadUnitMedicineFailed({data: error, id: (action as any).payload}));
+                    return Observable.of(new medicine.LoadDataMedicineFailed({data: error, payload: (action as any).payload}));
                 });
-            }  
-    });  
+            } 
+    });
 
-    // Load behaviour_medicine
-    @Effect()
-    loadBehaviourMedicine$ = this._actions.ofType(medicine.LOAD_BEHAVIOUR_MEDICINE)
-        .switchMap((action) => {
-            let listBehaviourMedicine = this.globalService.getSessionData('listBehaviourMedicine');
-            if(listBehaviourMedicine){
-                return Observable.of(new medicine.LoadBehaviourMedicineSuccess({data: listBehaviourMedicine, id: (action as any).payload}));
-            }else{
-                return this.medicineService.loadBehaviourMedicine((action as any).payload)
-                .map((resp) => {
-                    let dataRes = resp.json();
-                    if(dataRes && dataRes.code == 200){
-                        if((action as any).payload == 0) this.globalService.setSessionData('listBehaviourMedicine', dataRes.data);
-                        return new medicine.LoadBehaviourMedicineSuccess({data: dataRes.data, id: (action as any).payload});
-                    }else{
-                        return new medicine.LoadBehaviourMedicineFailed({data: {}, id: (action as any).payload});
-                    }                    
-                }).catch((error) => {
-                    return Observable.of(new medicine.LoadBehaviourMedicineFailed({data: error, id: (action as any).payload}));
-                });
-            }  
-    });  
+
+
            
 }

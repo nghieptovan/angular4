@@ -20,17 +20,21 @@ export interface State {
     listPatentMedicine: any;
     currentPatentMedicine: any;
     statusCreateOrUpdate: number;
+    statusLoad: number;
 
     listUnitMedicine: any;
     currentUnitMedicine: any;
 
     listBehaviourMedicine: any;
+    listDiagnosis: any;
     currentBehaviourMedicine: any;
 
     typeMedDelete: any;
     dataMedDelete: any;
     typeMedUpdate: any;
     dataMedUpdate: any;
+    typeMedLoad: any;
+    dataMedLoad: any;
 }
 
 const initialState: State = {
@@ -46,14 +50,18 @@ const initialState: State = {
     listPatentMedicine: null,
     currentPatentMedicine: null,
     statusCreateOrUpdate: 0,
+    statusLoad: 0,
     listUnitMedicine: null,
     currentUnitMedicine: null,
     listBehaviourMedicine: null,
+    listDiagnosis: null,
     currentBehaviourMedicine: null,
     typeMedDelete: null,
     dataMedDelete: null,
     typeMedUpdate: null,
-    dataMedUpdate: null
+    dataMedUpdate: null,
+    typeMedLoad: null,
+    dataMedLoad: null
 };
 
 export function reducer(state = initialState, action: medicine.MedicineActions): State {
@@ -108,186 +116,8 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                 errorMessage: AppHelpers.getErrorMessage(action.payload)
             });
         }
-        
 
-        case medicine.LOAD_TYPE_MEDICINE: {
-            return Object.assign({}, state, {
-                loading: true,
-                loaded: false
-            });
-        }
-
-        case medicine.LOAD_TYPE_MEDICINE_SUCCESS: {
-            if(action.payload.id == 0){
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    listTypeMedicine: action.payload.data
-                });
-            }else{
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    currentTypeMedicine: action.payload.data
-                });
-            }
-            
-        }
-
-        case medicine.LOAD_TYPE_MEDICINE_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                listTypeMedicine: null,
-                currentTypeMedicine: null,
-                errorMessage: AppHelpers.getErrorMessage(action.payload)
-            });
-        }
-
-        case medicine.LOAD_DRUG_MEDICINE: {
-            return Object.assign({}, state, {
-                loading: true,
-                loaded: false
-            });
-        }
-
-        case medicine.LOAD_DRUG_MEDICINE_SUCCESS: {
-            if(action.payload.id == 0){
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    listDrugMedicine: action.payload.data
-                });
-            }else{
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    currentDrugMedicine: action.payload.data
-                });
-            }
-            
-        }
-
-        case medicine.LOAD_DRUG_MEDICINE_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                listDrugMedicine: null,
-                currentDrugMedicine: null,
-                errorMessage: AppHelpers.getErrorMessage(action.payload)
-            });
-        }
-
-        case medicine.LOAD_PATENT_MEDICINE: {
-            return Object.assign({}, state, {
-                currentPatentMedicine: {}
-            });
-        }
-
-        case medicine.LOAD_PATENT_MEDICINE_SUCCESS: {
-            if(action.payload.id == 0){
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    listPatentMedicine: action.payload.data
-                });
-            }else{
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    currentPatentMedicine: action.payload.data
-                });
-            }
-            
-        }
-
-        case medicine.LOAD_PATENT_MEDICINE_FAILED: {
-            let { data, id } = action.payload;
-            if(id == 0){
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    listPatentMedicine: [],
-                    errorMessage: AppHelpers.getErrorMessage(data)
-                });
-            }else{
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    currentPatentMedicine: {id: -1},
-                    errorMessage: "Không tìm thấy biệt dược. Vui lòng kiểm tra lại."
-                });
-            }
-            
-        }
-
-        case medicine.LOAD_UNIT_MEDICINE: {
-            return Object.assign({}, state, {
-                loading: true,
-                loaded: false
-            });
-        }
-
-        case medicine.LOAD_UNIT_MEDICINE_SUCCESS: {
-            if(action.payload.id == 0){
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    listUnitMedicine: action.payload.data
-                });
-            }else{
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    currentUnitMedicine: action.payload.data
-                });
-            }
-            
-        }
-
-        case medicine.LOAD_UNIT_MEDICINE_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                listUnitMedicine: null,
-                currentUnitMedicine: null,
-                errorMessage: AppHelpers.getErrorMessage(action.payload)
-            });
-        }
-
-        case medicine.LOAD_BEHAVIOUR_MEDICINE: {
-            return Object.assign({}, state, {
-                loading: true,
-                loaded: false
-            });
-        }
-
-        case medicine.LOAD_BEHAVIOUR_MEDICINE_SUCCESS: {
-            if(action.payload.id == 0){
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    listBehaviourMedicine: action.payload.data
-                });
-            }else{
-                return Object.assign({}, state, {
-                    loaded: true,
-                    loading: false,
-                    currentBehaviourMedicine: action.payload.data
-                });
-            }
-            
-        }
-
-        case medicine.LOAD_BEHAVIOUR_MEDICINE_FAILED: {
-            return Object.assign({}, state, {
-                loaded: true,
-                loading: false,
-                listBehaviourMedicine: null,
-                currentBehaviourMedicine: null,
-                errorMessage: AppHelpers.getErrorMessage(action.payload)
-            });
-        }
+        //data medicine
 
         case medicine.DELETE_DATA_MEDICINE: {
             let { type } = action.payload;
@@ -298,7 +128,7 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
         case medicine.DELETE_DATA_MEDICINE_SUCCESS: {
             let { data, payload } = action.payload;
             let keyData = '';
-            let { listPatentMedicine, listDrugMedicine, listUnitMedicine, listTypeMedicine, listBehaviourMedicine } = state;
+            let { listPatentMedicine, listDrugMedicine, listUnitMedicine, listTypeMedicine, listBehaviourMedicine, listDiagnosis } = state;
             switch (payload.type) {
                 case 'patent':
                     keyData = 'listPatentMedicine';
@@ -314,6 +144,9 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                     break;        
                 case 'behaviour':
                     keyData = 'listBehaviourMedicine';
+                    break;        
+                case 'diagnosis':
+                    keyData = 'listDiagnosis';
                     break;        
                 default:
                     break;
@@ -333,7 +166,8 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                 listDrugMedicine: keyData == 'listDrugMedicine' ? listDataMedicine : listDrugMedicine,
                 listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine,
                 listTypeMedicine: keyData == 'listTypeMedicine' ? listDataMedicine : listTypeMedicine,
-                listBehaviourMedicine: keyData == 'listBehaviourMedicine' ? listDataMedicine : listBehaviourMedicine
+                listBehaviourMedicine: keyData == 'listBehaviourMedicine' ? listDataMedicine : listBehaviourMedicine,
+                listDiagnosis: keyData == 'listDiagnosis' ? listDataMedicine : listDiagnosis
             });
         }
 
@@ -355,7 +189,7 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
         case medicine.UPDATE_DATA_MEDICINE_SUCCESS: {
             let { data, payload } = action.payload;
             let keyData = '';
-            let { listPatentMedicine, listDrugMedicine, listUnitMedicine, listTypeMedicine, listBehaviourMedicine} = state;
+            let { listPatentMedicine, listDrugMedicine, listUnitMedicine, listTypeMedicine, listBehaviourMedicine, listDiagnosis} = state;
             switch (payload.type) {
                 case 'patent':
                     keyData = 'listPatentMedicine';
@@ -371,6 +205,9 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                     break;           
                 case 'behaviour':
                     keyData = 'listBehaviourMedicine';
+                    break;           
+                case 'diagnosis':
+                    keyData = 'listDiagnosis';
                     break;           
                 default:
                     break;
@@ -399,7 +236,8 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                 listDrugMedicine: keyData == 'listDrugMedicine' ? listDataMedicine : listDrugMedicine,
                 listUnitMedicine: keyData == 'listUnitMedicine' ? listDataMedicine : listUnitMedicine,
                 listTypeMedicine: keyData == 'listTypeMedicine' ? listDataMedicine : listTypeMedicine,
-                listBehaviourMedicine: keyData == 'listBehaviourMedicine' ? listDataMedicine : listBehaviourMedicine
+                listBehaviourMedicine: keyData == 'listBehaviourMedicine' ? listDataMedicine : listBehaviourMedicine,
+                listDiagnosis: keyData == 'listDiagnosis' ? listDataMedicine : listDiagnosis
             });
         }
 
@@ -409,6 +247,60 @@ export function reducer(state = initialState, action: medicine.MedicineActions):
                 typeMedUpdate: payload.type+'_failed',
                 dataMedUpdate: data,
                 statusCreateOrUpdate: 3
+            });
+        }
+
+        case medicine.LOAD_DATA_MEDICINE: {
+            // let { type } = action.payload;
+            return Object.assign({}, state, {
+                typeMedLoad: '',
+                statusLoad: 1
+            });
+        }
+        case medicine.LOAD_DATA_MEDICINE_SUCCESS: {
+            let { data, payload } = action.payload;
+            let keyData = '';
+            let { listPatentMedicine, listDrugMedicine, listUnitMedicine, listTypeMedicine, listBehaviourMedicine, listDiagnosis} = state;
+            switch (payload.type) {
+                case 'patent':
+                    keyData = 'listPatentMedicine';
+                    break;   
+                case 'drug':
+                    keyData = 'listDrugMedicine';
+                    break;
+                case 'unit':
+                    keyData = 'listUnitMedicine';
+                    break;   
+                case 'type':
+                    keyData = 'listTypeMedicine';
+                    break;           
+                case 'behaviour':
+                    keyData = 'listBehaviourMedicine';
+                    break;           
+                case 'diagnosis':
+                    keyData = 'listDiagnosis';
+                    break;           
+                default:
+                    break;
+            }
+            return Object.assign({}, state, {
+                typeMedUpdate: payload.type +'_success',
+                statusLoad: 2,
+                listPatentMedicine: keyData == 'listPatentMedicine' ? data : listPatentMedicine,
+                listDrugMedicine: keyData == 'listDrugMedicine' ? data : listDrugMedicine,
+                listUnitMedicine: keyData == 'listUnitMedicine' ? data : listUnitMedicine,
+                listTypeMedicine: keyData == 'listTypeMedicine' ? data : listTypeMedicine,
+                listBehaviourMedicine: keyData == 'listBehaviourMedicine' ? data : listBehaviourMedicine,
+                listDiagnosis: keyData == 'listDiagnosis' ? data : listDiagnosis
+            });
+        }
+
+        case medicine.LOAD_DATA_MEDICINE_FAILED: {
+            let { data, payload } = action.payload;
+            return Object.assign({}, state, {
+                typeMedLoad: payload.type+'_failed',
+                dataMedLoad: data,
+                statusLoad: 3
             });
         }
        
@@ -482,6 +374,7 @@ export const getListDrugMedicine = (state: State) => state.listDrugMedicine;
 export const getListPatentMedicine = (state: State) => state.listPatentMedicine;
 export const getListUnitMedicine = (state: State) => state.listUnitMedicine;
 export const getListBehaviourMedicine = (state: State) => state.listBehaviourMedicine;
+export const getListDiagnosis = (state: State) => state.listDiagnosis;
 
 export const getCurrentMedicine = (state: State) => state.currentMedicine;
 export const getCurrentTypeMedicine = (state: State) => state.currentTypeMedicine;

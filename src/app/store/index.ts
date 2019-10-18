@@ -45,7 +45,6 @@ export function logger(reducer: ActionReducer<AppState>): any {
   }
   
 export const metaReducers = !AppConstants.ENVIRONMENT_DEV ? [] : [logger];
-
 /*
 Authorize
  */
@@ -82,6 +81,7 @@ export const getListDrugMedicine = createSelector(medicineGetState, fromMedicine
 export const getListPatentMedicine = createSelector(medicineGetState, fromMedicine.getListPatentMedicine);
 export const getListUnitMedicine = createSelector(medicineGetState, fromMedicine.getListUnitMedicine);
 export const getListBehaviourMedicine = createSelector(medicineGetState, fromMedicine.getListBehaviourMedicine);
+export const getListDiagnosis = createSelector(medicineGetState, fromMedicine.getListDiagnosis);
 
 export const getCurrentMedicine = createSelector(medicineGetState, fromMedicine.getCurrentMedicine);
 export const getCurrentTypeMedicine = createSelector(medicineGetState, fromMedicine.getCurrentTypeMedicine);

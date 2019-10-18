@@ -47,7 +47,7 @@ export class EditType {
                         })
                     }
                 }else{
-                    this.store.dispatch(new medicine.LoadTypeMedicine(0));
+                    this.loadList();
                 }  
             });    
         });
@@ -55,6 +55,9 @@ export class EditType {
     }
     ngOnDestroy() {
         this.listTypeMedicineSub.unsubscribe();
+    }
+    loadList(){
+        this.globalService.loadList('type');
     }
 
 }

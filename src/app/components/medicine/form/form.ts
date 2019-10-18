@@ -6,14 +6,14 @@ import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-import { AppConstants } from '../../../../app.constant';
-import * as fromRoot from '../../../../store';
-import * as account from '../../../../store/account/account.actions';
-import * as patient from '../../../../store/patient/patient.actions';
-import { DataModel } from '../../../../store/data';
-import { GlobalService } from '../../../../services/global.service';
-import {formvalidation } from '../../../../../assets/js/form-validation';
-import * as medicine from '../../../../store/medicine/medicine.actions';
+import { AppConstants } from '../../../app.constant';
+import * as fromRoot from '../../../store';
+import * as account from '../../../store/account/account.actions';
+import * as patient from '../../../store/patient/patient.actions';
+import { DataModel } from '../../../store/data';
+import { GlobalService } from '../../../services/global.service';
+import {formvalidation } from '../../../../assets/js/form-validation';
+import * as medicine from '../../../store/medicine/medicine.actions';
 declare var $;
 
 // Redux
@@ -61,41 +61,43 @@ export class EditUpdateMedicine implements OnInit {
                 this.fieldLabel = config.MEDICINE_LABEL;
             }            
         });
-        this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
-            if(typeMedicines){
-                this.listDrugMedicine = typeMedicines;
-                this.filterDrug = typeMedicines;
-            }else{
-                this.store.dispatch(new medicine.LoadTypeMedicine(0));
-            }    
-        });
+        
         this.listPatentMedicineSub = this.store.select(fromRoot.getListPatentMedicine).subscribe((patentMedicines) => {
             if(patentMedicines){
                 this.listPatentMedicine = patentMedicines;
                 this.filterPatent = patentMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+                this.globalService.loadList('patent');
             }  
         });
         this.listDrugMedicineSub = this.store.select(fromRoot.getListDrugMedicine).subscribe((drugMedicines) => {
             if(drugMedicines){
                 this.listDrugMedicine = drugMedicines;
+                this.filterDrug = drugMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadDrugMedicine(0));
+                this.globalService.loadList('drug');
             }  
+        });
+
+        this.listTypeMedicineSub = this.store.select(fromRoot.getListTypeMedicine).subscribe((typeMedicines) => {
+            if(typeMedicines){
+                this.listTypeMedicine = typeMedicines;
+            }else{
+                this.globalService.loadList('type');
+            }    
         });
         this.listBehaviourMedicineSub = this.store.select(fromRoot.getListBehaviourMedicine).subscribe((behaviourMedicines) => {
             if(behaviourMedicines){
                 this.listBehaviourMedicine = behaviourMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
+                this.globalService.loadList('behaviour');
             }  
         });      
         this.listUnitMedicineSub = this.store.select(fromRoot.getListUnitMedicine).subscribe((unitMedicines) => {
             if(unitMedicines){
                 this.listUnitMedicine = unitMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadUnitMedicine(0));
+                this.globalService.loadList('unit');
             }  
         });
               
@@ -123,8 +125,7 @@ export class EditUpdateMedicine implements OnInit {
     }
     showDrugList(type){
         this.showDrug = type;
-    }
-    
+    }    
     saveForm(form){
         
         console.log(form.value);

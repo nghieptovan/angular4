@@ -21,11 +21,11 @@ export class LotteFashion {
     isTopBanner$: Observable<any>;
     isLoading: boolean = false;
     constructor(private store: Store<fromRoot.AppState>, private globalService: GlobalService, private router: Router, private cookieService: CookieService) {
-        this.store.dispatch(new medicine.LoadPatentMedicine(0));
-        this.store.dispatch(new medicine.LoadDrugMedicine(0));
-        this.store.dispatch(new medicine.LoadTypeMedicine(0));
-        this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
-        this.store.dispatch(new medicine.LoadUnitMedicine(0));
+        // this.globalService.loadList('patent');
+        // this.globalService.loadList('drug');
+        // this.globalService.loadList('type');
+        // this.globalService.loadList('behaviour');
+        // this.globalService.loadList('unit');
     }
     ngOnInit(){
         

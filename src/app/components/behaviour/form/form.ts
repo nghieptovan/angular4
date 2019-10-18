@@ -75,13 +75,13 @@ export class EditUpdateBehaviour implements OnInit {
             if(behaviourMedicines){
                 this.listBehaviourMedicine = behaviourMedicines;
             }else{
-                this.store.dispatch(new medicine.LoadBehaviourMedicine(0));
+                this.loadData();
             }  
         });
     }
 
-    ngAfterContentInit() {
-        
+    loadData(){
+        this.globalService.loadList('behaviour');
     }
 
 

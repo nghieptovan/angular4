@@ -6,9 +6,9 @@ import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 
-import { AppConstants } from '../../../../app.constant';
-import * as fromRoot from '../../../../store';
-import * as account from '../../../../store/account/account.actions';
+import { AppConstants } from '../../../app.constant';
+import * as fromRoot from '../../../store';
+import * as account from '../../../store/account/account.actions';
 
 declare var $;
 
@@ -25,6 +25,8 @@ export class ThemThuoc {
         "name": "",
         "display_name": "",
         "description": "",
+        "patent_medicine_name":"",
+        "drug_name":"",
         "amount": 0,
         "typemedicine_id": 0,
         "behaviourmedicine_id": 0,

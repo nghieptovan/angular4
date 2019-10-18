@@ -55,7 +55,7 @@ export class Patent {
                 this.listPatentMedicine = patentMedicines;
                 datatablessources(3);                
             }else{
-                this.store.dispatch(new medicine.LoadPatentMedicine(0));
+                this.globalService.loadList('patent');
             }  
         });
 
@@ -73,7 +73,6 @@ export class Patent {
    
     }
   
-    
     ngOnDestroy() {
         this.listPatentMedicineSub.unsubscribe();
         this.deletePatentSub.unsubscribe();

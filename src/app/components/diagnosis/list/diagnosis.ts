@@ -21,17 +21,17 @@ import { ConfirmComponent } from '../../../modals/confirm.component';
 declare var $;
 
 @Component({
-    selector: 'unit',
-    templateUrl: './unit.html'
+    selector: 'diagnosis',
+    templateUrl: './diagnosis.html'
 })
 
-export class Unit {
+export class Diagnosis {
     static isViewLoaded: any;
     patientGetLoadingState: any;
     pageLoading: boolean = false;
-    listUnitMedicineSub: any;
-    deleteUnitSub: any;
-    listUnitMedicine: any;
+    listDiagnosisSub: any;
+    deleteDiagnosisSub: any;
+    listDiagnosis: any;
     deleteAccountSub: any;
     selectedId: any;
     textLabel: any;
@@ -47,27 +47,27 @@ export class Unit {
         this.store.select(fromRoot.accountGetConfigJSON).subscribe((config) =>{
             if(config) {
                 this.textLabel = config.TEXT_LABEL;
-                this.fieldLabel = config.UNIT_MEDICINE;
+                this.fieldLabel = config.DIAGNOSIS;
             }            
         });
 
-        this.listUnitMedicineSub = this.store.select(fromRoot.getListUnitMedicine).subscribe((unitMedicines) => {
-            if(unitMedicines){
-                this.listUnitMedicine = unitMedicines;
-                datatablessources(3); 
+        this.listDiagnosisSub = this.store.select(fromRoot.getListDiagnosis).subscribe((listDiagnosis) => {
+            if(listDiagnosis){
+                this.listDiagnosis = listDiagnosis;
+                datatablessources(0); 
             }else{
-                this.globalService.loadList('unit');
+                this.globalService.loadList('diagnosis');
             }  
         });
 
-        this.deleteUnitSub = this.store.select(fromRoot.typeMedDelete).subscribe((type) => {
-            if(type == 'unit_success' && this.isDeleting){
+        this.deleteDiagnosisSub = this.store.select(fromRoot.typeMedDelete).subscribe((type) => {
+            if(type =='diagnosis_success' && this.isDeleting){
                 deleteRow(this.selectedId);
-                this.toastr.success(this.fieldLabel.lbl_unit_delete_success);
+                this.toastr.success(this.fieldLabel.lbl_diagnosis_delete_success);
                 this.isDeleting = false;
             }
-            if(type == 'unit_failed' && this.isDeleting){
-                this.toastr.error(this.fieldLabel.lbl_unit_failed);
+            if(type == 'diagnosis_failed' && this.isDeleting){
+                this.toastr.error(this.fieldLabel.lbl_diagnosis_failed);
                 this.isDeleting = false;
             }
         })
@@ -76,21 +76,21 @@ export class Unit {
   
     
     ngOnDestroy() {
-        this.listUnitMedicineSub.unsubscribe();
-        this.deleteUnitSub.unsubscribe();
+        this.listDiagnosisSub.unsubscribe();
+        this.deleteDiagnosisSub.unsubscribe();
     }
     deleteData(id){
         this.isDeleting = true;
         this.selectedId = id;
         this.store.dispatch(new medicine.DeleteDataMedicine({
-            type: 'unit',
+            type: 'diagnosis',
             data: id
         }));
     }
-    deleteUnit(Id){
+    deleteDiagnosis(Id){
         this.dialogService.addDialog(ConfirmComponent, {
             title:'Confirm title', 
-            message: this.fieldLabel.lbl_unit_delete})
+            message: this.fieldLabel.lbl_diagnosis_delete})
             .subscribe((isConfirmed)=>{
                 if(isConfirmed) {
                     this.deleteData(Id);
