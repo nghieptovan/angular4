@@ -48,7 +48,7 @@
         "jquery-datepicker": "1.11.4",
         "js-sha256": "^0.9.0",
         "less": "^2.7.2",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.13",
         "md5-es": "^1.8.2",
         "moment": "^2.22.2",
         "ng-click-outside": "^3.3.0",
