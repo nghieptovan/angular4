@@ -40,7 +40,7 @@
         "@types/moment": "^2.13.0",
         "@zeitiger/elevatezoom": "^2.5.4",
         "angular2-text-mask": "^9.0.0",
-        "bootstrap": "^3.3.7",
+        "bootstrap": "^3.4.1",
         "bxslider": "^4.2.13",
         "core-js": "^2.4.1",
         "gsap": "^2.0.2",
